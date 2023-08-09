@@ -24,6 +24,9 @@ module.exports = {
         purple:"#B153E0",
         paragraph:"#BCBCBC",
         heading:"#E2E8F0"
+      },
+      screens:{
+        lgXl:"1440px"
       }
     },
   },
