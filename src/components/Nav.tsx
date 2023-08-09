@@ -34,7 +34,7 @@ export default function Nav({}: Props) {
               </Link>
             </div>
             <div className="flex gap-8 md:gap-8 items-center">
-              <DarkModeSwitch sunColor="orange" size={20} isDarkMode={true} />
+              <DarkModeSwitch sunColor="orange" size={20} checked={true} onChange={()=>{}}/>
               <Link
                 href=""
                 className=" hidden lg:block hover:text-white ease-in-out duration-150 text-sm md:text-base"
