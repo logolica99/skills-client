@@ -8,23 +8,23 @@ const inter = Inter({ subsets: ["latin"] });
 const HindSiliguri = localFont({
   src: [
     {
-      path: "Fonts/Hind_Siliguri/HindSiliguri-Bold.ttf",
+      path: "fonts/Hind_Siliguri/HindSiliguri-Bold.ttf",
       weight: "700",
     },
     {
-      path: "Fonts/Hind_Siliguri/HindSiliguri-Light.ttf",
+      path: "fonts/Hind_Siliguri/HindSiliguri-Light.ttf",
       weight: "300",
     },
     {
-      path: "Fonts/Hind_Siliguri/HindSiliguri-Regular.ttf",
+      path: "fonts/Hind_Siliguri/HindSiliguri-Regular.ttf",
       weight: "400",
     },
     {
-      path: "Fonts/Hind_Siliguri/HindSiliguri-SemiBold.ttf",
+      path: "fonts/Hind_Siliguri/HindSiliguri-SemiBold.ttf",
       weight: "600",
     },
     {
-      path: "Fonts/Hind_Siliguri/HindSiliguri-Medium.ttf",
+      path: "fonts/Hind_Siliguri/HindSiliguri-Medium.ttf",
       weight: "500",
     },
   ],
