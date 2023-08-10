@@ -1297,7 +1297,7 @@ export default function Home() {
               <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
-                  আমি প্রোগ্রামিং এর "প" ও জানি না আমি কি কোর্স টি করতে পারব?
+                  আমি প্রোগ্রামিং এর {`"`}প{`"`} ও জানি না আমি কি কোর্স টি করতে পারব?
                 </div>
                 <div className="collapse-content">
                   <p>hello</p>
