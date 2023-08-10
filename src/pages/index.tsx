@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const HindSiliguri = localFont({
+export const HindSiliguri = localFont({
   src: [
     {
       path: "fonts/Hind_Siliguri/HindSiliguri-Bold.ttf",
@@ -1408,10 +1408,10 @@ export default function Home() {
             </div>
             <div className="mt-8 lg:mt-16">
               <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20">
-                <input type="radio" name="my-accordion-3" />
+                <input type="radio" name="my-accordion-3" defaultChecked={true} />
                 <div
                   className="collapse-title text-xl font-medium"
-                  defaultChecked
+                 
                 >
                   এই কোর্স করলেই কি আমি গুগলে চ্যান্স পাব ?
                 </div>

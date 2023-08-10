@@ -9,8 +9,8 @@ export default function Nav({}: Props) {
   const [menuShow, setMenuShow] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   return (
-    <div>
-      <div className="bg-gray-200 bg-opacity-10 backdrop-blur-lg fixed w-full text-heading/90 z-50 border-b border-gray-300/20">
+    <div className="font-hind">
+      <div className="bg-gray-100 bg-opacity-5 backdrop-blur-lg fixed w-full text-heading/90 z-50 border-b border-gray-300/20">
         <div className="w-[90%] lg:w-[80%] mx-auto py-4">
           <div className="flex justify-between items-center ">
             <div className="flex gap-10 items-center">
