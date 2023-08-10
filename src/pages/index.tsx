@@ -44,8 +44,7 @@ export default function Home() {
               viewBox="0 0 1296 1357"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute lg:left-0 lg:top-0 "
-              style={{ zIndex: -1 }}
+              className="absolute lg:left-0 lg:top-0 z-0"
             >
               <g filter="url(#filter0_f_117_9391)">
                 <ellipse
@@ -126,7 +125,7 @@ export default function Home() {
               </defs>
             </svg>
 
-            <div className="text-heading flex flex-col gap-4">
+            <div className="text-heading flex flex-col gap-4 z-10">
               <p className="text-[#2BA98B]">বাংলা কম্পিটিটিভ কোর্স</p>
               <div>
                 <h2 className="text-2xl lg:text-4xl">
@@ -179,8 +178,7 @@ export default function Home() {
             viewBox="0 0 1475 915"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-0 "
-            style={{ zIndex: -999 }}
+            className="absolute top-0 -left-60 lg:left-0"
           >
             <g filter="url(#filter0_f_117_9675)">
               <ellipse
@@ -189,7 +187,7 @@ export default function Home() {
                 rx="269"
                 ry="206.5"
                 fill="#DE9931"
-                fill-opacity="0.19"
+                fill-opacity="0.5"
               />
             </g>
             <defs>
@@ -216,6 +214,7 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
+
           <div className="w-[90%] lg:w-[80%] mx-auto mt-40  text-heading py-20 z-10">
             <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
               <img
@@ -1297,7 +1296,8 @@ export default function Home() {
               <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
-                  আমি প্রোগ্রামিং এর {`"`}প{`"`} ও জানি না আমি কি কোর্স টি করতে পারব?
+                  আমি প্রোগ্রামিং এর {`"`}প{`"`} ও জানি না আমি কি কোর্স টি করতে
+                  পারব?
                 </div>
                 <div className="collapse-content">
                   <p>hello</p>
