@@ -1,6 +1,14 @@
 import Nav from "@/components/Nav";
 import { HindSiliguri } from "@/pages";
+
 import { useState } from "react";
+import Link from "next/link";
+import { BsChevronRight } from "react-icons/bs";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
 
 export default function CoursePage() {
   const [activeTab, setActiveTab] = useState({
@@ -22,6 +30,7 @@ export default function CoursePage() {
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
+
       <div className="pt-20  bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20">
           <div className="flex flex-col-reverse lg:flex-row gap-24 justify-between">
@@ -606,11 +615,408 @@ export default function CoursePage() {
                       </div>
                     </div>
                     <div>
-                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 13.5V15.5M3 19.5H15C16.1046 19.5 17 18.6046 17 17.5V11.5C17 10.3954 16.1046 9.5 15 9.5H3C1.89543 9.5 1 10.3954 1 11.5V17.5C1 18.6046 1.89543 19.5 3 19.5ZM13 9.5V5.5C13 3.29086 11.2091 1.5 9 1.5C6.79086 1.5 5 3.29086 5 5.5V9.5H13Z" stroke="#2E2E2E" stroke-width="2" stroke-linecap="round"/>
-</svg>
-
+                      <svg
+                        width="18"
+                        height="21"
+                        viewBox="0 0 18 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 13.5V15.5M3 19.5H15C16.1046 19.5 17 18.6046 17 17.5V11.5C17 10.3954 16.1046 9.5 15 9.5H3C1.89543 9.5 1 10.3954 1 11.5V17.5C1 18.6046 1.89543 19.5 3 19.5ZM13 9.5V5.5C13 3.29086 11.2091 1.5 9 1.5C6.79086 1.5 5 3.29086 5 5.5V9.5H13Z"
+                          stroke="#2E2E2E"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                      </svg>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-24"></div>
+              <div className="py-12">
+                <h2 className="text-2xl lg:text-4xl font-semibold pb-12 ">
+                  কোর্স ইন্সট্রাক্টর
+                </h2>
+                <div
+                  className="rounded-xl cursor-pointer hover:border border-purple/30 duration-150 ease-in-out"
+                  style={{
+                    background:
+                      "linear-gradient(120deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                  }}
+                >
+                  <div
+                    className=" rounded-xl px-4 lg:px-12  py-4  mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                    style={{}}
+                  >
+                    <div className="flex  gap-4  justify-between items-center">
+                      <div className="flex flex-col md:flex-row md:items-center gap-8 ">
+                        <img
+                          src="/Frame 1000004442.png"
+                          alt=""
+                          className="max-w-[100px]"
+                        />
+                        <div>
+                          <p className="text-xl">Jerome Bell</p>
+                          <p className="text-sm text-paragraph font-thin mt-1">
+                            MSc (English), University of Oxford (UK);
+                          </p>
+                          <p className="text-sm text-paragraph  font-thin mt-1">
+                            BA, MA (English), University of Dhaka;
+                          </p>
+                          <p className="text-sm text-paragraph  font-thin mt-1">
+                            IELTS: 8.5
+                          </p>
+                        </div>
+                      </div>
+                      <BsChevronRight color="#B153E0" size={24} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 className="text-2xl lg:text-4xl font-semibold pt-12 border-t border-gray-300/10">
+                কোর্স সম্পর্কে বিস্তারিত
+              </h2>
+              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10 ">
+                <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.99855 17.6269C4.23361 17.6269 0.371094 13.7645 0.371094 8.99951C0.371094 4.23457 4.23361 0.37207 8.99855 0.37207C13.7635 0.37207 17.6259 4.23457 17.6259 8.99951C17.6259 13.7645 13.7635 17.6269 8.99855 17.6269ZM8.99855 15.9015C10.8291 15.9015 12.5846 15.1743 13.879 13.8799C15.1733 12.5856 15.9005 10.83 15.9005 8.99951C15.9005 7.16901 15.1733 5.41346 13.879 4.1191C12.5846 2.82472 10.8291 2.09756 8.99855 2.09756C7.16803 2.09756 5.4125 2.82472 4.11812 4.1191C2.82376 5.41346 2.09659 7.16901 2.09659 8.99951C2.09659 10.83 2.82376 12.5856 4.11812 13.8799C5.4125 15.1743 7.16803 15.9015 8.99855 15.9015ZM9.8613 8.99951H13.3123V10.725H8.1358V4.68579H9.8613V8.99951Z"
+                      fill="#F1BA41"
+                    />
+                  </svg>
+                  ৮৫ দিন বাক
+                </div>
+                <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/10 px-3 py-2 rounded-xl">
+                  <svg
+                    width="23"
+                    height="22"
+                    viewBox="0 0 23 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.0943 12.9745V14.807C12.3007 14.5264 11.4514 14.4403 10.6177 14.5561C9.78391 14.6717 8.99011 14.9858 8.30288 15.4719C7.61567 15.9579 7.05511 16.6017 6.66827 17.3492C6.28144 18.0968 6.07963 18.9263 6.07979 19.768L4.32617 19.7671C4.32589 18.6965 4.57073 17.6399 5.04191 16.6785C5.51309 15.717 6.1981 14.8762 7.04447 14.2204C7.89084 13.5647 8.8761 13.1114 9.92476 12.8953C10.9734 12.6791 12.0576 12.7068 13.0943 12.9745ZM11.3407 11.8767C8.43403 11.8767 6.07979 9.52248 6.07979 6.61585C6.07979 3.70922 8.43403 1.35498 11.3407 1.35498C14.2473 1.35498 16.6016 3.70922 16.6016 6.61585C16.6016 9.52248 14.2473 11.8767 11.3407 11.8767ZM11.3407 10.1231C13.2784 10.1231 14.8479 8.5536 14.8479 6.61585C14.8479 4.67809 13.2784 3.1086 11.3407 3.1086C9.40291 3.1086 7.83341 4.67809 7.83341 6.61585C7.83341 8.5536 9.40291 10.1231 11.3407 10.1231ZM16.42 17.939L19.5195 14.8395L20.7602 16.0792L16.42 20.4195L13.3196 17.3191L14.5604 16.0792L16.42 17.939Z"
+                      fill="#A144FF"
+                    />
+                  </svg>
+                  ২৭৬ টি সিট বাকি
+                </div>
+              </div>
+
+              <p className="mt-6 text-[#A3A3A3] text-lg">
+                কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন
+                দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা
+                স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং
+                এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি
+                কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস
+                করে সব দেখিয়ে শিখিয়ে দেয়া হবে কিভাবে
+              </p>
+
+              <p className="mt-6 text-[#A3A3A3] text-lg pb-8">
+                কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে
+                কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার
+                থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক
+                প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ
+                প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব
+                দেখিয়ে শিখিয়ে দেয়া হবে
+              </p>
+
+              <div className=" pt-8 border-t border-gray-300/10 pb-8">
+                <p className="text-2xl lg:text-4xl pb-8 font-semibold">
+                  শিক্ষার্থীরা যা বলছ
+                </p>
+                <div className="carousel w-full ">
+                <div id="slide1" className="carousel-item relative w-full">
+                    <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
+                      <svg
+                        width="34"
+                        height="23"
+                        viewBox="0 0 34 23"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_25_7047)">
+                          <path
+                            d="M8.01195 8.3856C8.75922 7.05093 10.1173 5.6158 12.4273 4.24813C13.0727 3.88147 13.4804 3.21413 13.4804 2.51307C13.4804 1.07793 11.9859 0.076932 10.6277 0.677532C6.72055 2.37887 0.166016 6.61753 0.166016 15.3926C0.166016 19.3299 3.39268 22.5001 7.36662 22.5001C11.3405 22.5001 14.6009 19.3299 14.6009 15.3926C14.6009 11.7223 11.7138 8.71927 8.01195 8.3856Z"
+                            fill="#F1BA41"
+                          />
+                        </g>
+                        <g clip-path="url(#clip1_25_7047)">
+                          <path
+                            d="M27.0119 8.3856C27.7592 7.05093 29.1173 5.6158 31.4273 4.24813C32.0727 3.88147 32.4804 3.21413 32.4804 2.51307C32.4804 1.07793 30.9859 0.076932 29.6277 0.677532C25.7205 2.37887 19.166 6.61753 19.166 15.3926C19.166 19.3299 22.3927 22.5001 26.3666 22.5001C30.3405 22.5001 33.6009 19.3299 33.6009 15.3926C33.6009 11.7223 30.7138 8.71927 27.0119 8.3856Z"
+                            fill="#F1BA41"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_25_7047">
+                            <rect
+                              width="15"
+                              height="22"
+                              fill="white"
+                              transform="translate(0 0.5)"
+                            />
+                          </clipPath>
+                          <clipPath id="clip1_25_7047">
+                            <rect
+                              width="15"
+                              height="22"
+                              fill="white"
+                              transform="translate(19 0.5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <p className="py-8 text-xl text-paragraph">
+                        ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত
+                        গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে
+                        ভীতি কাটিয়ে খুব সহজ
+                      </p>
+                      <div className="flex gap-4">
+                        <img
+                          src="/image (6).png"
+                          alt=""
+                          className="rounded-full"
+                        />
+                        <div>
+                          <p className="text-xl">Khama Rani Bose</p>
+                          <p className="text-paragraph">ভর্তি পরীক্ষার</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
+                      <a href="#slide3" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                        ❮
+                      </a>
+                      <a href="#slide2" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                        ❯
+                      </a>
+                    </div>
+                  </div>
+                   <div id="slide2" className="carousel-item relative w-full">
+                    <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
+                      <svg
+                        width="34"
+                        height="23"
+                        viewBox="0 0 34 23"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_25_7047)">
+                          <path
+                            d="M8.01195 8.3856C8.75922 7.05093 10.1173 5.6158 12.4273 4.24813C13.0727 3.88147 13.4804 3.21413 13.4804 2.51307C13.4804 1.07793 11.9859 0.076932 10.6277 0.677532C6.72055 2.37887 0.166016 6.61753 0.166016 15.3926C0.166016 19.3299 3.39268 22.5001 7.36662 22.5001C11.3405 22.5001 14.6009 19.3299 14.6009 15.3926C14.6009 11.7223 11.7138 8.71927 8.01195 8.3856Z"
+                            fill="#F1BA41"
+                          />
+                        </g>
+                        <g clip-path="url(#clip1_25_7047)">
+                          <path
+                            d="M27.0119 8.3856C27.7592 7.05093 29.1173 5.6158 31.4273 4.24813C32.0727 3.88147 32.4804 3.21413 32.4804 2.51307C32.4804 1.07793 30.9859 0.076932 29.6277 0.677532C25.7205 2.37887 19.166 6.61753 19.166 15.3926C19.166 19.3299 22.3927 22.5001 26.3666 22.5001C30.3405 22.5001 33.6009 19.3299 33.6009 15.3926C33.6009 11.7223 30.7138 8.71927 27.0119 8.3856Z"
+                            fill="#F1BA41"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_25_7047">
+                            <rect
+                              width="15"
+                              height="22"
+                              fill="white"
+                              transform="translate(0 0.5)"
+                            />
+                          </clipPath>
+                          <clipPath id="clip1_25_7047">
+                            <rect
+                              width="15"
+                              height="22"
+                              fill="white"
+                              transform="translate(19 0.5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <p className="py-8 text-xl text-paragraph">
+                        ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত
+                        গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে
+                        ভীতি কাটিয়ে খুব সহজ
+                      </p>
+                      <div className="flex gap-4">
+                        <img
+                          src="/image (6).png"
+                          alt=""
+                          className="rounded-full"
+                        />
+                        <div>
+                          <p className="text-xl">Khama Rani Bose</p>
+                          <p className="text-paragraph">ভর্তি পরীক্ষার</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
+                      <a href="#slide1" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                        ❮
+                      </a>
+                      <a href="#slide3" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                        ❯
+                      </a>
+                    </div>
+                  </div>
+                 
+                  <div id="slide3" className="carousel-item relative w-full">
+                    <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
+                      <svg
+                        width="34"
+                        height="23"
+                        viewBox="0 0 34 23"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_25_7047)">
+                          <path
+                            d="M8.01195 8.3856C8.75922 7.05093 10.1173 5.6158 12.4273 4.24813C13.0727 3.88147 13.4804 3.21413 13.4804 2.51307C13.4804 1.07793 11.9859 0.076932 10.6277 0.677532C6.72055 2.37887 0.166016 6.61753 0.166016 15.3926C0.166016 19.3299 3.39268 22.5001 7.36662 22.5001C11.3405 22.5001 14.6009 19.3299 14.6009 15.3926C14.6009 11.7223 11.7138 8.71927 8.01195 8.3856Z"
+                            fill="#F1BA41"
+                          />
+                        </g>
+                        <g clip-path="url(#clip1_25_7047)">
+                          <path
+                            d="M27.0119 8.3856C27.7592 7.05093 29.1173 5.6158 31.4273 4.24813C32.0727 3.88147 32.4804 3.21413 32.4804 2.51307C32.4804 1.07793 30.9859 0.076932 29.6277 0.677532C25.7205 2.37887 19.166 6.61753 19.166 15.3926C19.166 19.3299 22.3927 22.5001 26.3666 22.5001C30.3405 22.5001 33.6009 19.3299 33.6009 15.3926C33.6009 11.7223 30.7138 8.71927 27.0119 8.3856Z"
+                            fill="#F1BA41"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_25_7047">
+                            <rect
+                              width="15"
+                              height="22"
+                              fill="white"
+                              transform="translate(0 0.5)"
+                            />
+                          </clipPath>
+                          <clipPath id="clip1_25_7047">
+                            <rect
+                              width="15"
+                              height="22"
+                              fill="white"
+                              transform="translate(19 0.5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <p className="py-8 text-xl text-paragraph">
+                        ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত
+                        গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে
+                        ভীতি কাটিয়ে খুব সহজ
+                      </p>
+                      <div className="flex gap-4">
+                        <img
+                          src="/image (6).png"
+                          alt=""
+                          className="rounded-full"
+                        />
+                        <div>
+                          <p className="text-xl">Khama Rani Bose</p>
+                          <p className="text-paragraph">ভর্তি পরীক্ষার</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
+                      <a href="#slide2" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                        ❮
+                      </a>
+                      <a href="#slide1" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                        ❯
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className=" pt-8 border-t border-gray-300/10">
+                <p className="text-xl lg:text-3xl mb-8 font-semibold">
+                  সচরাচর জানতে চাও প্রশ্নের উত্তর
+                </p>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20">
+                  <input
+                    type="radio"
+                    name="my-accordion-4"
+                    defaultChecked={true}
+                  />
+                  <div className="collapse-title text-xl font-medium">
+                    এই কোর্স করলেই কি আমি গুগলে চ্যান্স পাব ?
+                  </div>
+                  <div className="collapse-content">
+                    <p>
+                      আমাদের এই কোর্সটি মোটেও তোমাকে গুগলার হওয়ার নিশ্চয়তা দেবে
+                      না বরং গুগলের মত এই সব বড়ো কোম্পানির জন্যে তোমার ক্যারিয়ার
+                      এর পথ কে সহজ করার জন্যে তোমাকে নতুন স্কিল ডেভেলপ করার
+                      জন্যে পথে হাঁটতে শেখাবে বাকি টা তোমাদের ধৈর্য আর ডেডিকেশন
+                      এর উপর নির্ভর করবে।এই কোর্সে তোমরা লেগে থাকবে আর শিখবে
+                      প্রোগ্রামিং এর নতুন জগতের নতুন নতুন সব জিনিস আর এভাবেই
+                      নিজেকে অন্য লেভেলে নিয়ে গিয়ে বিশ্বসেরা তোমাদের ড্রিম
+                      কোম্পানি গুলো তে চাকরির সুযোগ পেতে পার
+                    </p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-xl font-medium">
+                    এই কোর্স টি কাদের জন্যে?
+                  </div>
+                  <div className="collapse-content">
+                    <p>hello</p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-xl font-medium">
+                    আমি প্রোগ্রামিং এর {`"`}প{`"`} ও জানি না আমি কি কোর্স টি
+                    করতে পারব?
+                  </div>
+                  <div className="collapse-content">
+                    <p>hello</p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-xl font-medium">
+                    এই কোর্সটি করার পর আমি কি করব?
+                  </div>
+                  <div className="collapse-content">
+                    <p>hello</p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-xl font-medium">
+                    কোর্স চলাকালীন কোন সমস্যা ফেইস করলে কিভাবে হেল্প পাব?
+                  </div>
+                  <div className="collapse-content">
+                    <p>hello</p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-xl font-medium">
+                    কোর্স এ ভর্তির সম পরিমাণ টাকা ফেরত কিভাবে পেতে পারি?
+                  </div>
+                  <div className="collapse-content">
+                    <p>hello</p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-xl font-medium">
+                    কোর্সটি কিভাবে কিনব?
+                  </div>
+                  <div className="collapse-content">
+                    <p>hello</p>
                   </div>
                 </div>
               </div>
@@ -817,6 +1223,45 @@ export default function CoursePage() {
                   </svg>
                   ফোন করুন <span className="hidden lg:block">(16910)</span>
                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-[#0F0812] z-30 relative">
+        <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
+          <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+            <div className="mb-20 lg:mb-0 z-10">
+              <img src="/logo.png" alt="" className="w-28 " />
+              <div className="text-paragraph mt-8">
+                <p>© WARP 2023</p>
+                <p>169 Madison Ave, #2298</p>
+                <p>New York City, NY 10016</p>
+              </div>
+            </div>
+
+            <div className="flex gap-20 text-lg text-paragraph flex-col lg:flex-row z-10">
+              <div className="flex flex-col gap-4 ">
+                <Link href="" className="hover:text-white">
+                  নোটিফিকেশান
+                </Link>
+                <Link href="" className="hover:text-white">
+                  লাইফ ক্লাস শিডিউল
+                </Link>
+                <Link href="" className="hover:text-white">
+                  কোস কন্টেন্ট
+                </Link>
+              </div>
+              <div className="flex flex-col gap-4">
+                <Link href="" className="hover:text-white">
+                  নোটিফিকেশান
+                </Link>
+                <Link href="" className="hover:text-white">
+                  লাইফ ক্লাস শিডিউল
+                </Link>
+                <Link href="" className="hover:text-white">
+                  কোস কন্টেন্ট
+                </Link>
               </div>
             </div>
           </div>
