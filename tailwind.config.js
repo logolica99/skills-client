@@ -27,6 +27,7 @@ module.exports = {
       },
       screens: {
         lgXl: "1440px",
+        lgMd: "1350px",
       },
     },
   },

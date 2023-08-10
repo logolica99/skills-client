@@ -620,18 +620,78 @@ export default function Home() {
                 আমাদের কোর্সের সব ফিচার দেখে নাও
               </p>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 mt-20 lg:mt-32 gap-y-12 justify-items-center">
+            <div className="grid grid-cols-1 lgMd:grid-cols-2 mt-20 lg:mt-32 gap-x-20 gap-y-12  justify-items-center">
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                className="rounded-xl  text-center lg:justify-self-start"
                 style={{
                   background:
                     "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px] "
                   style={{}}
                 >
+                  <svg
+                    width="480"
+                    height="198"
+                    viewBox="0 0 503 198"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute left-[100%] top-40 hidden lgMd:block "
+                  >
+                    <g filter="url(#filter0_d_794_44)">
+                      <path
+                        d="M5 1C6.49762 5.38757 23.9935 10.0201 29.294 12.1493C46.8075 19.1846 64.4083 23.6157 83.8561 27.8362C121.083 35.9149 159.881 39.5441 198.556 43.2637C283.567 51.4398 392.711 49.3583 458.323 92.0744C500.039 119.233 497.983 150.766 497.983 189"
+                        stroke="#B153E0"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-dasharray="12 12"
+                      />
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_794_44"
+                        x="-0.000244141"
+                        y="-0.000244141"
+                        width="502.993"
+                        height="198"
+                        filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB"
+                      >
+                        <feFlood
+                          flood-opacity="0"
+                          result="BackgroundImageFix"
+                        />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset dy="4" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_794_44"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_794_44"
+                          result="shape"
+                        />
+                      </filter>
+                    </defs>
+                  </svg>
+
                   <div className="flex flex-col items-center">
                     <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
                       <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
@@ -652,16 +712,33 @@ export default function Home() {
               <div className="hidden lg:block"></div>
               <div className="hidden lg:block"></div>
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-end"
+                className="rounded-xl  text-center lg:justify-self-end"
                 style={{
                   background:
                     "linear-gradient(rgba(202, 101, 253, 0.44) 0%, rgba(177, 83, 224, 0) 100%)",
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px] "
                   style={{}}
                 >
+                  <svg
+                    width="495"
+                    height="200"
+                    viewBox="0 0 495 200"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute top-[90%] -left-[88px] hidden lgMd:block"
+                  >
+                    <path
+                      d="M494 1C494 16.1996 483.818 31.8545 478.773 46.5437C471.112 68.8527 454.029 88.223 433.094 106.004C389.353 143.153 285.069 127.428 218.855 134.91C48.9868 154.104 74.1208 161.948 1 199"
+                      stroke="#B153E0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-dasharray="12 12"
+                    />
+                  </svg>
+
                   <div className="flex flex-col items-center">
                     <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
                       <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
@@ -683,7 +760,7 @@ export default function Home() {
               <div className="hidden lg:block"></div>
               <div className="hidden lg:block"></div>
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                className="rounded-xl text-center lg:justify-self-start"
                 style={{
                   background:
                     "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
@@ -693,6 +770,23 @@ export default function Home() {
                   className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
+                  <svg
+                    width="495"
+                    height="206"
+                    viewBox="0 0 495 206"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute top-[100%] -right-[88px]  hidden lgMd:block"
+                  >
+                    <path
+                      d="M1 1C9.15724 26.195 18.3459 49.6077 32.7232 68.7302C45.9632 86.34 64.0264 98.1142 79.7546 110.151C95.4355 122.151 110.859 132.697 127.985 139.429C159.676 151.885 191.361 162.919 223.984 168.571C261.6 175.089 298.471 175.857 336.306 175.857C378.639 175.857 419.692 181.984 461.539 190.429C469.159 191.966 475.721 192.841 482.38 198.254C485.98 201.18 489.843 205 494 205"
+                      stroke="#B153E0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-dasharray="12 12"
+                    />
+                  </svg>
+
                   <div className="flex flex-col items-center">
                     <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
                       <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
@@ -714,7 +808,7 @@ export default function Home() {
               <div className="hidden lg:block"></div>
               <div className="hidden lg:block"></div>
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-end"
+                className="rounded-xl text-center lg:justify-self-end"
                 style={{
                   background:
                     "linear-gradient(120deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
@@ -724,6 +818,23 @@ export default function Home() {
                   className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
+                  {" "}
+                  <svg
+                    width="495"
+                    height="200"
+                    viewBox="0 0 495 200"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute top-[100%] -left-[88px] hidden lgMd:block"
+                  >
+                    <path
+                      d="M494 1C494 16.1996 483.818 31.8545 478.773 46.5437C471.112 68.8527 454.029 88.223 433.094 106.004C389.353 143.153 285.069 127.428 218.855 134.91C48.9868 154.104 74.1208 161.948 1 199"
+                      stroke="#B153E0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-dasharray="12 12"
+                    />
+                  </svg>
                   <div className="flex flex-col items-center">
                     <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
                       <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
@@ -745,7 +856,7 @@ export default function Home() {
               <div className="hidden lg:block"></div>
               <div className="hidden lg:block"></div>
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                className="rounded-xl  text-center lg:justify-self-start"
                 style={{
                   background:
                     "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
@@ -755,6 +866,23 @@ export default function Home() {
                   className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
+                  {" "}
+                  <svg
+                    width="495"
+                    height="206"
+                    viewBox="0 0 495 206"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute top-[100%] -right-[88px] hidden lgMd:block"
+                  >
+                    <path
+                      d="M1 1C9.15724 26.195 18.3459 49.6077 32.7232 68.7302C45.9632 86.34 64.0264 98.1142 79.7546 110.151C95.4355 122.151 110.859 132.697 127.985 139.429C159.676 151.885 191.361 162.919 223.984 168.571C261.6 175.089 298.471 175.857 336.306 175.857C378.639 175.857 419.692 181.984 461.539 190.429C469.159 191.966 475.721 192.841 482.38 198.254C485.98 201.18 489.843 205 494 205"
+                      stroke="#B153E0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-dasharray="12 12"
+                    />
+                  </svg>
                   <div className="flex flex-col items-center">
                     <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
                       <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
@@ -773,7 +901,7 @@ export default function Home() {
               <div className="hidden lg:block"></div>
               <div className="hidden lg:block"></div>
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-end"
+                className="rounded-xl text-center lg:justify-self-end"
                 style={{
                   background:
                     "linear-gradient(124deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
@@ -783,6 +911,22 @@ export default function Home() {
                   className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
+                  <svg
+                    width="495"
+                    height="200"
+                    viewBox="0 0 495 200"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute top-[100%] -left-[88px] hidden lgMd:block"
+                  >
+                    <path
+                      d="M494 1C494 16.1996 483.818 31.8545 478.773 46.5437C471.112 68.8527 454.029 88.223 433.094 106.004C389.353 143.153 285.069 127.428 218.855 134.91C48.9868 154.104 74.1208 161.948 1 199"
+                      stroke="#B153E0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-dasharray="12 12"
+                    />
+                  </svg>
                   <div className="flex flex-col items-center">
                     <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
                       <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
@@ -803,7 +947,7 @@ export default function Home() {
               <div className="hidden lg:block"></div>
               <div className="hidden lg:block"></div>
               <div
-                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                className="rounded-xl  text-center lg:justify-self-start"
                 style={{
                   background:
                     "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
