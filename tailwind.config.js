@@ -17,18 +17,18 @@ module.exports = {
       fontFamily: {
         hind: ["var(--font-HindSiliguri)", ...fontFamily.sans],
       },
-      colors:{
-        teal:"#107B61",
-        yellow:"#DE9931",
-        green:"#31BFDE",
-        purple:"#B153E0",
-        paragraph:"#BCBCBC",
-        heading:"#E2E8F0"
+      colors: {
+        teal: "#107B61",
+        yellow: "#DE9931",
+        green: "#31BFDE",
+        purple: "#B153E0",
+        paragraph: "#BCBCBC",
+        heading: "#E2E8F0",
       },
-      screens:{
-        lgXl:"1440px"
-      }
+      screens: {
+        lgXl: "1440px",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

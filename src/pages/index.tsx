@@ -44,7 +44,8 @@ export default function Home() {
               viewBox="0 0 1296 1357"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute lg:left-0 lg:top-0  z-0"
+              className="absolute lg:left-0 lg:top-0 "
+              style={{ zIndex: -1 }}
             >
               <g filter="url(#filter0_f_117_9391)">
                 <ellipse
@@ -172,7 +173,50 @@ export default function Home() {
         </div>
 
         <div className="bg-black z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto mt-40  text-heading py-20">
+          <svg
+            width="1475"
+            height="915"
+            viewBox="0 0 1475 915"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-0 "
+            style={{ zIndex: -999 }}
+          >
+            <g filter="url(#filter0_f_117_9675)">
+              <ellipse
+                cx="769"
+                cy="208.5"
+                rx="269"
+                ry="206.5"
+                fill="#DE9931"
+                fill-opacity="0.19"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_117_9675"
+                x="0"
+                y="-498"
+                width="1538"
+                height="1413"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="250"
+                  result="effect1_foregroundBlur_117_9675"
+                />
+              </filter>
+            </defs>
+          </svg>
+          <div className="w-[90%] lg:w-[80%] mx-auto mt-40  text-heading py-20 z-10">
             <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
               <img
                 src="/bubble with inequality symbols.png"
@@ -180,49 +224,6 @@ export default function Home() {
                 className="max-w-[90px] max-h-[90px] lg:max-w-[160px] lg:max-h-[160px] flex-1"
               />
               <div className="relative">
-                <svg
-                  width="1475"
-                  height="915"
-                  viewBox="0 0 1475 915"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="absolute -top-60  lg:-top-24 -left-80"
-                >
-                  <g filter="url(#filter0_f_117_9675)">
-                    <ellipse
-                      cx="769"
-                      cy="208.5"
-                      rx="269"
-                      ry="206.5"
-                      fill="#DE9931"
-                      fill-opacity="0.19"
-                    />
-                  </g>
-                  <defs>
-                    <filter
-                      id="filter0_f_117_9675"
-                      x="0"
-                      y="-498"
-                      width="1538"
-                      height="1413"
-                      filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
-                    >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                      <feBlend
-                        mode="normal"
-                        in="SourceGraphic"
-                        in2="BackgroundImageFix"
-                        result="shape"
-                      />
-                      <feGaussianBlur
-                        stdDeviation="250"
-                        result="effect1_foregroundBlur_117_9675"
-                      />
-                    </filter>
-                  </defs>
-                </svg>
-
                 <h2 className="text-2xl lg:text-4xl">এক নজরে আমাদের </h2>
                 <h2 className="text-2xl lg:text-4xl">
                   <span className="text-[#F1BA41]">কম্পেটিটিভ প্রোগ্রামিং</span>{" "}
@@ -231,7 +232,7 @@ export default function Home() {
                 <p>আমাদের কোর্সের সব ফিচার দেখে নাও</p>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lgXl:grid-cols-4  mt-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 lgXl:grid-cols-4  mt-24 ">
               <div className="flex flex-col items-center md:border-r border-b border-gray-100/10 px-20 text-center py-12 pt-16">
                 <svg
                   width="43"
@@ -404,7 +405,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-[#02090A] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading mt-40 py-20 md:py-40">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading mt-40 py-20 md:py-32">
             <div
               className="rounded-xl "
               style={{
@@ -447,7 +448,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-[#0B060D] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-40">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
             <div className="flex flex-col lg:flex-row text-center lg:text-left justify-between items-center  pb-10 gap-6 lg:gap-0 border-b border-gray-100/20">
               <div className="flex-1">
                 <div className="flex justify-center lg:justify-start">
@@ -544,7 +545,7 @@ export default function Home() {
         </div>
 
         <div className="bg-[#080600] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-40">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
             <div
               className="rounded-xl text-center"
               style={{
@@ -608,8 +609,234 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="bg-[#0B060D] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
+            <div className="flex flex-col  items-center pb-10 border-b border-gray-300/10">
+              <img src="/purple puzzle.png" alt="" />
+
+              <p className="text-2xl lg:text-4xl mt-4 mb-2">
+                কোর্সটি <span className="text-[#B153E0]">কীভাবে কাজ করবে</span>
+              </p>
+              <p className="text-paragraph ">
+                আমাদের কোর্সের সব ফিচার দেখে নাও
+              </p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 mt-20 lg:mt-32 gap-y-12 justify-items-center">
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                style={{
+                  background:
+                    "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        1
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">
+                      জিরো থেকে হিরো হওয়ার গাইডলাইন
+                    </p>
+                    <p className="text-paragraph">
+                      তোমাকে একদম জিরো থেকে হিরো বানানোর জন্যে প্রথমত সি++ এর
+                      বেসিক থেকে শুরু করে ডেটা স্ট্রাকচার ও ফাইনালি কম্পেটিটিভ
+                      প্রোগ্রামিং এর টপিকগুলো একদম ঝাঁঝরা করে দেয়া হবে
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-end"
+                style={{
+                  background:
+                    "linear-gradient(rgba(202, 101, 253, 0.44) 0%, rgba(177, 83, 224, 0) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        2
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">
+                      স্টুডিও কোয়ালিটি কোর্স কন্টেন্ট নিদিষ্ট সময়ে আনলকিং
+                    </p>
+                    <p className="text-paragraph">
+                      একটি নির্দিষ্ট সময় পর পর তোমাদের কোর্স কন্টেন্ট গুলো আনলক
+                      করা হবে যেন তোমার শেখার পথে তোমাকে আমরা তোমাকে রুটিন করে
+                      তোমাকে অভ্যস্থ করে ফেলতে পারি যেন শেখা টা তোমার একটা
+                      অভ্যাসে পরিণত হয়ে যায়
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                style={{
+                  background:
+                    "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        3
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">
+                      পরীক্ষার মাধ্যমে নিজেকে যাচাই করার সুযোগ
+                    </p>
+                    <p className="text-paragraph">
+                      প্রতিটি মডিউল এর ভিডিও গুলোর পর তোমাকে নিজেকে যাচাই করার
+                      জন্যে থাকবে প্রচুর টপিক ভিত্তিক কুইজ আর তার সম্পুর্ন
+                      সমাধান ব্যাখ্যা যেন ভুল হলেও কেন ভুল হয়েছে তার কারণটি বুঝে
+                      নিজেকে শুধরে নিতে পার
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-end"
+                style={{
+                  background:
+                    "linear-gradient(120deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        4
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">
+                      কোর্স চলাকালীন ডেইলি লাইভ ক্লাস
+                    </p>
+                    <p className="text-paragraph">
+                      এক্সট্রিম স্টুডেন্ট সাপোর্ট যেখানে সপ্তাহে ৫ দিন ডেইলি
+                      তোমাদের জন্যে কোর্স এর টিচার প্যানেল সরাসরি ২ ঘণ্টা লাইভ
+                      জুম কল এ বসে তোমাদের সমস্যা সমাধান করবে যেন কোন ভাবেই তুমি
+                      আটিকিয়ে না যাও বা তোমার শেখার গতি বাধাপ্রাপ্ত না হয়
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                style={{
+                  background:
+                    "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        5
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">অল ইন ওয়ান সাপোর্ট</p>
+                    <p className="text-paragraph">
+                      এক ওয়েবসাইট থেকেই কোড করে কোড সাবমিট করে র‍্যাংকিং থেকে
+                      শুরু করে সব ভার্ডিক্ট পেয়ে যাবে সো আলাদা করে অন্য
+                      ওয়েবসাইটে যাওয়ার প্রয়োজন থাকবে না
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-end"
+                style={{
+                  background:
+                    "linear-gradient(124deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        6
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">
+                      এসাইন্মেন্ট ও এর সমাধান ভিডিও
+                    </p>
+                    <p className="text-paragraph">
+                      প্রতিটা মডিউল শেখে তোমাদের প্রাকটিস এর জন্যে থাকবে
+                      এসাইনমেন্ট আর সেই এসাইনমেন্ট না পারলে থাকবে সেগুলোর সমাধান
+                      ভিডিও ও একচুয়াল কোড সমাধান
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <div
+                className="rounded-xl max-w-[400px] text-center lg:justify-self-start"
+                style={{
+                  background:
+                    "linear-gradient(274deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                }}
+              >
+                <div
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  style={{}}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="px-2 py-2 rounded-full bg-[#B153E0]/[.14] ">
+                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl">
+                        7
+                      </p>
+                    </div>
+                    <p className="my-6 text-2xl">ওয়েবসাইটে ডাউট সেকশন</p>
+                    <p className="text-paragraph">
+                      এক ওয়েবসাইট থেকেই কোড করে কোড সাবমিট করে র‍্যাংকিং থেকে
+                      শুরু করে সব ভার্ডিক্ট পেয়ে যাবে সো আলাদা করে অন্য
+                      ওয়েবসাইটে যাওয়ার প্রয়োজন থাকবে না
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-[#02090A] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-40">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
             <div className="pb-10 border-b border-gray-100/20 flex flex-col items-center">
               <div className="text-center">
                 <img src="/Seo.png" alt="" />
@@ -978,6 +1205,220 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#080600] z-30 relative">
+          <svg
+            width="1311"
+            height="953"
+            viewBox="0 0 1311 953"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-0 z-0"
+          >
+            <g filter="url(#filter0_f_249_7574)">
+              <ellipse
+                cx="709.691"
+                cy="328.77"
+                rx="211.288"
+                ry="118.953"
+                transform="rotate(-10.6934 709.691 328.77)"
+                fill="#DE9931"
+                fill-opacity="0.48"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_249_7574"
+                x="0.884995"
+                y="-294.55"
+                width="1417.61"
+                height="1246.64"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="250"
+                  result="effect1_foregroundBlur_249_7574"
+                />
+              </filter>
+            </defs>
+          </svg>
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
+            <div className="flex flex-col items-center gap-8 z-10 relative">
+              <img src="/question and exclamation mark.png" alt="" />
+
+              <p className="text-2xl md:text-4xl">
+                সচরাচর জানতে চাও প্রশ্নের উত্তর
+              </p>
+            </div>
+            <div className="mt-8 lg:mt-16">
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20">
+                <input type="radio" name="my-accordion-3" />
+                <div
+                  className="collapse-title text-xl font-medium"
+                  defaultChecked
+                >
+                  এই কোর্স করলেই কি আমি গুগলে চ্যান্স পাব ?
+                </div>
+                <div className="collapse-content">
+                  <p>
+                    আমাদের এই কোর্সটি মোটেও তোমাকে গুগলার হওয়ার নিশ্চয়তা দেবে না
+                    বরং গুগলের মত এই সব বড়ো কোম্পানির জন্যে তোমার ক্যারিয়ার এর
+                    পথ কে সহজ করার জন্যে তোমাকে নতুন স্কিল ডেভেলপ করার জন্যে পথে
+                    হাঁটতে শেখাবে বাকি টা তোমাদের ধৈর্য আর ডেডিকেশন এর উপর
+                    নির্ভর করবে।এই কোর্সে তোমরা লেগে থাকবে আর শিখবে প্রোগ্রামিং
+                    এর নতুন জগতের নতুন নতুন সব জিনিস আর এভাবেই নিজেকে অন্য
+                    লেভেলে নিয়ে গিয়ে বিশ্বসেরা তোমাদের ড্রিম কোম্পানি গুলো তে
+                    চাকরির সুযোগ পেতে পার
+                  </p>
+                </div>
+              </div>
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                <input type="radio" name="my-accordion-3" />
+                <div className="collapse-title text-xl font-medium">
+                  এই কোর্স টি কাদের জন্যে?
+                </div>
+                <div className="collapse-content">
+                  <p>hello</p>
+                </div>
+              </div>
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                <input type="radio" name="my-accordion-3" />
+                <div className="collapse-title text-xl font-medium">
+                  আমি প্রোগ্রামিং এর "প" ও জানি না আমি কি কোর্স টি করতে পারব?
+                </div>
+                <div className="collapse-content">
+                  <p>hello</p>
+                </div>
+              </div>
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                <input type="radio" name="my-accordion-3" />
+                <div className="collapse-title text-xl font-medium">
+                  এই কোর্সটি করার পর আমি কি করব?
+                </div>
+                <div className="collapse-content">
+                  <p>hello</p>
+                </div>
+              </div>
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                <input type="radio" name="my-accordion-3" />
+                <div className="collapse-title text-xl font-medium">
+                  কোর্স চলাকালীন কোন সমস্যা ফেইস করলে কিভাবে হেল্প পাব?
+                </div>
+                <div className="collapse-content">
+                  <p>hello</p>
+                </div>
+              </div>
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                <input type="radio" name="my-accordion-3" />
+                <div className="collapse-title text-xl font-medium">
+                  কোর্স এ ভর্তির সম পরিমাণ টাকা ফেরত কিভাবে পেতে পারি?
+                </div>
+                <div className="collapse-content">
+                  <p>hello</p>
+                </div>
+              </div>
+              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+                <input type="radio" name="my-accordion-3" />
+                <div className="collapse-title text-xl font-medium">
+                  কোর্সটি কিভাবে কিনব?
+                </div>
+                <div className="collapse-content">
+                  <p>hello</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#02090A] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
+            <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+              <svg
+                width="1161"
+                viewBox="0 0 1161 326"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute top-0 left-0 h-full z-0"
+              >
+                <g filter="url(#filter0_f_255_9837)">
+                  <ellipse
+                    cx="489.386"
+                    cy="138.31"
+                    rx="173.254"
+                    ry="97.5405"
+                    transform="rotate(-10.6934 489.386 138.31)"
+                    fill="#107B61"
+                  />
+                </g>
+                <defs>
+                  <filter
+                    id="filter0_f_255_9837"
+                    x="-181.833"
+                    y="-462.812"
+                    width="1342.44"
+                    height="1202.24"
+                    filterUnits="userSpaceOnUse"
+                    color-interpolation-filters="sRGB"
+                  >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feBlend
+                      mode="normal"
+                      in="SourceGraphic"
+                      in2="BackgroundImageFix"
+                      result="shape"
+                    />
+                    <feGaussianBlur
+                      stdDeviation="250"
+                      result="effect1_foregroundBlur_255_9837"
+                    />
+                  </filter>
+                </defs>
+              </svg>
+
+              <div className="mb-20 lg:mb-0 z-10">
+                <img src="/logo.png" alt="" className="w-28 " />
+                <div className="text-paragraph mt-8">
+                  <p>© WARP 2023</p>
+                  <p>169 Madison Ave, #2298</p>
+                  <p>New York City, NY 10016</p>
+                </div>
+              </div>
+
+              <div className="flex gap-20 text-lg text-paragraph flex-col lg:flex-row z-10">
+                <div className="flex flex-col gap-4 ">
+                  <Link href="" className="hover:text-white">
+                    নোটিফিকেশান
+                  </Link>
+                  <Link href="" className="hover:text-white">
+                    লাইফ ক্লাস শিডিউল
+                  </Link>
+                  <Link href="" className="hover:text-white">
+                    কোস কন্টেন্ট
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <Link href="" className="hover:text-white">
+                    নোটিফিকেশান
+                  </Link>
+                  <Link href="" className="hover:text-white">
+                    লাইফ ক্লাস শিডিউল
+                  </Link>
+                  <Link href="" className="hover:text-white">
+                    কোস কন্টেন্ট
+                  </Link>
                 </div>
               </div>
             </div>

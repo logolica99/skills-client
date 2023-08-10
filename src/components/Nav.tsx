@@ -7,6 +7,7 @@ type Props = {};
 
 export default function Nav({}: Props) {
   const [menuShow, setMenuShow] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   return (
     <div>
       <div className="bg-gray-200 bg-opacity-10 backdrop-blur-lg fixed w-full text-heading/90 z-50 border-b border-gray-300/20">
@@ -34,7 +35,14 @@ export default function Nav({}: Props) {
               </Link>
             </div>
             <div className="flex gap-8 md:gap-8 items-center">
-              <DarkModeSwitch sunColor="orange" size={20} checked={true} onChange={()=>{}}/>
+              <DarkModeSwitch
+                sunColor="orange"
+                size={20}
+                checked={!darkMode}
+                onChange={() => {
+                  setDarkMode(!darkMode);
+                }}
+              />
               <Link
                 href=""
                 className=" hidden lg:block hover:text-white ease-in-out duration-150 text-sm md:text-base"
@@ -59,7 +67,7 @@ export default function Nav({}: Props) {
         {/* mobile menu */}
       </div>
       <div
-        className={`bg-[#0B060D] lg:hidden fixed w-full z-40 text-white top-[63px] md:top-[76px] border-b border-white/30 duration-150 ease-out ${
+        className={`bg-gray-200 bg-opacity-10 backdrop-blur-xl lg:hidden fixed w-full z-40 text-white top-[63px] md:top-[76px] border-b border-white/30 duration-150 ease-out ${
           menuShow ? "translate-y-0" : "-translate-y-[170%]"
         }`}
       >
