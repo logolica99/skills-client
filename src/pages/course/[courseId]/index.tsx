@@ -33,12 +33,52 @@ export default function CoursePage() {
 
       <div className="pt-20  bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20">
-          <div className="flex flex-col-reverse lg:flex-row gap-24 justify-between">
-            <div style={{ flex: 2 }} className="text-heading">
+          <div className="flex flex-col-reverse lg:flex-row gap-24 justify-between relative">
+            <svg
+              viewBox="0 0 980 892"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute  -top-[200px] -left-[200px] w-full z-0"
+            >
+              <g filter="url(#filter0_f_261_7530)">
+                <ellipse
+                  cx="314.306"
+                  cy="293.812"
+                  rx="167.107"
+                  ry="94.0796"
+                  transform="rotate(-10.6934 314.306 293.812)"
+                  fill="#B153E0"
+                />
+              </g>
+              <defs>
+                <filter
+                  id="filter0_f_261_7530"
+                  x="-350.838"
+                  y="-303.722"
+                  width="1330.29"
+                  height="1195.07"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="BackgroundImageFix"
+                    result="shape"
+                  />
+                  <feGaussianBlur
+                    stdDeviation="250"
+                    result="effect1_foregroundBlur_261_7530"
+                  />
+                </filter>
+              </defs>
+            </svg>
+            <div style={{ flex: 2 }} className="text-heading z-10">
               <h2 className="text-2xl lg:text-4xl font-semibold">
                 প্রতিযোগিতামূলক প্রোগ্রামিং মৌলিক
               </h2>
-              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10 ">
+              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10 relative ">
                 <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                   <svg
                     width="18"
@@ -524,7 +564,7 @@ export default function CoursePage() {
                   </div>
                 </div>
 
-                <div className="bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 p-4 rounded-xl mt-7">
+                <div className="bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 p-4 rounded-xl mt-7  relative z-10">
                   <div className="flex justify-between">
                     <div
                       className="flex gap-4 flex-col lg:flex-row justify-start"
@@ -634,12 +674,56 @@ export default function CoursePage() {
                 </div>
               </div>
               <div className="pt-24"></div>
-              <div className="py-12">
-                <h2 className="text-2xl lg:text-4xl font-semibold pb-12 ">
+              <div className="py-12 relative">
+                <svg
+                  width="904"
+                  height="1160"
+                  viewBox="0 0 904 1160"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute -left-[200px] -top-[200px] "
+                  style={{ zIndex: "-1" }}
+                >
+                  <g filter="url(#filter0_f_261_7930)">
+                    <ellipse
+                      cx="268.669"
+                      cy="580.032"
+                      rx="136.757"
+                      ry="76.9931"
+                      transform="rotate(-10.6934 268.669 580.032)"
+                      fill="#B153E0"
+                    />
+                  </g>
+                  <defs>
+                    <filter
+                      id="filter0_f_261_7930"
+                      x="-366.482"
+                      y="0.212158"
+                      width="1270.3"
+                      height="1159.64"
+                      filterUnits="userSpaceOnUse"
+                      color-interpolation-filters="sRGB"
+                    >
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend
+                        mode="normal"
+                        in="SourceGraphic"
+                        in2="BackgroundImageFix"
+                        result="shape"
+                      />
+                      <feGaussianBlur
+                        stdDeviation="250"
+                        result="effect1_foregroundBlur_261_7930"
+                      />
+                    </filter>
+                  </defs>
+                </svg>
+
+                <h2 className="text-2xl lg:text-4xl font-semibold pb-12 relative z-10">
                   কোর্স ইন্সট্রাক্টর
                 </h2>
                 <div
-                  className="rounded-xl cursor-pointer hover:border border-purple/30 duration-150 ease-in-out"
+                  className="rounded-xl cursor-pointer hover:border border-purple/30 duration-150 ease-in-out z-10"
                   style={{
                     background:
                       "linear-gradient(120deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
@@ -674,10 +758,10 @@ export default function CoursePage() {
                   </div>
                 </div>
               </div>
-              <h2 className="text-2xl lg:text-4xl font-semibold pt-12 border-t border-gray-300/10">
+              <h2 className="text-2xl lg:text-4xl font-semibold pt-12 border-t border-gray-300/10  relative z-10">
                 কোর্স সম্পর্কে বিস্তারিত
               </h2>
-              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10 ">
+              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10  relative z-10">
                 <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                   <svg
                     width="18"
@@ -710,7 +794,7 @@ export default function CoursePage() {
                 </div>
               </div>
 
-              <p className="mt-6 text-[#A3A3A3] text-lg">
+              <p className="mt-6 text-[#A3A3A3] text-lg  relative z-10">
                 কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন
                 দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা
                 স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং
@@ -719,7 +803,7 @@ export default function CoursePage() {
                 করে সব দেখিয়ে শিখিয়ে দেয়া হবে কিভাবে
               </p>
 
-              <p className="mt-6 text-[#A3A3A3] text-lg pb-8">
+              <p className="mt-6 text-[#A3A3A3] text-lg pb-8  relative z-10">
                 কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে
                 কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার
                 থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক
@@ -733,7 +817,7 @@ export default function CoursePage() {
                   শিক্ষার্থীরা যা বলছ
                 </p>
                 <div className="carousel w-full ">
-                <div id="slide1" className="carousel-item relative w-full">
+                  <div id="slide1" className="carousel-item relative w-full">
                     <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
                       <svg
                         width="34"
@@ -792,15 +876,21 @@ export default function CoursePage() {
                       </div>
                     </div>
                     <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
-                      <a href="#slide3" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                      <a
+                        href="#slide3"
+                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
+                      >
                         ❮
                       </a>
-                      <a href="#slide2" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                      <a
+                        href="#slide2"
+                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
+                      >
                         ❯
                       </a>
                     </div>
                   </div>
-                   <div id="slide2" className="carousel-item relative w-full">
+                  <div id="slide2" className="carousel-item relative w-full">
                     <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
                       <svg
                         width="34"
@@ -859,15 +949,21 @@ export default function CoursePage() {
                       </div>
                     </div>
                     <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
-                      <a href="#slide1" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                      <a
+                        href="#slide1"
+                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
+                      >
                         ❮
                       </a>
-                      <a href="#slide3" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                      <a
+                        href="#slide3"
+                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
+                      >
                         ❯
                       </a>
                     </div>
                   </div>
-                 
+
                   <div id="slide3" className="carousel-item relative w-full">
                     <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
                       <svg
@@ -927,10 +1023,16 @@ export default function CoursePage() {
                       </div>
                     </div>
                     <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
-                      <a href="#slide2" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                      <a
+                        href="#slide2"
+                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
+                      >
                         ❮
                       </a>
-                      <a href="#slide1" className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full">
+                      <a
+                        href="#slide1"
+                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
+                      >
                         ❯
                       </a>
                     </div>
@@ -938,7 +1040,51 @@ export default function CoursePage() {
                 </div>
               </div>
 
-              <div className=" pt-8 border-t border-gray-300/10">
+              <div className=" pt-8 border-t border-gray-300/10 relative">
+               
+                <svg
+                  viewBox="0 0 852 1192"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute -top-[200px] -left-[200px]"
+                  style={{zIndex:"-1"}}
+                >
+                  <g filter="url(#filter0_f_275_7266)">
+                    <ellipse
+                      cx="189.598"
+                      cy="595.691"
+                      rx="163.368"
+                      ry="91.9748"
+                      transform="rotate(-10.6934 189.598 595.691)"
+                      fill="#DE9931"
+                      fill-opacity="0.75"
+                    />
+                  </g>
+                  <defs>
+                    <filter
+                      id="filter0_f_275_7266"
+                      x="-471.852"
+                      y="0.339355"
+                      width="1322.9"
+                      height="1190.7"
+                      filterUnits="userSpaceOnUse"
+                      color-interpolation-filters="sRGB"
+                    >
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend
+                        mode="normal"
+                        in="SourceGraphic"
+                        in2="BackgroundImageFix"
+                        result="shape"
+                      />
+                      <feGaussianBlur
+                        stdDeviation="250"
+                        result="effect1_foregroundBlur_275_7266"
+                      />
+                    </filter>
+                  </defs>
+                </svg>
+
                 <p className="text-xl lg:text-3xl mb-8 font-semibold">
                   সচরাচর জানতে চাও প্রশ্নের উত্তর
                 </p>
