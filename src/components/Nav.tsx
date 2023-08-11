@@ -89,7 +89,7 @@ export default function Nav({}: Props) {
                 লাইফ ক্লাস শিডিউল
               </Link>
               <Link
-                href=""
+                href="/course-details/12"
                 className=" hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
