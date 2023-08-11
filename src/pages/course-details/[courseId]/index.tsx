@@ -4,8 +4,34 @@ import { HindSiliguri } from "@/pages";
 import { useState } from "react";
 import Link from "next/link";
 import { BsChevronRight } from "react-icons/bs";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+const settings = {
+  dots: true,
 
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  infinite: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 700,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    
+  ],
+};
 
 export default function CourseDetailsPage() {
   const [activeTab, setActiveTab] = useState({
@@ -811,8 +837,9 @@ export default function CourseDetailsPage() {
                 <p className="text-2xl lg:text-4xl pb-8 font-semibold">
                   শিক্ষার্থীরা যা বলছ
                 </p>
-                <div className="carousel w-full ">
-                  <div id="slide1" className="carousel-item relative w-full">
+
+                <div className="max-w-[80vw] lg:max-w-[50vw] mx-auto">
+                  <Slider {...settings}>
                     <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
                       <svg
                         width="34"
@@ -870,22 +897,6 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
-                      <a
-                        href="#slide3"
-                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
-                      >
-                        ❮
-                      </a>
-                      <a
-                        href="#slide2"
-                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
-                      >
-                        ❯
-                      </a>
-                    </div>
-                  </div>
-                  <div id="slide2" className="carousel-item relative w-full">
                     <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
                       <svg
                         width="34"
@@ -943,23 +954,6 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
-                      <a
-                        href="#slide1"
-                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
-                      >
-                        ❮
-                      </a>
-                      <a
-                        href="#slide3"
-                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
-                      >
-                        ❯
-                      </a>
-                    </div>
-                  </div>
-
-                  <div id="slide3" className="carousel-item relative w-full">
                     <div className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 ">
                       <svg
                         width="34"
@@ -1017,21 +1011,7 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-2 right-2 top-1/2">
-                      <a
-                        href="#slide2"
-                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
-                      >
-                        ❮
-                      </a>
-                      <a
-                        href="#slide1"
-                        className="bg-[#B153E0] h-8 w-8 flex items-center justify-center rounded-full"
-                      >
-                        ❯
-                      </a>
-                    </div>
-                  </div>
+                  </Slider>
                 </div>
               </div>
 
