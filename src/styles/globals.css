@@ -18,3 +18,5 @@ button.rec-dot{
 }
 
  /* the slides */
+ .slick-list {margin: 0 -13px;}
+ .slick-slide>div {padding: 0 13px;}
