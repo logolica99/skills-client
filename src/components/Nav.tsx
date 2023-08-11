@@ -14,7 +14,9 @@ export default function Nav({}: Props) {
         <div className="w-[90%] lg:w-[80%] mx-auto py-4">
           <div className="flex justify-between items-center ">
             <div className="flex gap-10 items-center">
-              <img src="/logo.png" alt="" className="w-20 md:w-28 mr-8 " />
+              <Link href="/">
+                <img src="/logo.png" alt="" className="w-20 md:w-28 mr-8 " />
+              </Link>
               <Link
                 href=""
                 className="hidden lg:block hover:text-white ease-in-out duration-150"
@@ -28,7 +30,7 @@ export default function Nav({}: Props) {
                 লাইফ ক্লাস শিডিউল
               </Link>
               <Link
-                href=""
+                href="/course-details/12"
                 className="hidden lg:block hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
