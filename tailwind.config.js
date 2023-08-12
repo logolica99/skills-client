@@ -21,7 +21,7 @@ module.exports = {
       colors: {
         teal: "#107B61",
         yellow: "#DE9931",
-        green: "#31BFDE",
+       
         purple: "#B153E0",
         paragraph: "#BCBCBC",
         heading: "#E2E8F0",
