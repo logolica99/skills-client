@@ -37,7 +37,48 @@ export default function CourseDetailsPage() {
       <div className="pt-16 pb-1 bg-[#0B060D] overflow-x-hidden">
         <div className="w-[98%]  mx-auto pt-8 z-20">
           <div className="flex flex-col lg:flex-row gap-2 justify-between relative">
-            <div className="text-heading flex-1 lg:h-[89vh] lg:overflow-y-scroll">
+            <svg
+              viewBox="0 0 1215 926"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute left-0 top-0 w-full h-full z-0"
+            >
+              <g filter="url(#filter0_f_748_4329)">
+                <ellipse
+                  cx="549.662"
+                  cy="328.453"
+                  rx="167.107"
+                  ry="94.0796"
+                  transform="rotate(-10.6934 549.662 328.453)"
+                  fill="#B153E0"
+                />
+              </g>
+              <defs>
+                <filter
+                  id="filter0_f_748_4329"
+                  x="-115.482"
+                  y="-269.081"
+                  width="1330.29"
+                  height="1195.07"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="BackgroundImageFix"
+                    result="shape"
+                  />
+                  <feGaussianBlur
+                    stdDeviation="250"
+                    result="effect1_foregroundBlur_748_4329"
+                  />
+                </filter>
+              </defs>
+            </svg>
+
+            <div className="text-heading flex-1 lg:h-[89vh] lg:overflow-y-scroll  z-10">
               <div className="px-4 py-6 text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl  ">
                 <div>
                   <h2 className="text-2xl font-semibold">
@@ -94,7 +135,7 @@ export default function CourseDetailsPage() {
                 </div>
               </div>
             </div>
-            <div className="text-heading flex-1 lg:h-[89vh] lg:overflow-y-scroll">
+            <div className="text-heading flex-1 lg:h-[89vh] lg:overflow-y-scroll z-10">
               <div className="px-4 py-6 text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl  pb-2">
                 <div className="mb-4">
                   <select
