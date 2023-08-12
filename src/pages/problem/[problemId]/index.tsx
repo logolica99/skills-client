@@ -155,6 +155,7 @@ export default function CourseDetailsPage() {
                   {testCases.map((item, index) => (
                     <div
                       className="px-4 py-2 bg-gray-300/10 rounded-lg hover:bg-gray-300/20 cursor-pointer"
+                      key={Math.random() * 1000}
                       onClick={() => {
                         setActiveTestCase(index);
                       }}
