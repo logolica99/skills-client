@@ -135,7 +135,7 @@ export default function CourseDetailsPage() {
                 </div>
               </div>
             </div>
-            <div className="text-heading flex-1 lg:h-[89vh] lg:overflow-y-scroll z-10">
+            <div className="text-heading flex-1 lg:h-[89vh] lg:overflow-y-scroll  z-10 hide-scrollbar">
               <div className="px-4 py-6 text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl  pb-2">
                 <div className="mb-4">
                   <select

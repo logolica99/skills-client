@@ -13,10 +13,18 @@
   );
 }
 
-button.rec-dot{
+button.rec-dot {
   display: none;
 }
 
- /* the slides */
- .slick-list {margin: 0 -13px;}
- .slick-slide>div {padding: 0 13px;}
+/* the slides */
+.slick-list {
+  margin: 0 -13px;
+}
+.slick-slide > div {
+  padding: 0 13px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
