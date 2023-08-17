@@ -28,3 +28,15 @@ button.rec-dot {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+@keyframes scaleAnimation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.animated-image{
+  animation: scaleAnimation 3s infinite;
+}
