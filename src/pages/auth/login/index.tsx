@@ -130,7 +130,7 @@ export default function RegisterPage({}: Props) {
                 <p className="text-red-500">{errorMsg}</p>
               )}
               <div className="flex font-semibold gap-2 mt-3">
-                <p>Don't have an account? </p>
+                <p>Don{"'"}t have an account? </p>
                 <Link
                   href="/auth/register"
                   className="text-purple hover:underline"

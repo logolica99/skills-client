@@ -422,6 +422,7 @@ export default function CourseDetailsPage() {
               <div className="text-heading">
                 {courseData?.chapters.map((elem: any, index: any) => (
                   <div
+                  key={Math.random()}
                     className={
                       "collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mb-6"
                     }
@@ -574,6 +575,7 @@ export default function CourseDetailsPage() {
                       <div className="pt-6"></div>
                       {elem.modules.map((module: any) => (
                         <div
+                        key={Math.random()}
                           className="flex gap-4 items-center mb-4 "
                           onClick={() => {
                             if (elem.is_free || courseData.isTaken) {
