@@ -89,11 +89,11 @@ export function countModulesAssignmentsVideos(data:any) {
 
   for (const chapter of data.chapters) {
     
-    for (const module of chapter.modules) {
+    for (const elem of chapter.modules) {
       
-      if (module.data.category === 'VIDEO') {
+      if (elem.data.category === 'VIDEO') {
         totalVideos++;
-      } else if (module.data.category === 'ASSIGNMENT') {
+      } else if (elem.data.category === 'ASSIGNMENT') {
         totalAssignments++;
       }
       totalModules++;
