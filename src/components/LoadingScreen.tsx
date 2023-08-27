@@ -48,7 +48,7 @@ export default function LoadingScreen({}: Props) {
                 <Dialog.Panel className="relative transform overflow-hidden  flex justify-center items-center  bg-[#0B060D] bg-opacity-50 backdrop-blur-lg text-left shadow-xl transition-all   w-[100vw] h-[100vh]">
                   <div className=" bg-opacity-50 backdrop-blur-lg rounded-lg  flex justify-center items-center p-16 lg:p-40  w-[100vw] h-[100vh]">
                     <img
-                      src="/logo.png"
+                      src="/logo.jpg"
                       alt=""
                       className="w-20 md:w-40 animated-image"
                     />

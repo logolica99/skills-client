@@ -1531,7 +1531,7 @@ export default function Home() {
               </svg>
 
               <div className="mb-20 lg:mb-0 z-10">
-                <img src="/logo.png" alt="" className="w-28 " />
+                <img src="/logo.jpg" alt="" className="w-28 " />
                 <div className="text-paragraph mt-8">
                   <p>© WARP 2023</p>
                   <p>169 Madison Ave, #2298</p>

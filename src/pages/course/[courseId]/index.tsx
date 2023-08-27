@@ -422,7 +422,7 @@ export default function CourseDetailsPage() {
               <div className="text-heading">
                 {courseData?.chapters.map((elem: any, index: any) => (
                   <div
-                  key={Math.random()}
+                    key={Math.random()}
                     className={
                       "collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mb-6"
                     }
@@ -575,7 +575,7 @@ export default function CourseDetailsPage() {
                       <div className="pt-6"></div>
                       {elem.modules.map((module: any) => (
                         <div
-                        key={Math.random()}
+                          key={Math.random()}
                           className="flex gap-4 items-center mb-4 "
                           onClick={() => {
                             if (elem.is_free || courseData.isTaken) {
@@ -676,7 +676,7 @@ export default function CourseDetailsPage() {
         <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
           <div className="flex flex-col lg:flex-row justify-between lg:items-center">
             <div className="mb-20 lg:mb-0 z-10">
-              <img src="/logo.png" alt="" className="w-28 " />
+              <img src="/logo.jpg" alt="" className="w-28 " />
               <div className="text-paragraph mt-8">
                 <p>© WARP 2023</p>
                 <p>169 Madison Ave, #2298</p>
