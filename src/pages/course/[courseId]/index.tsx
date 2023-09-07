@@ -7,17 +7,44 @@ import { BsChevronRight } from "react-icons/bs";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserContext } from "@/Contexts/UserContext";
 import axios from "axios";
-import { BACKEND_URL } from "@/api.config";
+import { BACKEND_URL, COURSE_ID } from "@/api.config";
 import {
   calculateRemainingDays,
   countAssignmentsAndVideos,
+  decryptString,
   englishToBanglaNumbers,
 } from "@/helpers";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Theme,
+} from "@mui/material";
+import { Toaster, toast } from "react-hot-toast";
+
+import { withStyles } from "@mui/styles";
+
+const GreenRadio = withStyles({
+  root: {
+    color: "#fff",
+    "&$checked": {
+      color: "#fff",
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
 
 export default function CourseDetailsPage() {
   const [user, setUser] = useContext<any>(UserContext);
+  const [quizAnswer, setQuizAnswer] = useState("");
+  const [assignmentSubmission, setAssignmentSubmission] = useState({
+    youtube_link: "",
+    github_link: "",
+  });
+  const [assignmentEvaluted, setAssignmentEvaluted] = useState<any>([]);
 
-  const [activeModule, setActiveModule] = useState({
+  const [activeModule, setActiveModule] = useState<any>({
     id: 6,
     chapter_id: 6,
     title: "কীভাবে ইংরেজিতে নিজেকে Introduce করবেন?",
@@ -222,7 +249,7 @@ export default function CourseDetailsPage() {
 
   const isActiveChapter = (chapter: any) => {
     for (module of chapter.modules) {
-      if (String(module.id) === String(activeModule.id)) {
+      if (String(module.id) === String(activeModule?.id)) {
         return true;
       }
     }
@@ -234,7 +261,7 @@ export default function CourseDetailsPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/3", {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -249,14 +276,95 @@ export default function CourseDetailsPage() {
       });
   };
 
-  const submitAssignment = () => {};
+  const fetchEvalutedAssignment = (moduleId: any) => {
+    setUser({ ...user, loading: true });
+    const token = localStorage.getItem("token");
+    axios
+      .get(BACKEND_URL + "/user/assignment/view/" + moduleId, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAssignmentEvaluted(res.data.data);
+        if (res.data.data.length > 0) {
+          setAssignmentSubmission(res.data.data[0].submission);
+        } else {
+          setAssignmentSubmission({ youtube_link: "", github_link: "" });
+        }
+        setUser({ ...user, loading: false });
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
+  };
+
+  const submitQuiz = () => {
+    const decrypted = decryptString(
+      activeModule.data.answer,
+      process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+    );
+    console.log(decrypted === quizAnswer);
+  };
+
+  const submitAssignment = (e: any) => {
+    e.preventDefault();
+    setUser({ ...user, loading: true });
+    const token = localStorage.getItem("token");
+
+    if (assignmentEvaluted?.length > 0) {
+      axios
+        .put(
+          BACKEND_URL + "/user/assignment/edit/" + activeModule.id,
+          {
+            submission: assignmentSubmission,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          setUser({ ...user, loading: false });
+          toast.success("Assignment Submitted Successfully");
+        })
+        .catch((err) => {
+          setUser({ ...user, loading: false });
+          toast.error("Something Went Wrong");
+        });
+    } else {
+      axios
+        .post(
+          BACKEND_URL + "/user/assignment/submit/" + activeModule.id,
+          {
+            submission: assignmentSubmission,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          setUser({ ...user, loading: false });
+          toast.success("Assignment Submitted Successfully");
+        })
+        .catch((err) => {
+          setUser({ ...user, loading: false });
+          toast.error("Something Went Wrong");
+        });
+    }
+  };
 
   useEffect(() => {
     fetchCourse();
   }, []);
+
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
+      <Toaster />
       <div className="py-16 bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lgXl:w-[80%] mx-auto py-12 z-20">
           <div className="flex flex-col lg:flex-row gap-24 justify-between relative">
@@ -350,18 +458,59 @@ export default function CourseDetailsPage() {
               )}
 
               <div className="mt-8">
-                {activeModule.data.category == "VIDEO" &&
-                  activeModule.data.videoHost === "Youtube" && (
+                {activeModule?.data?.category == "VIDEO" &&
+                  activeModule?.data?.videoHost === "Youtube" && (
                     <iframe
                       className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
-                      src={activeModule.data.videoUrl}
+                      src={activeModule?.data?.videoUrl}
                       title="How do we scale web applications?"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     ></iframe>
                   )}
-                {activeModule.data.category === "ASSIGNMENT" && (
+                {activeModule?.data?.category === "ASSIGNMENT" && (
                   <div className=" mx-auto  z-20">
+                    <p className="text-lg  mb-2">
+                      Assignment Status:{" "}
+                      {assignmentEvaluted.length === 0 && (
+                        <span className="font-semibold text-xl text-red-600">
+                          INCOMPLETE
+                        </span>
+                      )}
+                      {assignmentEvaluted.length > 0 && (
+                        <span className="font-semibold text-xl text-green-300">
+                          {assignmentEvaluted[0] &&
+                            assignmentEvaluted[0]?.status}
+                        </span>
+                      )}
+                    </p>
+                    <p className="text-lg  mb-2">
+                      Verdict:{" "}
+                      {assignmentEvaluted.length > 0 &&
+                        assignmentEvaluted[0]?.status === "EVALUATED" && (
+                          <span
+                            className={`font-semibold text-xl ${
+                              assignmentEvaluted[0]?.evaluation?.verdict ===
+                              "PASSED"
+                                ? "text-green-300"
+                                : "text-red-300"
+                            }`}
+                          >
+                            {assignmentEvaluted[0] &&
+                              assignmentEvaluted[0]?.evaluation?.verdict}
+                          </span>
+                        )}
+                    </p>
+                    <p className="text-lg  mb-2">
+                      Feedback:{" "}
+                      {assignmentEvaluted.length > 0 &&
+                        assignmentEvaluted[0]?.status === "EVALUATED" && (
+                          <span className={`text-white`}>
+                            {assignmentEvaluted[0] &&
+                              assignmentEvaluted[0]?.evaluation?.feedback}
+                          </span>
+                        )}
+                    </p>
                     <form
                       onSubmit={submitAssignment}
                       className="lg:px-8 px-6 py-6 text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl  mx-auto flex flex-col items-center  gap-4"
@@ -371,10 +520,14 @@ export default function CourseDetailsPage() {
                         <input
                           className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
                           placeholder="Github URL"
-                          // value={userData.email}
+                          value={assignmentSubmission.github_link}
                           required
-                          type="email"
-                          onChange={(e) => {}}
+                          onChange={(e) => {
+                            setAssignmentSubmission({
+                              ...assignmentSubmission,
+                              github_link: e.target.value,
+                            });
+                          }}
                         />
                       </div>
                       <div className="w-full">
@@ -384,9 +537,14 @@ export default function CourseDetailsPage() {
                         <input
                           className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
                           placeholder="Youtube URL"
-                          // value={userData.password}
+                          value={assignmentSubmission.youtube_link}
                           required
-                          onChange={(e) => {}}
+                          onChange={(e) => {
+                            setAssignmentSubmission({
+                              ...assignmentSubmission,
+                              youtube_link: e.target.value,
+                            });
+                          }}
                         />
                         {/* {errorMsg.length > 0 && (
                             <p className="text-red-500">{errorMsg}</p>
@@ -395,6 +553,7 @@ export default function CourseDetailsPage() {
 
                       <div className="mt-4">
                         <button
+                       
                           type="submit"
                           className="py-2 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                         >
@@ -404,16 +563,51 @@ export default function CourseDetailsPage() {
                     </form>
                   </div>
                 )}
+
+                {activeModule?.data?.category === "QUIZ" && (
+                  <div>
+                    <p className="text-3xl mb-6">
+                      {activeModule?.data?.question}
+                    </p>
+                    <div>
+                      <FormControl>
+                        <RadioGroup
+                          value={quizAnswer}
+                          onChange={(e) => {
+                            setQuizAnswer(e.target.value);
+                          }}
+                        >
+                          {activeModule?.data?.options?.map((elem: any) => (
+                            <FormControlLabel
+                              value={elem}
+                              control={<GreenRadio />}
+                              label={elem}
+                            />
+                          ))}
+                        </RadioGroup>
+                        <button
+                          onClick={submitQuiz}
+                          type="submit"
+                          className="py-2 mt-5 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
+                        >
+                          Submit Answer
+                        </button>
+                      </FormControl>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="mt-12">
-                <p className="font-semibold text-2xl pb-4 border-b border-gray-300/10 ">
-                  Description
-                </p>
+                {activeModule?.description?.length > 0 && (
+                  <p className="font-semibold text-2xl pb-4 border-b border-gray-300/10 ">
+                    Description
+                  </p>
+                )}
                 <div
                   className="text-lg pt-6 border-t border-gray-300/10 "
                   dangerouslySetInnerHTML={{
-                    __html: activeModule.description,
+                    __html: activeModule?.description,
                   }}
                 ></div>
               </div>
@@ -578,14 +772,22 @@ export default function CourseDetailsPage() {
                           key={Math.random()}
                           className="flex gap-4 items-center mb-4 "
                           onClick={() => {
+                            console.log(module);
                             if (elem.is_free || courseData.isTaken) {
                               if (
                                 module.data.category === "ASSIGNMENT" &&
                                 courseData.isTaken
                               ) {
+                                fetchEvalutedAssignment(module.id);
                                 setActiveModule(module);
                               }
                               if (module.data.category === "VIDEO") {
+                                setActiveModule(module);
+                              }
+                              if (
+                                module.data.category === "QUIZ" &&
+                                courseData.isTaken
+                              ) {
                                 setActiveModule(module);
                               }
                             }
@@ -637,6 +839,54 @@ export default function CourseDetailsPage() {
                               />
                             </svg>
                           )}
+                          {module.data.category == "QUIZ" && (
+                            <svg
+                              width="20"
+                              height="21"
+                              viewBox="0 0 20 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
+                                fill={
+                                  elem.is_free || courseData.isTaken
+                                    ? "#B153E0"
+                                    : "#565656"
+                                }
+                              />
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
+                                fill="white"
+                              />
+                            </svg>
+                          )}
+                          {module.data.category == "CODE" && (
+                            <svg
+                              width="20"
+                              height="21"
+                              viewBox="0 0 20 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
+                                fill={
+                                  elem.is_free || courseData.isTaken
+                                    ? "#B153E0"
+                                    : "#565656"
+                                }
+                              />
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
+                                fill="white"
+                              />
+                            </svg>
+                          )}
                           <p
                             className={`text-base ${
                               (elem.is_free || courseData.isTaken) &&
@@ -644,6 +894,20 @@ export default function CourseDetailsPage() {
                                 ? "hover:text-white cursor-pointer"
                                 : "cursor-not-allowed"
                             }
+                            ${
+                              (elem.is_free || courseData.isTaken) &&
+                              module.data.category === "CODE"
+                                ? "hover:text-white cursor-pointer"
+                                : "cursor-not-allowed"
+                            }
+                              
+                              ${
+                                courseData.isTaken &&
+                                module.data.category === "QUIZ"
+                                  ? "hover:text-white cursor-pointer"
+                                  : "cursor-not-allowed"
+                              }
+                              
                               
                               ${
                                 courseData.isTaken &&
@@ -652,7 +916,7 @@ export default function CourseDetailsPage() {
                                   : "cursor-not-allowed"
                               }
                               ${
-                                module.id === activeModule.id
+                                module.id === activeModule?.id
                                   ? "text-white"
                                   : "text-[#737373]"
                               } `}
@@ -660,6 +924,8 @@ export default function CourseDetailsPage() {
                             {module.data.category == "VIDEO" && "Video:"}{" "}
                             {module.data.category == "ASSIGNMENT" &&
                               "Assignment:"}{" "}
+                            {module.data.category == "CODE" && "Code:"}{" "}
+                            {module.data.category == "QUIZ" && "Quiz:"}{" "}
                             {module.title}
                           </p>
                         </div>

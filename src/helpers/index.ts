@@ -1,4 +1,5 @@
 import jwtDecode from "jwt-decode";
+import CryptoJS from "crypto-js";
 
 export const checkTokenValidity = (token: any) => {
   return jwtDecode<any>(token).name.length > 0 ? true : false;
@@ -67,7 +68,7 @@ export function countAssignmentsAndVideos(data: any) {
   let assignmentCount = 0;
   let videoCount = 0;
 
-  data.forEach((item:any) => {
+  data.forEach((item: any) => {
     if (item.data.category === "ASSIGNMENT") {
       assignmentCount++;
     } else if (item.data.category === "VIDEO") {
@@ -81,19 +82,16 @@ export function countAssignmentsAndVideos(data: any) {
   };
 }
 
-
-export function countModulesAssignmentsVideos(data:any) {
+export function countModulesAssignmentsVideos(data: any) {
   let totalModules = 0;
   let totalAssignments = 0;
   let totalVideos = 0;
 
   for (const chapter of data.chapters) {
-    
     for (const elem of chapter.modules) {
-      
-      if (elem.data.category === 'VIDEO') {
+      if (elem.data.category === "VIDEO") {
         totalVideos++;
-      } else if (elem.data.category === 'ASSIGNMENT') {
+      } else if (elem.data.category === "ASSIGNMENT") {
         totalAssignments++;
       }
       totalModules++;
@@ -105,4 +103,10 @@ export function countModulesAssignmentsVideos(data:any) {
     totalAssignments,
     totalVideos,
   };
+}
+
+export function decryptString(encryptedText: any, secretKey: any) {
+  const bytes = CryptoJS.AES.decrypt(encryptedText, secretKey);
+  const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedText;
 }
