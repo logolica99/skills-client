@@ -14,10 +14,12 @@ import {
   countAssignmentsAndVideos,
   countModulesAssignmentsVideos,
   englishToBanglaNumbers,
+  isLoggedIn,
 } from "@/helpers";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { UserContext } from "@/Contexts/UserContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const settings = {
   dots: true,
@@ -267,25 +269,29 @@ export default function CourseDetailsPage() {
   };
 
   const buyCourse = () => {
-    setUser({ ...user, loading: true });
-    const token = localStorage.getItem("token");
-    axios
-      .post(
-        BACKEND_URL + "/user/course/takes/1",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        router.push("/course/12");
-        setUser({ ...user, loading: false });
-      })
-      .catch((err) => {
-        setUser({ ...user, loading: false });
-      });
+    if (isLoggedIn() === false) {
+      toast.error("please sign in ");
+    } else {
+      setUser({ ...user, loading: true });
+      const token = localStorage.getItem("token");
+      axios
+        .post(
+          BACKEND_URL + "/user/course/takes/1",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          router.push("/course/12");
+          setUser({ ...user, loading: false });
+        })
+        .catch((err) => {
+          setUser({ ...user, loading: false });
+        });
+    }
   };
 
   useEffect(() => {
@@ -295,6 +301,7 @@ export default function CourseDetailsPage() {
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
+      <Toaster />
 
       <div className="pt-20  bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20">

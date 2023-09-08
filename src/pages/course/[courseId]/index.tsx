@@ -61,9 +61,8 @@ export default function CourseDetailsPage() {
   });
 
   const [courseData, setCourseData] = useState({
-    success: true,
     isTaken: true,
-    id: 3,
+
     title: "প্রতিযোগিতামূলক প্রোগ্রামিং মৌলিক",
     x_price: 20000,
     price: 7997,
@@ -141,17 +140,6 @@ export default function CourseDetailsPage() {
           image: {},
           imagePreviewLink:
             "blob:http://localhost:5174/216fc44a-e7c4-4e8b-ad86-00de69bc7584",
-          imageUploadedLink:
-            "https://skills-by-apar.s3.ap-south-1.amazonaws.com/image%20%286%29.png",
-        },
-        {
-          description:
-            "ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে ভীতি কাটিয়ে খুব সহজ",
-          name: "Khama Rani Bose",
-          bio: "ভর্তি পরীক্ষার",
-          image: {},
-          imagePreviewLink:
-            "blob:http://localhost:5174/9956a870-1c31-447b-b907-eb01059bc925",
           imageUploadedLink:
             "https://skills-by-apar.s3.ap-south-1.amazonaws.com/image%20%286%29.png",
         },
