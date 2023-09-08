@@ -276,7 +276,7 @@ export default function CourseDetailsPage() {
       const token = localStorage.getItem("token");
       axios
         .post(
-          BACKEND_URL + "/user/course/takes/1",
+          BACKEND_URL + "/user/payment/initiate/1",
           {},
           {
             headers: {
@@ -285,8 +285,9 @@ export default function CourseDetailsPage() {
           }
         )
         .then((res) => {
-          router.push("/course/12");
-          setUser({ ...user, loading: false });
+          window.location=res.data.data
+          // router.push("/course/12");
+          //setUser({ ...user, loading: false });
         })
         .catch((err) => {
           setUser({ ...user, loading: false });
