@@ -38,6 +38,7 @@ const GreenRadio = withStyles({
 export default function CourseDetailsPage() {
   const [user, setUser] = useContext<any>(UserContext);
   const [quizAnswer, setQuizAnswer] = useState("");
+  const [fetchingTrigger, setFetchingTrigger] = useState(false);
   const [assignmentSubmission, setAssignmentSubmission] = useState({
     youtube_link: "",
     github_link: "",
@@ -62,7 +63,7 @@ export default function CourseDetailsPage() {
 
   const [courseData, setCourseData] = useState({
     isTaken: true,
-
+    maxModuleSerialProgress: 0,
     title: "প্রতিযোগিতামূলক প্রোগ্রামিং মৌলিক",
     x_price: 20000,
     price: 7997,
@@ -256,7 +257,17 @@ export default function CourseDetailsPage() {
       })
       .then((res) => {
         setCourseData(res.data);
-        setActiveModule(res.data.chapters[0].modules[0]);
+        if (res.data.maxModuleSerialProgress === 0) {
+          submitProgress(1);
+        }
+        res.data.chapters.forEach((chapter: any) => {
+          chapter.modules.forEach((module: any) => {
+            if (module.serial === res.data.maxModuleSerialProgress) {
+              setActiveModule(module);
+            }
+          });
+        });
+
         setUser({ ...user, loading: false });
       })
       .catch((err) => {
@@ -287,12 +298,30 @@ export default function CourseDetailsPage() {
       });
   };
 
+  const submitProgress = (module_id: any) => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        `${BACKEND_URL}/user/module/addProgress/${module_id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        fetchCourse();
+      })
+      .catch((err) => {});
+  };
+
   const submitQuiz = () => {
     const decrypted = decryptString(
       activeModule.data.answer,
       process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
     );
-    console.log(decrypted === quizAnswer);
+    if (decrypted === quizAnswer) submitProgress(activeModule.id);
   };
 
   const submitAssignment = (e: any) => {
@@ -316,6 +345,7 @@ export default function CourseDetailsPage() {
         .then(() => {
           setUser({ ...user, loading: false });
           toast.success("Assignment Submitted Successfully");
+          submitProgress(activeModule.id);
         })
         .catch((err) => {
           setUser({ ...user, loading: false });
@@ -337,6 +367,7 @@ export default function CourseDetailsPage() {
         .then(() => {
           setUser({ ...user, loading: false });
           toast.success("Assignment Submitted Successfully");
+          submitProgress(activeModule.id);
         })
         .catch((err) => {
           setUser({ ...user, loading: false });
@@ -760,20 +791,29 @@ export default function CourseDetailsPage() {
                           key={Math.random()}
                           className="flex gap-4 items-center mb-4 "
                           onClick={() => {
-                            console.log(module);
                             if (elem.is_free || courseData.isTaken) {
                               if (
                                 module.data.category === "ASSIGNMENT" &&
-                                courseData.isTaken
+                                courseData.isTaken &&
+                                courseData.maxModuleSerialProgress + 1 >=
+                                  module.serial
                               ) {
                                 fetchEvalutedAssignment(module.id);
                                 setActiveModule(module);
                               }
-                              if (module.data.category === "VIDEO") {
+
+                              if (
+                                module.data.category === "VIDEO" &&
+                                courseData.maxModuleSerialProgress + 1 >=
+                                  module.serial
+                              ) {
                                 setActiveModule(module);
+                                submitProgress(module.id);
                               }
                               if (
                                 module.data.category === "QUIZ" &&
+                                courseData.maxModuleSerialProgress + 1 >=
+                                  module.serial &&
                                 courseData.isTaken
                               ) {
                                 setActiveModule(module);
@@ -792,7 +832,9 @@ export default function CourseDetailsPage() {
                               <path
                                 d="M10 20.5C15.523 20.5 20 16.023 20 10.5C20 4.977 15.523 0.5 10 0.5C4.477 0.5 0 4.977 0 10.5C0 16.023 4.477 20.5 10 20.5Z"
                                 fill={
-                                  elem.is_free || courseData.isTaken
+                                  (elem.is_free || courseData.isTaken) &&
+                                  courseData.maxModuleSerialProgress + 1 >=
+                                    module.serial
                                     ? "#B153E0"
                                     : "#565656"
                                 }
@@ -814,7 +856,9 @@ export default function CourseDetailsPage() {
                               <path
                                 d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
                                 fill={
-                                  elem.is_free || courseData.isTaken
+                                  (elem.is_free || courseData.isTaken) &&
+                                  courseData.maxModuleSerialProgress + 1 >=
+                                    module.serial
                                     ? "#B153E0"
                                     : "#565656"
                                 }
@@ -838,7 +882,9 @@ export default function CourseDetailsPage() {
                               <path
                                 d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
                                 fill={
-                                  elem.is_free || courseData.isTaken
+                                  (elem.is_free || courseData.isTaken) &&
+                                  courseData.maxModuleSerialProgress + 1 >=
+                                    module.serial
                                     ? "#B153E0"
                                     : "#565656"
                                 }
@@ -862,7 +908,9 @@ export default function CourseDetailsPage() {
                               <path
                                 d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
                                 fill={
-                                  elem.is_free || courseData.isTaken
+                                  (elem.is_free || courseData.isTaken) &&
+                                  courseData.maxModuleSerialProgress >=
+                                    module.serial - 1
                                     ? "#B153E0"
                                     : "#565656"
                                 }
@@ -878,12 +926,16 @@ export default function CourseDetailsPage() {
                           <p
                             className={`text-base ${
                               (elem.is_free || courseData.isTaken) &&
+                              courseData.maxModuleSerialProgress + 1 >=
+                                module.serial &&
                               module.data.category === "VIDEO"
                                 ? "hover:text-white cursor-pointer"
                                 : "cursor-not-allowed"
                             }
                             ${
                               (elem.is_free || courseData.isTaken) &&
+                              courseData.maxModuleSerialProgress >=
+                                module.serial - 1 &&
                               module.data.category === "CODE"
                                 ? "hover:text-white cursor-pointer"
                                 : "cursor-not-allowed"
@@ -891,6 +943,8 @@ export default function CourseDetailsPage() {
                               
                               ${
                                 courseData.isTaken &&
+                                courseData.maxModuleSerialProgress >=
+                                  module.serial - 1 &&
                                 module.data.category === "QUIZ"
                                   ? "hover:text-white cursor-pointer"
                                   : "cursor-not-allowed"
@@ -899,6 +953,8 @@ export default function CourseDetailsPage() {
                               
                               ${
                                 courseData.isTaken &&
+                                courseData.maxModuleSerialProgress + 1 >=
+                                  module.serial &&
                                 module.data.category === "ASSIGNMENT"
                                   ? "hover:text-white cursor-pointer"
                                   : "cursor-not-allowed"
