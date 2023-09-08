@@ -553,7 +553,6 @@ export default function CourseDetailsPage() {
 
                       <div className="mt-4">
                         <button
-                       
                           type="submit"
                           className="py-2 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                         >
@@ -579,6 +578,7 @@ export default function CourseDetailsPage() {
                         >
                           {activeModule?.data?.options?.map((elem: any) => (
                             <FormControlLabel
+                              key={Math.random()}
                               value={elem}
                               control={<GreenRadio />}
                               label={elem}
