@@ -273,7 +273,7 @@ export default function SuccessPage() {
     setTimeout(
       function() {
           setUser({ ...user, loading: false });
-          router.push("/course/12");
+          router.push("/course-details/12");
       }, 3000);
     // setUser({ ...user, loading: true });
     //   const token = localStorage.getItem("token");
@@ -308,7 +308,7 @@ export default function SuccessPage() {
   return (
     <div style={{width:'100vw',height:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
       <Typography variant="h4">
-        কোর্সটি কেনা সফল হয়েছে... অপেক্ষা করুন
+        কোর্সটি কেনা হয়নি... অপেক্ষা করুন
       </Typography>
     </div>
   );
