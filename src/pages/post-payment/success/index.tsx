@@ -7,7 +7,7 @@ import { BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BACKEND_URL } from "@/api.config";
+import { BACKEND_URL, COURSE_ID } from "@/api.config";
 import {
   apiConfig,
   calculateRemainingDays,
@@ -254,7 +254,7 @@ export default function SuccessPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/1", {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -269,40 +269,33 @@ export default function SuccessPage() {
   };
 
   const buyCourse = () => {
-    toast.success('আপনি কোর্সটি সফলভাবে কিনেছেন !!!')
-    setUser({ ...user, loading: true });
-      const token = localStorage.getItem("token");
-      axios
-        .post(
-          BACKEND_URL + "/user/course/takes/1",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-            setTimeout(
-                function() {
-                    setUser({ ...user, loading: false });
-                    router.push("/course/12");
-                }, 2000);
-            
-          
-        })
-        .catch((err) => {
-          setUser({ ...user, loading: false });
-        });
+    toast.success("আপনি কোর্সটি সফলভাবে কিনেছেন !!!");
+    // setUser({ ...user, loading: true });
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        BACKEND_URL + "/user/course/takes/" + COURSE_ID,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setTimeout(function () {
+          // setUser({ ...user, loading: false });
+          router.push("/course/12");
+        }, 2000);
+      })
+      .catch((err) => {
+        // setUser({ ...user, loading: false });
+      });
   };
 
   useEffect(() => {
     buyCourse();
   }, []);
 
-  return (
-    <div className={`  ${HindSiliguri.variable} font-hind  `}>
-      
-    </div>
-  );
+  return <div className={`  ${HindSiliguri.variable} font-hind  `}></div>;
 }

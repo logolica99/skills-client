@@ -33,6 +33,7 @@ export default function Nav({}: Props) {
   }, []);
 
   const fetchScore = () => {
+    const token = localStorage.getItem("token");
     axios
       .get(BACKEND_URL + "/user/course/getScore/" + COURSE_ID, {
         headers: {

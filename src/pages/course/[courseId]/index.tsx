@@ -321,7 +321,12 @@ export default function CourseDetailsPage() {
       activeModule.data.answer,
       process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
     );
-    if (decrypted === quizAnswer) submitProgress(activeModule.id);
+    if (decrypted === quizAnswer) {
+      submitProgress(activeModule.id);
+    } else {
+      toast.error("Wrong Answer");
+    }
+    
   };
 
   const submitAssignment = (e: any) => {
@@ -482,7 +487,16 @@ export default function CourseDetailsPage() {
                     <iframe
                       className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
                       src={activeModule?.data?.videoUrl}
-                      title="How do we scale web applications?"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  )}
+                {activeModule?.data?.category == "VIDEO" &&
+                  activeModule?.data?.videoHost === "BunnyCDN" && (
+                    <iframe
+                      className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
+                      src={activeModule?.data?.videoUrl}
+                      loading="lazy"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     ></iframe>
