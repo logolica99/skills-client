@@ -7,14 +7,13 @@ import axios from "axios";
 import { UserContext } from "@/Contexts/UserContext";
 import { BACKEND_URL, COURSE_ID } from "@/api.config";
 
-
 type Props = {};
 
 export default function index({}: Props) {
-  const [user, setUser] = useContext(UserContext);
+  const [user, setUser] = useContext<any>(UserContext);
 
   const [liveClasses, setLiveClasses] = useState<any>([]);
-  const [isMeeting,setMeeting]=useState(false)
+  const [isMeeting, setMeeting] = useState(false);
 
   const fetchClasses = () => {
     setUser({ ...user, loading: true });
@@ -27,7 +26,7 @@ export default function index({}: Props) {
       })
       .then((res) => {
         console.log(res.data.data);
-        setLiveClasses(res.data.data);
+        setLiveClasses(res.data.data.list);
         setUser({ ...user, loading: false });
       })
       .catch((err) => {
@@ -39,27 +38,27 @@ export default function index({}: Props) {
     fetchClasses();
   }, []);
 
-  const initiateMeeting=async config=>{
-    var ZoomMtg = await (await import('@zoomus/websdk/index')).ZoomMtg;
+  const initiateMeeting = async (config: any) => {
+    var ZoomMtg = await (await import("@zoomus/websdk/index")).ZoomMtg;
 
     //console.log(ZoomMtg)
 
-    ZoomMtg.setZoomJSLib('https://source.zoom.us/2.16.0/lib', '/av');
+    ZoomMtg.setZoomJSLib("https://source.zoom.us/2.16.0/lib", "/av");
 
     ZoomMtg.preLoadWasm();
     ZoomMtg.prepareWebSDK();
     // loads language files, also passes any error messages to the ui
-    ZoomMtg.i18n.load('en-US');
-    ZoomMtg.i18n.reload('en-US');
+    ZoomMtg.i18n.load("en-US");
+    ZoomMtg.i18n.reload("en-US");
 
-    window.document.getElementById('zmmtg-root').style.display = 'block'
+    window.document.getElementById("zmmtg-root").style.display = "block";
 
     ZoomMtg.init({
       leaveUrl: config.leaveUrl,
-      success: (success) => {
-        console.log(success)
+      success: (success: any) => {
+        console.log(success);
         setUser({ ...user, loading: false });
-        setMeeting(true)
+        setMeeting(true);
         ZoomMtg.join({
           signature: config.signature,
           sdkKey: config.sdkKey,
@@ -69,27 +68,22 @@ export default function index({}: Props) {
           userEmail: config.userEmail,
           tk: config.registrantToken,
           zak: config.zakToken,
-          success: (success) => {
-            console.log(success)
+          success: (success: any) => {
+            console.log(success);
             setUser({ ...user, loading: false });
           },
-          error: (error) => {
-            console.log(error)
+          error: (error: any) => {
+            console.log(error);
             setUser({ ...user, loading: false });
-          }
-        })
-
+          },
+        });
       },
-      error: (error) => {
-        console.log(error)
+      error: (error: any) => {
+        console.log(error);
         setUser({ ...user, loading: false });
-      }
-    })
-
-    
-
-  }
-
+      },
+    });
+  };
 
   const fetchMeetingProps = (liveId) => {
     setUser({ ...user, loading: true });
@@ -102,26 +96,31 @@ export default function index({}: Props) {
       })
       .then((res) => {
         console.log(res.data.data);
-        initiateMeeting(res.data.data)
-        
+        initiateMeeting(res.data.data);
       })
       .catch((err) => {
         setUser({ ...user, loading: false });
       });
   };
 
-  if(isMeeting)
-    return <div/>
+  if (isMeeting) return <div />;
 
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
       <Toaster />
       <div>
-        {liveClasses.map((liveClass: any) => (
+        {liveClasses?.map((liveClass: any) => (
           <div className="p-40 ">
-          <p>{liveClass.title}</p>  
-            <button className="p-4 bg-red-400" onClick={()=>{fetchMeetingProps(liveClass.id)}}>Click Me</button>
+            <p>{liveClass.title}</p>
+            <button
+              className="p-4 bg-red-400"
+              onClick={() => {
+                fetchMeetingProps(liveClass.id);
+              }}
+            >
+              Click Me
+            </button>
           </div>
         ))}
       </div>

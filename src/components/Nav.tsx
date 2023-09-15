@@ -62,7 +62,7 @@ export default function Nav({}: Props) {
                আমার কোর্স
               </Link> */}
               <Link
-                href=""
+                href="/live-class"
                 className=" hidden lg:block hover:text-white ease-in-out duration-150"
               >
                 লাইফ ক্লাস শিডিউল
