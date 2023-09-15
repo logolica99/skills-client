@@ -7,7 +7,7 @@ import { BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { BACKEND_URL } from "@/api.config";
 import {
   apiConfig,
   calculateRemainingDays,
@@ -255,7 +255,7 @@ export default function SuccessPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+      .get(BACKEND_URL + "/user/course/getfull/1", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -270,11 +270,10 @@ export default function SuccessPage() {
   };
 
   const buyCourse = () => {
-
     setTimeout(
       function() {
           setUser({ ...user, loading: false });
-          router.push("/course/12");
+          router.push("/course-details/12");
       }, 3000);
     // setUser({ ...user, loading: true });
     //   const token = localStorage.getItem("token");
@@ -300,20 +299,17 @@ export default function SuccessPage() {
     //     .catch((err) => {
     //       setUser({ ...user, loading: false });
     //     });
-
   };
 
   useEffect(() => {
     buyCourse();
   }, []);
 
-
   return (
     <div style={{width:'100vw',height:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
       <Typography variant="h4">
-        কোর্সটি কেনা সফল হয়েছে... অপেক্ষা করুন
+        কোর্সটি কেনা হয়নি... অপেক্ষা করুন
       </Typography>
     </div>
   );
-
 }
