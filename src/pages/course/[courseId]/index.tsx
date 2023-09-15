@@ -409,7 +409,7 @@ export default function CourseDetailsPage() {
                   </Dialog.Title>
                   <div className="mt-2 max-h-[50vh]  overflow-y-scroll">
                     {discussions.map((elem: any) => (
-                      <div className="my-4">
+                      <div className="my-4" key={Math.random()}>
                         <p className="text-white text-2xl">{elem.name}</p>
                         <p className="text-white ">{elem.content}</p>
                       </div>

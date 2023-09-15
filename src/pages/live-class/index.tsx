@@ -159,6 +159,7 @@ export default function LiveClass({}: Props) {
               if (liveClass.scheduled_at <= liveClasses.serverTimeStamp) {
                 return (
                   <div
+                  key={Math.random()}
                     className={`p-4 pb-6 max-w-[332px] text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none 
                `}
                   >
@@ -201,6 +202,7 @@ export default function LiveClass({}: Props) {
               if (liveClass.scheduled_at > liveClasses.serverTimeStamp) {
                 return (
                   <div
+                  key={Math.random()}
                     className={`p-4 pb-6 max-w-[332px] text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none
                `}
                   >

@@ -45,8 +45,9 @@ export default function Ranking({}: Props) {
         <Toaster />
         <div className="py-16 bg-[#0B060D] overflow-x-hidden">
           <div className="w-[90%] lgXl:w-[80%] mx-auto py-12 z-20 min-h-[80vh]">
-          
-          <p className="text-3xl font-semibold text-heading mb-7">Course Rankings</p>
+            <p className="text-3xl font-semibold text-heading mb-7">
+              Course Rankings
+            </p>
             <div className="border rounded border-gray-400">
               <div
                 className={`flex justify-between text-heading text-3xl font-semibold bg-slate-800 mb-4 px-4 py-2 rounded }`}
@@ -66,6 +67,7 @@ export default function Ranking({}: Props) {
               </div>
               {positions?.allPositions?.map((position: any, index: number) => (
                 <div
+                  key={Math.random()}
                   className={`flex justify-between text-heading text-2xl my-4 px-4 py-2 rounded ${
                     index + 1 == positions.myPosition ? "bg-gray-800" : ""
                   }`}
