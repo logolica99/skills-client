@@ -139,7 +139,7 @@ export default function Home() {
               </p>
               <div className="flex">
                 <Link
-                  href=""
+                  href="/course-details/12"
                   className="flex gap-3 items-center bg-gray-300/10 hover:bg-gray-300/20 duration-150 ease-in-out backdrop-blur-lg py-2 px-8 rounded-lg"
                 >
                   <svg
@@ -163,7 +163,7 @@ export default function Home() {
             </div>
             <div>
               <img
-                src="/iPhone 14 Pro Mockup.png"
+                src="/Group 33507.png"
                 alt=""
                 className="relative lg:top-28"
               />
@@ -215,7 +215,7 @@ export default function Home() {
             </defs>
           </svg>
 
-          <div className="w-[90%] lg:w-[80%] mx-auto mt-40  text-heading py-20 z-10">
+          <div className="w-[90%] lg:w-[80%] mx-auto mt-24  text-heading py-20 z-10">
             <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
               <img
                 src="/bubble with inequality symbols.png"
