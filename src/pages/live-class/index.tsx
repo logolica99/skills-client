@@ -6,13 +6,14 @@ import Link from "next/link";
 import axios from "axios";
 import { UserContext } from "@/Contexts/UserContext";
 import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { convertUnixTimestamp } from "@/helpers";
 
 type Props = {};
 
 export default function index({}: Props) {
   const [user, setUser] = useContext<any>(UserContext);
 
-  const [liveClasses, setLiveClasses] = useState<any>([]);
+  const [liveClasses, setLiveClasses] = useState<any>({});
   const [isMeeting, setMeeting] = useState(false);
 
   const fetchClasses = () => {
@@ -25,8 +26,30 @@ export default function index({}: Props) {
         },
       })
       .then((res) => {
-        console.log(res.data.data);
-        setLiveClasses(res.data.data.list);
+        setLiveClasses(res.data.data);
+        setUser({ ...user, loading: false });
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
+  };
+
+  const submitInterested = (id: any) => {
+    setUser({ ...user, loading: true });
+    const token = localStorage.getItem("token");
+
+    axios
+      .post(
+        BACKEND_URL + `/user/live/interest/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        fetchClasses();
         setUser({ ...user, loading: false });
       })
       .catch((err) => {
@@ -51,7 +74,10 @@ export default function index({}: Props) {
     ZoomMtg.i18n.load("en-US");
     ZoomMtg.i18n.reload("en-US");
 
-    window.document.getElementById("zmmtg-root").style.display = "block";
+    const zmmtgRoot = window.document.getElementById("zmmtg-root");
+    if (zmmtgRoot) {
+      zmmtgRoot.style.display = "block";
+    }
 
     ZoomMtg.init({
       leaveUrl: config.leaveUrl,
@@ -85,7 +111,7 @@ export default function index({}: Props) {
     });
   };
 
-  const fetchMeetingProps = (liveId) => {
+  const fetchMeetingProps = (liveId: any) => {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
@@ -110,7 +136,7 @@ export default function index({}: Props) {
       <Nav></Nav>
       <Toaster />
       <div>
-        {liveClasses?.map((liveClass: any) => (
+        {/* {liveClasses?.map((liveClass: any) => (
           <div className="p-40 ">
             <p>{liveClass.title}</p>
             <button
@@ -122,7 +148,99 @@ export default function index({}: Props) {
               Click Me
             </button>
           </div>
-        ))}
+        ))} */}
+      </div>
+
+      <div className="pt-20  bg-[#0B060D] overflow-x-hidden">
+        <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20 min-h-[80vh]">
+          <p className="text-heading text-4xl font-bold mb-4">Live Classes</p>
+          <div className="flex  flex-wrap gap-8 justify-center md:justify-start">
+            {liveClasses?.list?.map((liveClass: any) => {
+              if (liveClass.scheduled_at <= liveClasses.serverTimeStamp) {
+                return (
+                  <div
+                    className={`p-4 pb-6 max-w-[332px] text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none 
+               `}
+                  >
+                    <img
+                      src={liveClass.thumbnail}
+                      className="max-w-[300px] rounded"
+                    />
+                    <p className="text-heading text-2xl font-bold mt-4 my-2">
+                      {liveClass.title}
+                    </p>
+                    <p className="text-paragraph">
+                      {" "}
+                      {convertUnixTimestamp(liveClass.scheduled_at * 1000)}
+                    </p>
+                    <p className="text-paragraph">{liveClass.duration}</p>
+
+                    <div>
+                      <button
+                        onClick={() => {
+                          fetchMeetingProps(liveClass.id);
+                        }}
+                        className={`py-2  flex gap-2 items-center mt-5 px-6 
+                   rounded font-semibold text-white text-lg
+                   bg-green-500 hover:opacity-75 cursor-pointer ease-in-out duration-150  focus:ring ring-gray-300/80 
+                  `}
+                      >
+                        Join Class
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+          </div>
+          <p className="text-heading text-4xl font-bold mb-4 mt-12">
+            Upcoming Live Classes
+          </p>
+          <div className="flex  flex-wrap gap-8 justify-center md:justify-start">
+            {liveClasses?.list?.map((liveClass: any) => {
+              if (liveClass.scheduled_at > liveClasses.serverTimeStamp) {
+                return (
+                  <div
+                    className={`p-4 pb-6 max-w-[332px] text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none
+               `}
+                  >
+                    <img
+                      src={liveClass.thumbnail}
+                      className="max-w-[300px] rounded"
+                    />
+                    <p className="text-heading text-2xl font-bold mt-4 my-2">
+                      {liveClass.title}
+                    </p>
+                    <p className="text-paragraph">
+                      {" "}
+                      {convertUnixTimestamp(liveClass.scheduled_at * 1000)}
+                    </p>
+                    <p className="text-paragraph">{liveClass.duration}</p>
+
+                    <div>
+                      <button
+                        onClick={() => {
+                          submitInterested(liveClass.id);
+                        }}
+                        className={`py-2  flex gap-2 items-center mt-5 px-6 
+                   rounded font-semibold text-white text-lg
+                   ${
+                     liveClass.interested
+                       ? "bg-gray-600 cursor-not-allowed opacity-60"
+                       : "bg-green-500 hover:opacity-75 cursor-pointer ease-in-out duration-150  focus:ring ring-gray-300/80 "
+                   }
+                  `}
+                        disabled={liveClass.interested}
+                      >
+                        Interested
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </div>
       </div>
       <div className="bg-[#0F0812] z-30 relative">
         <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">

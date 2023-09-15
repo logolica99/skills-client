@@ -110,3 +110,21 @@ export function decryptString(encryptedText: any, secretKey: any) {
   const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
   return decryptedText;
 }
+export function convertUnixTimestamp(timestamp:any) {
+  const date = new Date(timestamp);
+
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    hour: 'numeric',
+    minute: 'numeric',
+ 
+
+  };
+
+  const formattedDate = date.toLocaleDateString(undefined, options);
+
+  return formattedDate;
+}

@@ -55,18 +55,15 @@ export default function Nav({}: Props) {
               <Link href="/">
                 <img src="/logo.jpg" alt="" className="w-20 md:w-28 mr-8 " />
               </Link>
-              {/* <Link
-                href=""
-                className="hidden lg:block hover:text-white ease-in-out duration-150"
-              >
-               আমার কোর্স
-              </Link> */}
-              <Link
-                href="/live-class"
-                className=" hidden lg:block hover:text-white ease-in-out duration-150"
-              >
-                লাইফ ক্লাস শিডিউল
-              </Link>
+
+              {isLogged && (
+                <Link
+                  href="/live-class"
+                  className=" hidden lg:block hover:text-white ease-in-out duration-150"
+                >
+                  লাইভ ক্লাস শিডিউল
+                </Link>
+              )}
               <Link
                 href="/course-details/12"
                 className="hidden lg:block hover:text-white ease-in-out duration-150"
@@ -88,18 +85,20 @@ export default function Nav({}: Props) {
                   ফ্রি ট্রায়াল
                 </Link>
               )}
+
+              {isLogged && (
+                <Link
+                  href="/ranking"
+                  className="hidden lg:block hover:text-white ease-in-out duration-150"
+                >
+                  র‍্যাঙ্কিং
+                </Link>
+              )}
             </div>
 
             {isLogged ? (
               <div className="flex gap-8 md:gap-8 items-center">
-                <DarkModeSwitch
-                  sunColor="orange"
-                  size={20}
-                  checked={!darkMode}
-                  onChange={() => {
-                    setDarkMode(!darkMode);
-                  }}
-                />
+               
 
                 <p className=" hidden lg:block hover:text-white ease-in-out duration-150 text-sm md:text-base">
                   {" "}
@@ -137,14 +136,7 @@ export default function Nav({}: Props) {
               </div>
             ) : (
               <div className="flex gap-8 md:gap-8 items-center">
-                <DarkModeSwitch
-                  sunColor="orange"
-                  size={20}
-                  checked={!darkMode}
-                  onChange={() => {
-                    setDarkMode(!darkMode);
-                  }}
-                />
+                
 
                 <Link
                   href="/auth/login"
@@ -171,7 +163,7 @@ export default function Nav({}: Props) {
         {/* mobile menu */}
       </div>
       <div
-        className={`bg-gray-200 bg-opacity-10 backdrop-blur-xl lg:hidden fixed w-full z-40 text-white top-[63px] md:top-[76px] border-b border-white/30 duration-150 ease-out ${
+        className={`bg-gray-700 bg-opacity-40 backdrop-blur-xl lg:hidden fixed w-full z-40 text-white top-[58px] md:top-[76px] border-b border-white/30 duration-150 ease-out ${
           menuShow ? "translate-y-0" : "-translate-y-[170%]"
         }`}
       >
@@ -184,18 +176,44 @@ export default function Nav({}: Props) {
               >
                 নোটিফিকেশান
               </Link> */}
-              <Link
-                href=""
-                className="  hover:text-white ease-in-out duration-150"
-              >
-                লাইফ ক্লাস শিডিউল
-              </Link>
+              {isLogged && (
+                <Link
+                  href=""
+                  className="  hover:text-white ease-in-out duration-150"
+                >
+                  লাইভ ক্লাস শিডিউল
+                </Link>
+              )}
               <Link
                 href="/course-details/12"
                 className=" hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
               </Link>
+              {isLogged ? (
+                <Link
+                  href="/course/12"
+                  className=" hover:text-white ease-in-out duration-150"
+                >
+                  আপনার প্রোগ্রেস
+                </Link>
+              ) : (
+                <Link
+                  href="/course/12"
+                  className=" hover:text-white ease-in-out duration-150"
+                >
+                  ফ্রি ট্রায়াল
+                </Link>
+              )}
+
+              {isLogged && (
+                <Link
+                  href="/ranking"
+                  className=" hover:text-white ease-in-out duration-150"
+                >
+                  র‍্যাঙ্কিং
+                </Link>
+              )}
             </div>
 
             {!isLogged ? (

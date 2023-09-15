@@ -108,6 +108,7 @@ export default function RegisterPage({}: Props) {
                 placeholder="Name"
                 value={userData.name}
                 required
+                
                 onChange={(e) =>
                   setUserData({ ...userData, name: e.target.value })
                 }
