@@ -40,3 +40,17 @@ button.rec-dot {
 .animated-image{
   animation: scaleAnimation 3s infinite;
 }
+
+.customScrollbar::-webkit-scrollbar {
+  width: 6px; /* Adjust the scrollbar width as needed */
+}
+.customScrollbar::-webkit-scrollbar-thumb {
+  background-color: #4d2a5b; /* Color of the thumb */
+  border-radius: 5px; /* Rounded corners for the thumb */
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+  background: #0B060D;
+}
+
+

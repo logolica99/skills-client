@@ -7,7 +7,7 @@ import { BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BACKEND_URL } from "@/api.config";
+import { BACKEND_URL, COURSE_ID } from "@/api.config";
 import {
   apiConfig,
   calculateRemainingDays,
@@ -254,7 +254,7 @@ export default function CourseDetailsPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/1", {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -276,7 +276,7 @@ export default function CourseDetailsPage() {
       const token = localStorage.getItem("token");
       axios
         .post(
-          BACKEND_URL + "/user/payment/initiate/1",
+          BACKEND_URL + "/user/payment/initiate/" + COURSE_ID,
           {},
           {
             headers: {
@@ -285,7 +285,7 @@ export default function CourseDetailsPage() {
           }
         )
         .then((res) => {
-          window.location=res.data.data
+          window.location = res.data.data;
           // router.push("/course/12");
           //setUser({ ...user, loading: false });
         })
