@@ -10,7 +10,7 @@ import { convertUnixTimestamp } from "@/helpers";
 
 type Props = {};
 
-export default function index({}: Props) {
+export default function LiveClass({}: Props) {
   const [user, setUser] = useContext<any>(UserContext);
 
   const [liveClasses, setLiveClasses] = useState<any>({});
