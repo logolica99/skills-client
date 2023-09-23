@@ -108,7 +108,7 @@ export default function RegisterPage({}: Props) {
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
-      <div className="pt-20  bg-[#0B060D] overflow-x-hidden min-h-[100vh] relative">
+      <div className="pt-20  bg-white dark:bg-[#0B060D] overflow-x-hidden min-h-[100vh] relative">
         <svg
           className="absolute h-full w-full z-0 -top-20"
           viewBox="0 0 1215 926"
@@ -152,14 +152,15 @@ export default function RegisterPage({}: Props) {
 
         <div className="w-[90%] lg:w-[80%] mx-auto py-16 z-20">
           <form
-            className="px-8 py-6 text-heading bg-gray-100/5  backdrop-blur-xl rounded-xl  lg:w-[50%] mx-auto flex flex-col items-center  gap-4"
+            className="px-8 py-6 text-heading dark:text-darkHeading bg-gray-400/30 dark:bg-gray-100/5  backdrop-blur-xl rounded-xl  lg:w-[50%] mx-auto flex flex-col items-center  gap-4"
+          
             onSubmit={submitHandler}
           >
             <h2 className="text-2xl font-semibold">Register</h2>
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">Name</p>
               <input
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
                 placeholder="Name"
                 value={userData.name}
                 required
@@ -172,7 +173,7 @@ export default function RegisterPage({}: Props) {
               <p className="text-lg font-semibold mb-1">Phone</p>
               <input
                 disabled={isPhoneVerified}
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
                 placeholder="Phone Number"
                 value={userData.phone}
                 required
@@ -185,7 +186,8 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">Email</p>
               <input
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
+                
                 placeholder="Email"
                 value={userData.email}
                 type="email"
@@ -198,7 +200,7 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">Password</p>
               <input
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
                 placeholder="Password"
                 value={userData.password}
                 type="password"
@@ -212,7 +214,7 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">Confirm Password</p>
               <input
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
                 placeholder="Password"
                 value={userData.confirmPass}
                 type="password"
@@ -225,7 +227,7 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">Current Institution</p>
               <input
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
                 placeholder="Current Institution"
                 value={userData.currentInstitution}
                 required
@@ -242,7 +244,7 @@ export default function RegisterPage({}: Props) {
                 Current Academic Level
               </p>
               <select
-                className="select select-bordered w-full  bg-gray-200/20"
+                className="select select-bordered w-full bg-gray-400/20 dark:bg-gray-200/20"
                 required
                 onChange={(e) => {
                   setUserData({
@@ -252,19 +254,19 @@ export default function RegisterPage({}: Props) {
                 }}
                 value={userData.currentAcademicLevel}
               >
-                <option className="bg-[#0B060D]" defaultChecked disabled>
+                <option className="bg-gray-400/20 dark:bg-[#0B060D]" defaultChecked disabled>
                   Select an option
                 </option>
-                <option className="bg-[#0B060D]" value="SSC">
+                <option className="bg-gray-400/20 dark:bg-[#0B060D]" value="SSC">
                   SSC
                 </option>
-                <option className="bg-[#0B060D]" value="HSC">
+                <option className="bg-gray-400/20 dark:bg-[#0B060D]" value="HSC">
                   HSC
                 </option>
-                <option className="bg-[#0B060D]" value="UNIVERSITY">
+                <option className="bg-gray-400/20 dark:bg-[#0B060D]" value="UNIVERSITY">
                   University
                 </option>
-                <option className="bg-[#0B060D]" value="OTHERS">
+                <option className="bg-gray-400/20 dark:bg-[#0B060D]" value="OTHERS">
                   OTHERS
                 </option>
               </select>
@@ -272,12 +274,13 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">
                 Department{" "}
-                <span className="text-sm text-paragraph font-normal">
+                <span className="text-sm text-paragraph  dark:text-darkParagraph font-normal">
                   optional
                 </span>
               </p>
               <input
-                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                                className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
+
                 placeholder="Optional"
                 value={userData.department}
                 onChange={(e) =>
@@ -289,12 +292,12 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">
                 Interested to learn{" "}
-                <span className="text-sm text-paragraph font-normal">
+                <span className="text-sm text-paragraph  dark:text-darkParagraph font-normal">
                   optional
                 </span>
               </p>
               <select
-                className="select select-bordered w-full  bg-gray-200/20"
+                className="select select-bordered w-full bg-gray-400/20  dark:bg-gray-200/20"
                 onChange={(e) => {
                   setUserData({
                     ...userData,
