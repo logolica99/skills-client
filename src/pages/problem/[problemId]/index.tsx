@@ -510,6 +510,7 @@ int main(){
                         <div>
                           {submissions.map((submission: any, index: any) => (
                             <div
+                            key={Math.random()}
                               onClick={() => {
                                 setActiveSubmission(submission);
                                 changeProblemTab("activeSubmission");

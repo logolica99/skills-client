@@ -781,7 +781,7 @@ export default function CourseDetailsPage() {
                 {activeModule?.data?.category === "QUIZ" && (
                   <div>
                     {activeModule?.data?.quiz?.map((quiz: any, index: any) => (
-                      <div className="my-6">
+                      <div className="my-6" key={Math.random()}>
                         <div
                           dangerouslySetInnerHTML={{
                             __html: quiz.question,
