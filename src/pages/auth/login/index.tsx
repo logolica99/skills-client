@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import React, { useState, useContext, useEffect } from "react";
-import { HindSiliguri } from "@/pages";
+import { HindSiliguri } from "@/helpers";
 import axios from "axios";
 import { BACKEND_URL } from "@/api.config";
 import { UserContext } from "@/Contexts/UserContext";
@@ -129,7 +129,15 @@ export default function RegisterPage({}: Props) {
               {errorMsg.length > 0 && (
                 <p className="text-red-500">{errorMsg}</p>
               )}
-              <div className="flex font-semibold gap-2 mt-3">
+              <div className="flex justify-end  ">
+                <Link
+                  href="/auth/forgot-password"
+                  className="hover:underline text-purple mt-1"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+              <div className="flex font-semibold gap-2 mt-2">
                 <p>Don{"'"}t have an account? </p>
                 <Link
                   href="/auth/register"

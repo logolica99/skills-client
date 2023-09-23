@@ -50,7 +50,21 @@ button.rec-dot {
 }
 
 .customScrollbar::-webkit-scrollbar-track {
+  background: #FFF;
+}
+
+
+.darkCustomScrollbar::-webkit-scrollbar {
+  width: 6px; /* Adjust the scrollbar width as needed */
+}
+.darkCustomScrollbar::-webkit-scrollbar-thumb {
+  background-color: #4d2a5b; /* Color of the thumb */
+  border-radius: 5px; /* Rounded corners for the thumb */
+}
+
+.darkCustomScrollbar::-webkit-scrollbar-track {
   background: #0B060D;
 }
+
 
 

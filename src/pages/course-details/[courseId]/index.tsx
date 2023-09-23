@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import { HindSiliguri } from "@/pages";
+import { HindSiliguri } from "@/helpers";
 
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
@@ -20,6 +20,8 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { UserContext } from "@/Contexts/UserContext";
 import toast, { Toaster } from "react-hot-toast";
+import FloatingCompiler from "@/components/FloatingCompiler";
+import Footer from "@/components/Footer";
 
 const settings = {
   dots: true,
@@ -304,7 +306,58 @@ export default function CourseDetailsPage() {
       <Nav></Nav>
       <Toaster />
 
-      <div className="pt-20  bg-[#0B060D] overflow-x-hidden">
+      <FloatingCompiler />
+
+      <button
+        style={{ zIndex: 999 }}
+        onClick={() => {
+          setUser({ ...user, openCompiler: true });
+        }}
+        className="fixed top-80 -left-2 bg-[#0B060D] bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-3 hover:bg-gray-300/20 "
+      >
+        <svg
+          width={40}
+          height={40}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            {" "}
+            <path
+              d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M13.2942 7.17041L12.0001 12L10.706 16.8297"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+          </g>
+        </svg>
+      </button>
+      <div className="pt-20 bg-white  dark:bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20">
           <div className="flex flex-col-reverse lg:flex-row gap-24 justify-between relative">
             <svg
@@ -347,12 +400,15 @@ export default function CourseDetailsPage() {
                 </filter>
               </defs>
             </svg>
-            <div style={{ flex: 2 }} className="text-heading z-10">
+            <div
+              style={{ flex: 2 }}
+              className="text-heading dark:text-darkHeading z-10"
+            >
               <h2 className="text-2xl lg:text-4xl font-semibold">
                 {courseData?.title}
               </h2>
-              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10 relative ">
-                <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+              <div className="flex gap-8 items-center pb-6 border-b border-gray-300/80 dark:border-gray-300/10 relative ">
+                <div className="flex gap-3 mt-6 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                   <svg
                     width="18"
                     height="18"
@@ -370,7 +426,7 @@ export default function CourseDetailsPage() {
                   )}{" "}
                   দিন বাকি
                 </div>
-                <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/10 px-3 py-2 rounded-xl">
+                <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/20 dark:bg-[#A144FF]/10 px-3 py-2 rounded-xl">
                   <svg
                     width="23"
                     height="22"
@@ -391,7 +447,7 @@ export default function CourseDetailsPage() {
                 </div>
               </div>
 
-              <p className="mt-6 text-[#A3A3A3] text-lg">
+              <p className="mt-6 text-black/70 dark:text-[#A3A3A3] text-lg">
                 {courseData.short_description}
               </p>
               <div className="flex items-center gap-4 mt-20 pb-6 border-b border-gray-300/20">
@@ -401,8 +457,8 @@ export default function CourseDetailsPage() {
                   }}
                   className={`${
                     activeTab.studyPlan
-                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/5"
-                      : "text-gray-300/40 border-gray-300/40 hover:text-gray-300/70 hover:border-gray-300/70"
+                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/20 dark:text-[#F1BA41] dark:border-[#F1BA41] dark:bg-[#F1BA41]/5"
+                      : "text-gray-600/70 border-gray-600/70 bg-gray-600/5 hover:text-gray-600/90 hover:border-gray-600/90 dark:text-gray-300/40 dark:border-gray-300/40 dark:hover:text-gray-300/70 dark:hover:border-gray-300/70"
                   } px-4 lg:px-8 py-3 border rounded-full duration-150 ease-in-out text-sm lg:text-base`}
                 >
                   স্টাডি প্ল্যান
@@ -413,8 +469,8 @@ export default function CourseDetailsPage() {
                   }}
                   className={`${
                     activeTab.instructor
-                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/5"
-                      : "text-gray-300/40 border-gray-300/40 hover:text-gray-300/70 hover:border-gray-300/70"
+                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/20 dark:text-[#F1BA41] dark:border-[#F1BA41] dark:bg-[#F1BA41]/5"
+                      : "text-gray-600/70 border-gray-600/70 bg-gray-600/5 hover:text-gray-600/90 hover:border-gray-600/90 dark:text-gray-300/40 dark:border-gray-300/40 dark:hover:text-gray-300/70 dark:hover:border-gray-300/70"
                   } px-4 lg:px-8 py-3 border rounded-full duration-150 ease-in-out text-sm lg:text-base`}
                 >
                   ইন্সট্রাক্টর
@@ -425,8 +481,8 @@ export default function CourseDetailsPage() {
                   }}
                   className={`${
                     activeTab.courseComplete
-                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/5"
-                      : "text-gray-300/40 border-gray-300/40 hover:text-gray-300/70 hover:border-gray-300/70"
+                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/20 dark:text-[#F1BA41] dark:border-[#F1BA41] dark:bg-[#F1BA41]/5"
+                      : "text-gray-600/70 border-gray-600/70 bg-gray-600/5 hover:text-gray-600/90 hover:border-gray-600/90 dark:text-gray-300/40 dark:border-gray-300/40 dark:hover:text-gray-300/70 dark:hover:border-gray-300/70"
                   } px-4 lg:px-8 py-3 border rounded-full duration-150 ease-in-out text-sm lg:text-base`}
                 >
                   কোর্স সম্পর্কে বিস্তারিত
@@ -497,7 +553,7 @@ export default function CourseDetailsPage() {
                     {courseData?.chapters.map((elem: any, index: any) => (
                       <div
                         className={
-                          "collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mb-6"
+                          "collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-6"
                         }
                         key={Math.random()}
                       >
@@ -634,7 +690,7 @@ export default function CourseDetailsPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="collapse-content   border-t border-gray-300/20 ">
+                        <div className="collapse-content   border-t border-gray-400/50 dark:border-gray-300/20 ">
                           <div className="pt-6"></div>
                           {elem.modules.map((module: any) => (
                             <div
@@ -719,7 +775,7 @@ export default function CourseDetailsPage() {
                                   />
                                 </svg>
                               )}
-                              <p className="text-[#737373] text-base">
+                              <p className="text-black dark:text-[#737373] text-base">
                                 {module.data.category == "VIDEO" && "Video:"}{" "}
                                 {module.data.category == "ASSIGNMENT" &&
                                   "Assignment:"}{" "}
@@ -785,15 +841,16 @@ export default function CourseDetailsPage() {
                   </h2>
                   {courseData.instructor_list.instructors.map((instructor) => (
                     <div
-                      className="rounded-xl cursor-pointer border border-purple/0 hover:border-purple/30 duration-150 ease-in-out z-10"
+                      className=" my-7 rounded-xl cursor-pointer border border-purple/0 border-r-0 hover:border-r-1 hover:border-purple/30 duration-150 ease-in-out z-10"
                       key={Math.random()}
                       style={{
-                        background:
-                          "linear-gradient(120deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                        background: user.darkMode
+                          ? "linear-gradient(120deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)"
+                          : "linear-gradient(120deg, rgba(202, 101, 253, 0.4) 0%, rgba(177, 83, 224, 0.00) 100%)",
                       }}
                     >
                       <div
-                        className=" rounded-xl px-4 lg:px-12  py-4  mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                        className=" rounded-xl px-4 lg:px-12  py-4  mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                         style={{}}
                       >
                         <div className="flex  gap-4  justify-between items-center">
@@ -804,8 +861,8 @@ export default function CourseDetailsPage() {
                               className="max-w-[100px]"
                             />
                             <div>
-                              <p className="text-xl">{instructor.name}</p>
-                              <p className="text-sm text-paragraph font-thin mt-1">
+                              <p className="text-2xl">{instructor.name}</p>
+                              <p className=" text-paragraph dark:text-darkParagraph  mt-1">
                                 {instructor.credibility
                                   .split("\n")
                                   .map((elem: any) => (
@@ -869,12 +926,12 @@ export default function CourseDetailsPage() {
                       টি সিট বাকি
                     </div>
                   </div>
-                  <p className="mt-6 text-[#A3A3A3] text-lg  relative z-10">
+                  <p className="my-6 text-black/70 dark:text-[#A3A3A3] text-lg  relative z-10">
                     {courseData.description}
                   </p>
                   <div className=" pt-8 border-t border-gray-300/10 pb-8">
                     <p className="text-2xl lg:text-4xl pb-8 font-semibold">
-                      শিক্ষার্থীরা যা বলছ
+                      শিক্ষার্থীরা যা বলছে
                     </p>
 
                     <div className="max-w-[80vw] lg:max-w-[40vw] lgXl:max-w-[50vw] mx-auto">
@@ -882,7 +939,7 @@ export default function CourseDetailsPage() {
                         {courseData.feedback_list.feedbacks.map(
                           (feedback: any) => (
                             <div
-                              className="bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 "
+                              className="bg-gray-400/20 dark:bg-gray-300/10 backdrop-blur-lg rounded-lg p-6 "
                               key={Math.random()}
                             >
                               <svg
@@ -924,7 +981,7 @@ export default function CourseDetailsPage() {
                                 </defs>
                               </svg>
 
-                              <p className="py-8 text-xl text-paragraph">
+                              <p className="py-8 text-xl text-paragraph dark:text-darkParagraph">
                                 {feedback.description}
                               </p>
                               <div className="flex gap-4">
@@ -935,7 +992,7 @@ export default function CourseDetailsPage() {
                                 />
                                 <div>
                                   <p className="text-xl">{feedback.name}</p>
-                                  <p className="text-paragraph">
+                                  <p className="text-paragraph dark:text-darkParagraph">
                                     {feedback.bio}
                                   </p>
                                 </div>
@@ -999,7 +1056,7 @@ export default function CourseDetailsPage() {
                     </p>
                     {courseData.faq_list.faqs.map((faq: any, index: any) => (
                       <div
-                        className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mb-4"
+                        className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-4"
                         key={Math.random()}
                       >
                         <input
@@ -1020,7 +1077,7 @@ export default function CourseDetailsPage() {
               )}
             </div>
             <div style={{ flex: 1 }}>
-              <div className="p-4  text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none  ">
+              <div className="p-4  text-heading dark:text-darkHeading bg-gray-400/30 dark:bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none  ">
                 <iframe
                   className="rounded-xl w-full min-h-[200px] lg:min-h-[260px]"
                   src={courseData.intro_video}
@@ -1107,24 +1164,24 @@ export default function CourseDetailsPage() {
                 {courseData.isTaken ? (
                   <Link
                     href="/course/12"
-                    className=" flex justify-center items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                    className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                   >
                     কোর্সে যান
                   </Link>
                 ) : (
                   <button
                     onClick={buyCourse}
-                    className="bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                    className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                   >
                     কোর্সটি কিনুন
                   </button>
                 )}
               </div>
-              <div className="bg-gray-300/10   flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
-                <p className="text-sm">কোর্সটি সম্পর্কে বিস্তারিত জানত</p>
+              <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
+                <p className="text-sm text-paragraph dark:text-darkParagraph">কোর্সটি সম্পর্কে বিস্তারিত জানতে</p>
                 <a
                   href="tel:+4733378901"
-                  className="flex items-center bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-300/5 ease-in-out duration-150 text-sm"
+                  className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
                 >
                   <svg
                     width="14"
@@ -1145,45 +1202,8 @@ export default function CourseDetailsPage() {
           </div>
         </div>
       </div>
-      <div className="bg-[#0F0812] z-30 relative">
-        <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
-          <div className="flex flex-col lg:flex-row justify-between lg:items-center">
-            <div className="mb-20 lg:mb-0 z-10">
-              <img src="/logo.jpg" alt="" className="w-28 " />
-              <div className="text-paragraph mt-8">
-                <p>© WARP 2023</p>
-                <p>169 Madison Ave, #2298</p>
-                <p>New York City, NY 10016</p>
-              </div>
-            </div>
-
-            <div className="flex gap-20 text-lg text-paragraph flex-col lg:flex-row z-10">
-              <div className="flex flex-col gap-4 ">
-                <Link href="" className="hover:text-white">
-                  নোটিফিকেশান
-                </Link>
-                <Link href="" className="hover:text-white">
-                  লাইফ ক্লাস শিডিউল
-                </Link>
-                <Link href="" className="hover:text-white">
-                  কোস কন্টেন্ট
-                </Link>
-              </div>
-              <div className="flex flex-col gap-4">
-                <Link href="" className="hover:text-white">
-                  নোটিফিকেশান
-                </Link>
-                <Link href="" className="hover:text-white">
-                  লাইফ ক্লাস শিডিউল
-                </Link>
-                <Link href="" className="hover:text-white">
-                  কোস কন্টেন্ট
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import { HindSiliguri } from "@/pages";
+import { HindSiliguri } from "@/helpers";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -22,9 +22,11 @@ import {
   Theme,
 } from "@mui/material";
 import { Toaster, toast } from "react-hot-toast";
-
+import { pink } from "@mui/material/colors";
 import { withStyles } from "@mui/styles";
 import { RxButton } from "react-icons/rx";
+import FloatingCompiler from "@/components/FloatingCompiler";
+import Footer from "@/components/Footer";
 
 const GreenRadio = withStyles({
   root: {
@@ -40,7 +42,7 @@ export default function CourseDetailsPage() {
   const cancelButtonRef = useRef(null);
 
   const [user, setUser] = useContext<any>(UserContext);
-  const [quizAnswer, setQuizAnswer] = useState("");
+  const [quizAnswer, setQuizAnswer] = useState<any>({});
   const [fetchingTrigger, setFetchingTrigger] = useState(false);
   const [assignmentSubmission, setAssignmentSubmission] = useState({
     youtube_link: "",
@@ -55,9 +57,9 @@ export default function CourseDetailsPage() {
   const [courseData, setCourseData] = useState<any>({});
   const [discussions, setDiscussions] = useState<any>([]);
   const [openDiscussions, setOpenDiscussions] = useState<any>(false);
-
+  const [quizVerdict, setQuizVerdict] = useState([]);
   const [newDiscussion, setNewDiscussion] = useState<any>("");
-
+  const [showQuizAnswer, setShowQuizAnswer] = useState(false);
   const isActiveChapter = (chapter: any) => {
     for (module of chapter.modules) {
       if (String(module.id) === String(activeModule?.id)) {
@@ -191,16 +193,31 @@ export default function CourseDetailsPage() {
   };
 
   const submitQuiz = () => {
-    const decrypted = decryptString(
-      activeModule.data.answer,
-      process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
-    );
-    if (decrypted === quizAnswer) {
-      submitProgress(activeModule.id);
-    } else {
-      toast.error("Wrong Answer");
-    }
+    let quizes = activeModule.data.quiz;
+    let verdict: any = [];
+    quizes.forEach((quiz: any, index: any) => {
+      const decrypted = decryptString(
+        quiz.answer,
+        process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+      );
+      if (decrypted === quizAnswer[index]) {
+        verdict.push(true);
+        // submitProgress(activeModule.id);
+      } else {
+        verdict.push(false);
+      }
+    });
+    setShowQuizAnswer(true);
+
+    setQuizVerdict(verdict);
+    submitProgress(activeModule.id);
   };
+
+  useEffect(() => {
+    setQuizAnswer([]);
+    setQuizVerdict([]);
+    setShowQuizAnswer(false);
+  }, [activeModule]);
 
   const submitAssignment = (e: any) => {
     e.preventDefault();
@@ -307,6 +324,57 @@ export default function CourseDetailsPage() {
       <Nav></Nav>
       <Toaster />
 
+      <FloatingCompiler />
+
+      <button
+        style={{ zIndex: 999 }}
+        onClick={() => {
+          setUser({ ...user, openCompiler: true });
+        }}
+        className="fixed top-80 -left-2 bg-[#0B060D] bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-3 hover:bg-gray-300/20 "
+      >
+        <svg
+          width={40}
+          height={40}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            {" "}
+            <path
+              d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M13.2942 7.17041L12.0001 12L10.706 16.8297"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+          </g>
+        </svg>
+      </button>
       <Transition appear show={openDiscussions} as={Fragment}>
         <Dialog
           as="div"
@@ -338,7 +406,7 @@ export default function CourseDetailsPage() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" w-[90vw] md:w-[80vw] transform overflow-hidden rounded-2xl bg-[#0B060D] bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className=" w-[90vw] md:w-[80vw] transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30  backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
                     className="text-lg font-medium leading-6 "
@@ -421,7 +489,7 @@ export default function CourseDetailsPage() {
           </div>
         </Dialog>
       </Transition>
-      <div className="py-16 bg-[#0B060D] overflow-x-hidden">
+      <div className="py-16 bg-white dark:bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lgXl:w-[80%] mx-auto py-12 z-20">
           <div className="flex flex-col lg:flex-row gap-24 justify-between relative">
             <svg
@@ -464,12 +532,15 @@ export default function CourseDetailsPage() {
                 </filter>
               </defs>
             </svg>
-            <div style={{ flex: 2 }} className="text-heading z-10">
+            <div
+              style={{ flex: 2 }}
+              className="text-heading dark:text-darkHeading z-10"
+            >
               <h2 className="text-2xl lg:text-4xl font-semibold">
                 {courseData.title}
               </h2>
               {!courseData.isTaken && (
-                <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10 relative ">
+                <div className="flex gap-8 items-center pb-6 border-b border-gray-400/50 dark:border-gray-300/10 relative ">
                   <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                     <svg
                       width="18"
@@ -510,7 +581,7 @@ export default function CourseDetailsPage() {
                 </div>
               )}
               {courseData.isTaken && (
-                <div className="pb-6 border-b border-gray-300/10"></div>
+                <div className="pb-6 border-b border-gray-400/50 dark:border-gray-300/10 "></div>
               )}
 
               <div className="mt-8">
@@ -578,7 +649,7 @@ export default function CourseDetailsPage() {
                     </p>
                     <form
                       onSubmit={submitAssignment}
-                      className="lg:px-8 px-6 py-6 text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl  mx-auto flex flex-col items-center  gap-4"
+                      className="lg:px-8 px-6 py-6 text-heading dark:text-darkHeading bg-gray-100/5 backdrop-blur-xl rounded-xl  mx-auto flex flex-col items-center  gap-4"
                     >
                       <div className="w-full">
                         <p className="text-lg font-semibold mb-1">Github URL</p>
@@ -709,35 +780,106 @@ export default function CourseDetailsPage() {
 
                 {activeModule?.data?.category === "QUIZ" && (
                   <div>
-                    <p className="text-3xl mb-6">
-                      {activeModule?.data?.question}
-                    </p>
-                    <div>
-                      <FormControl>
-                        <RadioGroup
-                          value={quizAnswer}
-                          onChange={(e) => {
-                            setQuizAnswer(e.target.value);
+                    {activeModule?.data?.quiz?.map((quiz: any, index: any) => (
+                      <div className="my-6" key={Math.random()}>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: quiz.question,
                           }}
-                        >
-                          {activeModule?.data?.options?.map((elem: any) => (
-                            <FormControlLabel
-                              key={Math.random()}
-                              value={elem}
-                              control={<GreenRadio />}
-                              label={elem}
-                            />
-                          ))}
-                        </RadioGroup>
-                        <button
-                          onClick={submitQuiz}
-                          type="submit"
-                          className="py-2 mt-5 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
-                        >
-                          Submit Answer
-                        </button>
-                      </FormControl>
-                    </div>
+                        ></div>
+
+                        <div>
+                          <FormControl>
+                            <RadioGroup
+                              value={quizAnswer[index]}
+                              onChange={(e) => {
+                                let temp = quizAnswer;
+                                temp[index] = e.target.value;
+                                setQuizAnswer(temp);
+                              }}
+                            >
+                              {quiz.options?.map((elem: any) => (
+                                <FormControlLabel
+                                  key={Math.random()}
+                                  value={elem}
+                                  disabled={
+                                    !(quizAnswer[index] == elem) &&
+                                    showQuizAnswer
+                                  }
+                                  control={
+                                    <Radio
+                                      sx={{
+                                        color:
+                                          showQuizAnswer &&
+                                          !quizVerdict[index] &&
+                                          elem === quizAnswer[index]
+                                            ? "red"
+                                            : showQuizAnswer &&
+                                              quizVerdict[index] &&
+                                              elem === quizAnswer[index]
+                                            ? "limgreen"
+                                            : user.darkMode
+                                            ? "white"
+                                            : "black",
+                                        "&.Mui-checked": {
+                                          color:
+                                            showQuizAnswer &&
+                                            !quizVerdict[index] &&
+                                            elem === quizAnswer[index]
+                                              ? "red"
+                                              : showQuizAnswer &&
+                                                quizVerdict[index] &&
+                                                elem === quizAnswer[index]
+                                              ? "limegreen"
+                                              : user.darkMode
+                                              ? "white"
+                                              : "black",
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={elem}
+                                />
+                              ))}
+                            </RadioGroup>
+                          </FormControl>
+                        </div>
+
+                        {showQuizAnswer && (
+                          <div>
+                            <p className="text-heading dark:text-darkHeading text-xl mt-2">
+                              Answer:
+                            </p>
+                            <p className="text-green-400">
+                              {decryptString(
+                                quiz.answer,
+                                process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+                              )}
+                            </p>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: decryptString(
+                                  quiz.explanation,
+                                  process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+                                ),
+                              }}
+                            ></div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <button
+                      onClick={submitQuiz}
+                      type="submit"
+                      disabled={showQuizAnswer}
+                      className={`py-2 mt-5 px-8 ${
+                        showQuizAnswer
+                          ? "bg-gray-500 cursor-not-allowed"
+                          : "bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80"
+                      }   rounded font-semibold text-white text-lg`}
+                    >
+                      Submit Answer
+                    </button>
                   </div>
                 )}
               </div>
@@ -749,7 +891,7 @@ export default function CourseDetailsPage() {
                   </p>
                 )}
                 <div
-                  className="text-lg pt-6 border-t border-gray-300/10 "
+                  className="text-lg pt-6 border-t border-gray-400/50 dark:border-gray-300/10 "
                   dangerouslySetInnerHTML={{
                     __html: activeModule?.description,
                   }}
@@ -768,12 +910,12 @@ export default function CourseDetailsPage() {
               </div>
             </div>
             <div style={{ flex: 1 }} className="z-10 relative">
-              <div className="text-heading">
+              <div className="text-heading dark:text-darkHeading">
                 {courseData?.chapters?.map((elem: any, index: any) => (
                   <div
                     key={Math.random()}
                     className={
-                      "collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mb-6"
+                      "collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-6"
                     }
                   >
                     <input
@@ -920,7 +1062,7 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="collapse-content   border-t border-gray-300/20 ">
+                    <div className="collapse-content   border-t border-gray-400/50 dark:border-gray-300/10 ">
                       <div className="pt-6"></div>
                       {elem.modules.map((module: any) => (
                         <div
@@ -1073,7 +1215,7 @@ export default function CourseDetailsPage() {
                               courseData.maxModuleSerialProgress + 1 >=
                                 module.serial &&
                               module.data.category === "VIDEO"
-                                ? "hover:text-white cursor-pointer"
+                                ? "hover:text-black dark:hover:text-white cursor-pointer"
                                 : "cursor-not-allowed"
                             }
                             ${
@@ -1081,7 +1223,7 @@ export default function CourseDetailsPage() {
                               courseData.maxModuleSerialProgress >=
                                 module.serial - 1 &&
                               module.data.category === "CODE"
-                                ? "hover:text-white cursor-pointer"
+                                ? "hover:text-black dark:hover:text-white cursor-pointer"
                                 : "cursor-not-allowed"
                             }
                               
@@ -1090,7 +1232,7 @@ export default function CourseDetailsPage() {
                                 courseData.maxModuleSerialProgress >=
                                   module.serial - 1 &&
                                 module.data.category === "QUIZ"
-                                  ? "hover:text-white cursor-pointer"
+                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
                                   : "cursor-not-allowed"
                               }
                               
@@ -1100,13 +1242,13 @@ export default function CourseDetailsPage() {
                                 courseData.maxModuleSerialProgress + 1 >=
                                   module.serial &&
                                 module.data.category === "ASSIGNMENT"
-                                  ? "hover:text-white cursor-pointer"
+                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
                                   : "cursor-not-allowed"
                               }
                               ${
                                 module.id === activeModule?.id
-                                  ? "text-white"
-                                  : "text-[#737373]"
+                                  ? "text-heading dark:text-white"
+                                  : "text-paragraph/80 dark:text-[#737373]"
                               } `}
                           >
                             {module.data.category == "VIDEO" && "Video:"}{" "}
@@ -1126,45 +1268,8 @@ export default function CourseDetailsPage() {
           </div>
         </div>
       </div>
-      <div className="bg-[#0F0812] z-30 relative">
-        <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
-          <div className="flex flex-col lg:flex-row justify-between lg:items-center">
-            <div className="mb-20 lg:mb-0 z-10">
-              <img src="/logo.jpg" alt="" className="w-28 " />
-              <div className="text-paragraph mt-8">
-                <p>© WARP 2023</p>
-                <p>169 Madison Ave, #2298</p>
-                <p>New York City, NY 10016</p>
-              </div>
-            </div>
 
-            <div className="flex gap-20 text-lg text-paragraph flex-col lg:flex-row z-10">
-              <div className="flex flex-col gap-4 ">
-                <Link href="" className="hover:text-white">
-                  নোটিফিকেশান
-                </Link>
-                <Link href="" className="hover:text-white">
-                  লাইফ ক্লাস শিডিউল
-                </Link>
-                <Link href="" className="hover:text-white">
-                  কোস কন্টেন্ট
-                </Link>
-              </div>
-              <div className="flex flex-col gap-4">
-                <Link href="" className="hover:text-white">
-                  নোটিফিকেশান
-                </Link>
-                <Link href="" className="hover:text-white">
-                  লাইফ ক্লাস শিডিউল
-                </Link>
-                <Link href="" className="hover:text-white">
-                  কোস কন্টেন্ট
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

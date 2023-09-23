@@ -1,12 +1,14 @@
 import Nav from "@/components/Nav";
 import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { HindSiliguri } from "..";
+import { HindSiliguri } from "@/helpers";
 import Link from "next/link";
 import axios from "axios";
 import { UserContext } from "@/Contexts/UserContext";
 import { BACKEND_URL, COURSE_ID } from "@/api.config";
 import { convertUnixTimestamp } from "@/helpers";
+import FloatingCompiler from "@/components/FloatingCompiler";
+import Footer from "@/components/Footer";
 
 type Props = {};
 
@@ -135,6 +137,57 @@ export default function LiveClass({}: Props) {
     <div className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
       <Toaster />
+
+      <FloatingCompiler />
+      <button
+        style={{ zIndex: 999 }}
+        onClick={() => {
+          setUser({ ...user, openCompiler: true });
+        }}
+        className="fixed top-80 -left-2 bg-[#0B060D] bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-3 hover:bg-gray-300/20 "
+      >
+        <svg
+          width={40}
+          height={40}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            {" "}
+            <path
+              d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M13.2942 7.17041L12.0001 12L10.706 16.8297"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+          </g>
+        </svg>
+      </button>
       <div>
         {/* {liveClasses?.map((liveClass: any) => (
           <div className="p-40 ">
@@ -151,30 +204,34 @@ export default function LiveClass({}: Props) {
         ))} */}
       </div>
 
-      <div className="pt-20  bg-[#0B060D] overflow-x-hidden">
+      <div className="pt-20  bg-white dark:bg-[#0B060D] overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20 min-h-[80vh]">
-          <p className="text-heading text-4xl font-bold mb-4">Live Classes</p>
+          <p className="text-heading dark:text-darkHeading text-4xl font-bold mb-4">
+            Live Classes
+          </p>
           <div className="flex  flex-wrap gap-8 justify-center md:justify-start">
             {liveClasses?.list?.map((liveClass: any) => {
               if (liveClass.scheduled_at <= liveClasses.serverTimeStamp) {
                 return (
                   <div
-                  key={Math.random()}
-                    className={`p-4 pb-6 max-w-[332px] text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none 
+                    key={Math.random()}
+                    className={`p-4 pb-6 max-w-[332px] text-heading dark:text-darkHeading bg-gray-300/40 dark:bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none 
                `}
                   >
                     <img
                       src={liveClass.thumbnail}
                       className="max-w-[300px] rounded"
                     />
-                    <p className="text-heading text-2xl font-bold mt-4 my-2">
+                    <p className="text-heading dark:text-darkHeading text-2xl font-bold mt-4 my-2">
                       {liveClass.title}
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       {" "}
                       {convertUnixTimestamp(liveClass.scheduled_at * 1000)}
                     </p>
-                    <p className="text-paragraph">{liveClass.duration}</p>
+                    <p className="text-paragraph dark:text-darkParagraph">
+                      {liveClass.duration}
+                    </p>
 
                     <div>
                       <button
@@ -194,7 +251,7 @@ export default function LiveClass({}: Props) {
               }
             })}
           </div>
-          <p className="text-heading text-4xl font-bold mb-4 mt-12">
+          <p className="text-heading dark:text-darkHeading text-4xl font-bold mb-4 mt-12">
             Upcoming Live Classes
           </p>
           <div className="flex  flex-wrap gap-8 justify-center md:justify-start">
@@ -202,22 +259,24 @@ export default function LiveClass({}: Props) {
               if (liveClass.scheduled_at > liveClasses.serverTimeStamp) {
                 return (
                   <div
-                  key={Math.random()}
-                    className={`p-4 pb-6 max-w-[332px] text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none
+                    key={Math.random()}
+                    className={`p-4 pb-6 max-w-[332px] text-heading dark:text-darkHeading bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none
                `}
                   >
                     <img
                       src={liveClass.thumbnail}
                       className="max-w-[300px] rounded"
                     />
-                    <p className="text-heading text-2xl font-bold mt-4 my-2">
+                    <p className="text-heading dark:text-darkHeading text-2xl font-bold mt-4 my-2">
                       {liveClass.title}
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       {" "}
                       {convertUnixTimestamp(liveClass.scheduled_at * 1000)}
                     </p>
-                    <p className="text-paragraph">{liveClass.duration}</p>
+                    <p className="text-paragraph dark:text-darkParagraph">
+                      {liveClass.duration}
+                    </p>
 
                     <div>
                       <button
@@ -244,45 +303,7 @@ export default function LiveClass({}: Props) {
           </div>
         </div>
       </div>
-      <div className="bg-[#0F0812] z-30 relative">
-        <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
-          <div className="flex flex-col lg:flex-row justify-between lg:items-center">
-            <div className="mb-20 lg:mb-0 z-10">
-              <img src="/logo.jpg" alt="" className="w-28 " />
-              <div className="text-paragraph mt-8">
-                <p>© WARP 2023</p>
-                <p>169 Madison Ave, #2298</p>
-                <p>New York City, NY 10016</p>
-              </div>
-            </div>
-
-            <div className="flex gap-20 text-lg text-paragraph flex-col lg:flex-row z-10">
-              <div className="flex flex-col gap-4 ">
-                <Link href="" className="hover:text-white">
-                  নোটিফিকেশান
-                </Link>
-                <Link href="" className="hover:text-white">
-                  লাইফ ক্লাস শিডিউল
-                </Link>
-                <Link href="" className="hover:text-white">
-                  কোস কন্টেন্ট
-                </Link>
-              </div>
-              <div className="flex flex-col gap-4">
-                <Link href="" className="hover:text-white">
-                  নোটিফিকেশান
-                </Link>
-                <Link href="" className="hover:text-white">
-                  লাইফ ক্লাস শিডিউল
-                </Link>
-                <Link href="" className="hover:text-white">
-                  কোস কন্টেন্ট
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

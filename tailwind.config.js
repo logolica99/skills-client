@@ -8,6 +8,7 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite/**/*.js",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {
@@ -21,10 +22,12 @@ module.exports = {
       colors: {
         teal: "#107B61",
         yellow: "#DE9931",
-       
+
         purple: "#B153E0",
-        paragraph: "#BCBCBC",
-        heading: "#E2E8F0",
+        paragraph: "#2E2E2E",
+        heading: "#0F0F0F",
+        darkParagraph: "#BCBCBC",
+        darkHeading: "#E2E8F0",
       },
       screens: {
         lgXl: "1440px",

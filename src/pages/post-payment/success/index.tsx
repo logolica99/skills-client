@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import { HindSiliguri } from "@/pages";
+import { HindSiliguri } from "@/helpers";
 
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
@@ -270,12 +270,10 @@ export default function SuccessPage() {
   };
 
   const buyCourse = () => {
-
-    setTimeout(
-      function() {
-          setUser({ ...user, loading: false });
-          router.push("/course/12");
-      }, 3000);
+    setTimeout(function () {
+      setUser({ ...user, loading: false });
+      router.push("/course/12");
+    }, 3000);
     // setUser({ ...user, loading: true });
     //   const token = localStorage.getItem("token");
     //   axios
@@ -294,26 +292,30 @@ export default function SuccessPage() {
     //                 setUser({ ...user, loading: false });
     //                 router.push("/course/12");
     //             }, 2000);
-            
-          
+
     //     })
     //     .catch((err) => {
     //       setUser({ ...user, loading: false });
     //     });
-
   };
 
   useEffect(() => {
     buyCourse();
   }, []);
 
-
   return (
-    <div style={{width:'100vw',height:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Typography variant="h4">
         কোর্সটি কেনা সফল হয়েছে... অপেক্ষা করুন
       </Typography>
     </div>
   );
-
 }
