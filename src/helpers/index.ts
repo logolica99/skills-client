@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import CryptoJS from "crypto-js";
+import localFont from "next/font/local";
 
 export const checkTokenValidity = (token: any) => {
   return jwtDecode<any>(token).name.length > 0 ? true : false;
@@ -114,15 +115,66 @@ export function convertUnixTimestamp(timestamp: any) {
   const date = new Date(timestamp);
 
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-    hour: 'numeric',
-    minute: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+    hour: "numeric",
+    minute: "numeric",
   };
 
   const formattedDate = date.toLocaleDateString(undefined, options);
 
   return formattedDate;
 }
+
+export function formatDate(inputDate: any) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const month = months[inputDate.getMonth()];
+  const day = inputDate.getDate();
+  const year = inputDate.getFullYear();
+
+  const formattedDate = `${month} ${day.toString().padStart(2, "0")}, ${year}`;
+
+  return formattedDate;
+}
+
+export const HindSiliguri = localFont({
+  src: [
+    {
+      path: "../pages/fonts/Hind_Siliguri/HindSiliguri-Bold.ttf",
+      weight: "700",
+    },
+    {
+      path: "../pages/fonts/Hind_Siliguri/HindSiliguri-Light.ttf",
+      weight: "300",
+    },
+    {
+      path: "../pages/fonts/Hind_Siliguri/HindSiliguri-Regular.ttf",
+      weight: "400",
+    },
+    {
+      path: "../pages/fonts/Hind_Siliguri/HindSiliguri-SemiBold.ttf",
+      weight: "600",
+    },
+    {
+      path: "../pages/fonts/Hind_Siliguri/HindSiliguri-Medium.ttf",
+      weight: "500",
+    },
+  ],
+  variable: "--font-HindSiliguri",
+});

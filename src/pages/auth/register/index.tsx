@@ -1,12 +1,14 @@
 import Nav from "@/components/Nav";
 import React, { useState, useContext, useEffect } from "react";
-import { HindSiliguri } from "@/pages";
+import { HindSiliguri } from "@/helpers";
 import axios from "axios";
 import { BACKEND_URL } from "@/api.config";
 import { UserContext } from "@/Contexts/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { isLoggedIn } from "@/helpers";
+import Button from "@/components/Button";
+import bcrypt from "bcryptjs-react";
 
 type Props = {};
 
@@ -15,33 +17,86 @@ export default function RegisterPage({}: Props) {
     name: string;
     email: string;
     password: string;
+    phone: any;
+    confirmPass: any;
+    currentInstitution: any;
+    department: any;
+    currentAcademicLevel: any;
+    interestedTopic: any;
   }>({
     name: "",
     email: "",
     password: "",
+    phone: "",
+    confirmPass: "",
+    currentInstitution: "",
+    department: "",
+    currentAcademicLevel: "",
+    interestedTopic: "",
   });
   const router = useRouter();
 
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
   const [user, setUser] = useContext<any>(UserContext);
+  const [submitButtonLoading, setSubmitButtonLoading] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [otpHash, setOtpHash] = useState("");
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    setUser({ ...user, loading: true });
-    axios
-      .post(BACKEND_URL + "/admin/auth/register", {
-        login: userData.email,
-        password: userData.password,
-        name: userData.name,
-        type: 3,
-      })
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        setUser({ ...user, loading: false });
-        router.push("/course-details/12");
-      })
-      .catch((err) => {
-        setUser({ ...user, loading: false });
-      });
+    setSubmitButtonLoading(true);
+
+    if (otp.length > 0) {
+      const compareOtp = bcrypt.compareSync(otp, otpHash);
+
+      if (compareOtp) {
+        axios
+          .post(BACKEND_URL + "/admin/auth/register-user", {
+            login: userData.phone,
+            password: userData.password,
+            name: userData.name,
+            type: 3,
+            profile: {
+              email: userData.email,
+              currentInstitution: userData.currentInstitution,
+              department: userData.department,
+              currentAcademicLevel: userData.currentAcademicLevel,
+              interestedTopic: userData.interestedTopic,
+            },
+          })
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+            setSubmitButtonLoading(false);
+            router.push("/course-details/12");
+          })
+          .catch((err) => {
+            setSubmitButtonLoading(false);
+          });
+      } else {
+        setErrorMsg("Wrong OTP!");
+        setSubmitButtonLoading(false);
+      }
+    } else {
+      if (userData.password === userData.confirmPass) {
+        axios
+          .get(BACKEND_URL + "/admin/auth/otp/" + userData.phone)
+          .then((res) => {
+            setSubmitButtonLoading(false);
+            setOtpHash(res.data.data.otp);
+            setShowOtp(true);
+            setIsPhoneVerified(true);
+          })
+          .catch((err) => {
+            setErrorMsg(err.response.data.data);
+            setSubmitButtonLoading(false);
+          });
+      } else {
+        setErrorMsg("The Paswords Must Match!");
+        setSubmitButtonLoading(false);
+      }
+    }
   };
 
   useEffect(() => {
@@ -108,9 +163,22 @@ export default function RegisterPage({}: Props) {
                 placeholder="Name"
                 value={userData.name}
                 required
-                
                 onChange={(e) =>
                   setUserData({ ...userData, name: e.target.value })
+                }
+              />
+            </div>
+            <div className="w-full">
+              <p className="text-lg font-semibold mb-1">Phone</p>
+              <input
+                disabled={isPhoneVerified}
+                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                placeholder="Phone Number"
+                value={userData.phone}
+                required
+                type="number"
+                onChange={(e) =>
+                  setUserData({ ...userData, phone: e.target.value })
                 }
               />
             </div>
@@ -139,7 +207,118 @@ export default function RegisterPage({}: Props) {
                   setUserData({ ...userData, password: e.target.value })
                 }
               />
+            </div>
 
+            <div className="w-full">
+              <p className="text-lg font-semibold mb-1">Confirm Password</p>
+              <input
+                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                placeholder="Password"
+                value={userData.confirmPass}
+                type="password"
+                required
+                onChange={(e) =>
+                  setUserData({ ...userData, confirmPass: e.target.value })
+                }
+              />
+            </div>
+            <div className="w-full">
+              <p className="text-lg font-semibold mb-1">Current Institution</p>
+              <input
+                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                placeholder="Current Institution"
+                value={userData.currentInstitution}
+                required
+                onChange={(e) =>
+                  setUserData({
+                    ...userData,
+                    currentInstitution: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="w-full">
+              <p className="text-lg font-semibold mb-1">
+                Current Academic Level
+              </p>
+              <select
+                className="select select-bordered w-full  bg-gray-200/20"
+                required
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    currentAcademicLevel: e.target.value,
+                  });
+                }}
+                value={userData.currentAcademicLevel}
+              >
+                <option className="bg-[#0B060D]" defaultChecked disabled>
+                  Select an option
+                </option>
+                <option className="bg-[#0B060D]" value="SSC">
+                  SSC
+                </option>
+                <option className="bg-[#0B060D]" value="HSC">
+                  HSC
+                </option>
+                <option className="bg-[#0B060D]" value="UNIVERSITY">
+                  University
+                </option>
+                <option className="bg-[#0B060D]" value="OTHERS">
+                  OTHERS
+                </option>
+              </select>
+            </div>
+            <div className="w-full">
+              <p className="text-lg font-semibold mb-1">
+                Department{" "}
+                <span className="text-sm text-paragraph font-normal">
+                  optional
+                </span>
+              </p>
+              <input
+                className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                placeholder="Optional"
+                value={userData.department}
+                onChange={(e) =>
+                  setUserData({ ...userData, department: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="w-full">
+              <p className="text-lg font-semibold mb-1">
+                Interested to learn{" "}
+                <span className="text-sm text-paragraph font-normal">
+                  optional
+                </span>
+              </p>
+              <select
+                className="select select-bordered w-full  bg-gray-200/20"
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    interestedTopic: e.target.value,
+                  });
+                }}
+                value={userData.interestedTopic}
+              >
+                <option className="bg-[#0B060D]" defaultChecked disabled>
+                  Select an option
+                </option>
+                <option className="bg-[#0B060D]" value="WEB">
+                  Web
+                </option>
+                <option className="bg-[#0B060D]" value="Android">
+                  Android
+                </option>
+                <option className="bg-[#0B060D]" value="COMPETITIVEPROGRAMMING">
+                  Competitive Programming
+                </option>
+              </select>
+            </div>
+
+            <div className="w-full">
               <div className="flex font-semibold gap-2 mt-3">
                 <p>Already have an account? </p>
                 <Link
@@ -151,13 +330,29 @@ export default function RegisterPage({}: Props) {
               </div>
             </div>
 
+            {showOtp && (
+              <div className="w-full">
+                <p className="text-green-400">OTP sent to your Phone Number</p>
+                <p className="text-lg font-semibold mb-1 mt-1">Enter OTP</p>
+                <input
+                  className="w-full px-3 py-3 rounded bg-gray-200/20 outline-none focus:ring ring-gray-300/80"
+                  placeholder="OTP"
+                  value={otp}
+                  type="number"
+                  required
+                  onChange={(e) => setOtp(e.target.value)}
+                />
+              </div>
+            )}
+            {errorMsg.length > 0 && <p className="text-red-400">{errorMsg}</p>}
+
             <div className="mt-4">
-              <button
+              <Button
                 type="submit"
-                className="py-2 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
-              >
-                Submit
-              </button>
+                loading={submitButtonLoading}
+                bgColor={"#532e62"}
+                label="Submit"
+              />
             </div>
           </form>
         </div>

@@ -1,11 +1,15 @@
+import { UserContext } from "@/Contexts/UserContext";
+import FloatingCompiler from "@/components/FloatingCompiler";
+import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { useContext } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const HindSiliguri = localFont({
+const HindSiliguri = localFont({
   src: [
     {
       path: "fonts/Hind_Siliguri/HindSiliguri-Bold.ttf",
@@ -32,10 +36,62 @@ export const HindSiliguri = localFont({
 });
 
 export default function Home() {
+  const [user, setUser] = useContext<any>(UserContext);
   return (
     <main className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
-      <div className="bg-black  pt-20 overflow-x-hidden">
+      <FloatingCompiler />
+      <button
+        style={{ zIndex: 999 }}
+        onClick={() => {
+          setUser({ ...user, openCompiler: true });
+        }}
+        className="fixed top-80 -left-2 bg-[#0B060D] bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-3 hover:bg-gray-300/20 "
+      >
+        <svg
+          width={40}
+          height={40}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            {" "}
+            <path
+              d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M13.2942 7.17041L12.0001 12L10.706 16.8297"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+            <path
+              d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>{" "}
+          </g>
+        </svg>
+      </button>
+
+      <div className="bg-[#F3F3F3] dark:bg-black  pt-20 overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
           <div className="flex justify-between items-center flex-col-reverse lg:flex-row gap-20 pt-10 lg:pt-0 relative ">
             <svg
@@ -125,7 +181,7 @@ export default function Home() {
               </defs>
             </svg>
 
-            <div className="text-heading flex flex-col gap-4 z-10">
+            <div className="text-heading dark:text-darkHeading flex flex-col gap-4 z-10">
               <p className="text-[#2BA98B]">বাংলা কম্পিটিটিভ কোর্স</p>
               <div>
                 <h2 className="text-2xl lg:text-4xl">
@@ -140,7 +196,7 @@ export default function Home() {
               <div className="flex">
                 <Link
                   href="/course-details/12"
-                  className="flex gap-3 items-center bg-gray-300/10 hover:bg-gray-300/20 duration-150 ease-in-out backdrop-blur-lg py-2 px-8 rounded-lg"
+                  className="flex gap-3 items-center  bg-gray-400/40 hover:bg-gray-400/60 dark:bg-gray-300/10 dark:hover:bg-gray-300/20 duration-150 ease-in-out backdrop-blur-lg py-2 px-8 rounded-lg"
                 >
                   <svg
                     width="20"
@@ -171,7 +227,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-black z-30 relative">
+        <div className="bg-white dark:bg-black z-30 relative">
           <svg
             width="1475"
             height="915"
@@ -215,7 +271,7 @@ export default function Home() {
             </defs>
           </svg>
 
-          <div className="w-[90%] lg:w-[80%] mx-auto mt-24  text-heading py-20 z-10">
+          <div className="w-[90%] lg:w-[80%] mx-auto mt-24  text-heading dark:text-darkHeading py-20 z-10">
             <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
               <img
                 src="/bubble with inequality symbols.png"
@@ -234,28 +290,28 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lgXl:grid-cols-4  mt-24 ">
               <div className="flex flex-col items-center md:border-r border-b border-gray-100/10 px-20 text-center py-12 pt-16">
                 <svg
-                  width="43"
-                  height="25"
+                  width="52"
+                  height="30"
                   viewBox="0 0 43 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M40.25 2.94217L30.5 8.58217V2.22217L29 0.722168H2L0.5 2.22217V23.2222L2 24.7222H29L30.5 23.2222V17.2222L40.25 22.8322L42.5 21.4222V4.26217L40.25 2.94217ZM27.5 21.7222H3.5V3.72217H27.5V21.7222ZM39.5 18.7222L30.5 13.6222V12.0622L39.5 6.72217V18.7222Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
                 <p className="text-xl mt-6">জিরো থেকে হিরো</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   কোর্সটিতে তোমাকে জিরো থেকে হিরো হওয়ার কমপ্লিট গাইডলাইন দেয়া
                   হবে
                 </p>
               </div>
               <div className="flex flex-col items-center lgXl:border-r border-b border-gray-100/10 px-20 text-center py-12 pt-16">
                 <svg
-                  width="44"
-                  height="43"
+                  width="31"
+                  height="30"
                   viewBox="0 0 44 43"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -264,42 +320,42 @@ export default function Home() {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M11.25 40.3125V37.625C16.625 37.625 16.625 36.0125 16.625 34.9375H4.53125L3.1875 33.5938V6.71875L4.53125 5.375H39.4688L40.8125 6.71875V31.5512L38.125 28.8637V8.0625H5.875V32.25H21.2744L19.9306 33.5938L26.6494 40.3125H11.25ZM32.3737 40.3125L39.0925 33.5938L37.1844 31.7125L32.75 36.1469V18.8125H30.0625V36.12L25.655 31.6856L23.7469 33.5938L30.4656 40.3125H32.3737Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
 
                 <p className="text-xl mt-6">
                   Googler সহ বিশ্বসেরা কোডাররা ক্লাস
                 </p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   বাংলাদেশ সহ বিশ্বসেরা কোডাররা আমাদের প্লাটফর্মে ক্লাস নিবে
                 </p>
               </div>
               <div className="flex flex-col items-center md:border-r border-b border-gray-100/10 px-20 text-center py-12 pt-16">
                 <svg
-                  width="42"
-                  height="33"
+                  width="39"
+                  height="30"
                   viewBox="0 0 42 33"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M11.624 8.45617L3.683 16.3942L11.624 24.3322L9.5 26.4562L0.5 17.4562V15.3322L9.5 6.33217L11.624 8.45617ZM32.624 6.33217L30.5 8.45617L38.441 16.3942L30.5 24.3322L32.624 26.4562L41.624 17.4562V15.3322L32.624 6.33217ZM12.224 30.7222L14.906 32.0662L29.906 2.06617L27.224 0.722168L12.224 30.7222Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
 
                 <p className="text-xl mt-6">কোর্স কন্টেন্ট আনলক সিস্টেম</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   নির্দিস্ট মডিউল শেষ করলেই শুধুমাত্র পরবর্তী মডিউল আনলক হবে
                 </p>
               </div>
               <div className="flex flex-col items-center  border-b border-gray-100/10 px-20 text-center py-12 pt-16">
                 <svg
-                  width="48"
-                  height="48"
+                  width="30"
+                  height="30"
                   viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -308,60 +364,60 @@ export default function Home() {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M11.0201 20.097L28.0991 5.289L26.0651 3L10.1291 16.788L5.59906 11.292L3.31006 13.326L8.86006 19.968L11.0201 20.097ZM45.3101 15H20.7821L27.7031 9H45.3101V15ZM18.3101 21H45.3101V27H18.3101V21ZM45.3101 33H18.3101V39H45.3101V33Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
 
                 <p className="text-xl mt-6">৬০+ ঘণ্টার ভিডিও কন্টেন্ট</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   International কোয়ালিটি এর ভিডিও কন্টেন্ট দেয়া হবে
                 </p>
               </div>
               <div className="flex flex-col items-center md:border-r border-b lgXl:border-b-0  border-gray-100/10 px-20 text-center py-12 pb-16">
                 <svg
-                  width="39"
-                  height="39"
+                  width="30"
+                  height="30"
                   viewBox="0 0 39 39"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M34.1344 28.5301C32.9611 27.3559 31.5901 26.3975 30.0844 25.6989C32.2078 23.9785 33.5625 21.3535 33.5625 18.4098C33.5625 13.216 29.2312 8.9551 24.0375 9.03479C18.9234 9.11448 14.8031 13.2817 14.8031 18.4098C14.8031 21.3535 16.1625 23.9785 18.2812 25.6989C16.7752 26.397 15.4042 27.3554 14.2312 28.5301C11.6719 31.0942 10.2187 34.4785 10.125 38.0879C10.1237 38.1379 10.1325 38.1877 10.1508 38.2343C10.1691 38.2809 10.1965 38.3233 10.2315 38.3592C10.2664 38.395 10.3082 38.4234 10.3543 38.4429C10.4004 38.4623 10.45 38.4723 10.5 38.4723H13.125C13.3266 38.4723 13.4953 38.3129 13.5 38.1114C13.5891 35.3926 14.6906 32.8473 16.6266 30.916C17.6172 29.9201 18.7956 29.1306 20.0934 28.5931C21.3912 28.0556 22.7828 27.7809 24.1875 27.7848C27.0422 27.7848 29.7281 28.8957 31.7484 30.916C33.6797 32.8473 34.7812 35.3926 34.875 38.1114C34.8797 38.3129 35.0484 38.4723 35.25 38.4723H37.875C37.925 38.4723 37.9746 38.4623 38.0207 38.4429C38.0668 38.4234 38.1086 38.395 38.1435 38.3592C38.1785 38.3233 38.2059 38.2809 38.2242 38.2343C38.2425 38.1877 38.2513 38.1379 38.25 38.0879C38.1562 34.4785 36.7031 31.0942 34.1344 28.5301ZM24.1875 24.4098C22.5844 24.4098 21.075 23.7864 19.9453 22.652C19.3784 22.0895 18.9305 21.4186 18.6285 20.6793C18.3265 19.94 18.1765 19.1474 18.1875 18.3489C18.2016 16.8114 18.8156 15.3254 19.8891 14.2239C21.0141 13.0707 22.5187 12.4285 24.1266 12.4098C25.7156 12.3957 27.2578 13.0145 28.3922 14.1254C29.5547 15.2645 30.1922 16.7879 30.1922 18.4098C30.1922 20.0129 29.5687 21.5176 28.4344 22.652C27.8778 23.2112 27.2159 23.6545 26.487 23.9562C25.758 24.2579 24.9764 24.4121 24.1875 24.4098ZM12.4453 19.6473C12.4031 19.2395 12.3797 18.827 12.3797 18.4098C12.3797 17.6645 12.45 16.9379 12.5812 16.2301C12.6141 16.0614 12.525 15.8879 12.3703 15.8176C11.7328 15.5317 11.1469 15.1379 10.6406 14.641C10.0441 14.0626 9.57468 13.3662 9.26233 12.5963C8.94999 11.8263 8.80157 10.9997 8.82656 10.1692C8.86874 8.66448 9.47343 7.23479 10.5281 6.15667C11.6859 4.97073 13.2422 4.32385 14.8969 4.3426C16.3922 4.35667 17.8359 4.93323 18.9281 5.9551C19.2984 6.30198 19.6172 6.68635 19.8844 7.09885C19.9781 7.24417 20.1609 7.3051 20.3203 7.24885C21.1453 6.96292 22.0172 6.76135 22.9125 6.6676C23.175 6.63948 23.325 6.35823 23.2078 6.12385C21.6844 3.10979 18.5719 1.02854 14.9719 0.972291C9.77343 0.892604 5.44218 5.15354 5.44218 10.3426C5.44218 13.2864 6.79687 15.9114 8.92031 17.6317C7.42968 18.3207 6.05625 19.2723 4.86562 20.4629C2.29687 23.027 0.843745 26.4114 0.749995 30.0254C0.748744 30.0754 0.757519 30.1252 0.775804 30.1718C0.794088 30.2184 0.821512 30.2608 0.85646 30.2967C0.891407 30.3325 0.933171 30.3609 0.97929 30.3804C1.02541 30.3998 1.07495 30.4098 1.125 30.4098H3.75468C3.95625 30.4098 4.125 30.2504 4.12968 30.0489C4.21875 27.3301 5.32031 24.7848 7.25625 22.8535C8.63437 21.4754 10.3219 20.5192 12.1641 20.0551C12.3469 20.0082 12.4687 19.8348 12.4453 19.6473Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
 
                 <p className="text-xl mt-6">৩০ টি এক্সপার্ট ক্লাস আর্কাইভ</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   বিগত বছরগুলোর ক্লাস ফ্রি তে দিয়ে দেয়া হবে
                 </p>
               </div>
               <div className="flex flex-col items-center border-b lgXl:border-b-0  lgXl:border-r  border-gray-100/10 px-20 text-center py-12 pb-16">
                 <svg
-                  width="42"
-                  height="33"
+                  width="39"
+                  height="30"
                   viewBox="0 0 42 33"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M11.124 8.45617L3.183 16.3942L11.124 24.3322L9 26.4562L0 17.4562V15.3322L9 6.33217L11.124 8.45617ZM32.124 6.33217L30 8.45617L37.941 16.3942L30 24.3322L32.124 26.4562L41.124 17.4562V15.3322L32.124 6.33217ZM11.724 30.7222L14.406 32.0662L29.406 2.06617L26.724 0.722168L11.724 30.7222Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
 
                 <p className="text-xl mt-6">৩০০+ কোডিং সমস্যা ও ভিডিও সলিউশন</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   কাস্টমাইজড কোডিং সমস্যা সহ ভিডিও সলিউশন দেয়া হবে
                 </p>
               </div>
               <div className="flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100/10 px-20 text-center py-12 pb-16">
                 <svg
-                  width="36"
-                  height="34"
+                  width="32"
+                  height="30"
                   viewBox="0 0 36 34"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -370,41 +426,41 @@ export default function Home() {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M1.4136 0.522461H34.2064L35.4677 1.78372V32.054L34.2064 33.3152H1.4136L0.152344 32.054V1.78372L1.4136 0.522461ZM2.67487 10.6125V30.7927H32.9451V10.6125H2.67487ZM2.67487 8.09003H32.9451V3.04498H2.67487V8.09003Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
 
                 <p className="text-xl mt-6">80 টি লাইভ ক্লাস</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   কোর্স চলাকালীন সপ্তাহে ৫ দিন প্রতিদিন ২ ঘণ্টা এক্সপার্ট
                   টিচারদের সরাসরি লাইভ ক্লাস
                 </p>
               </div>
               <div className="flex flex-col items-center   border-gray-100/10 px-20 text-center py-12 pb-16">
                 <svg
-                  width="43"
-                  height="25"
+                  width="48"
+                  height="30"
                   viewBox="0 0 43 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M40.25 2.94217L30.5 8.58217V2.22217L29 0.722168H2L0.5 2.22217V23.2222L2 24.7222H29L30.5 23.2222V17.2222L40.25 22.8322L42.5 21.4222V4.26217L40.25 2.94217ZM27.5 21.7222H3.5V3.72217H27.5V21.7222ZM39.5 18.7222L30.5 13.6222V12.0622L39.5 6.72217V18.7222Z"
-                    fill="white"
-                    fillOpacity="0.17"
+                    fill={user.darkMode?"white":"black"}
+                    fillOpacity={user.darkMode?"0.17":".4"}
                   />
                 </svg>
                 <p className="text-xl mt-6">কোর্স র‍্যাংকিং</p>
-                <p className="text-sm mt-8 text-paragraph">
+                <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
                   নিজের অবস্থান বোঝার জন্যে লাইভ ডায়নামিক র‍্যাংকিং সিস্টেম
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-[#02090A] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading mt-40 py-20 md:py-32">
+        <div className="bg-[#2BA98B]/20 dark:bg-[#02090A] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading pt-40 py-20 md:py-32">
             <div
               className="rounded-xl "
               style={{
@@ -412,7 +468,7 @@ export default function Home() {
               }}
             >
               <div
-                className=" rounded-xl px-16 py-20 pb-20 mx-[1px] bg-[#02090A]/60 relative top-[1px] "
+                className=" rounded-xl px-16 py-20 pb-20 mx-[1px] dark:bg-[#02090A]/60 relative top-[1px] "
                 style={{}}
               >
                 <div className="flex justify-between gap-16 flex-col lg:flex-row items-center">
@@ -429,7 +485,7 @@ export default function Home() {
                       বিশ্বের সবচেয়ে বেস্ট বেস্ট প্রোগ্রামাররা নিজেদের সাথে
                       প্রতিযোগিতা করে
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       বাংলাদেশ থেকে খুব কম সংখ্যক শিক্ষার্থী প্রতি বছর ই
                       কম্পেটিটিভ প্রোগ্রামিং বা CP এর অলম্পিকশ্ ACM ICPC এর
                       World Finale তে অংশগ্রহণ করে World Finalist থেকে শুরু করে
@@ -446,8 +502,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="bg-[#0B060D] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
+        <div className="bg-[#ca65fd]/20 dark:bg-[#0B060D] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
             <div className="flex flex-col lg:flex-row text-center lg:text-left justify-between items-center  pb-10 gap-6 lg:gap-0 border-b border-gray-100/20">
               <div className="flex-1">
                 <div className="flex justify-center lg:justify-start">
@@ -477,15 +533,15 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/80 relative top-[1px]"
                   style={{}}
                 >
                   <div className="">
-                    <p className="text-heading text-center text-xl">
+                    <p className="text-heading dark:text-darkHeading text-center text-xl">
                       গ্রাজুয়েশনের আগেই{" "}
                       <span className="text-[#B153E0]">FAANG</span> থেকে অফার
                     </p>
-                    <p className="text-paragraph mt-8">
+                    <p className="text-paragraph dark:text-darkParagraph mt-8">
                       CP তে সেরাদের FACEBOOK, AMAZON, APPLE, NETFLIX, GOOGLE
                       যাদের আমরা FAANG হিসাবে চিনে থাকি তারা অফারলেটার দেয়
                     </p>
@@ -500,14 +556,14 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/80 relative top-[1px]"
                   style={{}}
                 >
                   <div className="">
-                    <p className="text-heading text-center text-xl">
+                    <p className="text-heading dark:text-darkHeading text-center text-xl">
                       সমস্যা সমাধান এর দক্ষতা বাড়ায়
                     </p>
-                    <p className="text-paragraph mt-8">
+                    <p className="text-paragraph dark:text-darkParagraph mt-8">
                       CP সমস্যা সমাধানের লজিক শেখায়, স্টেপ বাই স্টেপ যেকোন
                       সমস্যা কে এপ্রোচ করা শেখায়। ব্রেইন কে ক্রিটিকাল থিংকিং
                       করতে ট্রেইন করে।একটা সমস্যা কে ভিন্ন ভিন্ন এঙ্গেল থেকে
@@ -524,14 +580,14 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/80 relative top-[1px]"
                   style={{}}
                 >
                   <div className="">
-                    <p className="text-heading text-center text-xl">
+                    <p className="text-heading dark:text-darkHeading text-center text-xl">
                       ক্যারিয়ার গঠন
                     </p>
-                    <p className="text-paragraph mt-8">
+                    <p className="text-paragraph dark:text-darkParagraph mt-8">
                       CP তোমাকে শক্তপোক্ত একটা রেজুমে গড়তে সাহায্য করে যা
                       ভবিষ্যতের ড্রিম কোম্পানি ডাক পেতে এগিয়ে রাখবে লাখো
                       ক্যান্ডিডেট থেকে যারা CP করে নাই
@@ -543,8 +599,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#080600] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
+        <div className="bg-[#F1BA41]/20 dark:bg-[#080600] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
             <div
               className="rounded-xl text-center"
               style={{
@@ -552,7 +608,7 @@ export default function Home() {
               }}
             >
               <div
-                className=" rounded-xl px-6 py-20 pb-20 mx-[1px] bg-[#080600]/60 relative top-[1px] "
+                className=" rounded-xl px-6 py-20 pb-20 mx-[1px] dark:bg-[#080600]/60 relative top-[1px] "
                 style={{}}
               >
                 <div className="w-[90%] lg:w-[60%] mx-auto">
@@ -608,15 +664,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#0B060D] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
-            <div className="flex flex-col  items-center pb-10 border-b border-gray-300/10">
+        <div className="bg-[#ca65fd]/20 dark:bg-[#0B060D] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
+            <div className="flex flex-col  items-center pb-10 border-b border-black/30 dark:border-gray-300/10">
               <img src="/purple puzzle.png" alt="" />
 
               <p className="text-2xl lg:text-4xl mt-4 mb-2">
                 কোর্সটি <span className="text-[#B153E0]">কীভাবে কাজ করবে</span>
               </p>
-              <p className="text-paragraph ">
+              <p className="text-paragraph dark:text-darkParagraph ">
                 আমাদের কোর্সের সব ফিচার দেখে নাও
               </p>
             </div>
@@ -629,7 +685,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px] "
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px] "
                   style={{}}
                 >
                   <svg
@@ -698,7 +754,7 @@ export default function Home() {
                     <p className="my-6 text-2xl">
                       জিরো থেকে হিরো হওয়ার গাইডলাইন
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       তোমাকে একদম জিরো থেকে হিরো বানানোর জন্যে প্রথমত সি++ এর
                       বেসিক থেকে শুরু করে ডেটা স্ট্রাকচার ও ফাইনালি কম্পেটিটিভ
                       প্রোগ্রামিং এর টপিকগুলো একদম ঝাঁঝরা করে দেয়া হবে
@@ -716,7 +772,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/80 relative top-[1px] "
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/80 relative top-[1px] "
                   style={{}}
                 >
                   <svg
@@ -745,7 +801,7 @@ export default function Home() {
                     <p className="my-6 text-2xl">
                       স্টুডিও কোয়ালিটি কোর্স কন্টেন্ট নিদিষ্ট সময়ে আনলকিং
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       একটি নির্দিষ্ট সময় পর পর তোমাদের কোর্স কন্টেন্ট গুলো আনলক
                       করা হবে যেন তোমার শেখার পথে তোমাকে আমরা তোমাকে রুটিন করে
                       তোমাকে অভ্যস্থ করে ফেলতে পারি যেন শেখা টা তোমার একটা
@@ -764,7 +820,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
                   <svg
@@ -793,7 +849,7 @@ export default function Home() {
                     <p className="my-6 text-2xl">
                       পরীক্ষার মাধ্যমে নিজেকে যাচাই করার সুযোগ
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       প্রতিটি মডিউল এর ভিডিও গুলোর পর তোমাকে নিজেকে যাচাই করার
                       জন্যে থাকবে প্রচুর টপিক ভিত্তিক কুইজ আর তার সম্পুর্ন
                       সমাধান ব্যাখ্যা যেন ভুল হলেও কেন ভুল হয়েছে তার কারণটি বুঝে
@@ -812,7 +868,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
                   {" "}
@@ -841,7 +897,7 @@ export default function Home() {
                     <p className="my-6 text-2xl">
                       কোর্স চলাকালীন ডেইলি লাইভ ক্লাস
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       এক্সট্রিম স্টুডেন্ট সাপোর্ট যেখানে সপ্তাহে ৫ দিন ডেইলি
                       তোমাদের জন্যে কোর্স এর টিচার প্যানেল সরাসরি ২ ঘণ্টা লাইভ
                       জুম কল এ বসে তোমাদের সমস্যা সমাধান করবে যেন কোন ভাবেই তুমি
@@ -860,7 +916,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
                   {" "}
@@ -887,7 +943,7 @@ export default function Home() {
                       </p>
                     </div>
                     <p className="my-6 text-2xl">অল ইন ওয়ান সাপোর্ট</p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       এক ওয়েবসাইট থেকেই কোড করে কোড সাবমিট করে র‍্যাংকিং থেকে
                       শুরু করে সব ভার্ডিক্ট পেয়ে যাবে সো আলাদা করে অন্য
                       ওয়েবসাইটে যাওয়ার প্রয়োজন থাকবে না
@@ -905,7 +961,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
                   <svg
@@ -933,7 +989,7 @@ export default function Home() {
                     <p className="my-6 text-2xl">
                       এসাইন্মেন্ট ও এর সমাধান ভিডিও
                     </p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       প্রতিটা মডিউল শেখে তোমাদের প্রাকটিস এর জন্যে থাকবে
                       এসাইনমেন্ট আর সেই এসাইনমেন্ট না পারলে থাকবে সেগুলোর সমাধান
                       ভিডিও ও একচুয়াল কোড সমাধান
@@ -951,7 +1007,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#0B060D]/30 relative top-[1px]"
+                  className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                   style={{}}
                 >
                   <div className="flex flex-col items-center">
@@ -961,7 +1017,7 @@ export default function Home() {
                       </p>
                     </div>
                     <p className="my-6 text-2xl">ওয়েবসাইটে ডাউট সেকশন</p>
-                    <p className="text-paragraph">
+                    <p className="text-paragraph dark:text-darkParagraph">
                       এক ওয়েবসাইট থেকেই কোড করে কোড সাবমিট করে র‍্যাংকিং থেকে
                       শুরু করে সব ভার্ডিক্ট পেয়ে যাবে সো আলাদা করে অন্য
                       ওয়েবসাইটে যাওয়ার প্রয়োজন থাকবে না
@@ -975,8 +1031,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#02090A] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
+        <div className="bg-[#2BA98B]/20 dark:bg-[#02090A] z-30 relative">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
             <div className="pb-10 border-b border-gray-100/20 flex flex-col items-center">
               <div className="text-center">
                 <img src="/Seo.png" alt="" />
@@ -994,7 +1050,7 @@ export default function Home() {
                   }}
                 >
                   <div
-                    className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#02090A]/90 relative top-[1px]"
+                    className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px]"
                     style={{}}
                   >
                     <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -1003,10 +1059,10 @@ export default function Home() {
                           <img src="/Frame 1000004455.png" alt="" />
                         </div>
                         <p className="mt-6 text-2xl">মুহিদুল হাসান</p>
-                        <p className="mt-2 text-xl text-paragraph">
+                        <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
                           প্রোডাক্ট ডিসাইনার
                         </p>
-                        <p className="my-5 text-paragraph">
+                        <p className="my-5 text-paragraph dark:text-darkParagraph">
                           লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
                           ফ্রন্টেন্ড ডেভ গঠন করে
                         </p>
@@ -1063,8 +1119,8 @@ export default function Home() {
                           </svg>
                         </div>
                       </div>
-                      <div className="text-paragraph">
-                        <div className="text-heading flex gap-2 items-center">
+                      <div className="text-paragraph dark:text-darkParagraph">
+                        <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
                           <p>34টি কোর্স </p>
                           <svg
                             width="4"
@@ -1174,7 +1230,7 @@ export default function Home() {
                   }}
                 >
                   <div
-                    className=" rounded-xl px-6 py-8 pb-20 mx-[1px] bg-[#02090A]/90 relative top-[1px]"
+                    className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px]"
                     style={{}}
                   >
                     <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -1183,10 +1239,10 @@ export default function Home() {
                           <img src="/Frame 1000004455.png" alt="" />
                         </div>
                         <p className="mt-6 text-2xl">মুহিদুল হাসান</p>
-                        <p className="mt-2 text-xl text-paragraph">
+                        <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
                           প্রোডাক্ট ডিসাইনার
                         </p>
-                        <p className="my-5 text-paragraph">
+                        <p className="my-5 text-paragraph dark:text-darkParagraph">
                           লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
                           ফ্রন্টেন্ড ডেভ গঠন করে
                         </p>
@@ -1243,8 +1299,8 @@ export default function Home() {
                           </svg>
                         </div>
                       </div>
-                      <div className="text-paragraph">
-                        <div className="text-heading flex gap-2 items-center">
+                      <div className="text-paragraph dark:text-darkParagraph">
+                        <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
                           <p>34টি কোর্স </p>
                           <svg
                             width="4"
@@ -1351,7 +1407,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#080600] z-30 relative">
+        <div className="bg-[#F1BA41]/10 dark:bg-[#080600] z-30 relative">
           <svg
             width="1311"
             height="953"
@@ -1395,7 +1451,7 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 md:py-32">
+          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
             <div className="flex flex-col items-center gap-8 z-10 relative">
               <img src="/question and exclamation mark.png" alt="" />
 
@@ -1404,7 +1460,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-8 lg:mt-16">
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20">
                 <input
                   type="radio"
                   name="my-accordion-3"
@@ -1426,7 +1482,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
                   এই কোর্স টি কাদের জন্যে?
@@ -1435,7 +1491,7 @@ export default function Home() {
                   <p>hello</p>
                 </div>
               </div>
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
                   আমি প্রোগ্রামিং এর {`"`}প{`"`} ও জানি না আমি কি কোর্স টি করতে
@@ -1445,7 +1501,7 @@ export default function Home() {
                   <p>hello</p>
                 </div>
               </div>
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
                   এই কোর্সটি করার পর আমি কি করব?
@@ -1454,7 +1510,7 @@ export default function Home() {
                   <p>hello</p>
                 </div>
               </div>
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
                   কোর্স চলাকালীন কোন সমস্যা ফেইস করলে কিভাবে হেল্প পাব?
@@ -1463,7 +1519,7 @@ export default function Home() {
                   <p>hello</p>
                 </div>
               </div>
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
                   কোর্স এ ভর্তির সম পরিমাণ টাকা ফেরত কিভাবে পেতে পারি?
@@ -1472,7 +1528,7 @@ export default function Home() {
                   <p>hello</p>
                 </div>
               </div>
-              <div className="collapse collapse-plus bg-gray-200 bg-opacity-5  backdrop-blur-lg border border-gray-200/20 mt-6">
+              <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium">
                   কোর্সটি কিভাবে কিনব?
@@ -1485,87 +1541,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#02090A] z-30 relative">
-          <div className="w-[90%] lg:w-[80%] mx-auto  text-heading py-20 ">
-            <div className="flex flex-col lg:flex-row justify-between lg:items-center">
-              <svg
-                width="1161"
-                viewBox="0 0 1161 326"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="absolute top-0 left-0 h-full z-0"
-              >
-                <g filter="url(#filter0_f_255_9837)">
-                  <ellipse
-                    cx="489.386"
-                    cy="138.31"
-                    rx="173.254"
-                    ry="97.5405"
-                    transform="rotate(-10.6934 489.386 138.31)"
-                    fill="#107B61"
-                  />
-                </g>
-                <defs>
-                  <filter
-                    id="filter0_f_255_9837"
-                    x="-181.833"
-                    y="-462.812"
-                    width="1342.44"
-                    height="1202.24"
-                    filterUnits="userSpaceOnUse"
-                    colorInterpolationFilters="sRGB"
-                  >
-                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                    <feBlend
-                      mode="normal"
-                      in="SourceGraphic"
-                      in2="BackgroundImageFix"
-                      result="shape"
-                    />
-                    <feGaussianBlur
-                      stdDeviation="250"
-                      result="effect1_foregroundBlur_255_9837"
-                    />
-                  </filter>
-                </defs>
-              </svg>
-
-              <div className="mb-20 lg:mb-0 z-10">
-                <img src="/logo.jpg" alt="" className="w-28 " />
-                <div className="text-paragraph mt-8">
-                  <p>© WARP 2023</p>
-                  <p>169 Madison Ave, #2298</p>
-                  <p>New York City, NY 10016</p>
-                </div>
-              </div>
-
-              <div className="flex gap-20 text-lg text-paragraph flex-col lg:flex-row z-10">
-                <div className="flex flex-col gap-4 ">
-                  <Link href="" className="hover:text-white">
-                    নোটিফিকেশান
-                  </Link>
-                  <Link href="" className="hover:text-white">
-                    লাইফ ক্লাস শিডিউল
-                  </Link>
-                  <Link href="" className="hover:text-white">
-                    কোস কন্টেন্ট
-                  </Link>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <Link href="" className="hover:text-white">
-                    নোটিফিকেশান
-                  </Link>
-                  <Link href="" className="hover:text-white">
-                    লাইফ ক্লাস শিডিউল
-                  </Link>
-                  <Link href="" className="hover:text-white">
-                    কোস কন্টেন্ট
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Footer />
       </div>
     </main>
   );

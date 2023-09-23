@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -10,17 +10,23 @@ type Props = {};
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { UserContext } from "@/Contexts/UserContext";
 
 const TestComponent = dynamic(() => import("./TestComponent"), {
   ssr: false,
 });
 
+function toggleTheme() {
+  document.documentElement.classList.toggle("dark");
+}
+
 export default function Nav({}: Props) {
   const [menuShow, setMenuShow] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [token, setToken] = useState("");
   const [isLogged, setIsLoggedIn] = useState(false);
   const [score, setScore] = useState(0);
+  const [user, setUser] = useContext<any>(UserContext);
 
   useEffect(() => {
     setToken(localStorage.getItem("token") || "");
@@ -29,6 +35,9 @@ export default function Nav({}: Props) {
       fetchScore();
     } else {
       setIsLoggedIn(false);
+    }
+    if (document.documentElement.classList.contains("dark")) {
+      setDarkMode(true);
     }
   }, []);
 
@@ -46,10 +55,14 @@ export default function Nav({}: Props) {
       .catch((err) => {});
   };
 
+  useEffect(() => {
+    setUser({ ...user, darkMode: darkMode });
+  }, [darkMode]);
+
   return (
     <div className="font-hind">
-      <div className="bg-gray-100 bg-opacity-5 backdrop-blur-lg fixed w-full text-heading/90 z-50 border-b border-gray-300/20">
-        <div className="w-[90%] lg:w-[80%] mx-auto py-4">
+      <div className="bg-gray-800 dark:bg-gray-100 bg-opacity-10  dark:bg-opacity-5 backdrop-blur-lg fixed w-full text-heading dark:text-darkHeading/90 z-50 border-b border-black/20 dark:border-gray-300/20">
+        <div className="w-[90%]  mx-auto py-4">
           <div className="flex justify-between items-center ">
             <div className="flex gap-10 items-center">
               <Link href="/">
@@ -59,28 +72,28 @@ export default function Nav({}: Props) {
               {isLogged && (
                 <Link
                   href="/live-class"
-                  className=" hidden lg:block hover:text-white ease-in-out duration-150"
+                  className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   লাইভ ক্লাস শিডিউল
                 </Link>
               )}
               <Link
                 href="/course-details/12"
-                className="hidden lg:block hover:text-white ease-in-out duration-150"
+                className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
               </Link>
               {isLogged ? (
                 <Link
                   href="/course/12"
-                  className="hidden lg:block hover:text-white ease-in-out duration-150"
+                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   আপনার প্রোগ্রেস
                 </Link>
               ) : (
                 <Link
                   href="/course/12"
-                  className="hidden lg:block hover:text-white ease-in-out duration-150"
+                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   ফ্রি ট্রায়াল
                 </Link>
@@ -89,7 +102,7 @@ export default function Nav({}: Props) {
               {isLogged && (
                 <Link
                   href="/ranking"
-                  className="hidden lg:block hover:text-white ease-in-out duration-150"
+                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
@@ -98,13 +111,93 @@ export default function Nav({}: Props) {
 
             {isLogged ? (
               <div className="flex gap-8 md:gap-8 items-center">
-               
+                <DarkModeSwitch
+                  sunColor="orange"
+                  moonColor="black"
+                  size={20}
+                  checked={!darkMode}
+                  onChange={() => {
+                    setDarkMode(!darkMode);
+                    toggleTheme();
+                  }}
+                />
+                {false ? (
+                  <Link href="/notifications" title="নোটিফিকেশানস">
+                    {darkMode ? (
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 687 783"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M337 65.6667C194.328 65.6667 78.668 181.326 78.668 324V347.47C78.668 370.7 71.7917 393.413 58.9057 412.74L20.6187 470.17C-23.8177 536.827 10.106 627.427 87.3923 648.503C112.579 655.373 137.979 661.183 163.526 665.937L163.589 666.107C189.222 734.503 257.733 782.333 337 782.333C416.267 782.333 484.777 734.503 510.41 666.107L510.473 665.937C536.02 661.183 561.423 655.373 586.61 648.503C663.897 627.427 697.82 536.827 653.383 470.17L615.097 412.74C602.21 393.413 595.333 370.7 595.333 347.47V324C595.333 181.326 479.673 65.6667 337 65.6667ZM449.547 675.233C374.783 684.167 299.213 684.163 224.45 675.23C248.148 709.283 289.367 732.333 337 732.333C384.63 732.333 425.85 709.283 449.547 675.233ZM128.668 324C128.668 208.941 221.942 115.667 337 115.667C452.06 115.667 545.333 208.941 545.333 324V347.47C545.333 380.573 555.133 412.933 573.493 440.477L611.78 497.907C637.287 536.163 617.817 588.167 573.453 600.267C418.647 642.487 255.357 642.487 100.548 600.267C56.187 588.167 36.7157 536.163 62.2213 497.907L100.508 440.477C118.87 412.933 128.668 380.573 128.668 347.47V324Z"
+                          fill="#E2E8F0"
+                        />
+                        <circle cx="537" cy="150" r="150" fill="#EC2C2C" />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 687 783"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M337 65.6667C194.328 65.6667 78.668 181.326 78.668 324V347.47C78.668 370.7 71.7917 393.413 58.9057 412.74L20.6187 470.17C-23.8177 536.827 10.106 627.427 87.3923 648.503C112.579 655.373 137.979 661.183 163.526 665.937L163.589 666.107C189.222 734.503 257.733 782.333 337 782.333C416.267 782.333 484.777 734.503 510.41 666.107L510.473 665.937C536.02 661.183 561.423 655.373 586.61 648.503C663.897 627.427 697.82 536.827 653.383 470.17L615.097 412.74C602.21 393.413 595.333 370.7 595.333 347.47V324C595.333 181.326 479.673 65.6667 337 65.6667ZM449.547 675.233C374.783 684.167 299.213 684.163 224.45 675.23C248.148 709.283 289.367 732.333 337 732.333C384.63 732.333 425.85 709.283 449.547 675.233ZM128.668 324C128.668 208.941 221.942 115.667 337 115.667C452.06 115.667 545.333 208.941 545.333 324V347.47C545.333 380.573 555.133 412.933 573.493 440.477L611.78 497.907C637.287 536.163 617.817 588.167 573.453 600.267C418.647 642.487 255.357 642.487 100.548 600.267C56.187 588.167 36.7157 536.163 62.2213 497.907L100.508 440.477C118.87 412.933 128.668 380.573 128.668 347.47V324Z"
+                          fill="#000"
+                        />
+                        <circle cx="537" cy="150" r="150" fill="#EC2C2C" />
+                      </svg>
+                    )}
+                  </Link>
+                ) : (
+                  <Link href="/notifications" title="নোটিফিকেশানস">
+                    {darkMode ? (
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 687 783"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M337 65.6667C194.328 65.6667 78.668 181.326 78.668 324V347.47C78.668 370.7 71.7917 393.413 58.9057 412.74L20.6187 470.17C-23.8177 536.827 10.106 627.427 87.3923 648.503C112.579 655.373 137.979 661.183 163.526 665.937L163.589 666.107C189.222 734.503 257.733 782.333 337 782.333C416.267 782.333 484.777 734.503 510.41 666.107L510.473 665.937C536.02 661.183 561.423 655.373 586.61 648.503C663.897 627.427 697.82 536.827 653.383 470.17L615.097 412.74C602.21 393.413 595.333 370.7 595.333 347.47V324C595.333 181.326 479.673 65.6667 337 65.6667ZM449.547 675.233C374.783 684.167 299.213 684.163 224.45 675.23C248.148 709.283 289.367 732.333 337 732.333C384.63 732.333 425.85 709.283 449.547 675.233ZM128.668 324C128.668 208.941 221.942 115.667 337 115.667C452.06 115.667 545.333 208.941 545.333 324V347.47C545.333 380.573 555.133 412.933 573.493 440.477L611.78 497.907C637.287 536.163 617.817 588.167 573.453 600.267C418.647 642.487 255.357 642.487 100.548 600.267C56.187 588.167 36.7157 536.163 62.2213 497.907L100.508 440.477C118.87 412.933 128.668 380.573 128.668 347.47V324Z"
+                          fill="#E2E8F0"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 687 783"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M337 65.6667C194.328 65.6667 78.668 181.326 78.668 324V347.47C78.668 370.7 71.7917 393.413 58.9057 412.74L20.6187 470.17C-23.8177 536.827 10.106 627.427 87.3923 648.503C112.579 655.373 137.979 661.183 163.526 665.937L163.589 666.107C189.222 734.503 257.733 782.333 337 782.333C416.267 782.333 484.777 734.503 510.41 666.107L510.473 665.937C536.02 661.183 561.423 655.373 586.61 648.503C663.897 627.427 697.82 536.827 653.383 470.17L615.097 412.74C602.21 393.413 595.333 370.7 595.333 347.47V324C595.333 181.326 479.673 65.6667 337 65.6667ZM449.547 675.233C374.783 684.167 299.213 684.163 224.45 675.23C248.148 709.283 289.367 732.333 337 732.333C384.63 732.333 425.85 709.283 449.547 675.233ZM128.668 324C128.668 208.941 221.942 115.667 337 115.667C452.06 115.667 545.333 208.941 545.333 324V347.47C545.333 380.573 555.133 412.933 573.493 440.477L611.78 497.907C637.287 536.163 617.817 588.167 573.453 600.267C418.647 642.487 255.357 642.487 100.548 600.267C56.187 588.167 36.7157 536.163 62.2213 497.907L100.508 440.477C118.87 412.933 128.668 380.573 128.668 347.47V324Z"
+                          fill="#000"
+                        />
+                      </svg>
+                    )}
+                  </Link>
+                )}
 
-                <p className=" hidden lg:block hover:text-white ease-in-out duration-150 text-sm md:text-base">
+                <p className=" hidden lg:block  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base">
                   {" "}
                   {jwtDecode<any>(token).name}
                 </p>
-                <div className="hidden lg:flex items-center gap-3 bg-white px-3 py-1 rounded bg-opacity-25">
+                <div className="hidden lg:flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"
                     height="20px"
@@ -119,34 +212,43 @@ export default function Nav({}: Props) {
                       fill="#fff"
                     />
                   </svg>
-                  <p className="text-xl font-semibold ">{score}</p>
+                  <p className="text-xl font-semibold text-darkHeading">
+                    {score}
+                  </p>
                 </div>
                 <button
                   onClick={logout}
-                  className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-red-900 bg-opacity-10 backdrop-blur-xl hover:bg-opacity-100 ease-in-out duration-150 text-sm md:text-base"
+                  className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-red-200 text-red-900 dark:text-darkHeading dark:bg-red-900 bg-opacity-30 dark:bg-opacity-10 backdrop-blur-xl hover:bg-opacity-100 ease-in-out duration-150 text-sm md:text-base"
                 >
                   Logout
                 </button>
-                <RxHamburgerMenu
-                  onClick={() => setMenuShow(!menuShow)}
-                  className="lg:hidden cursor-pointer"
-                  size={22}
-                  color="white"
-                />
+                {darkMode ? (
+                  <RxHamburgerMenu
+                    onClick={() => setMenuShow(!menuShow)}
+                    className="lg:hidden cursor-pointer"
+                    size={22}
+                    color="white"
+                  />
+                ) : (
+                  <RxHamburgerMenu
+                    onClick={() => setMenuShow(!menuShow)}
+                    className="lg:hidden cursor-pointer"
+                    size={22}
+                    color="black"
+                  />
+                )}
               </div>
             ) : (
               <div className="flex gap-8 md:gap-8 items-center">
-                
-
                 <Link
                   href="/auth/login"
-                  className=" hidden lg:block hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                  className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-gray-900 bg-opacity-5 backdrop-blur-xl hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                  className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-gray-900 bg-opacity-5 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
                 </Link>
@@ -163,7 +265,7 @@ export default function Nav({}: Props) {
         {/* mobile menu */}
       </div>
       <div
-        className={`bg-gray-700 bg-opacity-40 backdrop-blur-xl lg:hidden fixed w-full z-40 text-white top-[58px] md:top-[76px] border-b border-white/30 duration-150 ease-out ${
+        className={`dark:bg-gray-700/40  bg-gray-200/80 backdrop-blur-xl lg:hidden fixed w-full z-40 text-heading dark:text-darkHeading  top-[58px] md:top-[76px] border-b border-white/30 duration-150 ease-out ${
           menuShow ? "translate-y-0" : "-translate-y-[170%]"
         }`}
       >
@@ -172,35 +274,35 @@ export default function Nav({}: Props) {
             <div className="flex flex-col gap-10 items-center">
               {/* <Link
                 href=""
-                className="  hover:text-white ease-in-out duration-150"
+                className="  hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 নোটিফিকেশান
               </Link> */}
               {isLogged && (
                 <Link
                   href=""
-                  className="  hover:text-white ease-in-out duration-150"
+                  className="  hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   লাইভ ক্লাস শিডিউল
                 </Link>
               )}
               <Link
                 href="/course-details/12"
-                className=" hover:text-white ease-in-out duration-150"
+                className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
               </Link>
               {isLogged ? (
                 <Link
                   href="/course/12"
-                  className=" hover:text-white ease-in-out duration-150"
+                  className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   আপনার প্রোগ্রেস
                 </Link>
               ) : (
                 <Link
                   href="/course/12"
-                  className=" hover:text-white ease-in-out duration-150"
+                  className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   ফ্রি ট্রায়াল
                 </Link>
@@ -209,7 +311,7 @@ export default function Nav({}: Props) {
               {isLogged && (
                 <Link
                   href="/ranking"
-                  className=" hover:text-white ease-in-out duration-150"
+                  className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
@@ -220,23 +322,23 @@ export default function Nav({}: Props) {
               <div className="flex flex-col gap-8 items-center mt-8">
                 <Link
                   href="/auth/login"
-                  className="  hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                  className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
                 </Link>
                 <Link
                   href="/auth/register"
-                  className=" md:px-8 px-4 py-2 rounded-lg bg-white bg-opacity-30 backdrop-blur-xl hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                  className=" md:px-8 px-4 py-2 rounded-lg bg-white bg-opacity-30 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
                 </Link>
               </div>
             ) : (
               <div className="flex flex-col gap-8 items-center mt-8">
-                <p className="  hover:text-white ease-in-out duration-150 text-sm md:text-base">
+                <p className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base">
                   {jwtDecode<any>(token).name}
                 </p>
-                <div className="flex items-center gap-3 bg-white px-3 py-1 rounded bg-opacity-25">
+                <div className="flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"
                     height="20px"
@@ -251,11 +353,13 @@ export default function Nav({}: Props) {
                       fill="#fff"
                     />
                   </svg>
-                  <p className="text-xl font-semibold ">{score}</p>
+                  <p className="text-xl font-semibold text-darkHeading">
+                    {score}
+                  </p>
                 </div>
                 <button
                   onClick={logout}
-                  className=" md:px-8 px-4 py-2 rounded-lg bg-red-900 bg-opacity-90 backdrop-blur-xl hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                  className=" md:px-8 px-4 py-2 rounded-lg bg-red-300 text-red-900 dark:text-darkHeading dark:bg-red-900 bg-opacity-80 dark:bg-opacity-10 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   Logout
                 </button>
