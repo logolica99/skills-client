@@ -240,6 +240,16 @@ export default function Nav({}: Props) {
               </div>
             ) : (
               <div className="flex gap-8 md:gap-8 items-center">
+                <DarkModeSwitch
+                  sunColor="orange"
+                  moonColor="black"
+                  size={20}
+                  checked={!darkMode}
+                  onChange={() => {
+                    setDarkMode(!darkMode);
+                    toggleTheme();
+                  }}
+                />
                 <Link
                   href="/auth/login"
                   className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
