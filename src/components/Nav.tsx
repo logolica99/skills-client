@@ -333,7 +333,7 @@ export default function Nav({}: Props) {
               </Link> */}
               {isLogged && (
                 <Link
-                  href=""
+                href="/live-class"
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   লাইভ ক্লাস শিডিউল

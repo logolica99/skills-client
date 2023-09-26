@@ -18,7 +18,7 @@ export default function NotificationPage({}: Props) {
 
   return (
     <ProtectedRoute>
-      <div className={`  ${HindSiliguri.variable} font-hind  `}>
+      <div className={`  ${HindSiliguri.variable} font-hind   overflow-x-hidden`}>
         <Nav></Nav>
 
         <FloatingCompiler />
