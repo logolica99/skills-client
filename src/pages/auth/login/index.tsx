@@ -98,7 +98,6 @@ export default function RegisterPage({}: Props) {
           <form
             onSubmit={submitHandler}
             className="px-8 py-6 text-heading dark:text-darkHeading bg-gray-400/50 dark:bg-gray-100/5  backdrop-blur-xl rounded-xl  lg:w-[50%] mx-auto flex flex-col items-center  gap-4"
-          
           >
             <h2 className="text-2xl font-semibold">Login</h2>
 
@@ -106,7 +105,6 @@ export default function RegisterPage({}: Props) {
               <p className="text-lg font-semibold mb-1">Email</p>
               <input
                 className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
-                
                 placeholder="Email"
                 value={userData.email}
                 required
@@ -119,8 +117,7 @@ export default function RegisterPage({}: Props) {
             <div className="w-full">
               <p className="text-lg font-semibold mb-1">Password</p>
               <input
-               className="w-full px-3 py-3 rounded bg-gray-200     dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
-                
+                className="w-full px-3 py-3 rounded bg-gray-200     dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
                 placeholder="Password"
                 value={userData.password}
                 required

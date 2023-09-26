@@ -16,9 +16,28 @@ const TestComponent = dynamic(() => import("./TestComponent"), {
   ssr: false,
 });
 
-function toggleTheme() {
-  document.documentElement.classList.toggle("dark");
+function changeToDarkMode() {
+  document.documentElement.classList.add("dark");
 }
+function changeToLightMode() {
+  document.documentElement.classList.remove("dark");
+}
+
+const useThemeDetector = () => {
+  const getCurrentTheme = () =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
+  const mqListener = (e: any) => {
+    setIsDarkTheme(e.matches);
+  };
+
+  useEffect(() => {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    darkThemeMq.addListener(mqListener);
+    return () => darkThemeMq.removeListener(mqListener);
+  }, []);
+  return isDarkTheme;
+};
 
 export default function Nav({}: Props) {
   const [menuShow, setMenuShow] = useState(false);
@@ -36,8 +55,23 @@ export default function Nav({}: Props) {
     } else {
       setIsLoggedIn(false);
     }
-    if (document.documentElement.classList.contains("dark")) {
+
+    const isSystemDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const pastPreference = localStorage.getItem("darkMode");
+
+    if (pastPreference) {
+      if (pastPreference == "true") {
+        setDarkMode(true);
+        console.log("past ref true");
+      } else {
+        setDarkMode(false);
+        console.log("past ref false");
+      }
+    } else if (isSystemDark) {
       setDarkMode(true);
+      console.log("system dark");
     }
   }, []);
 
@@ -57,6 +91,11 @@ export default function Nav({}: Props) {
 
   useEffect(() => {
     setUser({ ...user, darkMode: darkMode });
+    if (darkMode) {
+      changeToDarkMode();
+    } else {
+      changeToLightMode();
+    }
   }, [darkMode]);
 
   return (
@@ -117,8 +156,10 @@ export default function Nav({}: Props) {
                   size={20}
                   checked={!darkMode}
                   onChange={() => {
+                    localStorage.setItem("darkMode", (!darkMode).toString());
                     setDarkMode(!darkMode);
-                    toggleTheme();
+
+                    // toggleTheme();
                   }}
                 />
                 {false ? (
@@ -246,8 +287,10 @@ export default function Nav({}: Props) {
                   size={20}
                   checked={!darkMode}
                   onChange={() => {
+                    localStorage.setItem("darkMode", (!darkMode).toString());
                     setDarkMode(!darkMode);
-                    toggleTheme();
+
+                    // toggleTheme();
                   }}
                 />
                 <Link
