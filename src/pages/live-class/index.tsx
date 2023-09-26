@@ -134,7 +134,7 @@ export default function LiveClass({}: Props) {
   if (isMeeting) return <div />;
 
   return (
-    <div className={`  ${HindSiliguri.variable} font-hind  `}>
+    <div className={`  ${HindSiliguri.variable} font-hind   overflow-x-hidden`}>
       <Nav></Nav>
       <Toaster />
 

@@ -42,7 +42,9 @@ export default function Ranking({}: Props) {
 
   return (
     <ProtectedRoute>
-      <div className={`  ${HindSiliguri.variable} font-hind  `}>
+      <div
+        className={`  ${HindSiliguri.variable} font-hind   overflow-x-hidden`}
+      >
         <Nav></Nav>
         <Toaster />
         <FloatingCompiler />
@@ -101,50 +103,54 @@ export default function Ranking({}: Props) {
             <p className="text-3xl font-semibold text-heading dark:text-darkHeading mb-7">
               Course Rankings
             </p>
-            <div className="border rounded border-gray-400">
-              <div
-                className={`flex justify-between text-heading dark:text-darkHeading text-3xl font-semibold bg-slate-200 dark:bg-slate-800 mb-4 px-4 py-2 rounded }`}
-              >
-                <div className="flex-1 flex justify-center">
-                  <p>Position</p>
-                </div>
-                <div className="flex-1 flex justify-center">
-                  <p> Name</p>
-                </div>
-                <div className="flex-1 flex justify-center">
-                  <p>Score</p>
-                </div>
-                <div className="flex-1 flex justify-center">
-                  <p>Codeforces Account</p>
-                </div>
-              </div>
-              {positions?.allPositions?.map((position: any, index: number) => (
+            <div className="overflow-x-scroll">
+              <div className="border rounded border-gray-400 min-w-[700px] ">
                 <div
-                  key={Math.random()}
-                  className={`flex justify-between text-heading dark:text-darkHeading text-2xl my-4 px-4 py-2 rounded ${
-                    index + 1 == positions.myPosition ? "bg-gray-200" : ""
-                  }`}
+                  className={`flex justify-between items-center text-heading dark:text-darkHeading text-lg md:text-xl lg:text-3xl md:font-semibold bg-slate-200 dark:bg-slate-800 mb-4 px-4 py-2 rounded }`}
                 >
                   <div className="flex-1 flex justify-center">
-                    <p>{index + 1}</p>
+                    <p>Position</p>
                   </div>
                   <div className="flex-1 flex justify-center">
-                    <p> {position.name}</p>
+                    <p> Name</p>
                   </div>
                   <div className="flex-1 flex justify-center">
-                    <p>{position.score}</p>
+                    <p>Score</p>
                   </div>
                   <div className="flex-1 flex justify-center">
-                    <a
-                      target="_blank"
-                      className="underline"
-                      href={`https://codeforces.com/profile/${position.cf_handle}`}
-                    >
-                      {position.cf_handle}
-                    </a>
+                    <p>Codeforces Account</p>
                   </div>
                 </div>
-              ))}
+                {positions?.allPositions?.map(
+                  (position: any, index: number) => (
+                    <div
+                      key={Math.random()}
+                      className={`flex justify-between text-heading dark:text-darkHeading text-2xl my-4 px-4 py-2 rounded ${
+                        index + 1 == positions.myPosition ? "bg-gray-200" : ""
+                      }`}
+                    >
+                      <div className="flex-1 flex justify-center">
+                        <p>{index + 1}</p>
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <p> {position.name}</p>
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <p>{position.score}</p>
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <a
+                          target="_blank"
+                          className="underline"
+                          href={`https://codeforces.com/profile/${position.cf_handle}`}
+                        >
+                          {position.cf_handle}
+                        </a>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
           </div>
         </div>

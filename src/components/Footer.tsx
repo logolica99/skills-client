@@ -5,7 +5,7 @@ type Props = {}
 
 export default function Footer({}: Props) {
   return (
-    <div className="bg-[#02090A] z-30 relative">
+    <div className="bg-[#02090A] z-30 relative ">
     <div className="w-[90%] lg:w-[80%] mx-auto  text-darkHeading py-20 ">
       <div className="flex flex-col lg:flex-row justify-between lg:items-center">
         <svg

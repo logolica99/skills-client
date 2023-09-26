@@ -302,7 +302,7 @@ export default function CourseDetailsPage() {
   }, []);
 
   return (
-    <div className={`  ${HindSiliguri.variable} font-hind  `}>
+    <div className={`  ${HindSiliguri.variable} font-hind  overflow-x-hidden `}>
       <Nav></Nav>
       <Toaster />
 
