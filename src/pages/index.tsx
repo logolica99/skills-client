@@ -478,7 +478,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <div className="border-gray-100/10">
+                <div className="md:border-l border-gray-100/10">
                   <div className="flex flex-col items-center hover:scale-110 transition-all ease-in-out duration-300    px-20 text-center py-12 pb-16">
                     <svg
                       width="48"
