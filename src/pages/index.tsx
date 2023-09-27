@@ -233,10 +233,10 @@ export default function Home() {
                   setTiltX(0);
                   setTiltY(0);
                 }}
-                onLeave={() => {
-                  setTiltX(14);
-                  setTiltY(-10);
-                }}
+                // onLeave={() => {
+                //   setTiltX(14);
+                //   setTiltY(-10);
+                // }}
               >
                 <img
                   src="/Group 33507.png"
