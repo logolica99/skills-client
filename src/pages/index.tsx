@@ -1590,7 +1590,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET CSE'15</p>
+                            <p className="text-base">BUET CSE{"'"}15</p>
                           </div>
                         </div>
                       </div>
@@ -1761,7 +1761,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET CSE'15</p>
+                            <p className="text-base">BUET CSE{"'"}15</p>
                           </div>
                         </div>
                       </div>
@@ -1980,7 +1980,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET CSE'18</p>
+                            <p className="text-base">BUET CSE{"'"}18</p>
                           </div>
                         </div>
                       </div>
@@ -2228,7 +2228,7 @@ export default function Home() {
                             Tester, Content Creator at CoderVai
                           </p>
                           <p className="my-5 text-paragraph dark:text-darkParagraph">
-                            Hi, I'm Rudro Debnath, a 4th year undergraduate
+                            Hi, I{"'"}m Rudro Debnath, a 4th year undergraduate
                             student at BU. I am interested in Competitive
                             Programming, web development and Machine Learning.
                           </p>
@@ -2468,10 +2468,10 @@ export default function Home() {
                             Content Creator at CoderVai
                           </p>
                           <p className="my-5 text-paragraph dark:text-darkParagraph">
-                            Hi, I'm Tithi Saha, a 4th year undergraduate student
-                            at dept. of CSE, SUST. I'm interested in Web
+                            Hi, I{"'"}m Tithi Saha, a 4th year undergraduate student
+                            at dept. of CSE, SUST. I{"'"}m interested in Web
                             Development, Machine Learning, Human and Computer
-                            Interaction and Security. I'm currently working as a
+                            Interaction and Security. I{"'"}m currently working as a
                             content creator in this platform.
                           </p>
                           {/* <div className="flex justify-center gap-8">
@@ -2694,8 +2694,8 @@ export default function Home() {
                             Tester, Doubt solver, Content Maker at CoderVai
                           </p>
                           <p className="my-5 text-paragraph dark:text-darkParagraph">
-                            Hi, I'm Abrar Hasnat, a 4th year undergrad student
-                            at department of CSE,BUET. I'm interested in
+                            Hi, I{"'"}m Abrar Hasnat, a 4th year undergrad student
+                            at department of CSE,BUET. I{"'"}m interested in
                             Competitive Programming, full stack development and
                             Machine Learning.
                           </p>
@@ -2991,7 +2991,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET ME'19</p>
+                            <p className="text-base">BUET ME{"'"}19</p>
                           </div>
                         </div>
                       </div>
@@ -3260,7 +3260,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET CSE'18</p>
+                            <p className="text-base">BUET CSE{"'"}18</p>
                           </div>
                         </div>
                       </div>
@@ -3425,7 +3425,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET CSE'15</p>
+                            <p className="text-base">BUET CSE{"'"}15</p>
                           </div>
                         </div>
                       </div>
@@ -3551,9 +3551,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">
-                            CEO @ APAR'S
-                            </p>
+                            <p className="text-base">CEO @ APAR{"'"}S</p>
                           </div>
                           <div className="flex gap-6  my-5">
                             <div>
@@ -3574,11 +3572,9 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">
-                            Managing Director ACS
-                            </p>
+                            <p className="text-base">Managing Director ACS</p>
                           </div>
-                         
+
                           <div className="flex gap-6  my-5">
                             <div>
                               <svg
@@ -3598,7 +3594,7 @@ export default function Home() {
                                 />
                               </svg>
                             </div>
-                            <p className="text-base">BUET CE'15</p>
+                            <p className="text-base">BUET CE{"'"}15</p>
                           </div>
                         </div>
                       </div>
