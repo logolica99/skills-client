@@ -42,8 +42,8 @@ const HindSiliguri = localFont({
 export default function Home() {
   const [user, setUser] = useContext<any>(UserContext);
   const [activeBoxIndex, setActiveBoxIndex] = useState(0);
-  const [titlX, setTiltX] = useState(14);
-  const [titlY, setTiltY] = useState(-10);
+  const [titlX, setTiltX] = useState(0);
+  const [titlY, setTiltY] = useState(0);
 
   return (
     <main className={`  ${HindSiliguri.variable} font-hind  `}>
@@ -190,16 +190,16 @@ export default function Home() {
             </svg>
 
             <div className="text-heading dark:text-darkHeading flex flex-col gap-4 z-10">
-              <p className="text-[#2BA98B]">বাংলা কম্পিটিটিভ কোর্স</p>
+              <p className="text-[#2BA98B]">কম্পেটিটিভ প্রোগ্রামিং কোর্স</p>
               <div>
                 <h2 className="text-2xl lg:text-4xl">
-                  Competitive Programming
+                  Competitive Programming 2.0 SuperCharged
                 </h2>
-                <h2 className="text-2xl lg:text-4xl">শিখব এবার হাতে কলমে</h2>
+                {/* <h2 className="text-2xl lg:text-4xl">শিখব এবার হাতে কলমে</h2> */}
               </div>
               <p className="">
-                প্রতিযোগিতামূলক প্রোগ্রামিং এর হাতেখড়ি হোক এখন থেকেই বিশ্বসেরা
-                দেশসেরা সব প্রোগ্রামার দের হাত ধরে
+                প্রতিযোগিতামূলক প্রোগ্রামিং শিখে নাও বিশ্বসেরা দেশসেরা সব
+                প্রোগ্রামার দের হাত ধরে
               </p>
               <div className="flex">
                 <Link
@@ -221,7 +221,7 @@ export default function Home() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p>কোর্স ইন্ট্রো ভিডিও দেখুন</p>
+                  <p>কোর্স ট্রেইলার ভিডিও দেখে নাও</p>
                 </Link>
               </div>
             </div>
@@ -328,8 +328,8 @@ export default function Home() {
                     </svg>
                     <p className="text-xl mt-6">জিরো থেকে হিরো</p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      কোর্সটিতে তোমাকে জিরো থেকে হিরো হওয়ার কমপ্লিট গাইডলাইন
-                      দেয়া হবে
+                      শূন্য থেকে প্রোগ্রামিং শিখিয়ে তোমাকে এক্সপার্ট করে তোলা
+                      হবে এখানে
                     </p>
                   </div>
                 </div>
@@ -355,7 +355,8 @@ export default function Home() {
                       Googler সহ বিশ্বসেরা কোডাররা ক্লাস
                     </p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      বাংলাদেশ সহ বিশ্বসেরা কোডাররা আমাদের প্লাটফর্মে ক্লাস নিবে
+                      কম্পেটিটিভ প্রোগ্রামিং করে গুগলে চাকরিরত সহ র‍্যাংকিং এ
+                      দেশের টপ কোডার রা ক্লাস নিবে এখানে
                     </p>
                   </div>
                 </div>
@@ -375,9 +376,10 @@ export default function Home() {
                       />
                     </svg>
 
-                    <p className="text-xl mt-6">কোর্স কন্টেন্ট আনলক সিস্টেম</p>
+                    <p className="text-xl mt-6">কোর্স আনলকিং</p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      নির্দিস্ট মডিউল শেষ করলেই শুধুমাত্র পরবর্তী মডিউল আনলক হবে
+                      নির্দিস্ট সময় পর পর কোর্স কন্টেন্ট গুলো আনলক হবে যেন
+                      প্রব্লেম সলভিং এর একটা অভ্যাস তৈরি হয়
                     </p>
                   </div>
                 </div>
@@ -399,9 +401,9 @@ export default function Home() {
                       />
                     </svg>
 
-                    <p className="text-xl mt-6">৬০+ ঘণ্টার ভিডিও কন্টেন্ট</p>
+                    <p className="text-xl mt-6">৫০+ ঘণ্টার ভিডিও কন্টেন্ট</p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      International কোয়ালিটি এর ভিডিও কন্টেন্ট দেয়া হবে
+                      আন্তর্জাতিক মান সম্মত স্টুডিও কোয়ালিটি ভিডিও থাকবে এখানে
                     </p>
                   </div>
                 </div>
@@ -421,11 +423,10 @@ export default function Home() {
                       />
                     </svg>
 
-                    <p className="text-xl mt-6">
-                      ৩০ টি এক্সপার্ট ক্লাস আর্কাইভ
-                    </p>
+                    <p className="text-xl mt-6">৩০+ এক্সপার্ট ক্লাস আর্কাইভ</p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      বিগত বছরগুলোর ক্লাস ফ্রি তে দিয়ে দেয়া হবে
+                      বিগত বছরের সেইম টিচার প্যানেলের নেয়া লাইভ ক্লাস গুলোর একটা
+                      আর্কাইভ দেয়া হবে
                     </p>
                   </div>
                 </div>
@@ -446,10 +447,11 @@ export default function Home() {
                     </svg>
 
                     <p className="text-xl mt-6">
-                      ৩০০+ কোডিং সমস্যা ও ভিডিও সলিউশন
+                      ৩০০+ কোডিং সমস্যা ও তার ভিডিও সলিউশন
                     </p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      কাস্টমাইজড কোডিং সমস্যা সহ ভিডিও সলিউশন দেয়া হবে
+                      আমাদের নিজেদের বানানো কাস্টম কোডিং প্রব্লেম ও তার ভিডিও
+                      সলিউশন সহ ৩০০+ সমস্যা সমাধান করা হবে এখানে
                     </p>
                   </div>
                 </div>
@@ -471,10 +473,10 @@ export default function Home() {
                       />
                     </svg>
 
-                    <p className="text-xl mt-6">80 টি লাইভ ক্লাস</p>
+                    <p className="text-xl mt-6"> লাইভ ক্লাস</p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      কোর্স চলাকালীন সপ্তাহে ৫ দিন প্রতিদিন ২ ঘণ্টা এক্সপার্ট
-                      টিচারদের সরাসরি লাইভ ক্লাস
+                      কোর্স চলাকালীন রেকর্ড ক্লাসের পাশাপাশি প্রচুর লাইভ ক্লাস
+                      সাপোর্ট থাকবে এখানে
                     </p>
                   </div>
                 </div>
@@ -495,7 +497,8 @@ export default function Home() {
                     </svg>
                     <p className="text-xl mt-6">কোর্স র‍্যাংকিং</p>
                     <p className="text-sm mt-8 text-paragraph dark:text-darkParagraph">
-                      নিজের অবস্থান বোঝার জন্যে লাইভ ডায়নামিক র‍্যাংকিং সিস্টেম
+                      কোর্সে ভর্তি হওয়া তোমার সহপাঠীদের সাথে তোমার অবস্থান তুলনা
+                      করার জন্যে থাকবে র‍্যাংকিং
                     </p>
                   </div>
                 </div>
@@ -541,13 +544,13 @@ export default function Home() {
                         বাংলাদেশ থেকে খুব কম সংখ্যক শিক্ষার্থী প্রতি বছর ই
                         কম্পেটিটিভ প্রোগ্রামিং বা CP এর অলম্পিকশ্ ACM ICPC এর
                         World Finale তে অংশগ্রহণ করে World Finalist থেকে শুরু
-                        করে ASIA CHAPMION ও হচ্ছে কম্পেটিটিভ প্রোগ্রামিং এর
-                        জনপ্রিয় ওয়েব সাইট গুলার র‍্যাংকিং এ বাংলাদেশের
-                        শিক্ষার্থীদের অবস্থান অনেক পেছনে কিন্তু বাংলাদেশের আনাচে
-                        কানাচে কিছু এক্সট্রা অর্ডিনারি মানুষজন প্রোগ্রামিং এর এই
-                        অজানা জগতের অজানা রহস্য গুলার পেছনে ছুটতে থাকে পরিশ্রম
-                        করতে থাকে আর ঠিকই নিজের স্বপ্ন কে পূরণ করে দেশকে গর্বিত
-                        করছে
+                        করে ASIA CHAPMION ও হচ্ছে। যার মধ্যে আমাদের ২ জন
+                        ইন্সট্রাক্টর ও রয়েছে। কম্পেটিটিভ প্রোগ্রামিং এর জনপ্রিয়
+                        ওয়েব সাইট গুলার র‍্যাংকিং এ বাংলাদেশের শিক্ষার্থীদের
+                        অবস্থান অনেক পেছনে হলেও বাংলাদেশের আনাচে কানাচে কিছু
+                        এক্সট্রা অর্ডিনারি মানুষজন প্রোগ্রামিং এর এই অজানা জগতের
+                        অজানা রহস্য গুলার পেছনে ছুটতে থাকে পরিশ্রম করতে থাকে আর
+                        ঠিকই নিজের স্বপ্ন কে পূরণ করে দেশকে গর্বিত করে
                       </p>
                     </div>
                   </div>
@@ -641,7 +644,7 @@ export default function Home() {
                   >
                     <div className="">
                       <p className="text-heading dark:text-darkHeading text-center text-xl">
-                        ক্যারিয়ার গঠন
+                        ক্যারিয়ার গঠনে মুখ্য ভূমিকা
                       </p>
                       <p className="text-paragraph dark:text-darkParagraph mt-8">
                         CP তোমাকে শক্তপোক্ত একটা রেজুমে গড়তে সাহায্য করে যা
@@ -682,15 +685,15 @@ export default function Home() {
                       যাওয়ার স্বপ্ন দেখে তাদের পথ প্রদর্শক হতে পার
                     </p>
                     <p className="my-12">
-                      তোমাকে এই অজানা জগতের সাথে পরিচয় করয়ে দেবে পরিচিত সব
-                      ওয়েবসাইটের বাংলাদেশের প্রতিনিধিত্ব কারী আর GOOGLE থেকে
-                      অফার পেয়ে সেখানে চাকুরীরত বেস্ট সব ইনস্ট্রাক্টররা যারা
-                      বুয়েট CSE পরিবারের সদস্য। বাংলা ভাষায় শিখিয়ে দিব কিভাবে
-                      নিজেকে অন্য সবার থেকে আলাদা করা যায়,কিভাবে নিজেকে এই কঠিন
-                      কিন্তু এমেজিং জগতে টিকে থাকা যায়, কিভাবে নিজেকে মোটিভেটেড
-                      রাখা যায়, কিভাবে CODEFORCES, HACKERRANK, CODECHEF,
-                      ATCODER, LeetCode, HackerEarth, CSES এই প্ল্যাটফর্ম গুলাতে
-                      রেটিং/র‍্যাঙ্কিং বাড়ানো যায়
+                      সেই লক্ষে পৌঁছাতে তোমাকে এই অজানা জগতের সাথে পরিচয় করয়ে
+                      দেবে পরিচিত সব ওয়েবসাইটের বাংলাদেশের প্রতিনিধিত্ব কারী আর
+                      GOOGLE থেকে অফার পেয়ে সেখানে চাকুরীরত বেস্ট সব
+                      ইনস্ট্রাক্টররা যারা সবাই বুয়েট CSE পরিবারের সদস্য। বাংলা
+                      ভাষায় শিখিয়ে দিবে কিভাবে নিজেকে অন্য সবার থেকে আলাদা করা
+                      যায়,কিভাবে নিজেকে এই কঠিন কিন্তু এমেজিং জগতে টিকিয়ে রাখা
+                      যায়, কিভাবে নিজেকে মোটিভেটেড রাখা যায়, কিভাবে CODEFORCES,
+                      HACKERRANK, CODECHEF, ATCODER, LeetCode, HackerEarth, CSES
+                      এই প্ল্যাটফর্ম গুলাতে রেটিং/র‍্যাঙ্কিং বাড়ানো যায়
                     </p>
                     <div className="flex justify-center ">
                       <Link
@@ -732,7 +735,7 @@ export default function Home() {
                 কোর্সটি <span className="text-[#B153E0]">কীভাবে কাজ করবে</span>
               </p>
               <p className="text-paragraph dark:text-darkParagraph ">
-                আমাদের কোর্সের সব ফিচার দেখে নাও
+                আমরা যেভাবে তোমাদের পাশে থাকব
               </p>
             </div>
             <div className="grid grid-cols-1 lgMd:grid-cols-2 mt-20 lg:mt-32 gap-x-20 gap-y-12  justify-items-center">
@@ -841,12 +844,12 @@ export default function Home() {
                         </p>
                       </div>
                       <p className="my-6 text-2xl">
-                        জিরো থেকে হিরো হওয়ার গাইডলাইন
+                        সেরাদের ও সেরা ইন্সট্রাক্টর প্যানেল
                       </p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        তোমাকে একদম জিরো থেকে হিরো বানানোর জন্যে প্রথমত সি++ এর
-                        বেসিক থেকে শুরু করে ডেটা স্ট্রাকচার ও ফাইনালি কম্পেটিটিভ
-                        প্রোগ্রামিং এর টপিকগুলো একদম ঝাঁঝরা করে দেয়া হবে
+                        গুগলার থেকে শুরু করে বাংলাদেশের সবচেয়ে সেরা টিচার
+                        প্যানেল যারা সবাই বুয়েট সি এস ই এর শিক্ষার্থী ছিল তোমাকে
+                        দিবে সেরা কন্টেন্ট ও সেরা সাপোর্ট যা আর কোথাও নেই
                       </p>
                     </div>
                   </div>
@@ -916,13 +919,13 @@ export default function Home() {
                         </p>
                       </div>
                       <p className="my-6 text-2xl">
-                        স্টুডিও কোয়ালিটি কোর্স কন্টেন্ট নিদিষ্ট সময়ে আনলকিং
+                        জিরো থেকে হিরো হওয়ার কমপ্লিট গাইডলাইন
                       </p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        একটি নির্দিষ্ট সময় পর পর তোমাদের কোর্স কন্টেন্ট গুলো
-                        আনলক করা হবে যেন তোমার শেখার পথে তোমাকে আমরা তোমাকে
-                        রুটিন করে তোমাকে অভ্যস্থ করে ফেলতে পারি যেন শেখা টা
-                        তোমার একটা অভ্যাসে পরিণত হয়ে যায়
+                        তোমাকে একদম জিরো থেকে হিরো বানানোর জন্যে প্রথমত সি++ এর
+                        বেসিক থেকে শুরু করে ডেটা স্ট্রাকচার ও ফাইনালি কম্পেটিটিভ
+                        প্রোগ্রামিং এর জটিল টপিকগুলো একদম ধরে ধরে শিখিয়ে দেয়া
+                        হবে
                       </p>
                     </div>
                   </div>
@@ -992,13 +995,13 @@ export default function Home() {
                         </p>
                       </div>
                       <p className="my-6 text-2xl">
-                        পরীক্ষার মাধ্যমে নিজেকে যাচাই করার সুযোগ
+                        আন্তর্জাতিক মান সম্পন্ন কোর্স কন্টেন্ট আনলকিং
                       </p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        প্রতিটি মডিউল এর ভিডিও গুলোর পর তোমাকে নিজেকে যাচাই করার
-                        জন্যে থাকবে প্রচুর টপিক ভিত্তিক কুইজ আর তার সম্পুর্ন
-                        সমাধান ব্যাখ্যা যেন ভুল হলেও কেন ভুল হয়েছে তার কারণটি
-                        বুঝে নিজেকে শুধরে নিতে পার
+                        একটি নির্দিষ্ট সময় পর পর তোমাদের কোর্স কন্টেন্ট গুলো
+                        আনলক করা হবে যেন তোমার শেখার পথে তোমাকে আমরা তোমাকে
+                        রুটিন করে তোমাকে অভ্যস্থ করিয়ে ফেলতে পারি যেন শেখা টা
+                        তোমার একটা অভ্যাসে পরিণত হয়ে যায়
                       </p>
                     </div>
                   </div>
@@ -1068,13 +1071,13 @@ export default function Home() {
                         </p>
                       </div>
                       <p className="my-6 text-2xl">
-                        কোর্স চলাকালীন ডেইলি লাইভ ক্লাস
+                        পরীক্ষার মাধ্যমে নিজেকে যাচাই করার সুযোগ
                       </p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        এক্সট্রিম স্টুডেন্ট সাপোর্ট যেখানে সপ্তাহে ৫ দিন ডেইলি
-                        তোমাদের জন্যে কোর্স এর টিচার প্যানেল সরাসরি ২ ঘণ্টা লাইভ
-                        জুম কল এ বসে তোমাদের সমস্যা সমাধান করবে যেন কোন ভাবেই
-                        তুমি আটিকিয়ে না যাও বা তোমার শেখার গতি বাধাপ্রাপ্ত না হয়
+                        প্রতিটি মডিউল এর ভিডিও গুলোর পর তোমাকে নিজেকে যাচাই করার
+                        জন্যে থাকবে প্রচুর টপিক ভিত্তিক কুইজ আর তার সম্পুর্ন
+                        সমাধান ব্যাখ্যা যেন ভুল হলেও কেন ভুল হয়েছে তার কারণটি
+                        বুঝে নিজেকে শুধরে নিতে পার
                       </p>
                     </div>
                   </div>
@@ -1143,11 +1146,14 @@ export default function Home() {
                           5
                         </p>
                       </div>
-                      <p className="my-6 text-2xl">অল ইন ওয়ান সাপোর্ট</p>
+                      <p className="my-6 text-2xl">
+                        কোর্স চলাকালীন রেগুলার লাইভ ক্লাস
+                      </p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        এক ওয়েবসাইট থেকেই কোড করে কোড সাবমিট করে র‍্যাংকিং থেকে
-                        শুরু করে সব ভার্ডিক্ট পেয়ে যাবে সো আলাদা করে অন্য
-                        ওয়েবসাইটে যাওয়ার প্রয়োজন থাকবে না
+                        এক্সট্রিম স্টুডেন্ট সাপোর্ট যেখানে রেগুলার তোমাদের জন্যে
+                        কোর্স এর টিচার প্যানেল সরাসরি ২ ঘণ্টা লাইভ জুম কল এ বসে
+                        তোমাদের সমস্যা সমাধান করবে যেন কোন ভাবেই তুমি আটিকিয়ে না
+                        যাও বা তোমার শেখার গতি বাধাপ্রাপ্ত না হয়
                       </p>
                     </div>
                   </div>
@@ -1215,13 +1221,12 @@ export default function Home() {
                           6
                         </p>
                       </div>
-                      <p className="my-6 text-2xl">
-                        এসাইন্মেন্ট ও এর সমাধান ভিডিও
-                      </p>
+                      <p className="my-6 text-2xl">অল ইন ওয়ান সাপোর্ট</p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        প্রতিটা মডিউল শেখে তোমাদের প্রাকটিস এর জন্যে থাকবে
-                        এসাইনমেন্ট আর সেই এসাইনমেন্ট না পারলে থাকবে সেগুলোর
-                        সমাধান ভিডিও ও একচুয়াল কোড সমাধান
+                        এক ওয়েবসাইট থেকেই কোড লিখা,কোড প্রাকটিস করা, কোড রান করা
+                        সহ সাবমিট করে সাবমিট হিস্ট্রি থেকে শুরু করে সব ভার্ডিক্ট
+                        পেয়ে যাবে সো আলাদা করে অন্য ওয়েবসাইটে যাওয়ার প্রয়োজন
+                        থাকবে না
                       </p>
                     </div>
                   </div>
@@ -1251,6 +1256,27 @@ export default function Home() {
                     className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
                     style={{}}
                   >
+                    {" "}
+                    <svg
+                      width="495"
+                      height="206"
+                      viewBox="0 0 495 206"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute top-[100%] -right-[88px] hidden lgMd:block"
+                    >
+                      <path
+                        d="M1 1C9.15724 26.195 18.3459 49.6077 32.7232 68.7302C45.9632 86.34 64.0264 98.1142 79.7546 110.151C95.4355 122.151 110.859 132.697 127.985 139.429C159.676 151.885 191.361 162.919 223.984 168.571C261.6 175.089 298.471 175.857 336.306 175.857C378.639 175.857 419.692 181.984 461.539 190.429C469.159 191.966 475.721 192.841 482.38 198.254C485.98 201.18 489.843 205 494 205"
+                        stroke={
+                          activeBoxIndex == 7 || activeBoxIndex == 8
+                            ? "#B153E0"
+                            : "#808080"
+                        }
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeDasharray="12 12"
+                      />
+                    </svg>
                     <div className="flex flex-col items-center">
                       <div
                         className={`px-2 py-2 rounded-full ${
@@ -1269,11 +1295,64 @@ export default function Home() {
                           7
                         </p>
                       </div>
+                      <p className="my-6 text-2xl">
+                        এসাইনমেন্ট ও এর সমাধান ভিডিও সমাধান
+                      </p>
+                      <p className="text-paragraph dark:text-darkParagraph">
+                        প্রতিটা মডিউল শেষে তোমাদের প্রাকটিস এর জন্যে থাকবে
+                        কাস্টম এসাইনমেন্ট আর সেই এসাইনমেন্ট না পারলে থাকবে
+                        সেগুলোর সমাধান ভিডিও ও একচুয়াল কোড সমাধান
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </VisibilitySensor>
+              <div className="hidden lg:block"></div>
+              <div className="hidden lg:block"></div>
+              <VisibilitySensor
+                onChange={(isVisible: any) => {
+                  if (isVisible) {
+                    setActiveBoxIndex(8);
+                  }
+                }}
+              >
+                <div
+                  className={`rounded-xl  text-center lg:justify-self-end ${
+                    activeBoxIndex == 8 ? "opacity-100" : "opacity-40"
+                  } transition-all duration-300  ease-in-out`}
+                  style={{
+                    background:
+                      activeBoxIndex == 8
+                        ? "linear-gradient(124deg, rgba(202, 101, 253, 0.13) 0%, rgba(177, 83, 224, 0.00) 100%)"
+                        : "linear-gradient(124deg, rgba(255, 255, 255, 0.12) 0%, rgba(177, 83, 224, 0.00) 100%)",
+                  }}
+                >
+                  <div
+                    className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/30 relative top-[1px]"
+                    style={{}}
+                  >
+                    <div className="flex flex-col items-center">
+                      <div
+                        className={`px-2 py-2 rounded-full ${
+                          activeBoxIndex === 8
+                            ? "bg-[#B153E0]/[.14]"
+                            : "bg-gray-300/20"
+                        }  `}
+                      >
+                        <p
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
+                            activeBoxIndex === 8
+                              ? "bg-[#B153E0]/[.32]"
+                              : "bg-gray-300/40"
+                          }`}
+                        >
+                          8
+                        </p>
+                      </div>
                       <p className="my-6 text-2xl">ওয়েবসাইটে ডাউট সেকশন</p>
                       <p className="text-paragraph dark:text-darkParagraph">
-                        এক ওয়েবসাইট থেকেই কোড করে কোড সাবমিট করে র‍্যাংকিং থেকে
-                        শুরু করে সব ভার্ডিক্ট পেয়ে যাবে সো আলাদা করে অন্য
-                        ওয়েবসাইটে যাওয়ার প্রয়োজন থাকবে না
+                        প্রতিটি কোর্স কন্টেন্ট এর সাথে থাকবে ডিসকাশন ফোরাম
+                        যেখানে কন্টেন্ট রিলেটেড যেকোন ডাউট আস্ক করতে পারবে
                       </p>
                     </div>
                   </div>
@@ -1292,11 +1371,13 @@ export default function Home() {
                 <div className="text-center">
                   <img src="/Seo.png" alt="" />
                 </div>
-                <h2 className="text-2xl md:text-4xl my-6">কোর্স প্রশিক্ষক</h2>
-                <p className="text-xl">আমাদের দলের সাথে দেখা করুন</p>
+                <h2 className="text-2xl md:text-4xl my-6">
+                  কোর্স ইন্সট্রাক্টর
+                </h2>
+                <p className="text-xl">দেখে নাও আমাদের সেরা প্যানেল</p>
               </div>
               <div className="pt-20">
-                <div className="flex flex-col lgXl:flex-row justify-center gap-16">
+                <div className="grid grid-cols-1 lgXl:grid-cols-2 justify-center gap-16">
                   <div
                     className="rounded-xl text-center"
                     style={{
@@ -1305,23 +1386,27 @@ export default function Home() {
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px]"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
-                        <div className="text-center">
+                        <div className="text-center flex-1">
                           <div className="flex justify-center">
-                            <img src="/Frame 1000004455.png" alt="" />
+                            <img
+                              src="/CP instructors/Arghya Pal_Random.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
                           </div>
-                          <p className="mt-6 text-2xl">মুহিদুল হাসান</p>
+                          <p className="mt-6 text-2xl">Arghya Pal</p>
                           <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
-                            প্রোডাক্ট ডিসাইনার
+                            Instructor at CoderVai
                           </p>
-                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                          {/* <p className="my-5 text-paragraph dark:text-darkParagraph">
                             লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
                             ফ্রন্টেন্ড ডেভ গঠন করে
-                          </p>
-                          <div className="flex justify-center gap-8">
+                          </p> */}
+                          {/* <div className="flex justify-center gap-8">
                             <svg
                               width="21"
                               height="17"
@@ -1372,10 +1457,10 @@ export default function Home() {
                                 fill="#787878"
                               />
                             </svg>
-                          </div>
+                          </div> */}
                         </div>
-                        <div className="text-paragraph dark:text-darkParagraph">
-                          <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
                             <p>34টি কোর্স </p>
                             <svg
                               width="4"
@@ -1392,90 +1477,966 @@ export default function Home() {
                               />
                             </svg>
                             <p>159 ঘন্টা</p>
-                          </div>
-                          <div className="flex gap-6 items-center my-5">
-                            <svg
-                              width="20"
-                              height="21"
-                              viewBox="0 0 20 21"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M15.788 3.78578C14.2192 2.46826 12.2478 1.7254 10.1997 1.67995C8.15151 1.6345 6.14914 2.28918 4.52343 3.53581C2.89771 4.78244 1.74597 6.54641 1.2585 8.53624C0.77103 10.5261 0.977019 12.6227 1.84242 14.4796C2.70783 16.3365 4.18086 17.8425 6.01811 18.7489C7.85535 19.6553 9.94685 19.9078 11.947 19.4646C13.9472 19.0214 15.7362 17.9091 17.0186 16.3114C18.301 14.7138 19 12.7264 19 10.6778H11"
-                                stroke="#6A6A6A"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                            <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
-                            </p>
-                          </div>
-                          <div className="flex gap-6 items-center my-5">
-                            <svg
-                              width="20"
-                              height="22"
-                              viewBox="0 0 20 22"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
-                                stroke="#6A6A6A"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
+                          </div> */}
 
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
                             <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
+                              Software Engineer at Google
                             </p>
                           </div>
-                          <div className="flex gap-6 items-center my-5">
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              ACM ICPC WORLD Finalist- 2 Times in a Row
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              ACM ICPC ASIA CHAMPION 2019
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Former RED CODER at CODEFORCES
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET CSE'15</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/Muttaqueen_random.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Tanveer Muttaqueen</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Instructor at CoderVai
+                          </p>
+                          {/* <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
+                            ফ্রন্টেন্ড ডেভ গঠন করে
+                          </p> */}
+                          {/* <div className="flex justify-center gap-8">
                             <svg
-                              width="20"
-                              height="21"
-                              viewBox="0 0 20 21"
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15.788 3.78578C14.2192 2.46826 12.2478 1.7254 10.1997 1.67995C8.15151 1.6345 6.14914 2.28918 4.52343 3.53581C2.89771 4.78244 1.74597 6.54641 1.2585 8.53624C0.77103 10.5261 0.977019 12.6227 1.84242 14.4796C2.70783 16.3365 4.18086 17.8425 6.01811 18.7489C7.85535 19.6553 9.94685 19.9078 11.947 19.4646C13.9472 19.0214 15.7362 17.9091 17.0186 16.3114C18.301 14.7138 19 12.7264 19 10.6778H11"
-                                stroke="#6A6A6A"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
                               />
                             </svg>
-                            <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
-                            </p>
-                          </div>
-                          <div className="flex gap-6 items-center my-5">
                             <svg
-                              width="20"
+                              width="21"
                               height="21"
-                              viewBox="0 0 20 21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15.788 3.78578C14.2192 2.46826 12.2478 1.7254 10.1997 1.67995C8.15151 1.6345 6.14914 2.28918 4.52343 3.53581C2.89771 4.78244 1.74597 6.54641 1.2585 8.53624C0.77103 10.5261 0.977019 12.6227 1.84242 14.4796C2.70783 16.3365 4.18086 17.8425 6.01811 18.7489C7.85535 19.6553 9.94685 19.9078 11.947 19.4646C13.9472 19.0214 15.7362 17.9091 17.0186 16.3114C18.301 14.7138 19 12.7264 19 10.6778H11"
-                                stroke="#6A6A6A"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
                               />
                             </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
                             <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
+                              Software Engineer at Google
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">ACM ICPC WORLD Finalist</p>
+                          </div>
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET CSE'15</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/Sachin_Random.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Sachin Deb</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Instructor, Course Designer and Moderator at
+                            CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Hi, I am Sachin, a 4th year undergraduate student at
+                            BUET. I am interested in Competitive Programming,
+                            full stack development and Machine Learning. I am
+                            currently working as a instructor in this platform.
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Have Strong Competitive Programming Background.
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              ICPC Regionals 7th(2021) and 10th(2022)
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">CF: Candidate Master</p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Leetcode: Guardian(top: .06%)
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET CSE'18</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/Sohaib_Random.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Sohaib Bin Musa</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Instructor, Problem Setter, Moderator at CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Hey, I am Sohaib and I will be your instructor in
+                            this course. I am currently studying CSE in BUET. I
+                            am involved in Competitive Programming for the past
+                            5 years. I am also researching algorithms for Bio
+                            Informatics.
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Expert in Algorithms, Software Development, DL
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              ICPC regionals 10th (2022)
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">CF : Master</p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BdPho 7th (2018)</p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BDMO runners up (2017)</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/UndefinedUser.png"
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Rudro Debnath</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Tester, Content Creator at CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Hi, I'm Rudro Debnath, a 4th year undergraduate
+                            student at BU. I am interested in Competitive
+                            Programming, web development and Machine Learning.
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Expert in Competitive Programming
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">University Of Barishal</p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET IUPC 2022 (15th)</p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              ICPC 21 & 22 Dhaka Regional Participant
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Codeforces-Expert (Max- 1882)
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              LeetCode- Knight (Max- 2008, Top- 2.66%)
                             </p>
                           </div>
                         </div>
@@ -1490,23 +2451,30 @@ export default function Home() {
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px]"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
-                        <div className="text-center">
+                        <div className="text-center flex-1">
                           <div className="flex justify-center">
-                            <img src="/Frame 1000004455.png" alt="" />
+                            <img
+                              src="/CP instructors/UndefinedUser.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
                           </div>
-                          <p className="mt-6 text-2xl">মুহিদুল হাসান</p>
+                          <p className="mt-6 text-2xl">Tithi Saha</p>
                           <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
-                            প্রোডাক্ট ডিসাইনার
+                            Content Creator at CoderVai
                           </p>
                           <p className="my-5 text-paragraph dark:text-darkParagraph">
-                            লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                            ফ্রন্টেন্ড ডেভ গঠন করে
+                            Hi, I'm Tithi Saha, a 4th year undergraduate student
+                            at dept. of CSE, SUST. I'm interested in Web
+                            Development, Machine Learning, Human and Computer
+                            Interaction and Security. I'm currently working as a
+                            content creator in this platform.
                           </p>
-                          <div className="flex justify-center gap-8">
+                          {/* <div className="flex justify-center gap-8">
                             <svg
                               width="21"
                               height="17"
@@ -1557,10 +2525,10 @@ export default function Home() {
                                 fill="#787878"
                               />
                             </svg>
-                          </div>
+                          </div> */}
                         </div>
-                        <div className="text-paragraph dark:text-darkParagraph">
-                          <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
                             <p>34টি কোর্স </p>
                             <svg
                               width="4"
@@ -1577,91 +2545,1060 @@ export default function Home() {
                               />
                             </svg>
                             <p>159 ঘন্টা</p>
-                          </div>
-                          <div className="flex gap-6 items-center my-5">
-                            <svg
-                              width="20"
-                              height="21"
-                              viewBox="0 0 20 21"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M15.788 3.78578C14.2192 2.46826 12.2478 1.7254 10.1997 1.67995C8.15151 1.6345 6.14914 2.28918 4.52343 3.53581C2.89771 4.78244 1.74597 6.54641 1.2585 8.53624C0.77103 10.5261 0.977019 12.6227 1.84242 14.4796C2.70783 16.3365 4.18086 17.8425 6.01811 18.7489C7.85535 19.6553 9.94685 19.9078 11.947 19.4646C13.9472 19.0214 15.7362 17.9091 17.0186 16.3114C18.301 14.7138 19 12.7264 19 10.6778H11"
-                                stroke="#6A6A6A"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                            <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
-                            </p>
-                          </div>
-                          <div className="flex gap-6 items-center my-5">
-                            <svg
-                              width="20"
-                              height="22"
-                              viewBox="0 0 20 22"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
-                                stroke="#6A6A6A"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
+                          </div> */}
 
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
                             <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
+                              Expert in Web Development
                             </p>
                           </div>
-                          <div className="flex gap-6 items-center my-5">
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Dept. of CSE, Shahjalal University of Science and
+                              Technology, Sylhet
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Hack NSU Season 4 (2022), Champion
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              bdApps Nation Hackathon 2022, 2nd Runner-up at
+                              Sylhet region
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              SUST SWE Technovent 2023 Brain Station 23
+                              Hackathon, 4th
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/UndefinedUser.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Abrar Hasnat </p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Tester, Doubt solver, Content Maker at CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Hi, I'm Abrar Hasnat, a 4th year undergrad student
+                            at department of CSE,BUET. I'm interested in
+                            Competitive Programming, full stack development and
+                            Machine Learning.
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
                             <svg
-                              width="20"
-                              height="21"
-                              viewBox="0 0 20 21"
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15.788 3.78578C14.2192 2.46826 12.2478 1.7254 10.1997 1.67995C8.15151 1.6345 6.14914 2.28918 4.52343 3.53581C2.89771 4.78244 1.74597 6.54641 1.2585 8.53624C0.77103 10.5261 0.977019 12.6227 1.84242 14.4796C2.70783 16.3365 4.18086 17.8425 6.01811 18.7489C7.85535 19.6553 9.94685 19.9078 11.947 19.4646C13.9472 19.0214 15.7362 17.9091 17.0186 16.3114C18.301 14.7138 19 12.7264 19 10.6778H11"
-                                stroke="#6A6A6A"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
                               />
                             </svg>
-                            <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
-                            </p>
-                          </div>
-                          <div className="flex gap-6 items-center my-5">
                             <svg
-                              width="20"
+                              width="21"
                               height="21"
-                              viewBox="0 0 20 21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15.788 3.78578C14.2192 2.46826 12.2478 1.7254 10.1997 1.67995C8.15151 1.6345 6.14914 2.28918 4.52343 3.53581C2.89771 4.78244 1.74597 6.54641 1.2585 8.53624C0.77103 10.5261 0.977019 12.6227 1.84242 14.4796C2.70783 16.3365 4.18086 17.8425 6.01811 18.7489C7.85535 19.6553 9.94685 19.9078 11.947 19.4646C13.9472 19.0214 15.7362 17.9091 17.0186 16.3114C18.301 14.7138 19 12.7264 19 10.6778H11"
-                                stroke="#6A6A6A"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
                               />
                             </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
                             <p className="text-base">
-                              লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
-                              ফ্রন্টেন্ড ডেভ গঠন করে
+                              Expert in Competitive Programming, Software
+                              development.
                             </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/UndefinedUser.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Jubaer Jami</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Developer at CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Breathing Life into Cool Ideas.
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Expert in NextJS, MERN Stack, Full Stack
+                              Development.
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Working as Lead Frontend Developer at WarrantyWorx
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              NASA Space App Challenge 2021 Regional Champion
+                              and Global Honorable Mention with Project
+                              SolarSpec
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET ME'19</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/UndefinedUser.png "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Md. Mehrab Haque</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Developer at CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Loves building things
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Expert in ReactJS, DevOps, Full Stack Development,
+                              PERN Stack
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              NASA Space App Challenge 2020 Global Winner
+                              Honorable Mention with Project Satellight
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Champion (DevOps Category), BUET CSE Fest 2022
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Top 30 at ideaTHON-2020 with the startup
+                              Eco-Transformer
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              NASA EO Dashboard Hackathon-2021 Global Finalist
+                              with Project PixelGrow.
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              {" "}
+                              Hult-2023 Campus Finalist with project named
+                              Garmeta
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET CSE'18</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimationOnScroll>
+        </div>
+        <div className="bg-[#ca65fd]/20 dark:bg-[#0B060D] z-30 relative">
+          <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
+            <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
+              <div className="pb-10 border-b border-gray-100/20 flex flex-col items-center">
+                <div className="text-center">
+                  <img src="/Seo.png" alt="" />
+                </div>
+                <h2 className="text-2xl md:text-4xl my-6">Founders</h2>
+                <p className="text-xl">The Team behind this Initiative</p>
+              </div>
+              <div className="pt-20">
+                <div className="grid grid-cols-1 lgXl:grid-cols-2 justify-center gap-16">
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(rgba(202, 101, 253, 0.44) 0%, rgba(177, 83, 224, 0) 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/80  relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/Emran_Random.JPG "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px] h-[200px] object-cover object-[50%_20%]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Emran Mostofa</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Founder and CEO at CoderVai
+                          </p>
+                          <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            Love to Teach,Lead,Organise and Build
+                          </p>
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                              Founder at Binary School
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET CSE'15</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(rgba(202, 101, 253, 0.44) 0%, rgba(177, 83, 224, 0) 100%)",
+                    }}
+                  >
+                    <div
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/80  relative top-[1px] h-full"
+                      style={{}}
+                    >
+                      <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
+                        <div className="text-center flex-1">
+                          <div className="flex justify-center">
+                            <img
+                              src="/CP instructors/Apar_Random.jpg "
+                              alt=""
+                              className="rounded-xl w-full lg:w-[250px]"
+                            />
+                          </div>
+                          <p className="mt-6 text-2xl">Numeri Sattar Apar</p>
+                          <p className="mt-2 text-xl text-paragraph dark:text-darkParagraph">
+                            Founder and Chairman at CoderVai
+                          </p>
+                          {/* <p className="my-5 text-paragraph dark:text-darkParagraph">
+                            লিনিয়ার, কয়েনবেস এবং পোস্টস্ক্রিপ্টের জন্য
+                            ফ্রন্টেন্ড ডেভ গঠন করে
+                          </p> */}
+                          {/* <div className="flex justify-center gap-8">
+                            <svg
+                              width="21"
+                              height="17"
+                              viewBox="0 0 21 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.7918 16.8028C14.3371 16.8028 18.4652 10.5501 18.4652 5.12941C18.4652 4.95363 18.4613 4.77394 18.4535 4.59816C19.2566 4.01741 19.9496 3.29807 20.5 2.47394C19.7521 2.80669 18.958 3.02401 18.1449 3.11847C19.0011 2.60528 19.6421 1.79908 19.9492 0.849329C19.1438 1.32665 18.263 1.66337 17.3445 1.84503C16.7257 1.18749 15.9075 0.75212 15.0164 0.606232C14.1253 0.460345 13.211 0.612065 12.4148 1.03794C11.6186 1.46381 10.9848 2.14011 10.6115 2.96228C10.2382 3.78445 10.1462 4.7067 10.3496 5.58644C8.71874 5.5046 7.12328 5.08094 5.66665 4.34294C4.21002 3.60493 2.92474 2.56905 1.89414 1.30245C1.37033 2.20556 1.21005 3.27423 1.44586 4.29127C1.68167 5.3083 2.29589 6.1974 3.16367 6.77784C2.51219 6.75716 1.87498 6.58176 1.30469 6.26613V6.31691C1.3041 7.26465 1.63175 8.18335 2.23192 8.91683C2.8321 9.65032 3.66777 10.1533 4.59687 10.3403C3.99338 10.5055 3.35999 10.5295 2.7457 10.4107C3.00788 11.2257 3.51798 11.9386 4.20481 12.4498C4.89164 12.961 5.72093 13.245 6.57695 13.2622C5.12369 14.4038 3.32848 15.023 1.48047 15.02C1.15274 15.0195 0.825333 14.9994 0.5 14.9599C2.37738 16.1643 4.56128 16.804 6.7918 16.8028Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_501_15571)">
+                                <path
+                                  d="M19.0195 0.677734H1.97656C1.16016 0.677734 0.5 1.32227 0.5 2.11914V19.2324C0.5 20.0293 1.16016 20.6777 1.97656 20.6777H19.0195C19.8359 20.6777 20.5 20.0293 20.5 19.2363V2.11914C20.5 1.32227 19.8359 0.677734 19.0195 0.677734ZM6.43359 17.7207H3.46484V8.17383H6.43359V17.7207ZM4.94922 6.87305C3.99609 6.87305 3.22656 6.10352 3.22656 5.1543C3.22656 4.20508 3.99609 3.43555 4.94922 3.43555C5.89844 3.43555 6.66797 4.20508 6.66797 5.1543C6.66797 6.09961 5.89844 6.87305 4.94922 6.87305ZM17.543 17.7207H14.5781V13.0801C14.5781 11.9746 14.5586 10.5488 13.0352 10.5488C11.4922 10.5488 11.2578 11.7559 11.2578 13.002V17.7207H8.29688V8.17383H11.1406V9.47852H11.1797C11.5742 8.72852 12.543 7.93555 13.9844 7.93555C16.9883 7.93555 17.543 9.91211 17.543 12.4824V17.7207Z"
+                                  fill="#787878"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_501_15571">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.5 0.677734)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5 0.677734C4.97939 0.677734 0.5 5.15713 0.5 10.6777C0.5 16.1984 4.97939 20.6777 10.5 20.6777C16.0098 20.6777 20.5 16.1984 20.5 10.6777C20.5 5.15713 16.0098 0.677734 10.5 0.677734ZM17.1052 5.28728C18.2983 6.74064 19.0141 8.5953 19.0358 10.6018C18.7538 10.5476 15.9338 9.97273 13.0922 10.3307C13.0271 10.1897 12.9729 10.0378 12.9078 9.88598C12.7343 9.47386 12.5391 9.05086 12.3438 8.64955C15.4891 7.36973 16.9208 5.52589 17.1052 5.28728ZM10.5 2.15279C12.6692 2.15279 14.654 2.96624 16.1616 4.3003C16.0097 4.51722 14.7191 6.24173 11.6822 7.38055C10.2831 4.81005 8.73213 2.70593 8.4935 2.38055C9.13338 2.22871 9.80587 2.15279 10.5 2.15279ZM6.86662 2.95539C7.09437 3.25908 8.61281 5.37405 10.0336 7.8903C6.0423 8.95323 2.51736 8.93155 2.13774 8.93155C2.69089 6.28511 4.48047 4.08337 6.86662 2.95539ZM1.95336 10.6886C1.95336 10.6018 1.95336 10.515 1.95336 10.4283C2.32213 10.4391 6.46529 10.4934 10.7278 9.21355C10.9773 9.69073 11.205 10.1788 11.4219 10.6669C11.3134 10.6994 11.1941 10.732 11.0857 10.7645C6.68221 12.1853 4.33948 16.0682 4.14425 16.3935C2.7885 14.886 1.95336 12.8795 1.95336 10.6886ZM10.5 19.2244C8.526 19.2244 6.70391 18.5519 5.26139 17.4239C5.41323 17.1094 7.14856 13.7689 11.9642 12.0877C11.9859 12.0769 11.9968 12.0769 12.0184 12.066C13.2223 15.1788 13.7104 17.7927 13.8406 18.541C12.8102 18.9857 11.6822 19.2244 10.5 19.2244ZM15.2614 17.7602C15.1746 17.2395 14.7191 14.745 13.6019 11.6755C16.2809 11.2525 18.6236 11.9467 18.9165 12.0444C18.5478 14.4196 17.1811 16.4695 15.2614 17.7602Z"
+                                fill="#787878"
+                              />
+                            </svg>
+                          </div> */}
+                        </div>
+                        <div className="text-paragraph dark:text-darkParagraph text-left flex-1">
+                          {/* <div className="text-heading dark:text-darkHeading flex gap-2 items-center">
+                            <p>34টি কোর্স </p>
+                            <svg
+                              width="4"
+                              height="5"
+                              viewBox="0 0 4 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2.17773"
+                                r="2"
+                                fill="#D9D9D9"
+                              />
+                            </svg>
+                            <p>159 ঘন্টা</p>
+                          </div> */}
+
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                            CEO @ APAR'S
+                            </p>
+                          </div>
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">
+                            Managing Director ACS
+                            </p>
+                          </div>
+                         
+                          <div className="flex gap-6  my-5">
+                            <div>
+                              <svg
+                                width="20"
+                                height="22"
+                                viewBox="0 0 20 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  className="w-[20px] h-[22px]"
+                                  d="M17 8.67773L10 1.67773L1 10.6777H3V17.6777C3 18.2082 3.21071 18.7169 3.58579 19.0919C3.96086 19.467 4.46957 19.6777 5 19.6777H12.5M7 19.6777V13.6777C7 13.1473 7.21071 12.6386 7.58579 12.2635C7.96086 11.8884 8.46957 11.6777 9 11.6777H11C11.661 11.6777 12.248 11.9977 12.612 12.4927M17 12.6777L15 16.6777H19L17 20.6777"
+                                  stroke="#6A6A6A"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <p className="text-base">BUET CE'15</p>
                           </div>
                         </div>
                       </div>
@@ -1733,74 +3670,156 @@ export default function Home() {
                     defaultChecked={true}
                   />
                   <div className="collapse-title text-xl font-medium">
-                    এই কোর্স করলেই কি আমি গুগলে চ্যান্স পাব ?
+                    কোর্সটি কিভাবে চলবে?
                   </div>
                   <div className="collapse-content">
                     <p>
-                      আমাদের এই কোর্সটি মোটেও তোমাকে গুগলার হওয়ার নিশ্চয়তা দেবে
-                      না বরং গুগলের মত এই সব বড়ো কোম্পানির জন্যে তোমার ক্যারিয়ার
-                      এর পথ কে সহজ করার জন্যে তোমাকে নতুন স্কিল ডেভেলপ করার
-                      জন্যে পথে হাঁটতে শেখাবে বাকি টা তোমাদের ধৈর্য আর ডেডিকেশন
-                      এর উপর নির্ভর করবে।এই কোর্সে তোমরা লেগে থাকবে আর শিখবে
-                      প্রোগ্রামিং এর নতুন জগতের নতুন নতুন সব জিনিস আর এভাবেই
-                      নিজেকে অন্য লেভেলে নিয়ে গিয়ে বিশ্বসেরা তোমাদের ড্রিম
-                      কোম্পানি গুলো তে চাকরির সুযোগ পেতে পার
+                      আমাদের কোর্সটি তে রেকর্ডেড ভিডিও কন্টেন্ট,কাস্টম কোডিং
+                      প্রব্লেম সহ অন্যান্য কন্টেন্ট গুলো নির্দিস্ট সময় পর পর
+                      আনলক হবে আর সাথে রেগুলার লাইভ ক্লাস গুলো এনাউন্স করা হবে
+                      যেখানে স্টুডেন্টরা সরাসরি জুম লাইভ ক্লাসে এসে ডাউট সহ
+                      কনসেপ্ট ক্লিয়ার করে নিয়ে এগিয়ে যাবে সাথে রেগুলার কোডিং
+                      কনটেস্ট আয়োজন করা হবে যা
+                    </p>
+                  </div>
+                </div>
+
+                <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-3" />
+                  <div className="collapse-title text-xl font-medium">
+                    কোর্সটি কাদের জন্যে ?
+                  </div>
+                  <div className="collapse-content">
+                    <p>
+                      যারা কম্পেটিটিভ প্রোগ্রামিং শিখতে আগ্রহী কিন্তু সঠিক
+                      গাইডলাইন পাচ্ছে না। কম্পেটিটীভ প্রোগ্রামিং করেছে কিন্তু
+                      মাঝপথে দিশেহারা হয়ে ছেড়ে দিয়েছে। যারা কলেজ এ থাকা অবস্থায়
+                      প্রোগ্রামিং শিখে এগিয়ে থাকতে চায়। যারা বিশ্ব-বিদ্যালয় এ সি
+                      এস ই নিয়ে ভর্তি হয়েছে কিন্তু প্রোগ্রামিং না পারায় পিছিয়ে
+                      যাচ্ছে একাডমিক রেজাল্ট খারাপ হচ্ছে । যারা নিজেদের ভবিষ্যতে
+                      GOOGLE,FACEBOOK,AMAZOM সহ বিশ্বসেরা ড্রিম কোম্পানি গুলোতে
+                      চাকরি পেয়ে চায় তাড়াই আমাদের কোর্সে ভর্তি হতে পারবে
                     </p>
                   </div>
                 </div>
                 <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                   <input type="radio" name="my-accordion-3" />
                   <div className="collapse-title text-xl font-medium">
-                    এই কোর্স টি কাদের জন্যে?
+                    আমি প্রোগ্রামিং তেমন পারি না আমি কি কোর্স টি করতে পারব ?
                   </div>
                   <div className="collapse-content">
-                    <p>hello</p>
+                    <p>
+                      আমাদের কোর্সটি এইবার নতুন করে সাজানো হয়েছে যেন একদম শূন্য
+                      থেকেও প্রোগ্রামিং শিখে কোর্সটিতে এগিয়ে যাওয়া যায়।C++ এর
+                      একদম বেসিক থেকে ধরে এডভ্যান্স প্রব্লেম সলভ করার জন্যে যা
+                      যা প্রয়োজন তার সব ই এড করা হয়েছে এই কোর্সে তাই যারা একদমই
+                      প্রোগ্রামিং পারে না তারাও আমাদের এই কোর্সটি করতে পারবে
+                    </p>
                   </div>
                 </div>
                 <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                   <input type="radio" name="my-accordion-3" />
                   <div className="collapse-title text-xl font-medium">
-                    আমি প্রোগ্রামিং এর {`"`}প{`"`} ও জানি না আমি কি কোর্স টি
-                    করতে পারব?
+                    আমি মোটামুটি প্রোগ্রামিং পারি আর নিয়মিত সিপি করার ট্রাই করি
+                    আমার কি এই কোর্সটি করা উচিত?
                   </div>
                   <div className="collapse-content">
-                    <p>hello</p>
+                    <p>
+                      আমাদের কোর্সে ক্লাস নিবে যারা বুয়েট সি এস ই থেকে পড়ে এখন
+                      গুগলে আছে আর কোডফোর্সেস সহ প্রোগ্রামিং এর অলিম্পিকস ACM
+                      ICPC তে WORLD FInalist সহ ASIA WEST Champion পর্যন্ত
+                      হয়েছে। তারা CP এর কমপ্লেক্স টপিক ডায়নামিক প্রোগ্রামিং সহ
+                      গেম থিওরি গুলো বুঝিয়ে দিবে তাই এডভ্যান্স জিনিসপত্র ও
+                      শেখানো হবে আমাদের এই কোর্সে তাই যারা CP এর কমপ্লেক্স
+                      টপিকগুলো শিখতে চাইলে জয়েন করে ফেলতে পার
+                    </p>
                   </div>
                 </div>
                 <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                   <input type="radio" name="my-accordion-3" />
                   <div className="collapse-title text-xl font-medium">
-                    এই কোর্সটি করার পর আমি কি করব?
+                    কোর্স চলাকালীন কোন সমস্যায় পড়লে কিভাবে হেল্প পাব?
                   </div>
                   <div className="collapse-content">
-                    <p>hello</p>
+                    <p>
+                      তোমাদের জন্যে প্রতিটি কন্টেন্ট এর নিচে ডিসকাশন সেকশন থাকবে
+                      যেখানে তোমারা ঐ কন্টেন্ট রিলেটেড প্রশ্ন করতে পারবে। সাথে
+                      রেগুলার জুম লাইভ ক্লাস নেয়া হবে যেখানে তুমি সরাসরি লাইভে
+                      এসে তোমার ডাউট সলভ করে নিতে পারবে আর আমাদের ফেইসবুক
+                      কমিউনিটি তো থাকবেই সার্বক্ষনিক ও আজীবন তোমাকে সাপোর্ট দিতে
+                      । সো সমস্যা তোমার আর সলভ করার দায়িত্ব আমাদের।
+                    </p>
                   </div>
                 </div>
                 <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                   <input type="radio" name="my-accordion-3" />
                   <div className="collapse-title text-xl font-medium">
-                    কোর্স চলাকালীন কোন সমস্যা ফেইস করলে কিভাবে হেল্প পাব?
+                    কোর্সটির কন্টেন্ট গুলো কত দিন এক্সেস থাকবে?
                   </div>
                   <div className="collapse-content">
-                    <p>hello</p>
+                    <p>
+                      কোর্সটির ডিউরেশন ৪ মাস কিন্তু তোমাদের সবার নিজেদের
+                      পারসোনাল কাজ থাকায় আমরা কন্টেন্ট গুলো পুরো ১ বছর তোমাদের
+                      প্রোফাইলে এক্সেস দিব তাই তুমি তোমার নিজের রুটিনের সাথে
+                      মিলিয়ে কন্টেন্ট গুলো নিজের মত এক্সেস করতে পারবে
+                    </p>
                   </div>
                 </div>
                 <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                   <input type="radio" name="my-accordion-3" />
                   <div className="collapse-title text-xl font-medium">
-                    কোর্স এ ভর্তির সম পরিমাণ টাকা ফেরত কিভাবে পেতে পারি?
+                    কোর্সটির শেষে কি সার্টিফিকেট দেয়া হবে ?
                   </div>
                   <div className="collapse-content">
-                    <p>hello</p>
+                    <p>
+                      কোর্সটি তুমি শেষ করতে পারলে তোমাকে কোর্স কমপ্লিশন
+                      সার্টিফিকেট দেয়া হবে যা তুমি সবার সাথে শেয়ার করতে পারবে বা
+                      নিজের অর্জনের তালিকায় এড করতে পারবে
+                    </p>
                   </div>
                 </div>
                 <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
                   <input type="radio" name="my-accordion-3" />
                   <div className="collapse-title text-xl font-medium">
-                    কোর্সটি কিভাবে কিনব?
+                    কোর্সটি কি রিফান্ড নেয়া যাবে?
                   </div>
                   <div className="collapse-content">
-                    <p>hello</p>
+                    <p>
+                      না আমাদের কোর্সে কোন রিফান্ড এর ব্যবস্থা নেই তাই বুঝে শুনে
+                      কোর্সটি পারচেস করবা টিচার আর সিলেবাস দেখে নিয়ে
+                    </p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-3" />
+                  <div className="collapse-title text-xl font-medium">
+                    কোর্সটিতে জয়েন করে আমার বন্ধু বান্ধবীদের সাথে শেয়ার করা
+                    যাবে?
+                  </div>
+                  <div className="collapse-content">
+                    <p>
+                      কোনভাবেই কোর্স বা তোমার আইডি তুমি কারো সাথে শেয়ার করতে
+                      পারবে না । করলে আমরা আমাদের এন্ড থেকে থেকে আইডি রিমুভ করে
+                      দেয়া হবে সাথে কোর্স এক্সেস ও বন্ধ করে দেয়া হবে আর এক
+                      ডিভাইস থেকে অন্য ডিভাইসে লগইন করলে অটোমেটিক তোমাকে আগের
+                      ডিভাইস থেকে রিমুভ করে দেয়া হবে
+                    </p>
+                  </div>
+                </div>
+                <div className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mt-6">
+                  <input type="radio" name="my-accordion-3" />
+                  <div className="collapse-title text-xl font-medium">
+                    কোর্সটি করার পর আমি কি করব কিভাবে এগিয়ে যাব ?
+                  </div>
+                  <div className="collapse-content">
+                    <p>
+                      তুমি সফলভাবে কোর্সটী কমপ্লিট করতে পারলে প্রব্লেম সলভিং
+                      তোমার একটি অভ্যাসে পরিণত হবে। তুমি এর পর কোডফোর্সেস এ
+                      নিয়মিত কন্টেস্ট করবে সাথে অন্যান্য প্ল্যাটফর্মেও কন্টেস্ট
+                      করার ট্রাই করবে আর নিজের র‍্যাংকিং এগিয়ে নেয়ার ট্রাই করবে
+                      এভাবেই এগিয়ে যাবে সাথে কোথাও কোন সমস্যার মুখোমুখি হলে
+                      আমাদের কমিউনিটি তে হেল্প চাইবে
+                    </p>
                   </div>
                 </div>
               </div>
