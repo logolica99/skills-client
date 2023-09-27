@@ -1611,7 +1611,7 @@ export default function Home() {
                         <div className="text-center flex-1">
                           <div className="flex justify-center">
                             <img
-                              src="/CP instructors/Muttaqueen_random.png "
+                              src="/CP instructors/Muttaqueen_Random.png "
                               alt=""
                               className="rounded-xl w-full lg:w-[250px]"
                             />
