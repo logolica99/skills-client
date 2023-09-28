@@ -855,11 +855,19 @@ export default function CourseDetailsPage() {
                       >
                         <div className="flex  gap-4  justify-between items-center">
                           <div className="flex flex-col md:flex-row md:items-center gap-8 ">
-                            <img
-                              src="/Frame 1000004442.png"
-                              alt=""
-                              className="max-w-[100px]"
-                            />
+                            {instructor.imageUploadedLink?
+                          
+                          <img
+                          src={instructor.imageUploadedLink}
+                            alt=""
+                            className="max-w-[200px]"
+                          />:
+                          <img
+                          src="/Frame 1000004442.png"
+                          alt=""
+                          className="max-w-[100px]"
+                        />
+                          }
                             <div>
                               <p className="text-2xl">{instructor.name}</p>
                               <p className=" text-paragraph dark:text-darkParagraph  mt-1">
@@ -988,7 +996,7 @@ export default function CourseDetailsPage() {
                                 <img
                                   src={feedback.imageUploadedLink}
                                   alt=""
-                                  className="rounded-full"
+                                  className="rounded-full max-w-[50px]"
                                 />
                                 <div>
                                   <p className="text-xl">{feedback.name}</p>
