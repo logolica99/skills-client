@@ -860,7 +860,7 @@ export default function CourseDetailsPage() {
                           <img
                           src={instructor.imageUploadedLink}
                             alt=""
-                            className="max-w-[200px]"
+                            className="max-w-[200px] rounded-xl"
                           />:
                           <img
                           src="/Frame 1000004442.png"
