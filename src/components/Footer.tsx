@@ -85,6 +85,24 @@ export default function Footer({}: Props) {
               <Link href="/course-details/12" className="hover:text-white">
                 কোস কন্টেন্ট
               </Link>
+              <a
+                href="https://www.codervai.com/terms-and-conditions"
+                className="hover:text-white"
+              >
+                শর্তাবলি
+              </a>
+              <a
+                href="https://www.codervai.com/privacy-policy"
+                className="hover:text-white"
+              >
+                প্রাইভেসি পলিসি
+              </a>
+              <a
+                href="https://www.codervai.com/refund-policy"
+                className="hover:text-white"
+              >
+                রিফান্ড পলিসি
+              </a>
             </div>
             {/* <div className="flex flex-col gap-4">
               <Link href="" className="hover:text-white">
