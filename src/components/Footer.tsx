@@ -103,6 +103,12 @@ export default function Footer({}: Props) {
               >
                 রিফান্ড পলিসি
               </a>
+              <a
+                href="https://www.codervai.com/about-us"
+                className="hover:text-white"
+              >
+                About Us
+              </a>
             </div>
             {/* <div className="flex flex-col gap-4">
               <Link href="" className="hover:text-white">
@@ -117,7 +123,18 @@ export default function Footer({}: Props) {
             </div> */}
           </div>
         </div>
-        <p className="text-white mt-6">Copyright © Codervai2023</p>
+        <p className="text-white mt-4">
+          H-123,Nurer Chaya,
+          <br />
+          Ashkona Haji Camp Dakhin Khan,
+          <br />
+          Dhaka, Bangladesh
+        </p>
+        <p className="text-white mt-4">
+          {" "}
+          Trade License: লাইসেন্স নং : TRAD/DNCC/022261/2023{" "}
+        </p>
+        <p className="text-white mt-4">Copyright © Codervai2023</p>
       </div>
     </div>
   );
