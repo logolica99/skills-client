@@ -362,7 +362,7 @@ export default function CourseDetailsPage() {
                           }}
                         ></input>
                         <div>
-                          I HAVE READ AND AGREE TO THE WEBSITE'S{" "}
+                          I HAVE READ AND AGREE TO THE WEBSITE{"'"}S{" "}
                           <a
                             target="_blank"
                             className="text-blue-300 font-bold"
