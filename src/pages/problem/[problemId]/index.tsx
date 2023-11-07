@@ -388,7 +388,7 @@ int main(){
                   {problemTab.problem && (
                     <div className="px-4">
                       <div
-                        className="text-xl flex flex-col gap-8 mt-6"
+                        className="text-xl flex flex-col gap-8 mt-6 break-words"
                         dangerouslySetInnerHTML={{
                           __html: problemData?.data?.body,
                         }}

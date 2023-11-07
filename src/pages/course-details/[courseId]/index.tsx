@@ -1277,16 +1277,15 @@ export default function CourseDetailsPage() {
                     কোর্সে যান
                   </Link>
                 ) : (
-                  <div></div>
+                  <button
+                    onClick={() => {
+                      setOpenBuyCourse(true);
+                    }}
+                    className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                  >
+                    কোর্সটি কিনুন
+                  </button>
                 )}
-                <button
-                  onClick={() => {
-                    setOpenBuyCourse(true);
-                  }}
-                  className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
-                >
-                  কোর্সটি কিনুন
-                </button>
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
                 <p className="text-sm text-paragraph dark:text-darkParagraph">
