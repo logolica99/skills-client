@@ -1,7 +1,8 @@
 import Nav from "@/components/Nav";
 import { HindSiliguri } from "@/helpers";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
@@ -53,6 +54,7 @@ export default function CourseDetailsPage() {
     instructor: false,
     courseComplete: false,
   });
+  const [conditionsChecked, setConditionsChecked] = useState(false);
 
   const changeTab = (tabName: string) => {
     let temp: any = {
@@ -252,6 +254,8 @@ export default function CourseDetailsPage() {
     ],
   });
 
+  const [openBuyCourse, setOpenBuyCourse] = useState(false);
+
   const fetchCourse = () => {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
@@ -307,6 +311,102 @@ export default function CourseDetailsPage() {
       <Toaster />
 
       <FloatingCompiler />
+
+      <Transition appear show={openBuyCourse} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative "
+          style={{ zIndex: 99999 }}
+          onClose={() => {
+            setOpenBuyCourse(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className=" w-[90vw]  text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="div"
+                    className="text-lg font-medium leading-6 "
+                  >
+                    <div>Buy Course</div>
+                  </Dialog.Title>
+                  <div className=" flex flex-col-reverse md:flex-row justify-between gap-8">
+                    <div className="pt-4  " style={{ flex: 3 }}>
+                      <div className="flex gap-2">
+                        <input
+                          type="checkbox"
+                          checked={conditionsChecked}
+                          onChange={(e) => {
+                            setConditionsChecked(e.target.checked);
+                          }}
+                        ></input>
+                        <div>
+                          I HAVE READ AND AGREE TO THE WEBSITE'S{" "}
+                          <a
+                            target="_blank"
+                            className="text-blue-300 font-bold"
+                            href="https://www.codervai.com/terms-and-conditions"
+                          >
+                            TERMS AND CONDITIONS
+                          </a>{" "}
+                          ,
+                          <a
+                            target="_blank"
+                            className="text-blue-300 font-bold"
+                            href="https://www.codervai.com/privacy-policy"
+                          >
+                            PRIVACY POLICY
+                          </a>
+                          , AND{" "}
+                          <a
+                            target="_blank"
+                            className="text-blue-300 font-bold"
+                            href="https://www.codervai.com/refund-policy"
+                          >
+                            REFUND POLICY
+                          </a>
+                          <span className="text-red-500">*</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={buyCourse}
+                        className={` ${
+                          conditionsChecked
+                            ? "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150"
+                            : "bg-gray-600 cursor-not-allowed disabled"
+                        }  text-darkHeading py-3 w-full mt-8 rounded-xl `}
+                      >
+                        কোর্সটি কিনুন
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
 
       <button
         style={{ zIndex: 999 }}
@@ -855,19 +955,19 @@ export default function CourseDetailsPage() {
                       >
                         <div className="flex  gap-4  justify-between items-center">
                           <div className="flex flex-col md:flex-row md:items-center gap-8 ">
-                            {instructor.imageUploadedLink?
-                          
-                          <img
-                          src={instructor.imageUploadedLink}
-                            alt=""
-                            className="max-w-[200px] rounded-xl"
-                          />:
-                          <img
-                          src="/Frame 1000004442.png"
-                          alt=""
-                          className="max-w-[100px]"
-                        />
-                          }
+                            {instructor.imageUploadedLink ? (
+                              <img
+                                src={instructor.imageUploadedLink}
+                                alt=""
+                                className="max-w-[200px] rounded-xl"
+                              />
+                            ) : (
+                              <img
+                                src="/Frame 1000004442.png"
+                                alt=""
+                                className="max-w-[100px]"
+                              />
+                            )}
                             <div>
                               <p className="text-2xl">{instructor.name}</p>
                               <p className=" text-paragraph dark:text-darkParagraph  mt-1">
@@ -1177,16 +1277,21 @@ export default function CourseDetailsPage() {
                     কোর্সে যান
                   </Link>
                 ) : (
-                  <button
-                    onClick={buyCourse}
-                    className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
-                  >
-                    কোর্সটি কিনুন
-                  </button>
+                  <div></div>
                 )}
+                <button
+                  onClick={() => {
+                    setOpenBuyCourse(true);
+                  }}
+                  className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                >
+                  কোর্সটি কিনুন
+                </button>
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
-                <p className="text-sm text-paragraph dark:text-darkParagraph">কোর্সটি সম্পর্কে বিস্তারিত জানতে</p>
+                <p className="text-sm text-paragraph dark:text-darkParagraph">
+                  কোর্সটি সম্পর্কে বিস্তারিত জানতে
+                </p>
                 <a
                   href="tel:+4733378901"
                   className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
@@ -1210,7 +1315,7 @@ export default function CourseDetailsPage() {
           </div>
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

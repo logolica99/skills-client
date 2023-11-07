@@ -110,6 +110,7 @@ export default function Footer({}: Props) {
                 About Us
               </a>
             </div>
+
             {/* <div className="flex flex-col gap-4">
               <Link href="" className="hover:text-white">
                 নোটিফিকেশান
@@ -122,6 +123,11 @@ export default function Footer({}: Props) {
               </Link>
             </div> */}
           </div>
+        </div>
+        <div>
+          <p>Pay with</p>
+          <img alt="ssl-logo" src="/ssl-logo.png" />
+          <img alt="ssl-commerz" src="/SSL-commerz.png" />
         </div>
         <p className="text-white mt-4">
           H-123,Nurer Chaya,
