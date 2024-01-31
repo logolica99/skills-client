@@ -105,7 +105,7 @@ export default function Nav({}: Props) {
           <div className="flex justify-between items-center ">
             <div className="flex gap-10 items-center">
               <Link href="/">
-                <img src="/logo.jpg" alt="" className="w-20 md:w-28 mr-8 " />
+                <img src="/logo.png" alt="" className="w-8 md:w-14 mr-8 " />
               </Link>
 
               {isLogged && (

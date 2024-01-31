@@ -108,7 +108,7 @@ export default function Home() {
               viewBox="0 0 1296 1357"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute lg:left-0 lg:top-0 z-0"
+              className="absolute lg:left-0 lg:top-0 z-0 w-[100vw]"
             >
               <g filter="url(#filter0_f_117_9391)">
                 <ellipse
@@ -117,7 +117,7 @@ export default function Home() {
                   rx="321.908"
                   ry="181.231"
                   transform="rotate(-10.6934 818.454 668.286)"
-                  fill="#107B61"
+                  fill="#B153E0"
                   fillOpacity="0.38"
                 />
               </g>
@@ -161,7 +161,7 @@ export default function Home() {
                   rx="240.444"
                   ry="135.368"
                   transform="rotate(-10.6934 298.35 367.138)"
-                  fill="#107B61"
+                  fill="#B153E0"
                 />
               </g>
               <defs>
@@ -190,7 +190,7 @@ export default function Home() {
             </svg>
 
             <div className="text-heading dark:text-darkHeading flex flex-col gap-4 z-10">
-              <p className="text-[#2BA98B]">কম্পেটিটিভ প্রোগ্রামিং কোর্স</p>
+              <p className="text-[#B153E0]">কম্পেটিটিভ প্রোগ্রামিং কোর্স</p>
               <div>
                 <h2 className="text-2xl lg:text-4xl">
                   Competitive Programming 2.0 SuperCharged
@@ -215,7 +215,7 @@ export default function Home() {
                   >
                     <path
                       d="M13 5L17.5528 2.72361C18.2177 2.39116 19 2.87465 19 3.61803V10.382C19 11.1253 18.2177 11.6088 17.5528 11.2764L13 9M3 13H11C12.1046 13 13 12.1046 13 11V3C13 1.89543 12.1046 1 11 1H3C1.89543 1 1 1.89543 1 3V11C1 12.1046 1.89543 13 3 13Z"
-                      stroke="#2BA98B"
+                      stroke="#B153E0"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -241,7 +241,7 @@ export default function Home() {
                 <img
                   src="/Group 33507.png"
                   alt=""
-                  className="relative lg:top-28"
+                  className="relative lg:top-10"
                 />
               </Tilt>
             </div>
@@ -263,7 +263,7 @@ export default function Home() {
                 cy="208.5"
                 rx="269"
                 ry="206.5"
-                fill="#DE9931"
+                fill="#B153E0"
                 fillOpacity="0.5"
               />
             </g>
@@ -295,14 +295,14 @@ export default function Home() {
             <div className="w-[90%] lg:w-[80%] mx-auto mt-24  text-heading dark:text-darkHeading py-20 z-10">
               <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
                 <img
-                  src="/bubble with inequality symbols.png"
+                  src="/eye icon.png"
                   alt=""
-                  className="max-w-[90px] max-h-[90px] lg:max-w-[160px] lg:max-h-[160px] flex-1"
+                  className="max-w-[90px] max-h-[90px] lg:max-w-[100px] lg:max-h-[100px] flex-1"
                 />
                 <div className="relative">
                   <h2 className="text-2xl lg:text-4xl">এক নজরে আমাদের </h2>
                   <h2 className="text-2xl lg:text-4xl">
-                    <span className="text-[#F1BA41]">
+                    <span className="text-[#B153E0]">
                       কম্পেটিটিভ প্রোগ্রামিং
                     </span>{" "}
                     কোর্স
@@ -507,33 +507,33 @@ export default function Home() {
           </AnimationOnScroll>
         </div>
 
-        <div className="bg-[#2BA98B]/20 dark:bg-[#02090A] z-30 relative">
+        <div className="bg-[#2BA98B]/20 dark:bg-[#050207] z-30 relative">
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading pt-40 py-20 md:py-32">
               <div
                 className="rounded-xl "
                 style={{
-                  background: "linear-gradient( #2BA98B4F 0%, #2BA98B00 100%)",
+                  background: "linear-gradient( #CA65FD70 0%, #B153E000 100%)",
                 }}
               >
                 <div
-                  className=" rounded-xl px-16 py-20 pb-20 mx-[1px] dark:bg-[#02090A]/60 relative top-[1px] "
+                  className=" rounded-xl px-16 py-20 pb-20 mx-[1px] dark:bg-[#050207]/60 relative top-[1px] "
                   style={{}}
                 >
                   <div className="flex justify-between gap-16 flex-col lg:flex-row items-center">
                     <div className="flex-1">
                       <Tilt>
                         {user.darkMode ? (
-                          <img src="/Mid_Code_Dark.png" alt="" />
+                          <img src="/mid_section_code.png" alt="" />
                         ) : (
-                          <img src="/Mid_Code_Light.png" alt="" />
+                          <img src="/mid_section_code.png" alt="" />
                         )}
                       </Tilt>
                     </div>
                     <div className="flex-1">
                       <h2 className="text-2xl lg:text-4xl ">
                         কম্পেটিটিভ প্রোগ্রামিং <br /> এর{" "}
-                        <span className="text-[#2BA98B]">পরিচিতি</span>
+                        <span className="text-[#B153E0]">পরিচিতি</span>
                       </h2>
                       <p className="my-6 text-xl">
                         প্রোগ্রামার দের অলিম্পিকস হল ACM:ICPC যেখানে প্রতি বছর
@@ -565,7 +565,7 @@ export default function Home() {
               <div className="flex flex-col lg:flex-row text-center lg:text-left justify-between items-center  pb-10 gap-6 lg:gap-0 border-b border-gray-100/20">
                 <div className="flex-1">
                   <div className="flex justify-center lg:justify-start">
-                    <img src="/rectangle with code.png" alt="" />
+                    <img src="/code_rectangle.png" alt="" />
                   </div>
 
                   <h2 className="text-2xl lg:text-4xl mt-6">
@@ -659,22 +659,22 @@ export default function Home() {
           </AnimationOnScroll>
         </div>
 
-        <div className="bg-[#F1BA41]/20 dark:bg-[#080600] z-30 relative">
+        <div className="bg-[#ca65fd]/20 dark:bg-[#08060D] z-30 relative">
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
               <div
                 className="rounded-xl text-center"
                 style={{
-                  background: "linear-gradient(#F1BA4129 0%,  #F1BA4103 100%)",
+                  background: "linear-gradient( #CA65FD70 0%, #B153E000 100%)",
                 }}
               >
                 <div
-                  className=" rounded-xl px-6 py-20 pb-20 mx-[1px] dark:bg-[#080600]/60 relative top-[1px] "
+                  className=" rounded-xl px-6 py-20 pb-20 mx-[1px] dark:bg-[#050207]/60 relative top-[1px] "
                   style={{}}
                 >
                   <div className="w-[90%] lg:w-[60%] mx-auto">
                     <div className="flex justify-center">
-                      <img src="/code programming icon.png" alt="" />
+                      <img src="/verified_sign.png" alt="" />
                     </div>
                     <h2 className="text-2xl lg:text-4xl mt-8">
                       আমাদের উদ্যেশ্য কি
@@ -709,7 +709,7 @@ export default function Home() {
                         >
                           <path
                             d="M13.5 5.5L18.0528 3.22361C18.7177 2.89116 19.5 3.37465 19.5 4.11803V10.882C19.5 11.6253 18.7177 12.1088 18.0528 11.7764L13.5 9.5M3.5 13.5H11.5C12.6046 13.5 13.5 12.6046 13.5 11.5V3.5C13.5 2.39543 12.6046 1.5 11.5 1.5H3.5C2.39543 1.5 1.5 2.39543 1.5 3.5V11.5C1.5 12.6046 2.39543 13.5 3.5 13.5Z"
-                            stroke="#F1BA41"
+                            stroke="#B153E0"
                             strokeWidth="1.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -729,7 +729,7 @@ export default function Home() {
         <div className="bg-[#ca65fd]/20 dark:bg-[#0B060D] z-30 relative">
           <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
             <div className="flex flex-col  items-center pb-10 border-b border-black/30 dark:border-gray-300/10">
-              <img src="/purple puzzle.png" alt="" />
+              <img src="/glowing_bulb.png" alt="" />
 
               <p className="text-2xl lg:text-4xl mt-4 mb-2">
                 কোর্সটি <span className="text-[#B153E0]">কীভাবে কাজ করবে</span>
@@ -1364,12 +1364,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#2BA98B]/20 dark:bg-[#02090A] z-30 relative">
+        <div className="bg-[#ca65fd]/20 dark:bg-[#0B060D] z-30 relative">
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
               <div className="pb-10 border-b border-gray-100/20 flex flex-col items-center">
                 <div className="text-center">
-                  <img src="/Seo.png" alt="" />
+                  <img src="/glowing_king.png" alt="" />
                 </div>
                 <h2 className="text-2xl md:text-4xl my-6">
                   কোর্স ইন্সট্রাক্টর
@@ -1382,11 +1382,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -1600,11 +1600,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -1771,11 +1771,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -1990,11 +1990,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -2207,11 +2207,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -2447,11 +2447,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -2468,11 +2468,11 @@ export default function Home() {
                             Content Creator at CoderVai
                           </p>
                           <p className="my-5 text-paragraph dark:text-darkParagraph">
-                            Hi, I{"'"}m Tithi Saha, a 4th year undergraduate student
-                            at dept. of CSE, SUST. I{"'"}m interested in Web
-                            Development, Machine Learning, Human and Computer
-                            Interaction and Security. I{"'"}m currently working as a
-                            content creator in this platform.
+                            Hi, I{"'"}m Tithi Saha, a 4th year undergraduate
+                            student at dept. of CSE, SUST. I{"'"}m interested in
+                            Web Development, Machine Learning, Human and
+                            Computer Interaction and Security. I{"'"}m currently
+                            working as a content creator in this platform.
                           </p>
                           {/* <div className="flex justify-center gap-8">
                             <svg
@@ -2673,11 +2673,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -2694,10 +2694,10 @@ export default function Home() {
                             Tester, Doubt solver, Content Maker at CoderVai
                           </p>
                           <p className="my-5 text-paragraph dark:text-darkParagraph">
-                            Hi, I{"'"}m Abrar Hasnat, a 4th year undergrad student
-                            at department of CSE,BUET. I{"'"}m interested in
-                            Competitive Programming, full stack development and
-                            Machine Learning.
+                            Hi, I{"'"}m Abrar Hasnat, a 4th year undergrad
+                            student at department of CSE,BUET. I{"'"}m
+                            interested in Competitive Programming, full stack
+                            development and Machine Learning.
                           </p>
                           {/* <div className="flex justify-center gap-8">
                             <svg
@@ -2804,11 +2804,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -3001,11 +3001,11 @@ export default function Home() {
                     className="rounded-xl text-center"
                     style={{
                       background:
-                        "linear-gradient(#12B76A9C 0%,  #12B76A1F 100%)",
+                        "linear-gradient(#D6BBFB40 0%,  #FFFFFF00 100%)",
                     }}
                   >
                     <div
-                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#02090A]/90 relative top-[1px] h-full"
+                      className=" rounded-xl px-6 py-8 pb-20 mx-[1px] dark:bg-[#0B060D]/90 relative top-[1px] h-full"
                       style={{}}
                     >
                       <div className="flex flex-col lg:flex-row justify-between gap-10 items-center lg:items-start">
@@ -3605,7 +3605,7 @@ export default function Home() {
             </div>
           </AnimationOnScroll>
         </div>
-        <div className="bg-[#F1BA41]/10 dark:bg-[#080600] z-30 relative">
+        <div className="bg-[#ca65fd]/10 dark:bg-[#0B060D] z-30 relative">
           <svg
             width="1311"
             height="953"
@@ -3621,7 +3621,7 @@ export default function Home() {
                 rx="211.288"
                 ry="118.953"
                 transform="rotate(-10.6934 709.691 328.77)"
-                fill="#DE9931"
+                fill="#B153E0"
                 fillOpacity="0.48"
               />
             </g>
@@ -3652,7 +3652,7 @@ export default function Home() {
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading py-20 md:py-32">
               <div className="flex flex-col items-center gap-8 z-10 relative">
-                <img src="/question and exclamation mark.png" alt="" />
+                <img src="/text_bubble.png" alt="" />
 
                 <p className="text-2xl md:text-4xl">
                   সচরাচর জানতে চাও প্রশ্নের উত্তর

@@ -462,6 +462,7 @@ export default function RewardPage({}: Props) {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </ProtectedRoute>
   );

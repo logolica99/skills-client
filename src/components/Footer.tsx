@@ -5,7 +5,7 @@ type Props = {};
 
 export default function Footer({}: Props) {
   return (
-    <div className="bg-[#02090A] z-30 relative ">
+    <div className="bg-[#0B060D] z-30 relative ">
       <div className="w-[90%] lg:w-[80%] mx-auto  text-darkHeading py-20 ">
         <div className="flex flex-col lg:flex-row justify-between lg:items-center">
           <svg
@@ -22,7 +22,7 @@ export default function Footer({}: Props) {
                 rx="173.254"
                 ry="97.5405"
                 transform="rotate(-10.6934 489.386 138.31)"
-                fill="#107B61"
+                fill="#B153E0"
               />
             </g>
             <defs>
@@ -51,7 +51,7 @@ export default function Footer({}: Props) {
           </svg>
 
           <div className="mb-20 lg:mb-0 z-10">
-            <img src="/logo.jpg" alt="" className="w-28 " />
+            <img src="/logo.png" alt="" className="w-14 " />
             <div className="text-darkParagraph mt-8">
               <a
                 href="https://www.facebook.com/groups/coder.vai.2023"
