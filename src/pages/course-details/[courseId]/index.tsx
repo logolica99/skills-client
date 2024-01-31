@@ -23,6 +23,9 @@ import { UserContext } from "@/Contexts/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 import FloatingCompiler from "@/components/FloatingCompiler";
 import Footer from "@/components/Footer";
+import jwtDecode from "jwt-decode";
+import Button from "@/components/Button";
+import GradientButton from "@/components/GradientButton";
 
 const settings = {
   dots: true,
@@ -70,6 +73,7 @@ export default function CourseDetailsPage() {
   const [courseData, setCourseData] = useState({
     success: true,
     isTaken: true,
+    isWishList: false,
     id: 3,
     title: "প্রতিযোগিতামূলক প্রোগ্রামিং মৌলিক",
     x_price: 20000,
@@ -254,7 +258,15 @@ export default function CourseDetailsPage() {
     ],
   });
 
+  const [prebookButtonLoading, setPrebookButtonLoading] = useState(false);
+
   const [openBuyCourse, setOpenBuyCourse] = useState(false);
+  const [openPrebookCourse, setOpenPrebookCourse] = useState(false);
+  const [prebookingData, setPrebookingData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
 
   const fetchCourse = () => {
     setUser({ ...user, loading: true });
@@ -267,6 +279,12 @@ export default function CourseDetailsPage() {
       })
       .then((res) => {
         setCourseData(res.data);
+        if(!token){
+
+          if (localStorage.getItem("isWishList") === "true") {
+            setCourseData({ ...res.data, isWishList: true });
+          }
+        }
         setUser({ ...user, loading: false });
       })
       .catch((err) => {
@@ -288,7 +306,7 @@ export default function CourseDetailsPage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         )
         .then((res) => {
           window.location = res.data.data;
@@ -303,7 +321,32 @@ export default function CourseDetailsPage() {
 
   useEffect(() => {
     fetchCourse();
+  
   }, []);
+
+  const prebookCourse = () => {
+    setPrebookButtonLoading(true);
+
+    const token = localStorage.getItem("token");
+    axios
+      .post(BACKEND_URL + "/user/course/prebook/" + COURSE_ID, {
+        ...prebookingData,
+      })
+      .then((res) => {
+        setUser({ ...user, loading: false });
+        setOpenPrebookCourse(false);
+        setPrebookButtonLoading(false);
+        setCourseData({ ...courseData, isWishList: true });
+        localStorage.setItem("isWishList", "true");
+        toast.success("This course has been prebooked!")
+        // router.push("/course/12");
+        //setUser({ ...user, loading: false });
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+        setPrebookButtonLoading(false);
+      });
+  };
 
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  overflow-x-hidden `}>
@@ -400,6 +443,145 @@ export default function CourseDetailsPage() {
                         কোর্সটি কিনুন
                       </button>
                     </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={openPrebookCourse} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative "
+          style={{ zIndex: 99999 }}
+          onClose={() => {
+            setOpenPrebookCourse(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className=" lgXl:w-[40vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#B2F100]/5  backdrop-blur-lg border border-[#B2F100]/60  text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="div"
+                    className="text-lg font-medium leading-6 p-6 "
+                  >
+                    <div className="flex items-center flex-col lg:flex-row">
+                      <img src="/logo.png" alt="" className="py-6 lg:p-6" />
+                      <div>
+                        <p className="text-heading dark:text-darkHeading text-xl text-center lg:text-left">
+                          Competitive Programming শিখব এবার হাতে কলমে
+                        </p>
+                        <p className="text-paragraph dark:text-darkParagraph mt-2 text-base text-center lg:text-left">
+                          খুব শীঘ্রয় আসছে আমাদের এই কোর্স তাই কোর্সের সম্বন্ধে
+                          আগাম জেনে রাখার জন্য এখনি নিচে দেওয়া ফর্ম ফিল আপ করুন
+                        </p>
+                      </div>
+                    </div>
+                  </Dialog.Title>
+                  <div className="border-b border-t border-black/20 dark:border-gray-300/20 py-8 px-6">
+                    <div className="flex  items-center ">
+                      <p className="text-paragraph dark:text-darkParagraph mb-1 font-xl flex-1">
+                        Name
+                      </p>
+                      <input
+                        value={prebookingData.name}
+                        onChange={(e) => {
+                          setPrebookingData({
+                            ...prebookingData,
+                            name: e.target.value,
+                          });
+                        }}
+                        className="w-full bg-white/0 border flex-[2] border-gray-500 dark:border-gray-200/20 outline-none text-heading dark:text-darkHeading px-4 py-2 text-xl rounded-lg"
+                      />
+                    </div>
+                    <div className="flex  items-center my-6">
+                      <p className="text-paragraph dark:text-darkParagraph mb-1 font-xl flex-1">
+                        Phone Number
+                      </p>
+                      <input
+                        type="number"
+                        value={prebookingData.phone}
+                        onChange={(e) => {
+                          setPrebookingData({
+                            ...prebookingData,
+                            phone: e.target.value,
+                          });
+                        }}
+                        className="w-full bg-white/0 border flex-[2] border-gray-500 dark:border-gray-200/20 outline-none text-heading dark:text-darkHeading px-4 py-2 text-xl rounded-lg"
+                      />
+                    </div>
+                    <div className="flex  items-center ">
+                      <p className="text-paragraph dark:text-darkParagraph mb-1 font-xl flex-1">
+                        Email
+                      </p>
+                      <input
+                        type="mail"
+                        value={prebookingData.email}
+                        onChange={(e) => {
+                          setPrebookingData({
+                            ...prebookingData,
+                            email: e.target.value,
+                          });
+                        }}
+                        className="w-full bg-white/0 border flex-[2] border-gray-500 dark:border-gray-200/20 outline-none text-heading dark:text-darkHeading px-4 py-2 text-xl rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  <div className=" flex p-6 gap-4">
+                    <button
+                      onClick={() => {
+                        setOpenPrebookCourse(false);
+                      }}
+                      className={` 
+                       bg-[#fcfcfc0c] hover:bg-opacity-50 ease-in-out duration-150
+                       border border-white/30
+            backdrop-blur-lg
+                       text-darkHeading py-3 w-full rounded-xl font-bold`}
+                    >
+                      Cancel
+                    </button>
+                    {/* <button
+                      onClick={prebookCourse}
+                      className={` 
+         hover:bg-opacity-50 ease-in-out duration-150
+                     
+                       text-darkHeading py-3 w-full rounded-xl font-bold`}
+                      style={{
+                        background:
+                          " linear-gradient(91deg, #4B6404 0%, #7BA502 50.98%, #A9E400 100%)",
+                      }}
+                    >
+                      Prebook
+                    </button> */}
+                    <GradientButton
+                      loading={prebookButtonLoading}
+                      gradientStyle=" linear-gradient(91deg, #4B6404 0%, #7BA502 50.98%, #A9E400 100%)"
+                      label="Prebook"
+                      type=""
+                      callBackFunction={prebookCourse}
+                    />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -522,7 +704,7 @@ export default function CourseDetailsPage() {
                     />
                   </svg>
                   {englishToBanglaNumbers(
-                    calculateRemainingDays(courseData?.chips?.deadline)
+                    calculateRemainingDays(courseData?.chips?.deadline),
                   )}{" "}
                   দিন বাকি
                 </div>
@@ -541,7 +723,7 @@ export default function CourseDetailsPage() {
                   </svg>
                   {englishToBanglaNumbers(
                     parseInt(courseData?.chips?.total_seats) -
-                      courseData?.enrolled
+                      courseData?.enrolled,
                   )}{" "}
                   টি সিট বাকি
                 </div>
@@ -597,7 +779,8 @@ export default function CourseDetailsPage() {
                     <div className="flex items-center px-4 py-2 border border-[#B153E0]/50 bg-[#B153E0]/5 gap-4 rounded flex-wrap">
                       <p>
                         {englishToBanglaNumbers(
-                          countModulesAssignmentsVideos(courseData).totalModules
+                          countModulesAssignmentsVideos(courseData)
+                            .totalModules,
                         )}{" "}
                         টি মডিউল
                       </p>
@@ -621,7 +804,7 @@ export default function CourseDetailsPage() {
                       <p>
                         {englishToBanglaNumbers(
                           countModulesAssignmentsVideos(courseData)
-                            .totalAssignments
+                            .totalAssignments,
                         )}{" "}
                         টি এসাইনমেন্ট
                       </p>
@@ -643,7 +826,7 @@ export default function CourseDetailsPage() {
                       </svg>
                       <p>
                         {englishToBanglaNumbers(
-                          countModulesAssignmentsVideos(courseData).totalVideos
+                          countModulesAssignmentsVideos(courseData).totalVideos,
                         )}{" "}
                         টি ভিডিও
                       </p>
@@ -1010,7 +1193,7 @@ export default function CourseDetailsPage() {
                         />
                       </svg>
                       {englishToBanglaNumbers(
-                        calculateRemainingDays(courseData?.chips?.deadline)
+                        calculateRemainingDays(courseData?.chips?.deadline),
                       )}{" "}
                       দিন বাকি
                     </div>
@@ -1029,7 +1212,7 @@ export default function CourseDetailsPage() {
                       </svg>
                       {englishToBanglaNumbers(
                         parseInt(courseData?.chips?.total_seats) -
-                          courseData?.enrolled
+                          courseData?.enrolled,
                       )}{" "}
                       টি সিট বাকি
                     </div>
@@ -1106,7 +1289,7 @@ export default function CourseDetailsPage() {
                                 </div>
                               </div>
                             </div>
-                          )
+                          ),
                         )}
                       </Slider>
                     </div>
@@ -1269,7 +1452,7 @@ export default function CourseDetailsPage() {
                     </div>
                   ))}
                 </div>
-                {courseData.isTaken ? (
+                {/* {courseData.isTaken ? (
                   <Link
                     href="/course/12"
                     className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
@@ -1285,7 +1468,28 @@ export default function CourseDetailsPage() {
                   >
                     কোর্সটি কিনুন
                   </button>
-                )}
+                )} */}
+                <button
+                  onClick={() => {
+                    let token: any = "";
+                    token = localStorage.getItem("token")
+                      ? localStorage.getItem("token")
+                      : "";
+                    if (token.length > 0) {
+                      const decodedToken: any = jwtDecode(token);
+
+                      setPrebookingData({
+                        name: decodedToken.name,
+                        phone: decodedToken.login,
+                        email: decodedToken.profile?.email,
+                      });
+                    }
+                    setOpenPrebookCourse(true);
+                  }}
+                  className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
+                >
+                  {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
+                </button>
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
                 <p className="text-sm text-paragraph dark:text-darkParagraph">

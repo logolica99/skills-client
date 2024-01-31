@@ -102,13 +102,13 @@ export default function RegisterPage({}: Props) {
             <h2 className="text-2xl font-semibold">Login</h2>
 
             <div className="w-full">
-              <p className="text-lg font-semibold mb-1">Email</p>
+              <p className="text-lg font-semibold mb-1">Phone Number</p>
               <input
                 className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
-                placeholder="Email"
+                placeholder="Phone Number"
                 value={userData.email}
                 required
-                type="email"
+ 
                 onChange={(e) =>
                   setUserData({ ...userData, email: e.target.value })
                 }

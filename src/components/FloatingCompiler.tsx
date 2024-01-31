@@ -51,11 +51,15 @@ int main(){
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
       .then((res) => {
         if (res.data.data.status.description === "Accepted") {
-          setOutput(res.data.data.stdout);
+          setOutput(
+            res.data.data.stdout
+              .split("\n")
+              .map((str: any) => <p>{str.length !== 0 ? str : <>&nbsp;</>}</p>),
+          );
         } else if (res.data.data.status.description === "Compilation Error") {
           setOutput("Compilation Error!");
         } else {
@@ -153,8 +157,6 @@ int main(){
                         <p>Output</p>
                         <div className="w-full h-[80px] overflow-y-scroll md:h-[160px] mt-2 px-3 py-3 rounded mb-2 bg-gray-200/20  text-white">
                           {output}
-                   
-
                         </div>
                       </div>
                       <div className="flex justify-end mt-3">

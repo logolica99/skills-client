@@ -10,6 +10,7 @@ import "animate.css/animate.min.css";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import VisibilitySensor from "react-visibility-sensor";
 import Tilt from "react-parallax-tilt";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,8 @@ export default function Home() {
   return (
     <main className={`  ${HindSiliguri.variable} font-hind  `}>
       <Nav></Nav>
+      <Toaster />
+      
       <FloatingCompiler />
       <button
         style={{ zIndex: 999 }}
@@ -507,7 +510,7 @@ export default function Home() {
           </AnimationOnScroll>
         </div>
 
-        <div className="bg-[#2BA98B]/20 dark:bg-[#050207] z-30 relative">
+        <div className="bg-[#ca65fd]/20 dark:bg-[#0B060D] z-30 relative">
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             <div className="w-[90%] lg:w-[80%] mx-auto  text-heading dark:text-darkHeading pt-40 py-20 md:py-32">
               <div
