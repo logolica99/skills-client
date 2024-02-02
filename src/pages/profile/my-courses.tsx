@@ -290,7 +290,7 @@ export default function MyCourses({}: Props) {
 
                   <div className="mt-10 mb-4">
                     {wishListCourses.map((courseData) => (
-                      <div className="max-w-[250px]">
+                      <div className="max-w-[250px]" key={Math.random()}>
                         <iframe
                           className="rounded-xl w-full"
                           src={courseData?.intro_video}
