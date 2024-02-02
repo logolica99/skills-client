@@ -58,7 +58,7 @@ int main(){
           setOutput(
             res.data.data.stdout
               .split("\n")
-              .map((str: any) => <p>{str.length !== 0 ? str : <>&nbsp;</>}</p>),
+              .map((str: any) => <p key={Math.random()}>{str.length !== 0 ? str : <>&nbsp;</>}</p>),
           );
         } else if (res.data.data.status.description === "Compilation Error") {
           setOutput("Compilation Error!");
