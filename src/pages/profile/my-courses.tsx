@@ -281,12 +281,12 @@ export default function MyCourses({}: Props) {
                     </svg>
                     <p className="font-bold text-white text-2xl">My Wishlists</p>
                   </div>
-                  <p className="text-xl">
+                  <p className="text-xl text-white">
                     This is the comprehensive courses that might be good for you
                     for upskilling your coding journey check that out
                   </p>
 
-                  <div className="mt-10 mb-4">
+                  <div className="mt-10 mb-4 text-white">
                     {wishListCourses.map((courseData: { intro_video: string | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; short_description: string; }) => (
                       <div className="max-w-[250px]" key={Math.random()}>
                         <iframe
@@ -296,10 +296,10 @@ export default function MyCourses({}: Props) {
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
                         ></iframe>
-                        <h2 className="text-white text-xl my-4">
+                        <h2 className="text-white text-xl my-4 ">
                           {courseData?.title}
                         </h2>
-                        <p className="text-sm">
+                        <p className="text-sm text-white">
                           {courseData?.short_description.substring(0, 120)}
                         </p>
                       </div>
