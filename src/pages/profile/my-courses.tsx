@@ -15,7 +15,7 @@ import Footer from "@/components/Footer";
 
 export default function MyCourses({}: Props) {
   const [user, setUser] = useContext<any>(UserContext);
-  const [wishListCourses, setWishlistCourses] = useState([]);
+  const [wishListCourses, setWishlistCourses] = useState<any>([]);
 
   const fetchWishtLists = () => {
     setUser({ ...user, loading: true });
@@ -279,9 +279,7 @@ export default function MyCourses({}: Props) {
                         fill="white"
                       />
                     </svg>
-                    <p className="font-bold text-white text-2xl">
-                      My Wishlist's
-                    </p>
+                    <p className="font-bold text-white text-2xl">My Wishlists</p>
                   </div>
                   <p className="text-xl">
                     This is the comprehensive courses that might be good for you
@@ -289,7 +287,7 @@ export default function MyCourses({}: Props) {
                   </p>
 
                   <div className="mt-10 mb-4">
-                    {wishListCourses.map((courseData) => (
+                    {wishListCourses.map((courseData: { intro_video: string | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; short_description: string; }) => (
                       <div className="max-w-[250px]" key={Math.random()}>
                         <iframe
                           className="rounded-xl w-full"
