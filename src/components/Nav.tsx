@@ -57,7 +57,7 @@ export default function Nav({}: Props) {
     }
 
     const isSystemDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
     const pastPreference = localStorage.getItem("darkMode");
 
@@ -108,21 +108,21 @@ export default function Nav({}: Props) {
                 <img src="/logo.png" alt="" className="w-8 md:w-14 mr-8 " />
               </Link>
 
-              {isLogged && (
+              {/* {isLogged && (
                 <Link
                   href="/live-class"
                   className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   লাইভ ক্লাস শিডিউল
                 </Link>
-              )}
+              )} */}
               <Link
                 href="/course-details/12"
                 className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
               </Link>
-              {isLogged ? (
+              {/* {isLogged ? (
                 <Link
                   href="/course/12"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
@@ -136,16 +136,16 @@ export default function Nav({}: Props) {
                 >
                   ফ্রি ট্রায়াল
                 </Link>
-              )}
+              )} */}
 
-              {isLogged && (
+              {/* {isLogged && (
                 <Link
                   href="/ranking"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
-              )}
+              )} */}
             </div>
 
             {isLogged ? (
@@ -234,10 +234,13 @@ export default function Nav({}: Props) {
                   </Link>
                 )}
 
-                <p className=" hidden lg:block  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base">
+                <Link
+                  href={"/profile/my-courses"}
+                  className=" hidden lg:block  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                >
                   {" "}
                   {jwtDecode<any>(token).name}
-                </p>
+                </Link>
                 <div className="hidden lg:flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"
@@ -331,21 +334,21 @@ export default function Nav({}: Props) {
               >
                 নোটিফিকেশান
               </Link> */}
-              {isLogged && (
+              {/* {isLogged && (
                 <Link
                 href="/live-class"
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   লাইভ ক্লাস শিডিউল
                 </Link>
-              )}
+              )} */}
               <Link
                 href="/course-details/12"
                 className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
               </Link>
-              {isLogged ? (
+              {/* {isLogged ? (
                 <Link
                   href="/course/12"
                   className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
@@ -359,16 +362,16 @@ export default function Nav({}: Props) {
                 >
                   ফ্রি ট্রায়াল
                 </Link>
-              )}
+              )} */}
 
-              {isLogged && (
+              {/* {isLogged && (
                 <Link
                   href="/ranking"
                   className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
-              )}
+              )} */}
             </div>
 
             {!isLogged ? (
@@ -388,9 +391,12 @@ export default function Nav({}: Props) {
               </div>
             ) : (
               <div className="flex flex-col gap-8 items-center mt-8">
-                <p className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base">
+                <Link
+                  href="/profile/my-courses"
+                  className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
+                >
                   {jwtDecode<any>(token).name}
-                </p>
+                </Link>
                 <div className="flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"

@@ -27,7 +27,7 @@ import { withStyles } from "@mui/styles";
 import { RxButton } from "react-icons/rx";
 import FloatingCompiler from "@/components/FloatingCompiler";
 import Footer from "@/components/Footer";
-
+import { useRouter } from "next/router";
 const GreenRadio = withStyles({
   root: {
     color: "#fff",
@@ -53,7 +53,7 @@ export default function CourseDetailsPage() {
   const [activeModule, setActiveModule] = useState<any>({});
 
   const [cfHandle, setCfHandle] = useState<any>("");
-
+  const router = useRouter();
   const [courseData, setCourseData] = useState<any>({});
   const [discussions, setDiscussions] = useState<any>([]);
   const [openDiscussions, setOpenDiscussions] = useState<any>(false);
@@ -83,7 +83,7 @@ export default function CourseDetailsPage() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
       .then((res) => {
         fetchDiscussions();
@@ -106,7 +106,7 @@ export default function CourseDetailsPage() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
       .then((res) => {
         if (res.data.data.solved) {
@@ -184,7 +184,7 @@ export default function CourseDetailsPage() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
       .then((res) => {
         fetchCourse();
@@ -198,7 +198,7 @@ export default function CourseDetailsPage() {
     quizes.forEach((quiz: any, index: any) => {
       const decrypted = decryptString(
         quiz.answer,
-        process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+        process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ,
       );
       if (decrypted === quizAnswer[index]) {
         verdict.push(true);
@@ -235,7 +235,7 @@ export default function CourseDetailsPage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         )
         .then(() => {
           setUser({ ...user, loading: false });
@@ -257,7 +257,7 @@ export default function CourseDetailsPage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         )
         .then(() => {
           setUser({ ...user, loading: false });
@@ -310,7 +310,8 @@ export default function CourseDetailsPage() {
   };
 
   useEffect(() => {
-    fetchCourse();
+    router.push("/course-details/12");
+    fetchCourse()
   }, []);
 
   useEffect(() => {
@@ -555,7 +556,7 @@ export default function CourseDetailsPage() {
                       />
                     </svg>
                     {englishToBanglaNumbers(
-                      calculateRemainingDays(courseData?.chips?.deadline)
+                      calculateRemainingDays(courseData?.chips?.deadline),
                     )}{" "}
                     দিন বাকি
                   </div>
@@ -574,7 +575,7 @@ export default function CourseDetailsPage() {
                     </svg>
                     {englishToBanglaNumbers(
                       parseInt(courseData?.chips?.total_seats) -
-                        courseData?.enrolled
+                        courseData?.enrolled,
                     )}{" "}
                     টি সিট বাকি
                   </div>
@@ -815,12 +816,12 @@ export default function CourseDetailsPage() {
                                           elem === quizAnswer[index]
                                             ? "red"
                                             : showQuizAnswer &&
-                                              quizVerdict[index] &&
-                                              elem === quizAnswer[index]
-                                            ? "limgreen"
-                                            : user.darkMode
-                                            ? "white"
-                                            : "black",
+                                                quizVerdict[index] &&
+                                                elem === quizAnswer[index]
+                                              ? "limgreen"
+                                              : user.darkMode
+                                                ? "white"
+                                                : "black",
                                         "&.Mui-checked": {
                                           color:
                                             showQuizAnswer &&
@@ -828,12 +829,12 @@ export default function CourseDetailsPage() {
                                             elem === quizAnswer[index]
                                               ? "red"
                                               : showQuizAnswer &&
-                                                quizVerdict[index] &&
-                                                elem === quizAnswer[index]
-                                              ? "limegreen"
-                                              : user.darkMode
-                                              ? "white"
-                                              : "black",
+                                                  quizVerdict[index] &&
+                                                  elem === quizAnswer[index]
+                                                ? "limegreen"
+                                                : user.darkMode
+                                                  ? "white"
+                                                  : "black",
                                         },
                                       }}
                                     />
@@ -853,14 +854,14 @@ export default function CourseDetailsPage() {
                             <p className="text-green-400">
                               {decryptString(
                                 quiz.answer,
-                                process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+                                process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ,
                               )}
                             </p>
                             <div
                               dangerouslySetInnerHTML={{
                                 __html: decryptString(
                                   quiz.explanation,
-                                  process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ
+                                  process.env.NEXT_PUBLIC_SECRET_KEY_QUIZ,
                                 ),
                               }}
                             ></div>

@@ -279,8 +279,7 @@ export default function CourseDetailsPage() {
       })
       .then((res) => {
         setCourseData(res.data);
-        if(!token){
-
+        if (!token) {
           if (localStorage.getItem("isWishList") === "true") {
             setCourseData({ ...res.data, isWishList: true });
           }
@@ -321,7 +320,6 @@ export default function CourseDetailsPage() {
 
   useEffect(() => {
     fetchCourse();
-  
   }, []);
 
   const prebookCourse = () => {
@@ -329,16 +327,24 @@ export default function CourseDetailsPage() {
 
     const token = localStorage.getItem("token");
     axios
-      .post(BACKEND_URL + "/user/course/prebook/" + COURSE_ID, {
-        ...prebookingData,
-      })
+      .post(
+        BACKEND_URL + "/user/course/prebook/" + COURSE_ID,
+        {
+          ...prebookingData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
       .then((res) => {
         setUser({ ...user, loading: false });
         setOpenPrebookCourse(false);
         setPrebookButtonLoading(false);
         setCourseData({ ...courseData, isWishList: true });
         localStorage.setItem("isWishList", "true");
-        toast.success("This course has been prebooked!")
+        toast.success("This course has been prebooked!");
         // router.push("/course/12");
         //setUser({ ...user, loading: false });
       })

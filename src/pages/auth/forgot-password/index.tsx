@@ -159,7 +159,7 @@ export default function ForgotPasswordPage({}: Props) {
         <div className="w-[90%] lg:w-[80%] mx-auto py-16 z-20">
           <form
             onSubmit={submitHandler}
-            className="px-8 py-6 text-heading bg-gray-100/5 backdrop-blur-xl rounded-xl  lg:w-[50%] mx-auto flex flex-col items-center  gap-4"
+            className="px-8 py-6 text-heading dark:text-darkHeading bg-gray-100/5 backdrop-blur-xl rounded-xl  lg:w-[50%] mx-auto flex flex-col items-center  gap-4"
           >
             <h2 className="text-2xl font-semibold">Forgot Password</h2>
             <div className="w-full">
