@@ -296,18 +296,18 @@ export default function Nav({}: Props) {
                     // toggleTheme();
                   }}
                 />
-                <Link
-                  href="/auth/login"
+                <a
+                  href="https://www.codervai.com/auth/login"
                   className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
-                </Link>
-                <Link
-                  href="/auth/register"
+                </a>
+                <a
+                  href="https://www.codervai.com/register"
                   className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-gray-900 bg-opacity-5 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
-                </Link>
+                </a>
                 <RxHamburgerMenu
                   onClick={() => setMenuShow(!menuShow)}
                   className="lg:hidden cursor-pointer"
@@ -376,18 +376,18 @@ export default function Nav({}: Props) {
 
             {!isLogged ? (
               <div className="flex flex-col gap-8 items-center mt-8">
-                <Link
-                  href="/auth/login"
+                <a
+                  href="https://www.codervai.com/auth/login"
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
-                </Link>
-                <Link
-                  href="/auth/register"
+                </a>
+                <a
+                  href="https://www.codervai.com/auth/register"
                   className=" md:px-8 px-4 py-2 rounded-lg bg-white bg-opacity-30 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
-                </Link>
+                </a>
               </div>
             ) : (
               <div className="flex flex-col gap-8 items-center mt-8">
