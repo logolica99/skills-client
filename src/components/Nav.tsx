@@ -303,7 +303,7 @@ export default function Nav({}: Props) {
                   লগ ইন
                 </a>
                 <a
-                  href="https://www.codervai.com/register"
+                  href="https://www.codervai.com/auth/register"
                   className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-gray-900 bg-opacity-5 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
