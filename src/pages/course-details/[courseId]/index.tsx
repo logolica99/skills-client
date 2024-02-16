@@ -26,6 +26,7 @@ import Footer from "@/components/Footer";
 import jwtDecode from "jwt-decode";
 import Button from "@/components/Button";
 import GradientButton from "@/components/GradientButton";
+import { ButtonBase } from "@mui/material";
 
 const settings = {
   dots: true,
@@ -75,21 +76,19 @@ export default function CourseDetailsPage() {
     isTaken: true,
     isWishList: false,
     id: 3,
-    title: "প্রতিযোগিতামূলক প্রোগ্রামিং মৌলিক",
-    x_price: 20000,
-    price: 7997,
+    title: "",
+    x_price: 0,
+    price: 0,
     language: "বাংলা",
-    enrolled: 400,
+    enrolled: 0,
     you_get: {
-      you_get:
-        "সিলেবাস রেডি, কুইজ + সলিউশন,,  জব গাইডলাইন  জব/ইন্টার্নশীপের সুযোগ,  ডেইলি সাপোর্ট ক্লাস,  সিলেবাস রেডি,  ১৪ টি প্রোজেক্ট",
+      you_get: "",
     },
     chips: {
       deadline: "2023-10-13T18:00:00.000Z",
-      total_seats: "800",
+      total_seats: "",
     },
-    short_description:
-      "কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে",
+    short_description: "",
     study_plan_chips: {
       module: 0,
       live_class: 0,
@@ -99,82 +98,46 @@ export default function CourseDetailsPage() {
     instructor_list: {
       instructors: [
         {
-          name: "John Doe",
-          credibility:
-            "MSc (English), University of Oxford (UK);\n\nBA, MA (English), University of Dhaka;\n\nIELTS: 8.5",
+          name: "",
+          credibility: "",
           image: {},
-          imagePreviewLink:
-            "blob:http://localhost:5174/49c485aa-f30d-48a9-8c51-45ca6b8c8c4b",
-          imageUploadedLink:
-            "https://skills-by-apar.s3.ap-south-1.amazonaws.com/portrait-white-man-isolated_53876-40306%201%20%282%29.png",
+          imagePreviewLink: "",
+          imageUploadedLink: "",
         },
       ],
     },
     faq_list: {
       faqs: [
         {
-          question: "এই কোর্স করলেই কি আমি গুগলে চ্যান্স পাব ?",
-          answer:
-            "আমাদের এই কোর্সটি মোটেও তোমাকে গুগলার হওয়ার নিশ্চয়তা দেবে না বরং গুগলের মত এই সব বড়ো কোম্পানির জন্যে তোমার ক্যারিয়ার এর পথ কে সহজ করার জন্যে তোমাকে নতুন স্কিল ডেভেলপ করার জন্যে পথে হাঁটতে শেখাবে বাকি টা তোমাদের ধৈর্য আর ডেডিকেশন এর উপর নির্ভর করবে।এই কোর্সে তোমরা লেগে থাকবে আর শিখবে প্রোগ্রামিং এর নতুন জগতের নতুন নতুন সব জিনিস আর এভাবেই নিজেকে অন্য লেভেলে নিয়ে গিয়ে বিশ্বসেরা তোমাদের ড্রিম কোম্পানি গুলো তে চাকরির সুযোগ পেতে পার",
+          question: "",
+          answer: "",
         },
         {
-          question: "এই কোর্স টি কাদের জন্যে?",
-          answer:
-            "আমাদের এই কোর্সটি মোটেও তোমাকে গুগলার হওয়ার নিশ্চয়তা দেবে না বরং গুগলের মত এই সব বড়ো কোম্পানির জন্যে তোমার ক্যারিয়ার এর পথ কে সহজ করার জন্যে তোমাকে নতুন স্কিল ডেভেলপ করার জন্যে পথে হাঁটতে শেখাবে বাকি টা তোমাদের ধৈর্য আর ডেডিকেশন এর উপর নির্ভর করবে।এই কোর্সে তোমরা লেগে থাকবে আর শিখবে প্রোগ্রামিং এর নতুন জগতের নতুন নতুন সব জিনিস আর এভাবেই নিজেকে অন্য লেভেলে নিয়ে গিয়ে বিশ্বসেরা তোমাদের ড্রিম কোম্পানি গুলো তে চাকরির সুযোগ পেতে পার",
-        },
-        {
-          question: "এই কোর্সটি করার পর আমি কি করব?",
-          answer:
-            "আমাদের এই কোর্সটি মোটেও তোমাকে গুগলার হওয়ার নিশ্চয়তা দেবে না বরং গুগলের মত এই সব বড়ো কোম্পানির জন্যে তোমার ক্যারিয়ার এর পথ কে সহজ করার জন্যে তোমাকে নতুন স্কিল ডেভেলপ করার জন্যে পথে হাঁটতে শেখাবে বাকি টা তোমাদের ধৈর্য আর ডেডিকেশন এর উপর নির্ভর করবে।এই কোর্সে তোমরা লেগে থাকবে আর শিখবে প্রোগ্রামিং এর নতুন জগতের নতুন নতুন সব জিনিস আর এভাবেই নিজেকে অন্য লেভেলে নিয়ে গিয়ে বিশ্বসেরা তোমাদের ড্রিম কোম্পানি গুলো তে চাকরির সুযোগ পেতে পার",
+          question: "",
+          answer: "",
         },
       ],
     },
-    description:
-      "কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে কিভাবে\n\nকম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে\n\n",
+    description: "",
     feedback_list: {
       feedbacks: [
         {
-          description:
-            "ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে ভীতি কাটিয়ে খুব সহজ",
-          name: "Khama Rani Bose",
-          bio: "ভর্তি পরীক্ষার",
+          description: "",
+          name: "",
+          bio: "",
           image: {},
-          imagePreviewLink:
-            "blob:http://localhost:5174/12964868-935b-4e9c-b761-908fe83d376d",
-          imageUploadedLink:
-            "https://skills-by-apar.s3.ap-south-1.amazonaws.com/image%20%286%29.png",
-        },
-        {
-          description:
-            "ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে ভীতি কাটিয়ে খুব সহজ",
-          name: "Khama Rani Bose",
-          bio: "ভর্তি পরীক্ষার",
-          image: {},
-          imagePreviewLink:
-            "blob:http://localhost:5174/216fc44a-e7c4-4e8b-ad86-00de69bc7584",
-          imageUploadedLink:
-            "https://skills-by-apar.s3.ap-south-1.amazonaws.com/image%20%286%29.png",
-        },
-        {
-          description:
-            "ঘরে বসে Spoken English কোর্সটি করে বুঝতে পারলাম শত শত গ্রামার শেখার কোনো প্রয়োজন নেই, বিভিন্ন পরিস্থিতিতে ভীতি কাটিয়ে খুব সহজ",
-          name: "Khama Rani Bose",
-          bio: "ভর্তি পরীক্ষার",
-          image: {},
-          imagePreviewLink:
-            "blob:http://localhost:5174/9956a870-1c31-447b-b907-eb01059bc925",
-          imageUploadedLink:
-            "https://skills-by-apar.s3.ap-south-1.amazonaws.com/image%20%286%29.png",
+          imagePreviewLink: "",
+          imageUploadedLink: "",
         },
       ],
     },
-    intro_video: "https://www.youtube.com/embed/QgjkjsqAzvo",
+    intro_video: "",
     is_live: true,
     chapters: [
       {
         id: 6,
         course_id: 3,
-        title: "এই কোর্স করলেই কি আমি গুগলে চ্যান্স পাব ?",
+        title: "",
         serial_string: "1",
         chips_list: {},
         is_free: true,
@@ -183,72 +146,13 @@ export default function CourseDetailsPage() {
           {
             id: 6,
             chapter_id: 6,
-            title: "কীভাবে ইংরেজিতে নিজেকে Introduce করবেন?",
-            description:
-              "<p>কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে</p>\n",
+            title: "",
+            description: "",
             metadata: {},
             data: {
               category: "VIDEO",
               videoUrl: "https://www.youtube.com/embed/QgjkjsqAzvo",
               videoHost: "Youtube",
-            },
-            is_live: true,
-            is_free: null,
-          },
-          {
-            id: 7,
-            chapter_id: 6,
-            title: "কীভাবে ইংরেজিতে করবেন?",
-            description:
-              "<p>কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে&nbsp;</p>\n",
-            metadata: {},
-            data: {
-              category: "ASSIGNMENT",
-              videoUrl: "https://www.youtube.com/embed/QgjkjsqAzvo",
-              videoHost: "Youtube",
-              deadline: "2023-12-14T18:59:37.000Z",
-            },
-            is_live: true,
-            is_free: null,
-          },
-        ],
-      },
-      {
-        id: 7,
-        course_id: 3,
-        title: "এই কোর্স করলেই কি আমি  পাব ?",
-        serial_string: "2",
-        chips_list: {},
-        is_free: false,
-        is_live: true,
-        modules: [
-          {
-            id: 8,
-            chapter_id: 7,
-            title: "কীভাবে ইংরেজিতে নিজেকে Introduce করবেন?",
-            description:
-              "<p>কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে&nbsp;&nbsp;</p>\n",
-            metadata: {},
-            data: {
-              category: "VIDEO",
-              videoUrl: "https://www.youtube.com/embed/QgjkjsqAzvo",
-              videoHost: "Youtube",
-            },
-            is_live: true,
-            is_free: null,
-          },
-          {
-            id: 9,
-            chapter_id: 7,
-            title: "এই কোর্স করলেই কি আচ্যান্স পাব ?",
-            description:
-              "<p>কিভাবে কম্পিউটার অন করে কিভাবে কোথায় কোড করবে বা শুধু মাত্র ফোন দিয়ে কিভাবে কোড করবে থেকে শুরু করে সি++ এর সকল বেসিক ডেটা স্ট্রাকচার থেকে শুরু করে একদম এডভ্যান্স কম্পেটিটিভ প্রোগ্রামিং এর ডায়নামিক প্রোগ্রামিং পর্যন্ত তোমাদের শিখিয়ে দেয়া হবে পাশাপাশি কম্পেটিটিভ প্রোগ্রামার রা কোথায় কিভাবে শুরু করে কোথায় প্রাকটিস করে সব দেখিয়ে শিখিয়ে দেয়া হবে&nbsp;&nbsp;</p>\n",
-            metadata: {},
-            data: {
-              category: "ASSIGNMENT",
-              videoUrl: "https://www.youtube.com/embed/QgjkjsqAzvo",
-              videoHost: "Youtube",
-              deadline: "2023-11-28T22:00:24.000Z",
             },
             is_live: true,
             is_free: null,
@@ -262,6 +166,7 @@ export default function CourseDetailsPage() {
 
   const [openBuyCourse, setOpenBuyCourse] = useState(false);
   const [openPrebookCourse, setOpenPrebookCourse] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
   const [prebookingData, setPrebookingData] = useState({
     name: "",
     email: "",
@@ -291,12 +196,15 @@ export default function CourseDetailsPage() {
       });
   };
 
+  
+
   const buyCourse = () => {
     if (isLoggedIn() === false) {
-      toast.error("please sign in ");
+      window.location.href = "https://www.codervai.com/auth/login";
     } else {
       setUser({ ...user, loading: true });
       const token = localStorage.getItem("token");
+  
       axios
         .post(
           BACKEND_URL + "/user/payment/initiate/" + COURSE_ID,
@@ -393,7 +301,7 @@ export default function CourseDetailsPage() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" w-[90vw]  text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className=" w-[90vw]  lg:w-[40vw]  text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
                     className="text-lg font-medium leading-6 "
@@ -1024,6 +932,26 @@ export default function CourseDetailsPage() {
                                   />
                                 </svg>
                               )}
+                               {module.data.category == "PDF" && (
+                                <svg
+                                  width="20"
+                                  height="21"
+                                  viewBox="0 0 20 21"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
+                                    fill={elem.is_free ? "#B153E0" : "#565656"}
+                                  />
+                                  <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              )}
                               {module.data.category == "QUIZ" && (
                                 <svg
                                   width="20"
@@ -1375,13 +1303,11 @@ export default function CourseDetailsPage() {
             </div>
             <div style={{ flex: 1 }}>
               <div className="p-4  text-heading dark:text-darkHeading bg-gray-400/30 dark:bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none  ">
-                <iframe
+                <img
+                  src="/Intro to Programming (Presentation) main.png"
+                  alt=""
                   className="rounded-xl w-full min-h-[200px] lg:min-h-[260px]"
-                  src={courseData.intro_video}
-                  title="How do we scale web applications?"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
+                />
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
                   <div className="flex items-center gap-4">
                     <p className="text-purple line-through font-semibold text-lg">
@@ -1430,9 +1356,7 @@ export default function CourseDetailsPage() {
                     </div>
                   </div>
                 </div>
-
                 <p className="text-lg mt-8">এই কোর্সে আপনি পাচ্ছেন</p>
-
                 <div className="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-y-3 gap-x-16">
                   {courseData.you_get.you_get.split(",").map((item: any) => (
                     <div
@@ -1458,7 +1382,67 @@ export default function CourseDetailsPage() {
                     </div>
                   ))}
                 </div>
-                {/* {courseData.isTaken ? (
+                {!courseData.isTaken && (
+                  <div className="mt-6">
+                    <p className="text-lg font-semibold mb-1">Enter Coupon</p>
+                    <div className="flex items-center gap-2">
+                      <input
+                        className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
+                        placeholder=" Coupon Code"
+                        value={couponCode}
+                        onChange={(e) => {
+                          setCouponCode(e.target.value);
+                        }}
+                      />
+                      <Button
+                        callBackFunction={() => {
+                          if (isLoggedIn()) {
+                            setPrebookButtonLoading(true);
+
+                            const token = localStorage.getItem("token");
+                            axios
+                              .post(
+                                BACKEND_URL +
+                                  "/user/course/applyCoupon/" +
+                                  COURSE_ID,
+                                {
+                                  coupon: couponCode,
+                                },
+                                {
+                                  headers: {
+                                    Authorization: `Bearer ${token}`,
+                                  },
+                                },
+                              )
+                              .then((res) => {
+                                setUser({ ...user, loading: false });
+
+                                setPrebookButtonLoading(false);
+
+                                toast.success(
+                                  "You have sucessfully bought this course!",
+                                );
+                                setCourseData({ ...courseData, isTaken: true });
+                                // router.push("/course/12");
+                                //setUser({ ...user, loading: false });
+                              })
+                              .catch((err) => {
+                                setUser({ ...user, loading: false });
+                                toast.error("Wrong Coupon Code!");
+                                setPrebookButtonLoading(false);
+                              });
+                          } else {
+                            toast.error("Please login first!");
+                          }
+                        }}
+                        loading={prebookButtonLoading}
+                        bgColor={"#1CAB55"}
+                        label="Apply"
+                      ></Button>
+                    </div>
+                  </div>
+                )}
+                {courseData.isTaken ? (
                   <Link
                     href="/course/12"
                     className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
@@ -1468,14 +1452,19 @@ export default function CourseDetailsPage() {
                 ) : (
                   <button
                     onClick={() => {
-                      setOpenBuyCourse(true);
+                      if (isLoggedIn()) {
+                        setOpenBuyCourse(true);
+                      } else {
+                        window.location.href =
+                          "https://www.codervai.com/auth/login?redirect=py.codervai.com";
+                      }
                     }}
                     className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                   >
                     কোর্সটি কিনুন
                   </button>
-                )} */}
-                <button
+                )}
+                {/* <button
                   onClick={() => {
                     let token: any = "";
                     token = localStorage.getItem("token")
@@ -1495,29 +1484,51 @@ export default function CourseDetailsPage() {
                   className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
                 >
                   {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
-                </button>
+                </button> */}
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
                 <p className="text-sm text-paragraph dark:text-darkParagraph">
                   কোর্সটি সম্পর্কে বিস্তারিত জানতে
                 </p>
                 <a
-                  href="tel:+4733378901"
+                  href="https://www.facebook.com/profile.php?id=61552652541126"
+                  target="_blank"
                   className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
                 >
-                  <svg
-                    width="14"
-                    height="15"
-                    viewBox="0 0 14 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.6005 10.8429L10.538 9.53042C10.4072 9.47466 10.2618 9.46291 10.1237 9.49694C9.98562 9.53097 9.86232 9.60893 9.77238 9.71909L8.41613 11.3761C6.28762 10.3725 4.57467 8.65959 3.57109 6.53108L5.22813 5.17483C5.33851 5.08505 5.41663 4.96176 5.45067 4.82361C5.48472 4.68547 5.47283 4.53999 5.4168 4.40921L4.1043 1.34671C4.0428 1.20572 3.93405 1.09062 3.79678 1.02123C3.65951 0.951848 3.50233 0.932537 3.35234 0.966627L0.508594 1.62288C0.363992 1.65627 0.234977 1.73769 0.142607 1.85385C0.0502374 1.97 -3.33104e-05 2.11404 1.65599e-08 2.26245C1.65599e-08 9.27612 5.68477 14.9499 12.6875 14.9499C12.836 14.95 12.9801 14.8998 13.0963 14.8074C13.2125 14.715 13.2939 14.586 13.3273 14.4414L13.9836 11.5976C14.0175 11.4469 13.9977 11.2891 13.9278 11.1513C13.8579 11.0136 13.7422 10.9045 13.6005 10.8429Z"
-                      fill="#1CAB55"
-                    />
-                  </svg>
-                  ফোন করুন <span className="hidden lg:block">(16910)</span>
+                  <div className="">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 32 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="16"
+                        cy="16"
+                        r="14"
+                        fill="url(#paint0_linear_1630_2247)"
+                      />
+                      <path
+                        d="M21.2137 20.2816L21.8356 16.3301H17.9452V13.767C17.9452 12.6857 18.4877 11.6311 20.2302 11.6311H22V8.26699C22 8.26699 20.3945 8 18.8603 8C15.6548 8 13.5617 9.89294 13.5617 13.3184V16.3301H10V20.2816H13.5617V29.8345C14.2767 29.944 15.0082 30 15.7534 30C16.4986 30 17.2302 29.944 17.9452 29.8345V20.2816H21.2137Z"
+                        fill="white"
+                      />
+                      <defs>
+                        <linearGradient
+                          id="paint0_linear_1630_2247"
+                          x1="16"
+                          y1="2"
+                          x2="16"
+                          y2="29.917"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <stop stop-color="#18ACFE" />
+                          <stop offset="1" stop-color="#0163E0" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  Facebook Page
                 </a>
               </div>
             </div>

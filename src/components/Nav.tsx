@@ -5,6 +5,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { isLoggedIn, logout } from "@/helpers";
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
+
 type Props = {};
 
 import dynamic from "next/dynamic";
@@ -42,13 +43,13 @@ const useThemeDetector = () => {
 export default function Nav({}: Props) {
   const [menuShow, setMenuShow] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState<any>("");
   const [isLogged, setIsLoggedIn] = useState(false);
   const [score, setScore] = useState(0);
   const [user, setUser] = useContext<any>(UserContext);
 
   useEffect(() => {
-    setToken(localStorage.getItem("token") || "");
+    setToken(localStorage.getItem("token"));
     if (isLoggedIn()) {
       setIsLoggedIn(true);
       fetchScore();
@@ -74,6 +75,10 @@ export default function Nav({}: Props) {
       console.log("system dark");
     }
   }, []);
+
+  useEffect(() => {
+    fetchScore();
+  }, [user.scoreTrigger]);
 
   const fetchScore = () => {
     const token = localStorage.getItem("token");
@@ -104,10 +109,24 @@ export default function Nav({}: Props) {
         <div className="w-[90%]  mx-auto py-4">
           <div className="flex justify-between items-center ">
             <div className="flex gap-10 items-center">
-              <Link href="/">
+              <Link href="/" className="hidden dark:block">
                 <img src="/logo.png" alt="" className="w-8 md:w-14 mr-8 " />
               </Link>
-
+              <Link href="/" className="dark:hidden">
+                <img
+                  src="/logo_black.png"
+                  alt=""
+                  className="w-8 md:w-14 mr-8 "
+                />
+              </Link>
+              {isLogged && (
+                <Link
+                  href="/course/12"
+                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
+                >
+                  আপনার প্রোগ্রেস
+                </Link>
+              )}
               {/* {isLogged && (
                 <Link
                   href="/live-class"
@@ -116,12 +135,7 @@ export default function Nav({}: Props) {
                   লাইভ ক্লাস শিডিউল
                 </Link>
               )} */}
-              <Link
-                href="/course-details/12"
-                className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
-              >
-                কোস কন্টেন্ট
-              </Link>
+
               {/* {isLogged ? (
                 <Link
                   href="/course/12"
@@ -162,7 +176,7 @@ export default function Nav({}: Props) {
                     // toggleTheme();
                   }}
                 />
-                {false ? (
+                {/* {false ? (
                   <Link href="/notifications" title="নোটিফিকেশানস">
                     {darkMode ? (
                       <svg
@@ -232,15 +246,16 @@ export default function Nav({}: Props) {
                       </svg>
                     )}
                   </Link>
-                )}
+                )} */}
 
-                <Link
-                  href={"/profile/my-courses"}
+                <div
+                  // href={"/profile/my-courses"}
+
                   className=" hidden lg:block  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   {" "}
-                  {jwtDecode<any>(token).name}
-                </Link>
+                  {token && jwtDecode<any>(token).name}
+                </div>
                 <div className="hidden lg:flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"
@@ -297,13 +312,13 @@ export default function Nav({}: Props) {
                   }}
                 />
                 <a
-                  href="https://www.codervai.com/auth/login"
+                  href="https://www.codervai.com/auth/login?redirect=py.codervai.com"
                   className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
                 </a>
                 <a
-                  href="https://www.codervai.com/auth/register"
+                  href="https://www.codervai.com/auth/register?redirect=py.codervai.com"
                   className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-gray-900 bg-opacity-5 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
@@ -342,12 +357,12 @@ export default function Nav({}: Props) {
                   লাইভ ক্লাস শিডিউল
                 </Link>
               )} */}
-              <Link
+              {/* <Link
                 href="/course-details/12"
                 className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 কোস কন্টেন্ট
-              </Link>
+              </Link> */}
               {/* {isLogged ? (
                 <Link
                   href="/course/12"
@@ -364,6 +379,15 @@ export default function Nav({}: Props) {
                 </Link>
               )} */}
 
+              {isLogged && (
+                <Link
+                  href="/course/12"
+                  className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
+                >
+                  আপনার প্রোগ্রেস
+                </Link>
+              )}
+
               {/* {isLogged && (
                 <Link
                   href="/ranking"
@@ -377,13 +401,13 @@ export default function Nav({}: Props) {
             {!isLogged ? (
               <div className="flex flex-col gap-8 items-center mt-8">
                 <a
-                  href="https://www.codervai.com/auth/login"
+                  href="https://www.codervai.com/auth/login?redirect=py.codervai.com"
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
                 </a>
                 <a
-                  href="https://www.codervai.com/auth/register"
+                  href="https://www.codervai.com/auth/register?redirect=py.codervai.com"
                   className=" md:px-8 px-4 py-2 rounded-lg bg-white bg-opacity-30 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
@@ -395,7 +419,7 @@ export default function Nav({}: Props) {
                   href="/profile/my-courses"
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
-                  {jwtDecode<any>(token).name}
+                  {token && jwtDecode<any>(token).name}
                 </Link>
                 <div className="flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
