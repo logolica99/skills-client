@@ -12,7 +12,8 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!isLoggedIn()) {
-      router.push("/auth/login");
+      window.location.href = "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
+ 
     }
   }, []);
 

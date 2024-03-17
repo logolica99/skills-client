@@ -248,14 +248,13 @@ export default function Nav({}: Props) {
                   </Link>
                 )} */}
 
-                <div
-                  // href={"/profile/my-courses"}
-
+                <a
+                  href={"https://www.codervai.com/profile/my-courses"}
                   className=" hidden lg:block  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   {" "}
                   {token && jwtDecode<any>(token).name}
-                </div>
+                </a>
                 <div className="hidden lg:flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"
@@ -312,13 +311,13 @@ export default function Nav({}: Props) {
                   }}
                 />
                 <a
-                  href="https://www.codervai.com/auth/login?redirect=py.codervai.com"
+                  href="https://www.codervai.com/auth/login?redirect=cp.codervai.com"
                   className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
                 </a>
                 <a
-                  href="https://www.codervai.com/auth/register?redirect=py.codervai.com"
+                  href="https://www.codervai.com/auth/register?redirect=cp.codervai.com"
                   className="hidden lg:block md:px-8 px-4 py-2 rounded-lg bg-gray-900 bg-opacity-5 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
@@ -401,13 +400,13 @@ export default function Nav({}: Props) {
             {!isLogged ? (
               <div className="flex flex-col gap-8 items-center mt-8">
                 <a
-                  href="https://www.codervai.com/auth/login?redirect=py.codervai.com"
+                  href="https://www.codervai.com/auth/login?redirect=cp.codervai.com"
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   লগ ইন
                 </a>
                 <a
-                  href="https://www.codervai.com/auth/register?redirect=py.codervai.com"
+                  href="https://www.codervai.com/auth/register?redirect=cp.codervai.com"
                   className=" md:px-8 px-4 py-2 rounded-lg bg-white bg-opacity-30 backdrop-blur-xl hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   শুরু করুন
@@ -415,12 +414,12 @@ export default function Nav({}: Props) {
               </div>
             ) : (
               <div className="flex flex-col gap-8 items-center mt-8">
-                <Link
-                  href="/profile/my-courses"
+                <a
+                  href={"https://www.codervai.com/profile/my-courses"}
                   className="  hover:text-black dark:hover:text-white ease-in-out duration-150 text-sm md:text-base"
                 >
                   {token && jwtDecode<any>(token).name}
-                </Link>
+                </a>
                 <div className="flex items-center gap-3 dark:bg-white/25 bg-black/50 px-3 py-1 rounded ">
                   <svg
                     width="20px"

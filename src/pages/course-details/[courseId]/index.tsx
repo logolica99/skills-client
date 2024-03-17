@@ -196,15 +196,13 @@ export default function CourseDetailsPage() {
       });
   };
 
-  
-
   const buyCourse = () => {
     if (isLoggedIn() === false) {
       window.location.href = "https://www.codervai.com/auth/login";
     } else {
       setUser({ ...user, loading: true });
       const token = localStorage.getItem("token");
-  
+
       axios
         .post(
           BACKEND_URL + "/user/payment/initiate/" + COURSE_ID,
@@ -932,7 +930,7 @@ export default function CourseDetailsPage() {
                                   />
                                 </svg>
                               )}
-                               {module.data.category == "PDF" && (
+                              {module.data.category == "PDF" && (
                                 <svg
                                   width="20"
                                   height="21"
@@ -1456,7 +1454,7 @@ export default function CourseDetailsPage() {
                         setOpenBuyCourse(true);
                       } else {
                         window.location.href =
-                          "https://www.codervai.com/auth/login?redirect=py.codervai.com";
+                          "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
                       }
                     }}
                     className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
