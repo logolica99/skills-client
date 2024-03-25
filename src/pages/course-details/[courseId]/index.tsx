@@ -1313,7 +1313,7 @@ export default function CourseDetailsPage() {
                     <p className="text-purple line-through font-semibold text-lg">
                       {englishToBanglaNumbers(courseData.x_price)}/-
                     </p>
-                    <p className="text-4xl font-bold mr-8">
+                    <p className="text-4xl font-bold ">
                       {" "}
                       {englishToBanglaNumbers(courseData.price)}/-
                     </p>
@@ -1382,7 +1382,7 @@ export default function CourseDetailsPage() {
                     </div>
                   ))}
                 </div>
-                {!courseData.isTaken && (
+                {/* {!courseData.isTaken && (
                   <div className="mt-6">
                     <p className="text-lg font-semibold mb-1">Enter Coupon</p>
                     <div className="flex items-center gap-2">
@@ -1463,8 +1463,8 @@ export default function CourseDetailsPage() {
                   >
                     কোর্সটি কিনুন
                   </button>
-                )}
-                {/* <button
+                )} */}
+                <button
                   onClick={() => {
                     let token: any = "";
                     token = localStorage.getItem("token")
@@ -1484,7 +1484,7 @@ export default function CourseDetailsPage() {
                   className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
                 >
                   {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
-                </button> */}
+                </button>
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
                 <p className="text-sm text-paragraph dark:text-darkParagraph">
