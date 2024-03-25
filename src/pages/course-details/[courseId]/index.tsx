@@ -166,6 +166,8 @@ export default function CourseDetailsPage() {
 
   const [openBuyCourse, setOpenBuyCourse] = useState(false);
   const [openPrebookCourse, setOpenPrebookCourse] = useState(false);
+  const [openPrebookCourseSuccessful, setOpenPrebookCourseSuccessful] =
+    useState(false);
   const [couponCode, setCouponCode] = useState("");
   const [prebookingData, setPrebookingData] = useState({
     name: "",
@@ -248,6 +250,7 @@ export default function CourseDetailsPage() {
         setUser({ ...user, loading: false });
         setOpenPrebookCourse(false);
         setPrebookButtonLoading(false);
+        setOpenPrebookCourseSuccessful(true)
         setCourseData({ ...courseData, isWishList: true });
         localStorage.setItem("isWishList", "true");
         toast.success("This course has been prebooked!");
@@ -494,6 +497,82 @@ export default function CourseDetailsPage() {
                       type=""
                       callBackFunction={prebookCourse}
                     />
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={openPrebookCourseSuccessful} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative "
+          style={{ zIndex: 99999 }}
+          onClose={() => {
+            setOpenPrebookCourseSuccessful(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className=" lgXl:w-[40vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#B2F100]/5  backdrop-blur-lg border border-[#B2F100]/60  text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="div"
+                    className="text-lg font-medium leading-6 p-6 "
+                  >
+                    <div className="flex items-center flex-col lg:flex-row">
+                      <img src="/logo.png" alt="" className="py-6 lg:p-6" />
+                      <div>
+                        <p className="text-heading dark:text-darkHeading text-xl text-center lg:text-left">
+                          Competitive Programming 2.0 SuperCharged
+                        </p>
+                        {/* <p className="text-paragraph dark:text-darkParagraph mt-2 text-base text-center lg:text-left">
+                          খুব শীঘ্রয় আসছে আমাদের এই কোর্স তাই কোর্সের সম্বন্ধে
+                          আগাম জেনে রাখার জন্য এখনি নিচে দেওয়া ফর্ম ফিল আপ করুন
+                        </p> */}
+                      </div>
+                    </div>
+                  </Dialog.Title>
+                  <div className="border-b border-t border-black/20 dark:border-gray-300/20 py-8 px-6">
+                    <p className="text-heading dark:text-darkHeading text-xl font-semibold">
+                      Congratulations! তুমি প্রিবুক করেছ।{" "}
+                    </p>
+                    <p className="text-heading dark:text-darkHeading text-xl mt-4 font-semibold">
+                      প্রোগ্রামিং এ তোমার আগ্রহ দেখে আমরা অত্যন্ত খুশী।
+                      <br />
+                      এখন যা যা করবে
+                      <br />
+                      ১। প্রি বুকিং এর মেয়াদ শেষ হলে তোমার ফোন নাম্বার ও ইমেইলে
+                      আমাদের সিক্রেট কুপন পাঠানো হবে।
+                      <br />
+                      ২। ঐ কুপন টা আমাদের ওয়েবসাইটে এসে এপ্লাই করলেই কুপন এপ্লাই
+                      হয়ে হয়ে যাবে এবং আমাদের ছাড় এপ্লাই করতে পারবে।{" "}
+                    </p>
+
+                    <p className="text-heading dark:text-darkHeading text-xl font-semibold mt-4">
+                      ধন্যবাদ।
+                    </p>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
