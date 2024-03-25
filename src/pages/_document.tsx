@@ -14,7 +14,8 @@ export default function Document() {
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-5T12CXSDM7');`,
+  gtag('config', 'G-5T12CXSDM7');
+  `,
           }}
         ></script>
       </Head>
