@@ -310,7 +310,7 @@ export default function Home() {
                     </span>{" "}
                     কোর্স
                   </h2>
-                  <p>আমাদের কোর্সের সব ফিচার দেখে নাও</p>
+                  {/* <p>আমাদের কোর্সের সব ফিচার দেখে নাও</p> */}
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lgXl:grid-cols-4  mt-24 ">
