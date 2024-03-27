@@ -1425,7 +1425,7 @@ export default function CourseDetailsPage() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 ></iframe>
-                <div className="flex flex-col lgXl:flex-row items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
+                <div className="flex flex-col lgXxl:flex-row items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
                   <div>
                     <div className="flex items-center gap-4">
                       <div>
