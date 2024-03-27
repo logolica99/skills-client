@@ -1483,14 +1483,16 @@ export default function CourseDetailsPage() {
               )}
             </div>
             <div style={{ flex: 1 }}>
-              <div className="p-4  text-heading dark:text-darkHeading bg-gray-400/30 dark:bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none  ">
+              <div className="  text-heading dark:text-darkHeading bg-gray-400/30 dark:bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none  ">
                 <iframe
-                  className="rounded-xl w-full min-h-[200px] lg:min-h-[260px]"
+                  className="rounded-t-xl w-full min-h-[200px] lg:min-h-[260px]"
                   src={courseData.intro_video}
                   title="How do we scale web applications?"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 ></iframe>
+                <div className="p-4">
+
                 <div className="flex flex-col lgXxl:flex-row items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
                   <div>
                     <div className="flex items-center gap-4">
@@ -1534,8 +1536,8 @@ export default function CourseDetailsPage() {
                     </div>
                   </div>
                 </div>
-                <p className="text-lg mt-8">এই কোর্সে আপনি পাচ্ছেন</p>
-                <div className="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-y-3 gap-x-16">
+                <p className="text-lg mt-6 font-bold">এই কোর্সে আপনি পাচ্ছেন</p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 mt-3 gap-y-1 gap-x-16">
                   {courseData.you_get.you_get.split(",").map((item: any) => (
                     <div
                       className="flex gap-2 items-center"
@@ -1745,6 +1747,7 @@ export default function CourseDetailsPage() {
                 >
                   {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
                 </button>
+                </div>
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
                 <p className="text-sm text-paragraph dark:text-darkParagraph">
