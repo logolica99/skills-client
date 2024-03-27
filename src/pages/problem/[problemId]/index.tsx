@@ -94,56 +94,7 @@ int main(){
 }`,
   });
 
-  const [submissions, setSubmissions] = useState<any>([
-    {
-      verdict: "Accepted",
-      date: new Date(),
-      language: "cpp",
-      runtime: "49ms",
-      Memory: "16.3 MB",
-      code: "#include<bits/stdc++.h>\nusing namespace std; \n    \nint main(){\n    int a,b;\n    cin >> a >> b;\n    cout << a<<b;\n    \n}",
-    },
-    {
-      verdict: "Accepted",
-      date: new Date(),
-      language: "Python",
-      runtime: "49ms",
-      Memory: "16.3 MB",
-      code: "#include<bits/stdc++.h>\nusing namespace std; \n    \nint main(){\n    \n    \n}",
-    },
-    {
-      verdict: "Accepted",
-      date: new Date(),
-      language: "Python",
-      runtime: "49ms",
-      Memory: "16.3 MB",
-      code: "#include<bits/stdc++.h>\nusing namespace std; \n    \nint main(){\n    \n    \n}",
-    },
-    {
-      verdict: "Rejected",
-      date: new Date(),
-      language: "Python",
-      runtime: "N/A",
-      Memory: "N/A",
-      code: "#include<bits/stdc++.h>\nusing namespace std; \n    \nint main(){\n    \n    \n}",
-    },
-    {
-      verdict: "Rejected",
-      date: new Date(),
-      language: "Python",
-      runtime: "N/A",
-      Memory: "N/A",
-      code: "#include<bits/stdc++.h>\nusing namespace std; \n    \nint main(){\n    \n    \n}",
-    },
-    {
-      verdict: "Compilation Error",
-      date: new Date(),
-      language: "Python",
-      runtime: "N/A",
-      Memory: "N/A",
-      code: "#include<bits/stdc++.h>\nusing namespace std; \n    \nint main(){\n    \n    \n}",
-    },
-  ]);
+  const [submissions, setSubmissions] = useState<any>([]);
 
   const [language, setLanguage] = useState("cpp");
 
@@ -154,6 +105,11 @@ int main(){
     cpp: 76,
     python: 71,
     java: 91,
+  };
+  const languageIdsToName: any = {
+    76: "cpp",
+    71: "python",
+    91: "java",
   };
   const [activeSubmission, setActiveSubmission] = useState<any>({});
   const [runButtonLoading, setRunButtonLoading] = useState(false);
@@ -178,9 +134,35 @@ int main(){
         setUser({ ...user, loading: false });
       });
   };
+  const fetchSubmissions = () => {
+    // setUser({ ...user, loading: true });
+
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(
+        BACKEND_URL +
+          "/user/module/getMyCompilations/" +
+          router.query.problemId,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        setUser({ ...user, loading: false });
+        // setProblemData(res.data.data[0]);
+        setSubmissions(res.data.data);
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
+  };
 
   useEffect(() => {
     fetchModule();
+    fetchSubmissions();
   }, [router.query.problemId]);
 
   return (
@@ -338,7 +320,7 @@ int main(){
                     >
                       Submissions
                     </p>
-                    {activeSubmission.verdict && (
+                    {activeSubmission?.data?.verdict && (
                       <div className="flex gap-1 ">
                         <p
                           className={` text-xl font-semibold pb-2 cursor-pointer 
@@ -352,7 +334,7 @@ int main(){
                             changeProblemTab("activeSubmission");
                           }}
                         >
-                          {activeSubmission?.verdict}
+                          {activeSubmission?.data?.verdict}
                         </p>
                         <div
                           onClick={() => {
@@ -509,7 +491,7 @@ int main(){
                             Runtime
                           </p>
                           <p className="flex-1 text-paragraph dark:text-darkParagraph">
-                            Memory
+                            memory
                           </p>
                         </div>
                       </div>
@@ -536,40 +518,45 @@ int main(){
                               <div className=" " style={{ flex: 3 }}>
                                 <p
                                   className={`text-xl  font-semibold ${
-                                    submission.verdict === "Accepted" &&
+                                    submission.data.verdict === "Accepted" &&
                                     "text-green-700 dark:text-green-300"
                                   }
                                   ${
-                                    submission.verdict === "Rejected" &&
+                                    submission.data.verdict ===
+                                      "Wrong Answer" &&
                                     "text-red-700 dark:text-red-300"
                                   }
                                   ${
-                                    submission.verdict ===
+                                    submission.data.verdict ===
+                                      "Time Limit Exceeded" &&
+                                    "text-red-700 dark:text-red-300"
+                                  }
+                                  ${
+                                    submission.data.verdict ===
                                       "Compilation Error" &&
                                     "text-orange-600 dark:text-orange-300"
                                   }
                                   
                                   `}
                                 >
-                                  {submission.verdict === "Accepted" &&
-                                    "Accepted"}
-                                  {submission.verdict === "Rejected" &&
-                                    "Rejected"}
-                                  {submission.verdict === "Compilation Error" &&
-                                    "Compilation Error"}
+                                  {submission.data.verdict}
                                 </p>
-                                <p>{formatDate(submission.date)}</p>
+                                <p>
+                                  {formatDate(
+                                    new Date(submission.timestamp * 1000),
+                                  )}
+                                </p>
                               </div>
                               <div className="flex-1 text-paragraph dark:text-darkParagraph flex items-center ">
                                 <p className="bg-gray-100/20 px-2  rounded-full ">
-                                  {submission.language}
+                                  {languageIdsToName[submission.data.language]}
                                 </p>
                               </div>
                               <p className="flex-1 text-paragraph dark:text-darkParagraph">
-                                {submission.runtime}
+                                {submission.data.runtime}
                               </p>
                               <p className="flex-1 text-paragraph dark:text-darkParagraph">
-                                {submission.Memory}
+                                {submission.data.memory}
                               </p>
                             </div>
                           ))}
@@ -601,23 +588,27 @@ int main(){
                         {activeSubmission.verdict === "Compilation Error" &&
                           "Compilation Error"}
                       </p>
-                      <p className=" ">{formatDate(activeSubmission.date)}</p>
+                      <p className=" ">
+                        {formatDate(
+                          new Date(activeSubmission.timestamp * 1000),
+                        )}
+                      </p>
                       <p className="mt-2 ">
                         Runtime:{" "}
                         <span className="text-heading dark:text-darkHeading font-semibold text-xl">
-                          {activeSubmission.runtime}
+                          {activeSubmission.data.runtime}
                         </span>
                       </p>
                       <p className="mt-1  ">
-                        Memory:{" "}
+                        memory:{" "}
                         <span className="text-heading dark:text-darkHeading font-semibold text-xl">
-                          {activeSubmission.Memory}
+                          {activeSubmission.data.memory}
                         </span>
                       </p>
 
                       <div className=" mt-6">
                         <CodeBlock
-                          text={activeSubmission.code}
+                          text={activeSubmission.data.code}
                           language="cpp"
                           theme={atomOneDark}
                           showLineNumbers
@@ -866,6 +857,7 @@ int main(){
                               },
                             )
                             .then((res) => {
+                              fetchSubmissions();
                               setResultData({
                                 ...resultData,
                                 title: res.data.data.status,
