@@ -1493,7 +1493,7 @@ export default function CourseDetailsPage() {
                 ></iframe>
                 <div className="p-4">
 
-                <div className="flex flex-col lgXxl:flex-row items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
+                <div className="flex flex-col lgXxl:flex-row items-center gap-4 md:gap-2 justify-between pt-2 pb-4 border-b border-gray-300/20">
                   <div>
                     <div className="flex items-center gap-4">
                       <div>
@@ -1503,7 +1503,7 @@ export default function CourseDetailsPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="text-4xl font-bold ">
+                        <p className="text-3xl font-bold ">
                           {" "}
                           {courseData?.price}/-
                         </p>
@@ -1529,7 +1529,7 @@ export default function CourseDetailsPage() {
                       </svg>
                       <div>
                         <p>কোর্সটি প্রি বুক করেছে</p>
-                        <p className="text-4xl font-bold ">
+                        <p className="text-3xl font-bold ">
                           {courseData?.prebooking} জন
                         </p>
                       </div>
