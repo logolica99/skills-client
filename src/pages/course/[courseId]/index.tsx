@@ -583,7 +583,7 @@ export default function CourseDetailsPage() {
               </h2>
               {!courseData.isTaken && (
                 <div className="flex gap-8 items-center pb-6 border-b border-gray-400/50 dark:border-gray-300/10 relative ">
-                  <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                  {/* <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                     <svg
                       width="18"
                       height="18"
@@ -600,8 +600,8 @@ export default function CourseDetailsPage() {
                       calculateRemainingDays(courseData?.chips?.deadline),
                     )}{" "}
                     দিন বাকি
-                  </div>
-                  <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/10 px-3 py-2 rounded-xl">
+                  </div> */}
+                  {/* <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/10 px-3 py-2 rounded-xl">
                     <svg
                       width="23"
                       height="22"
@@ -619,7 +619,7 @@ export default function CourseDetailsPage() {
                         courseData?.enrolled,
                     )}{" "}
                     টি সিট বাকি
-                  </div>
+                  </div> */}
                 </div>
               )}
               {courseData.isTaken && (

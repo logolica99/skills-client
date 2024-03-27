@@ -72,7 +72,7 @@ export default function CourseDetailsPage() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
       .then((res) => {})
       .catch((err) => {});
@@ -471,12 +471,25 @@ int main(){
                           __html: problemData?.data?.editorial_details,
                         }}
                       ></div>
-                      <div
+                      {/* <div
                         className="text-xl flex flex-col gap-8 mt-6 text-darkHeading bg-[#282A36] p-4"
                         dangerouslySetInnerHTML={{
                           __html: problemData?.data?.editorial_code,
                         }}
-                      ></div>
+                      ></div> */}
+                      <CodeBlock
+                        text={problemData?.data?.editorial_code}
+                        language="cpp"
+                        theme={atomOneDark}
+                        showLineNumbers
+                        customStyle={{
+                          height: "600px",
+                          overflowY: "scroll",
+                          margin: "0px 0.75rem",
+                          borderRadius: "5px",
+                          boxShadow: "1px 2px 3px rgba(0,0,0,0.35)",
+                        }}
+                      />
                     </div>
                   )}
                   {problemTab.submissions && (
@@ -510,7 +523,7 @@ int main(){
                         <div>
                           {submissions.map((submission: any, index: any) => (
                             <div
-                            key={Math.random()}
+                              key={Math.random()}
                               onClick={() => {
                                 setActiveSubmission(submission);
                                 changeProblemTab("activeSubmission");
@@ -713,8 +726,8 @@ int main(){
                         resultData.title === "Run Or Submit the problem first"
                           ? "text-gray-400"
                           : resultData.title === "Accepted"
-                          ? "text-green-400 font-semibold text-2xl"
-                          : "text-red-600 font-semibold text-2xl"
+                            ? "text-green-400 font-semibold text-2xl"
+                            : "text-red-600 font-semibold text-2xl"
                       }`}
                     >
                       {resultData.title}
@@ -722,19 +735,19 @@ int main(){
 
                     {resultData.message?.yourOutput && (
                       <div>
-                        <p>Input:</p>
+                        <p className="text-lg font-bold">Input:</p>
                         <p>{resultData.message?.input}</p>
                       </div>
                     )}
                     {resultData.message?.yourOutput && (
                       <div>
-                        <p>Expected:</p>
+                        <p className="text-lg font-bold">Expected:</p>
                         <p>{resultData.message?.expectedOutput}</p>
                       </div>
                     )}
                     {resultData.message?.expectedOutput && (
                       <div>
-                        <p> Output</p>
+                        <p className="text-lg font-bold"> Output</p>
                         <p>{resultData.message?.yourOutput}</p>
                       </div>
                     )}
@@ -779,7 +792,7 @@ int main(){
                                 headers: {
                                   Authorization: `Bearer ${token}`,
                                 },
-                              }
+                              },
                             )
                             .then((res) => {
                               setResultData({
@@ -850,7 +863,7 @@ int main(){
                                 headers: {
                                   Authorization: `Bearer ${token}`,
                                 },
-                              }
+                              },
                             )
                             .then((res) => {
                               setResultData({
