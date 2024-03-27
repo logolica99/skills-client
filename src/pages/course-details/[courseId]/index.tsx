@@ -444,7 +444,7 @@ export default function CourseDetailsPage() {
                       <img src="/logo.png" alt="" className="py-6 lg:p-6" />
                       <div>
                         <p className="text-heading dark:text-darkHeading text-xl text-center lg:text-left">
-                          Competitive Programming শিখব এবার হাতে কলমে
+                          Competitive Programming 2.0 SuperCharged
                         </p>
                         <p className="text-paragraph dark:text-darkParagraph mt-2 text-base text-center lg:text-left">
                           খুব শীঘ্রয় আসছে আমাদের এই কোর্স তাই কোর্সের সম্বন্ধে
@@ -717,9 +717,10 @@ export default function CourseDetailsPage() {
             >
               <h2 className="text-2xl lg:text-4xl font-semibold">
                 {courseData?.title}
+   
               </h2>
               <div className="flex gap-8 items-center pb-6 border-b border-gray-300/80 dark:border-gray-300/10 relative ">
-                <div className="flex gap-3 mt-6 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                {/* <div className="flex gap-3 mt-6 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                   <svg
                     width="18"
                     height="18"
@@ -736,7 +737,7 @@ export default function CourseDetailsPage() {
                     calculateRemainingDays(courseData?.chips?.deadline),
                   )}{" "}
                   দিন বাকি
-                </div>
+                </div> */}
                 {/* <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/20 dark:bg-[#A144FF]/10 px-3 py-2 rounded-xl">
                   <svg
                     width="23"
@@ -761,6 +762,146 @@ export default function CourseDetailsPage() {
               <p className="mt-6 text-black/70 dark:text-[#A3A3A3] text-lg">
                 {courseData.short_description}
               </p>
+
+              <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-3 lg:w-[80%]">
+                <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.48438 8.00171H7.5167L8.50108 5.67524L9.48438 8.00171ZM0 2.75C0 1.23122 1.23122 0 2.75 0H19.25C20.7688 0 22 1.23122 22 2.75V11.5372C20.7381 10.5728 19.161 10 17.4502 10C14.9973 10 12.8195 11.1775 11.4511 12.9981L4.2251 12.9981C3.81088 12.9981 3.4751 13.3339 3.4751 13.7481C3.4751 14.1623 3.81089 14.4981 4.2251 14.4981L10.5751 14.4981C10.1732 15.4173 9.9502 16.4326 9.9502 17.5C9.9502 19.1884 10.5081 20.7465 11.4496 22H2.75C1.23122 22 0 20.7688 0 19.25V2.75ZM9.19229 3.45768C9.07498 3.18012 8.80294 2.99972 8.50161 2.99966C8.20028 2.99961 7.92817 3.1799 7.81075 3.45741L5.05924 9.96029C4.89783 10.3418 5.07622 10.7819 5.45769 10.9433C5.83916 11.1047 6.27926 10.9263 6.44066 10.5448L6.88202 9.50171H10.1184L10.5591 10.5445C10.7204 10.9261 11.1604 11.1046 11.5419 10.9434C11.9235 10.7821 12.102 10.3421 11.9408 9.96057L9.19229 3.45768ZM3.4751 17.7511C3.4751 18.1653 3.81088 18.5011 4.22509 18.5011L8.7505 18.5012C9.16471 18.5012 9.5005 18.1654 9.5005 17.7512C9.5005 17.3369 9.16472 17.0012 8.75051 17.0012L4.2251 17.0011C3.81089 17.0011 3.4751 17.3369 3.4751 17.7511ZM15.5 3.74991C15.5 3.3357 15.1642 2.99991 14.75 2.99991C14.3358 2.99991 14 3.3357 14 3.74991V5H12.7523C12.3381 5 12.0023 5.33579 12.0023 5.75C12.0023 6.16421 12.3381 6.5 12.7523 6.5H14V7.7476C14 8.16181 14.3358 8.4976 14.75 8.4976C15.1642 8.4976 15.5 8.16181 15.5 7.7476V6.5H16.75C17.1642 6.5 17.5 6.16421 17.5 5.75C17.5 5.33579 17.1642 5 16.75 5H15.5V3.74991ZM23.9502 17.5C23.9502 21.0899 21.04 24 17.4502 24C13.8603 24 10.9502 21.0899 10.9502 17.5C10.9502 13.9101 13.8603 11 17.4502 11C21.04 11 23.9502 13.9101 23.9502 17.5ZM17.9502 13.5C17.9502 13.2239 17.7263 13 17.4502 13C17.1741 13 16.9502 13.2239 16.9502 13.5V17H13.4502C13.1741 17 12.9502 17.2239 12.9502 17.5C12.9502 17.7761 13.1741 18 13.4502 18H16.9502V21.5C16.9502 21.7761 17.1741 22 17.4502 22C17.7263 22 17.9502 21.7761 17.9502 21.5V18H21.4502C21.7263 18 21.9502 17.7761 21.9502 17.5C21.9502 17.2239 21.7263 17 21.4502 17H17.9502V13.5Z"
+                      fill="#D95344"
+                    />
+                  </svg>
+                  <div>
+                    <p className="text-paragraph dark:text-darkParagraph text-xl">
+                      চ্যাপ্টার সংখ্যা{" "}
+                    </p>
+                    <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                      30 টি
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                  <svg
+                    width="24"
+                    height="18"
+                    viewBox="0 0 24 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 0.5C1.95507 0.5 0.5 1.95508 0.5 3.75V14.25C0.5 16.0449 1.95507 17.5 3.75 17.5H13.25C15.0449 17.5 16.5 16.0449 16.5 14.25V3.75C16.5 1.95507 15.0449 0.5 13.25 0.5H3.75ZM21.6232 15.6431L18 12.0935V5.99889L21.6121 2.3706C22.3988 1.58044 23.748 2.13753 23.748 3.25251V14.7502C23.748 15.8577 22.4143 16.4181 21.6232 15.6431Z"
+                      fill="#B2F100"
+                    />
+                  </svg>
+
+                  <div>
+                    <p className="text-paragraph dark:text-darkParagraph text-xl">
+                      ভিডিও ডিউরেশন
+                    </p>
+                    <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                      50 ঘণ্টা
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                  <svg
+                    width="22"
+                    height="24"
+                    viewBox="0 0 22 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4 2.75C4 1.23122 5.23122 0 6.75 0H14.75C16.2688 0 17.5 1.23122 17.5 2.75V3H19.75C20.7165 3 21.5 3.7835 21.5 4.75V7.75C21.5 10.0902 19.6085 11.9887 17.271 11.9999C16.5627 14.6458 14.2871 16.6507 11.5 16.9588V19H14.25C16.0449 19 17.5 20.4551 17.5 22.25V22.75C17.5 23.4404 16.9404 24 16.25 24H5.25C4.55964 24 4 23.4404 4 22.75V22.25C4 20.4551 5.45507 19 7.25 19H10V16.9588C7.21294 16.6507 4.93729 14.6458 4.22905 11.9999C1.89148 11.9887 0 10.0902 0 7.75V4.75C0 3.7835 0.783502 3 1.75 3H4V2.75ZM4 4.5H1.75C1.61193 4.5 1.5 4.61193 1.5 4.75V7.75C1.5 9.18593 2.60055 10.3648 4.00416 10.4892C4.00139 10.4098 4 10.3301 4 10.25V4.5ZM17.4958 10.4892C18.8995 10.3648 20 9.18593 20 7.75V4.75C20 4.61193 19.8881 4.5 19.75 4.5H17.5V10.25C17.5 10.3301 17.4986 10.4098 17.4958 10.4892Z"
+                      fill="#FFA500"
+                    />
+                  </svg>
+
+                  <div>
+                    <p className="text-paragraph dark:text-darkParagraph text-xl">
+                      কন্টেস্ট
+                    </p>
+                    <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                      10 টি
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                  <svg
+                    width="25"
+                    height="18"
+                    viewBox="0 0 25 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.89992 0.761631C6.35553 1.21724 6.35553 1.95593 5.89992 2.41155C2.25385 6.05761 2.25385 11.9691 5.89992 15.6151C6.35553 16.0707 6.35553 16.8094 5.89992 17.265C5.4443 17.7207 4.70561 17.7207 4.25 17.265C-0.307292 12.7078 -0.307292 5.31892 4.25 0.761631C4.70561 0.306019 5.4443 0.306019 5.89992 0.761631ZM20.7534 0.761631C25.3107 5.31892 25.3107 12.7078 20.7534 17.265C20.2978 17.7207 19.5591 17.7207 19.1035 17.265C18.6479 16.8094 18.6479 16.0707 19.1035 15.6151C22.7496 11.9691 22.7496 6.05761 19.1035 2.41155C18.6479 1.95593 18.6479 1.21724 19.1035 0.761631C19.5591 0.306019 20.2978 0.306019 20.7534 0.761631ZM9.36101 4.1139C9.81662 4.56951 9.81662 5.30821 9.36101 5.76382C7.57488 7.54994 7.57488 10.4458 9.36101 12.2319C9.81662 12.6876 9.81662 13.4262 9.36101 13.8819C8.9054 14.3375 8.1667 14.3375 7.71109 13.8819C5.01374 11.1845 5.01374 6.81125 7.71109 4.1139C8.1667 3.65829 8.9054 3.65829 9.36101 4.1139ZM17.479 4.1139C20.1764 6.81125 20.1764 11.1845 17.479 13.8819C17.0234 14.3375 16.2847 14.3375 15.8291 13.8819C15.3735 13.4262 15.3735 12.6876 15.8291 12.2319C17.6153 10.4458 17.6153 7.54994 15.8291 5.76382C15.3735 5.30821 15.3735 4.56951 15.8291 4.1139C16.2847 3.65829 17.0234 3.65829 17.479 4.1139ZM12.5951 7.3449C13.5616 7.3449 14.3451 8.1284 14.3451 9.0949C14.3451 10.0614 13.5616 10.8449 12.5951 10.8449C11.6286 10.8449 10.8451 10.0614 10.8451 9.0949C10.8451 8.1284 11.6286 7.3449 12.5951 7.3449Z"
+                      fill="#EE4878"
+                    />
+                  </svg>
+
+                  <div>
+                    <p className="text-paragraph dark:text-darkParagraph text-xl">
+                      লাইভ ক্লাস
+                    </p>
+                    <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                      16 টি
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                  <svg
+                    width="24"
+                    height="20"
+                    viewBox="0 0 24 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.43279 17.7134L14.4283 1.37476C14.6819 0.782437 15.3677 0.507854 15.96 0.761462C16.51 0.996955 16.786 1.60507 16.6196 2.16499L16.5733 2.29316L9.57778 18.6318C9.32417 19.2241 8.63841 19.4987 8.04609 19.2451C7.49607 19.0096 7.22003 18.4015 7.38645 17.8415L7.43279 17.7134L14.4283 1.37476L7.43279 17.7134ZM0.674717 9.17567L5.34138 4.509C5.797 4.05339 6.53569 4.05339 6.9913 4.509C7.41186 4.92957 7.44422 5.59134 7.08835 6.04901L6.9913 6.15892L3.14959 10.0006L6.9913 13.8423C7.44691 14.2979 7.44691 15.0366 6.9913 15.4923C6.57073 15.9128 5.90897 15.9452 5.45129 15.5893L5.34138 15.4923L0.674717 10.8256C0.254152 10.405 0.221801 9.74325 0.577663 9.28558L0.674717 9.17567L5.34138 4.509L0.674717 9.17567ZM17.0071 4.50756C17.4277 4.08701 18.0895 4.05469 18.5471 4.41057L18.657 4.50763L23.3247 9.17571C23.7454 9.59647 23.7775 10.2586 23.4213 10.7162L23.3241 10.8261L18.6564 15.4876C18.2005 15.9429 17.4618 15.9424 17.0065 15.4865C16.5862 15.0656 16.5543 14.4039 16.9105 13.9464L17.0076 13.8366L20.8493 10L17.007 6.15747C16.5514 5.70184 16.5515 4.96315 17.0071 4.50756Z"
+                      fill="#2563EB"
+                    />
+                  </svg>
+
+                  <div>
+                    <p className="text-paragraph dark:text-darkParagraph text-xl">
+                      কোডিং প্রব্লেম
+                    </p>
+                    <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                      300 টি
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                  <svg
+                    width="19"
+                    height="24"
+                    viewBox="0 0 19 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.6254 0.333611C17.3974 0.333611 18.8338 1.77003 18.8338 3.54194V20.4566C18.8338 22.2285 17.3974 23.6649 15.6254 23.6649H3.37533C1.60341 23.6649 0.166992 22.2285 0.166992 20.4566V3.54194C0.166992 1.77003 1.60341 0.333611 3.37533 0.333611L3.71532 0.333008V9.86135C3.71532 10.7341 4.63742 11.0444 5.25366 10.7239L5.35899 10.6608L7.80079 9.26397L10.298 10.6982C10.8177 11.0578 11.7686 10.8159 11.8727 10.0095L11.882 9.86135V0.333008L15.6254 0.333611ZM10.132 0.333008V8.58799L8.24012 7.50077C7.97558 7.37416 7.61582 7.37704 7.31518 7.52704L7.19041 7.60039L5.46532 8.58719V0.333008H10.132Z"
+                      fill="#B153E0"
+                    />
+                  </svg>
+
+                  <div>
+                    <p className="text-paragraph dark:text-darkParagraph text-xl">
+                      আর্কাইভ ক্লাস{" "}
+                    </p>
+                    <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                      30 টি
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center gap-4 mt-20 pb-6 border-b border-gray-300/20">
                 <button
                   onClick={() => {
@@ -805,7 +946,7 @@ export default function CourseDetailsPage() {
                     <p className="text-2xl lg:text-3xl font-semibold">
                       স্টাডি প্ল্যান
                     </p>
-                    <div className="flex items-center px-4 py-2 border border-[#B153E0]/50 bg-[#B153E0]/5 gap-4 rounded flex-wrap">
+                    <div className="flex items-center px-4 py-2 text-lg border border-[#B153E0]/50 bg-[#B153E0]/5 gap-4 rounded flex-wrap">
                       <p>
                         {englishToBanglaNumbers(
                           countModulesAssignmentsVideos(courseData)
@@ -879,7 +1020,7 @@ export default function CourseDetailsPage() {
                         {englishToBanglaNumbers(
                           countModulesAssignmentsVideos(courseData).totalQuiz,
                         )}{" "}
-                        টি কুইজ 
+                        টি কুইজ
                       </p>
                       <svg
                         width="5"
@@ -901,7 +1042,7 @@ export default function CourseDetailsPage() {
                         {englishToBanglaNumbers(
                           countModulesAssignmentsVideos(courseData).totalCodes,
                         )}{" "}
-                        টি কোডিং চ্যালেঞ্জ 
+                        টি কোডিং চ্যালেঞ্জ
                       </p>
                       <svg
                         width="5"
@@ -923,7 +1064,7 @@ export default function CourseDetailsPage() {
                         {englishToBanglaNumbers(
                           countModulesAssignmentsVideos(courseData).totalPDF,
                         )}{" "}
-                        টি পিডিএফ 
+                        টি পিডিএফ
                       </p>
                     </div>
                   </div>
@@ -1492,27 +1633,28 @@ export default function CourseDetailsPage() {
                   allowFullScreen
                 ></iframe>
                 <div className="p-4">
-
-                <div className="flex flex-col lgXxl:flex-row items-center gap-4 md:gap-2 justify-between pt-2 pb-4 border-b border-gray-300/20">
-                  <div>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <p>কোর্স প্রাইস</p>
-                        <p className="text-purple line-through font-semibold text-lg">
-                          {courseData?.x_price}/-
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-3xl font-bold ">
-                          {" "}
-                          {courseData?.price}/-
-                        </p>
+                  <div className="flex flex-col lgXxl:flex-row items-center gap-4 md:gap-2 justify-between pt-2 pb-4 border-b border-gray-300/20">
+                    <div>
+                      <p className="font-bold text-base text-paragraph dark:text-darkParagraph text-center lgXxl:text-left">
+                        কোর্স প্রাইস
+                      </p>
+                      <div className="flex items-center gap-4 ">
+                        <div>
+                          <p className="text-3xl font-bold ">
+                            {" "}
+                            {courseData?.price}/-
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-[#BE2853] line-through font-semibold text-lg">
+                            {courseData?.x_price}/-
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex gap-3 ">
-                    <div className="flex items-center gap-4">
-                      <svg
+                    <div className="flex gap-3 ">
+                      <div className="flex items-center gap-4">
+                        {/* <svg
                         width="15"
                         height="13"
                         viewBox="0 0 15 13"
@@ -1526,51 +1668,55 @@ export default function CourseDetailsPage() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
-                      </svg>
-                      <div>
-                        <p>কোর্সটি প্রি বুক করেছে</p>
-                        <p className="text-3xl font-bold ">
-                          {courseData?.prebooking} জন
-                        </p>
+                      </svg> */}
+                        <div className="text-center lgXxl:text-left">
+                          <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
+                            কোর্সটি প্রি বুক করেছে
+                          </p>
+                          <p className="text-3xl font-bold ">
+                            {courseData?.prebooking} জন
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <p className="text-lg mt-6 font-bold">এই কোর্সে আপনি পাচ্ছেন</p>
-                <div className="grid grid-cols-1 lg:grid-cols-2 mt-3 gap-y-1 gap-x-16">
-                  {courseData.you_get.you_get.split(",").map((item: any) => (
-                    <div
-                      className="flex gap-2 items-center"
-                      key={Math.random()}
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="min-w-[16px] min-h-[16px]"
+                  <p className="text-lg mt-6 font-bold">
+                    এই কোর্সে আপনি পাচ্ছেন
+                  </p>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 mt-3 gap-y-1 gap-x-16">
+                    {courseData.you_get.you_get.split(",").map((item: any) => (
+                      <div
+                        className="flex gap-2 items-center"
+                        key={Math.random()}
                       >
-                        <g opacity="0.7">
-                          <path
-                            d="M8.00065 14.6663C4.31865 14.6663 1.33398 11.6817 1.33398 7.99967C1.33398 4.31767 4.31865 1.33301 8.00065 1.33301C11.6827 1.33301 14.6673 4.31767 14.6673 7.99967C14.6673 11.6817 11.6827 14.6663 8.00065 14.6663ZM8.00065 13.333C9.41512 13.333 10.7717 12.7711 11.7719 11.7709C12.7721 10.7707 13.334 9.41414 13.334 7.99967C13.334 6.58519 12.7721 5.22863 11.7719 4.22844C10.7717 3.22824 9.41512 2.66634 8.00065 2.66634C6.58616 2.66634 5.22961 3.22824 4.22942 4.22844C3.22922 5.22863 2.66732 6.58519 2.66732 7.99967C2.66732 9.41414 3.22922 10.7707 4.22942 11.7709C5.22961 12.7711 6.58616 13.333 8.00065 13.333ZM7.33598 10.6663L4.50732 7.83767L5.44998 6.89501L7.33598 8.78101L11.1067 5.00967L12.05 5.95234L7.33598 10.6663Z"
-                            fill="#B153E0"
-                          />
-                        </g>
-                      </svg>
-                      <p>{item}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
-                  {/* <p className="text-xl font-bold">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="min-w-[16px] min-h-[16px]"
+                        >
+                          <g opacity="0.7">
+                            <path
+                              d="M8.00065 14.6663C4.31865 14.6663 1.33398 11.6817 1.33398 7.99967C1.33398 4.31767 4.31865 1.33301 8.00065 1.33301C11.6827 1.33301 14.6673 4.31767 14.6673 7.99967C14.6673 11.6817 11.6827 14.6663 8.00065 14.6663ZM8.00065 13.333C9.41512 13.333 10.7717 12.7711 11.7719 11.7709C12.7721 10.7707 13.334 9.41414 13.334 7.99967C13.334 6.58519 12.7721 5.22863 11.7719 4.22844C10.7717 3.22824 9.41512 2.66634 8.00065 2.66634C6.58616 2.66634 5.22961 3.22824 4.22942 4.22844C3.22922 5.22863 2.66732 6.58519 2.66732 7.99967C2.66732 9.41414 3.22922 10.7707 4.22942 11.7709C5.22961 12.7711 6.58616 13.333 8.00065 13.333ZM7.33598 10.6663L4.50732 7.83767L5.44998 6.89501L7.33598 8.78101L11.1067 5.00967L12.05 5.95234L7.33598 10.6663Z"
+                              fill="#B153E0"
+                            />
+                          </g>
+                        </svg>
+                        <p>{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
+                    {/* <p className="text-xl font-bold">
                     {englishToBanglaNumbers(
                       calculateRemainingDays(courseData?.chips?.deadline),
                     )}{" "}
                   দিন বাকি প্রি বুক এর
                   </p> */}
 
-                  {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                    {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                     <svg
                       width="18"
                       height="18"
@@ -1586,65 +1732,73 @@ export default function CourseDetailsPage() {
                     প্রি বুকিং এর বাকি{" "}
                     {calculateRemainingDays(courseData?.chips?.deadline)} দিন
                   </div> */}
-                  <div className="">
-                    <div className="flex  text-sm justify-center">
-                      <p className="text-white mr-8">অবশিষ্ট সময়</p>
-                      <div className="flex gap-2">
-                        <svg
-                          width="12"
-                          height="15"
-                          viewBox="0 0 12 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M6.66536 1.5V6.16667H10.6654L5.33203 13.5V8.83333H1.33203L6.66536 1.5Z"
-                            stroke="url(#paint0_linear_4530_4930)"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_4530_4930"
-                              x1="5.9987"
-                              y1="1.5"
-                              x2="5.9987"
-                              y2="13.5"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="#CF8E16" />
-                              <stop offset="1" stop-color="#FFE49C" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                    <div className="">
+                      <div className="flex  text-sm justify-center">
+                        <p className="text-heading dark:text-darkHeading mr-16  font-bold text-lg">
+                          অবশিষ্ট সময়
+                        </p>
+                        <div className="flex gap-2 items-center">
+                          <svg
+                            width="12"
+                            height="15"
+                            viewBox="0 0 12 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.66536 1.5V6.16667H10.6654L5.33203 13.5V8.83333H1.33203L6.66536 1.5Z"
+                              stroke="url(#paint0_linear_4530_4930)"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <defs>
+                              <linearGradient
+                                id="paint0_linear_4530_4930"
+                                x1="5.9987"
+                                y1="1.5"
+                                x2="5.9987"
+                                y2="13.5"
+                                gradientUnits="userSpaceOnUse"
+                              >
+                                <stop stop-color="#CF8E16" />
+                                <stop offset="1" stop-color="#FFE49C" />
+                              </linearGradient>
+                            </defs>
+                          </svg>
 
-                        <p className="text-[#FDAF22]">তারাতারি কর</p>
+                          <p className="text-[#FDAF22] text-lg">তারাতারি কর</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex gap-4  justify-center">
-                      <div className="flex flex-col items-center">
-                        <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
-                          {days.toString().padStart(2, "0")}
-                        </p>
-                        <p className="mt-1">দিন</p>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
-                          {hours.toString().padStart(2, "0")}
-                        </p>
-                        <p className="mt-1">ঘন্টা</p>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
-                          {minutes.toString().padStart(2, "0")}
-                        </p>
-                        <p className="mt-1">মিনিট</p>
+                      <div className="flex gap-4  justify-center">
+                        <div className="flex flex-col items-center">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl">
+                            {days.toString().padStart(2, "0")}
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
+                            দিন
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl">
+                            {hours.toString().padStart(2, "0")}
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
+                            ঘন্টা
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl">
+                            {minutes.toString().padStart(2, "0")}
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
+                            মিনিট
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* {!courseData.isTaken && (
+                  {/* {!courseData.isTaken && (
                   <div className="mt-6">
                     <p className="text-lg font-semibold mb-1">Enter Coupon</p>
                     <div className="flex items-center gap-2">
@@ -1726,27 +1880,37 @@ export default function CourseDetailsPage() {
                     কোর্সটি কিনুন
                   </button>
                 )} */}
-                <button
-                  onClick={() => {
-                    let token: any = "";
-                    token = localStorage.getItem("token")
-                      ? localStorage.getItem("token")
-                      : "";
-                    if (token.length > 0) {
-                      const decodedToken: any = jwtDecode(token);
+                  <div className="flex gap-4">
+                    <Link
+                      href="/course/12"
+                      className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
+                    >
+                      Free Preview
+                    </Link>
+                    <button
+                      onClick={() => {
+                        let token: any = "";
+                        token = localStorage.getItem("token")
+                          ? localStorage.getItem("token")
+                          : "";
+                        if (token.length > 0) {
+                          const decodedToken: any = jwtDecode(token);
 
-                      setPrebookingData({
-                        name: decodedToken.name,
-                        phone: decodedToken.login,
-                        email: decodedToken.profile?.email,
-                      });
-                    }
-                    setOpenPrebookCourse(true);
-                  }}
-                  className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
-                >
-                  {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
-                </button>
+                          setPrebookingData({
+                            name: decodedToken.name,
+                            phone: decodedToken.login,
+                            email: decodedToken.profile?.email,
+                          });
+                        }
+                        setOpenPrebookCourse(true);
+                      }}
+                      className={`${courseData.isWishList ? "bg-purple opacity-30 cursor-not-allowed" : "bg-purple hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
+                    >
+                      {courseData.isWishList
+                        ? "Prebooked"
+                        : "Prebook This Course"}
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
