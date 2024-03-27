@@ -568,25 +568,28 @@ int main(){
                     <div className="mt-2 min-h-[600px] px-4 py-4">
                       <p
                         className={`text-xl  font-semibold ${
-                          activeSubmission.verdict === "Accepted" &&
+                          activeSubmission.data.verdict === "Accepted" &&
                           "text-green-700 dark:text-green-300"
                         }
                                   ${
-                                    activeSubmission.verdict === "Rejected" &&
+                                    activeSubmission.data.verdict ===
+                                      "Wrong Answer" &&
                                     "text-red-700 dark:text-red-300"
                                   }
                                   ${
-                                    activeSubmission.verdict ===
+                                    activeSubmission.data.verdict ===
+                                      "Time Limit Exceeded" &&
+                                    "text-red-700 dark:text-red-300"
+                                  }
+                                  ${
+                                    activeSubmission.data.verdict ===
                                       "Compilation Error" &&
                                     "text-orange-600 dark:text-orange-300"
                                   }
                                   
                                   `}
                       >
-                        {activeSubmission.verdict === "Accepted" && "Accepted"}
-                        {activeSubmission.verdict === "Rejected" && "Rejected"}
-                        {activeSubmission.verdict === "Compilation Error" &&
-                          "Compilation Error"}
+                        {activeSubmission?.data.verdict}
                       </p>
                       <p className=" ">
                         {formatDate(
