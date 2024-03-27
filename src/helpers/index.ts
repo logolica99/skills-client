@@ -140,6 +140,9 @@ export function countModulesAssignmentsVideos(data: any) {
   let totalModules = 0;
   let totalAssignments = 0;
   let totalVideos = 0;
+  let totalCodes=0
+  let totalQuiz = 0;
+  let totalPDF=0;
 
   for (const chapter of data.chapters) {
     for (const elem of chapter.modules) {
@@ -147,6 +150,15 @@ export function countModulesAssignmentsVideos(data: any) {
         totalVideos++;
       } else if (elem.data.category === "ASSIGNMENT") {
         totalAssignments++;
+      
+      } else if (elem.data.category === "QUIZ") {
+        totalQuiz++;
+      
+      } else if (elem.data.category === "CODE") {
+        totalCodes++;
+      
+      } else if (elem.data.category === "PDF") {
+        totalPDF++;
       }
       totalModules++;
     }
@@ -156,6 +168,9 @@ export function countModulesAssignmentsVideos(data: any) {
     totalModules,
     totalAssignments,
     totalVideos,
+    totalCodes,
+    totalQuiz,
+    totalPDF
   };
 }
 

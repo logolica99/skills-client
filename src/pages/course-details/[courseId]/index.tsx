@@ -814,7 +814,7 @@ export default function CourseDetailsPage() {
                         টি মডিউল
                       </p>
 
-                      <svg
+                      {/* <svg
                         width="5"
                         height="5"
                         viewBox="0 0 5 5"
@@ -836,7 +836,7 @@ export default function CourseDetailsPage() {
                             .totalAssignments,
                         )}{" "}
                         টি এসাইনমেন্ট
-                      </p>
+                      </p> */}
                       <svg
                         width="5"
                         height="5"
@@ -858,6 +858,72 @@ export default function CourseDetailsPage() {
                           countModulesAssignmentsVideos(courseData).totalVideos,
                         )}{" "}
                         টি ভিডিও
+                      </p>
+                      <svg
+                        width="5"
+                        height="5"
+                        viewBox="0 0 5 5"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          x="0.829956"
+                          y="0.5"
+                          width="4"
+                          height="4"
+                          rx="2"
+                          fill="#FFA500"
+                        />
+                      </svg>
+                      <p>
+                        {englishToBanglaNumbers(
+                          countModulesAssignmentsVideos(courseData).totalQuiz,
+                        )}{" "}
+                        টি কুইজ 
+                      </p>
+                      <svg
+                        width="5"
+                        height="5"
+                        viewBox="0 0 5 5"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          x="0.829956"
+                          y="0.5"
+                          width="4"
+                          height="4"
+                          rx="2"
+                          fill="#FFA500"
+                        />
+                      </svg>
+                      <p>
+                        {englishToBanglaNumbers(
+                          countModulesAssignmentsVideos(courseData).totalCodes,
+                        )}{" "}
+                        টি কোডিং চ্যালেঞ্জ 
+                      </p>
+                      <svg
+                        width="5"
+                        height="5"
+                        viewBox="0 0 5 5"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          x="0.829956"
+                          y="0.5"
+                          width="4"
+                          height="4"
+                          rx="2"
+                          fill="#FFA500"
+                        />
+                      </svg>
+                      <p>
+                        {englishToBanglaNumbers(
+                          countModulesAssignmentsVideos(courseData).totalPDF,
+                        )}{" "}
+                        টি পিডিএফ 
                       </p>
                     </div>
                   </div>
