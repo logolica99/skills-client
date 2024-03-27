@@ -198,7 +198,7 @@ export default function CourseDetailsPage() {
     const intervalId = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [courseData]);
 
   const [prebookButtonLoading, setPrebookButtonLoading] = useState(false);
 
