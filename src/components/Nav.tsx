@@ -70,10 +70,14 @@ export default function Nav({}: Props) {
         setDarkMode(false);
         console.log("past ref false");
       }
-    } else if (isSystemDark) {
+    } else {
       setDarkMode(true);
       console.log("system dark");
     }
+    // else if (isSystemDark) {
+    //   setDarkMode(true);
+    //   console.log("system dark");
+    // }
   }, []);
 
   useEffect(() => {
@@ -109,7 +113,7 @@ export default function Nav({}: Props) {
         <div className="w-[90%]  mx-auto py-4">
           <div className="flex justify-between items-center ">
             <div className="flex gap-10 items-center">
-              <Link href="/" className="hidden dark:block">
+              <Link href="/" className="">
                 <img src="/logo.png" alt="" className="w-8 md:w-14 mr-8 " />
               </Link>
               <Link href="/" className="dark:hidden">

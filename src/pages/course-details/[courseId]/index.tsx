@@ -53,6 +53,9 @@ const settings = {
 };
 
 export default function CourseDetailsPage() {
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [activeTab, setActiveTab] = useState({
     studyPlan: true,
     instructor: false,
@@ -80,6 +83,7 @@ export default function CourseDetailsPage() {
     x_price: 0,
     price: 0,
     language: "বাংলা",
+    prebooking: 0,
     enrolled: 0,
     you_get: {
       you_get: "",
@@ -161,6 +165,40 @@ export default function CourseDetailsPage() {
       },
     ],
   });
+
+  const calculateTimeLeft = () => {
+    const now: any = new Date();
+    const target: any = new Date(courseData?.chips?.deadline);
+    const difference: any = target - now;
+
+    // Handle negative difference (target date in the past)
+    if (difference <= 0) {
+      setDays(0);
+      setHours(0);
+      setMinutes(0);
+
+      return;
+    }
+
+    const remainingDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const remainingHours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
+    const remainingMinutes = Math.floor(
+      (difference % (1000 * 60 * 60)) / (1000 * 60),
+    );
+    const remainingSeconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    setDays(remainingDays);
+    setHours(remainingHours);
+    setMinutes(remainingMinutes);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const [prebookButtonLoading, setPrebookButtonLoading] = useState(false);
 
@@ -250,7 +288,7 @@ export default function CourseDetailsPage() {
         setUser({ ...user, loading: false });
         setOpenPrebookCourse(false);
         setPrebookButtonLoading(false);
-        setOpenPrebookCourseSuccessful(true)
+        setOpenPrebookCourseSuccessful(true);
         setCourseData({ ...courseData, isWishList: true });
         localStorage.setItem("isWishList", "true");
         toast.success("This course has been prebooked!");
@@ -631,7 +669,7 @@ export default function CourseDetailsPage() {
         </svg>
       </button>
       <div className="pt-20 bg-white  dark:bg-[#0B060D] overflow-x-hidden">
-        <div className="w-[90%] lg:w-[80%] mx-auto py-12 z-20">
+        <div className="w-[90%] lg:w-[90%] mx-auto py-12 z-20">
           <div className="flex flex-col-reverse lg:flex-row gap-24 justify-between relative">
             <svg
               viewBox="0 0 980 892"
@@ -699,7 +737,7 @@ export default function CourseDetailsPage() {
                   )}{" "}
                   দিন বাকি
                 </div>
-                <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/20 dark:bg-[#A144FF]/10 px-3 py-2 rounded-xl">
+                {/* <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/20 dark:bg-[#A144FF]/10 px-3 py-2 rounded-xl">
                   <svg
                     width="23"
                     height="22"
@@ -717,7 +755,7 @@ export default function CourseDetailsPage() {
                       courseData?.enrolled,
                   )}{" "}
                   টি সিট বাকি
-                </div>
+                </div> */}
               </div>
 
               <p className="mt-6 text-black/70 dark:text-[#A3A3A3] text-lg">
@@ -1387,41 +1425,31 @@ export default function CourseDetailsPage() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 ></iframe>
-                <div className="flex flex-col lg:flex-row lg:items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
-                  <div className="flex items-center gap-4">
-                    <p className="text-purple line-through font-semibold text-lg">
-                      {englishToBanglaNumbers(courseData.x_price)}/-
-                    </p>
-                    <p className="text-4xl font-bold ">
-                      {" "}
-                      {englishToBanglaNumbers(courseData.price)}/-
-                    </p>
+                <div className="flex flex-col lgXl:flex-row items-center gap-4 md:gap-2 justify-between py-8 border-b border-gray-300/20">
+                  <div>
+                    <div className="flex items-center gap-4">
+                      <div>
+                        <p>কোর্স প্রাইস</p>
+                        <p className="text-purple line-through font-semibold text-lg">
+                          {courseData?.x_price}/-
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-4xl font-bold ">
+                          {" "}
+                          {courseData?.price}/-
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex gap-3 ">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 15 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1.64062 2.83333H9.64063M5.64063 1.5V2.83333M6.33942 9.16667C5.32118 8.11186 4.49444 6.87097 3.9152 5.5M7.97396 11.5H12.6406M6.97396 13.5L10.3073 6.83333L13.6406 13.5M8.14138 2.83333C7.496 6.68015 5.02042 9.90636 1.64062 11.586"
-                          stroke="#B153E0"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <p>{courseData.language}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4">
                       <svg
                         width="15"
                         height="13"
                         viewBox="0 0 15 13"
                         fill="none"
+                        className="w-12 h-auto"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -1431,7 +1459,12 @@ export default function CourseDetailsPage() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      <p>{englishToBanglaNumbers(courseData.enrolled)} জন</p>
+                      <div>
+                        <p>কোর্সটি প্রি বুক করেছে</p>
+                        <p className="text-4xl font-bold ">
+                          {courseData?.prebooking} জন
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1460,6 +1493,88 @@ export default function CourseDetailsPage() {
                       <p>{item}</p>
                     </div>
                   ))}
+                </div>
+                <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
+                  {/* <p className="text-xl font-bold">
+                    {englishToBanglaNumbers(
+                      calculateRemainingDays(courseData?.chips?.deadline),
+                    )}{" "}
+                  দিন বাকি প্রি বুক এর
+                  </p> */}
+
+                  {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.99855 17.6269C4.23361 17.6269 0.371094 13.7645 0.371094 8.99951C0.371094 4.23457 4.23361 0.37207 8.99855 0.37207C13.7635 0.37207 17.6259 4.23457 17.6259 8.99951C17.6259 13.7645 13.7635 17.6269 8.99855 17.6269ZM8.99855 15.9015C10.8291 15.9015 12.5846 15.1743 13.879 13.8799C15.1733 12.5856 15.9005 10.83 15.9005 8.99951C15.9005 7.16901 15.1733 5.41346 13.879 4.1191C12.5846 2.82472 10.8291 2.09756 8.99855 2.09756C7.16803 2.09756 5.4125 2.82472 4.11812 4.1191C2.82376 5.41346 2.09659 7.16901 2.09659 8.99951C2.09659 10.83 2.82376 12.5856 4.11812 13.8799C5.4125 15.1743 7.16803 15.9015 8.99855 15.9015ZM9.8613 8.99951H13.3123V10.725H8.1358V4.68579H9.8613V8.99951Z"
+                        fill="#F1BA41"
+                      />
+                    </svg>
+                    প্রি বুকিং এর বাকি{" "}
+                    {calculateRemainingDays(courseData?.chips?.deadline)} দিন
+                  </div> */}
+                  <div className="">
+                    <div className="flex  text-sm justify-center">
+                      <p className="text-white mr-8">অবশিষ্ট সময়</p>
+                      <div className="flex gap-2">
+                        <svg
+                          width="12"
+                          height="15"
+                          viewBox="0 0 12 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.66536 1.5V6.16667H10.6654L5.33203 13.5V8.83333H1.33203L6.66536 1.5Z"
+                            stroke="url(#paint0_linear_4530_4930)"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <defs>
+                            <linearGradient
+                              id="paint0_linear_4530_4930"
+                              x1="5.9987"
+                              y1="1.5"
+                              x2="5.9987"
+                              y2="13.5"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stop-color="#CF8E16" />
+                              <stop offset="1" stop-color="#FFE49C" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+
+                        <p className="text-[#FDAF22]">তারাতারি কর</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4  justify-center">
+                      <div className="flex flex-col items-center">
+                        <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
+                          {days.toString().padStart(2, "0")}
+                        </p>
+                        <p className="mt-1">দিন</p>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
+                          {hours.toString().padStart(2, "0")}
+                        </p>
+                        <p className="mt-1">ঘন্টা</p>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
+                          {minutes.toString().padStart(2, "0")}
+                        </p>
+                        <p className="mt-1">মিনিট</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 {/* {!courseData.isTaken && (
                   <div className="mt-6">
