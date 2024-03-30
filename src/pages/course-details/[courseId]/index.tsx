@@ -56,6 +56,8 @@ export default function CourseDetailsPage() {
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [coursePurchaseSuccessful, setCoursePurchaseSuccessfull] =
+    useState(false);
   const [activeTab, setActiveTab] = useState({
     studyPlan: true,
     instructor: false,
@@ -76,7 +78,7 @@ export default function CourseDetailsPage() {
   const [user, setUser] = useContext<any>(UserContext);
   const [courseData, setCourseData] = useState({
     success: true,
-    isTaken: true,
+    isTaken: false,
     isWishList: false,
     id: 3,
     title: "",
@@ -165,7 +167,14 @@ export default function CourseDetailsPage() {
       },
     ],
   });
-
+  useEffect(() => {
+    if (courseData.isTaken == true) {
+      console.log("herlo");
+      setCoursePurchaseSuccessfull(true);
+    } else {
+      setCoursePurchaseSuccessfull(false);
+    }
+  }, [courseData]);
   const calculateTimeLeft = () => {
     const now: any = new Date();
     const target: any = new Date(courseData?.chips?.deadline);
@@ -611,6 +620,175 @@ export default function CourseDetailsPage() {
                     <p className="text-heading dark:text-darkHeading text-xl font-semibold mt-4">
                       ধন্যবাদ।
                     </p>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={coursePurchaseSuccessful} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative "
+          style={{ zIndex: 99999 }}
+          onClose={() => {
+            // setCoursePurchaseSuccessfull(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className=" lgXl:w-[30vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#BBBBBB]/10 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="div"
+                    className="text-lg font-medium leading-6 p-2 "
+                  >
+                    <div className="flex justify-end">
+                      <button
+                        className="hover:bg-gray-300/20 p-2 mr-2 rounded"
+                        onClick={() => {
+                          setCoursePurchaseSuccessfull(false);
+                        }}
+                      >
+                        <svg
+                          width="14"
+                          height="15"
+                          viewBox="0 0 14 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M13 1.25L1 13.25M1 1.25L13 13.25"
+                            stroke="#FBEEEC"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </Dialog.Title>
+                  <div className="border-b border-t border-black/20 dark:border-gray-300/20 py-3 px-6">
+                    <div className="flex flex-col items-center ">
+                      <img
+                        src="/Festive flags and hands with decorations.png"
+                        alt=""
+                      />
+                      <p className="text-xl font-bold text-heading dark:text-darkHeading">
+                        অভিনন্দন!
+                      </p>
+                      <p className="text-paragraph dark:text-darkParagraph text-sm text-center mt-1 font-bold">
+                        তুমি সফলভাবে কোর্সটি পারচেস করতে পেরেছ ! প্রোগ্রামিং এ
+                        তোমার আগ্রহ দেখে আমরা অন্ত্যন্ত খুশি । এখন শুধু প্রয়োজন
+                        ডেডিকেশন এর সাথে লেগে থাকা , ক্লাস গুলো ঠিক মত করা সাথে
+                        এসাইনমেন্ট কুইজ ও প্রোগ্রামিং প্রব্লেম সলভের মাধ্যমে
+                        নিজেকে একজন দক্ষ প্রোগ্রামার করে গড়ে তোলা । আর তোমাকে
+                        সর্বাত্নক হেল্প করতে পাশে আছি আমরা কোডার ভাই পরিবার
+                      </p>
+                    </div>
+
+                    <p className="text-heading dark:text-darkHeading text-lg my-3 font-semibold ">
+                      এখন তোমার কি করনীয়
+                    </p>
+                    <div className="flex gap-4 items-center">
+                      <div className="relative">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            1
+                          </p>
+                        </div>
+                        {/* <div className="w-[2px] h-[50%] bg-white absolute top-[50%] left-[50%] "></div> */}
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        প্রথমত আমাদের ফেইসবুক প্রাইভেট গ্রুপে যুক্ত হওয়ার জন্যে
+                        তোমার ফোনে পাঠানো ACCESS CODE টি সহ বাকি ইনফরমেশন দিয়ে
+                        রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে রিকুয়েস্ট এপ্রুভ করা হবে
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center my-4">
+                      <div className="z-[10]">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block z-[10]">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            2
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        আমাদের অরিয়েন্টেশন ক্লাস হবে 15 April রাত ৯:৩০ এ ফেসবুক
+                        সিক্রেট গ্রুপে আর ওয়েব সাইটেও
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center my-4">
+                      <div className="">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            3
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        ওয়েবসাইট থেকে লাইভ ক্লাস গুলো দেখার জন্যে তোমার
+                        প্রোফাইলে লাইভ ক্লাস ম্যেনু তে যেতে হবে
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center my-4">
+                      <div className="">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            4
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        কোর্স সম্পর্কে তোমার যাবতীয় যত জিজ্ঞাসা প্রশ্ন সব আমাদের
+                        ফেইসবুক গ্রুপে পোস্ট করতে পার বা ওয়েবসাইটের সাপোর্ট
+                        ম্যেনু তে গিয়ে টিকেট বানিয়ে আমাদের থেকে জেনে নিতে পার{" "}
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <div className="">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            5
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        প্রতি সপ্তাহে আমাদের কোন কোন কন্টেন্ট আপলোড হবে বা কি কি
+                        কন্টেস্ট হবে তা এনাউন্সমেন্ট সেকশনে জানিয়ে দেয়া হবে
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-6 ">
+                    <button
+                      onClick={() => {
+                        setCoursePurchaseSuccessfull(false);
+                      }}
+                      className={`bg-purple hover:bg-opacity-50 ease-in-out duration-150  text-darkHeading py-3 w-full  rounded-xl font-bold`}
+                    >
+                      Okay
+                    </button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -1626,8 +1804,11 @@ export default function CourseDetailsPage() {
               <div className="  text-heading dark:text-darkHeading bg-gray-400/30 dark:bg-gray-100/5 backdrop-blur-xl rounded-xl rounded-b-none  ">
                 <iframe
                   className="rounded-t-xl w-full min-h-[200px] lg:min-h-[260px]"
-                  src={courseData.intro_video}
-                  title="How do we scale web applications?"
+                  src={
+                    courseData.intro_video +
+                    "?rel=0&modestbranding=1&autohide=1&showinfo=0"
+                  }
+                  title={courseData?.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 ></iframe>
@@ -1716,7 +1897,7 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শেষ
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ১০ এপ্রিল
+                          ২০ এপ্রিল
                         </p>
                       </div>
                     </div>
