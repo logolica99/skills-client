@@ -113,7 +113,7 @@ export default function Footer({}: Props) {
 
               <p className="text-white ">
                 {" "}
-                Trade License: লাইসেন্স নং : TRAD/DNCC/022261/2023{" "}
+                Trade License: TRAD/DNCC/022261/2023{" "}
               </p>
             </div>
 

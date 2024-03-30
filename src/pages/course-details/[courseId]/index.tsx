@@ -717,7 +717,6 @@ export default function CourseDetailsPage() {
             >
               <h2 className="text-2xl lg:text-4xl font-semibold">
                 {courseData?.title}
-   
               </h2>
               <div className="flex gap-8 items-center pb-6 border-b border-gray-300/80 dark:border-gray-300/10 relative ">
                 {/* <div className="flex gap-3 mt-6 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
@@ -763,7 +762,7 @@ export default function CourseDetailsPage() {
                 {courseData.short_description}
               </p>
 
-              <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-3 lg:w-[80%]">
+              <div className="mt-8  grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-3 lg:w-[80%]">
                 <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
                   <svg
                     width="24"
@@ -1434,7 +1433,7 @@ export default function CourseDetailsPage() {
                   <h2 className="text-2xl lg:text-4xl font-semibold pt-12 border-t border-gray-300/10  relative z-10">
                     কোর্স সম্পর্কে বিস্তারিত
                   </h2>
-                  <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10  relative z-10">
+                  {/* <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10  relative z-10">
                     <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                       <svg
                         width="18"
@@ -1472,7 +1471,7 @@ export default function CourseDetailsPage() {
                       )}{" "}
                       টি সিট বাকি
                     </div>
-                  </div>
+                  </div> */}
                   <p className="my-6 text-black/70 dark:text-[#A3A3A3] text-lg  relative z-10">
                     {courseData.description}
                   </p>
@@ -1677,6 +1676,68 @@ export default function CourseDetailsPage() {
                             {courseData?.prebooking} জন
                           </p>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-8 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-3 border-b border-gray-300/30">
+                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                      <div>
+                        <p className="text-paragraph dark:text-darkParagraph text-xl">
+                          প্রি বুকিং চলবে
+                        </p>
+                        <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                          ৩১ মার্চ
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                      <div>
+                        <p className="text-paragraph dark:text-darkParagraph text-xl">
+                          সময়
+                        </p>
+                        <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                          রাত ১২:০০ টা
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                      <div>
+                        <p className="text-paragraph dark:text-darkParagraph text-xl">
+                          এনরোলমেন্ট শুরু
+                        </p>
+                        <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                          ১ এপ্রিল
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                      <div>
+                        <p className="text-paragraph dark:text-darkParagraph text-xl">
+                          এনরোলমেন্ট শেষ
+                        </p>
+                        <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                          ১০ এপ্রিল
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                      <div>
+                        <p className="text-paragraph dark:text-darkParagraph text-xl">
+                          ক্লাস শুরু
+                        </p>
+                        <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                          ১৫ এপ্রিল
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                      <div>
+                        <p className="text-paragraph dark:text-darkParagraph text-xl">
+                          সময়
+                        </p>
+                        <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
+                          রাত ৯:৩০
+                        </p>
                       </div>
                     </div>
                   </div>
