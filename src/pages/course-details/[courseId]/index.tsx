@@ -2232,7 +2232,7 @@ export default function CourseDetailsPage() {
                               if (couponCode == "CPISCOOL") {
                                 setCourseData({
                                   ...courseData,
-                                  price: 12,
+                                  price: 4500,
                                 });
                                 toast.success("Discount Applied!");
                               } else {
@@ -2318,7 +2318,7 @@ export default function CourseDetailsPage() {
                   কোর্সটি সম্পর্কে বিস্তারিত জানতে
                 </p>
                 <a
-                  href="https://www.facebook.com/profile.php?id=61552652541126"
+                  href="https://www.facebook.com/groups/codervai.cp.batch01"
                   target="_blank"
                   className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
                 >
