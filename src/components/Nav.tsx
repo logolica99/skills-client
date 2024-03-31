@@ -123,14 +123,14 @@ export default function Nav({}: Props) {
                   className="w-8 md:w-14 mr-8 "
                 />
               </Link>
-              {isLogged && (
+              {/* {isLogged && ( */}
                 <Link
-                  href="/course/12"
+                  href="/course-details/12"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
-                  আপনার প্রোগ্রেস
+               কোর্স ডিটেইলস 
                 </Link>
-              )}
+              {/* )} */}
               {/* {isLogged && (
                 <Link
                   href="/live-class"

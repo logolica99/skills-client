@@ -27,6 +27,10 @@ import jwtDecode from "jwt-decode";
 import Button from "@/components/Button";
 import GradientButton from "@/components/GradientButton";
 import { ButtonBase } from "@mui/material";
+import Lottie from "react-lottie";
+import celebrationLottieData from "./Animation - 1711894031153.json";
+import { useSearchParams } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 const settings = {
   dots: true,
@@ -52,10 +56,21 @@ const settings = {
   ],
 };
 
+const lottieOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: celebrationLottieData,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+
 export default function CourseDetailsPage() {
+  const searchParams = useSearchParams();
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [initialPrice, setInitialPrice] = useState(0);
   const [coursePurchaseSuccessful, setCoursePurchaseSuccessfull] =
     useState(false);
   const [activeTab, setActiveTab] = useState({
@@ -169,10 +184,9 @@ export default function CourseDetailsPage() {
   });
   useEffect(() => {
     if (courseData.isTaken == true) {
-      console.log("herlo");
       setCoursePurchaseSuccessfull(true);
     } else {
-      setCoursePurchaseSuccessfull(false);
+      // setCoursePurchaseSuccessfull(false);
     }
   }, [courseData]);
   const calculateTimeLeft = () => {
@@ -233,6 +247,7 @@ export default function CourseDetailsPage() {
       })
       .then((res) => {
         setCourseData(res.data);
+        setInitialPrice(res.data.price);
         if (!token) {
           if (localStorage.getItem("isWishList") === "true") {
             setCourseData({ ...res.data, isWishList: true });
@@ -255,7 +270,7 @@ export default function CourseDetailsPage() {
       axios
         .post(
           BACKEND_URL + "/user/payment/initiate/" + COURSE_ID,
-          {},
+          { eventId: courseData.price * 6251 },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -315,6 +330,24 @@ export default function CourseDetailsPage() {
       <Nav></Nav>
       <Toaster />
 
+      {coursePurchaseSuccessful && (
+        <div>
+          {/* forpc */}
+          <div className="absolute  hidden lg:block right-0 top-0 z-[999999]">
+            <Lottie options={lottieOptions} height={"50vh"} width={"30vw"} />
+          </div>
+          <div className="absolute hidden lg:block  left-0 bottom-0 z-[999999]">
+            <Lottie options={lottieOptions} height={"50vh"} width={"30vw"} />
+          </div>
+          {/* forPhones */}
+          <div className="absolute lg:hidden  right-0 top-0 z-[999999]">
+            <Lottie options={lottieOptions} height={400} width={400} />
+          </div>
+          <div className="absolute  lg:hidden left-0 bottom-0 z-[999999]">
+            <Lottie options={lottieOptions} height={400} width={400} />
+          </div>
+        </div>
+      )}
       <FloatingCompiler />
 
       <Transition appear show={openBuyCourse} as={Fragment}>
@@ -659,7 +692,7 @@ export default function CourseDetailsPage() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" lgXl:w-[30vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#BBBBBB]/10 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="md:w-[50vw] lg:w-[40vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#BBBBBB]/10 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
                     className="text-lg font-medium leading-6 p-2 "
@@ -721,9 +754,17 @@ export default function CourseDetailsPage() {
                         {/* <div className="w-[2px] h-[50%] bg-white absolute top-[50%] left-[50%] "></div> */}
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        প্রথমত আমাদের ফেইসবুক প্রাইভেট গ্রুপে যুক্ত হওয়ার জন্যে
-                        তোমার ফোনে পাঠানো ACCESS CODE টি সহ বাকি ইনফরমেশন দিয়ে
-                        রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে রিকুয়েস্ট এপ্রুভ করা হবে
+                        প্রথমত আমাদের{" "}
+                        <a
+                          className="text-heading dark:text-darkHeading font-bold underline"
+                          href="https://www.facebook.com/groups/codervai.cp.batch01"
+                          target="_blank"
+                        >
+                          ফেইসবুক প্রাইভেট গ্রুপে{" "}
+                        </a>{" "}
+                        যুক্ত হওয়ার জন্যে তোমার ফোনে পাঠানো ACCESS CODE টি সহ
+                        বাকি ইনফরমেশন দিয়ে রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে
+                        রিকুয়েস্ট এপ্রুভ করা হবে
                       </p>
                     </div>
                     <div className="flex gap-4 items-center my-4">
@@ -1290,7 +1331,7 @@ export default function CourseDetailsPage() {
                                   {elem.title}
                                 </p>
                                 <div className="flex flex-wrap gap-3  lg:items-center mt-3 text-sm font-medium">
-                                  <div className="flex items-center gap-3">
+                                  {/* <div className="flex items-center gap-3">
                                     <svg
                                       width="13"
                                       height="12"
@@ -1328,8 +1369,13 @@ export default function CourseDetailsPage() {
                                       }{" "}
                                       টি অ্যাসাইনমেন্ট{" "}
                                     </p>
-                                  </div>
-                                  <div className="flex items-center gap-3">
+                                  </div> */}
+                                  <div
+                                    className={`flex items-center gap-3 ${
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .videoCount == 0 && "hidden"
+                                    }`}
+                                  >
                                     <svg
                                       width="13"
                                       height="12"
@@ -1354,6 +1400,102 @@ export default function CourseDetailsPage() {
                                           .videoCount
                                       }{" "}
                                       টি ভিডিও
+                                    </p>
+                                  </div>
+                                  <div
+                                    className={`flex items-center gap-3 ${
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .quizCount == 0 && "hidden"
+                                    }`}
+                                  >
+                                    <svg
+                                      width="13"
+                                      height="12"
+                                      viewBox="0 0 13 12"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                        fill={
+                                          elem.is_free ? "#B153E0" : "#565656"
+                                        }
+                                      />
+                                    </svg>
+                                    <p
+                                      className={` ${
+                                        !elem.is_free && "text-[#565656]"
+                                      }`}
+                                    >
+                                      {
+                                        countAssignmentsAndVideos(elem.modules)
+                                          .quizCount
+                                      }{" "}
+                                      টি কুইজ
+                                    </p>
+                                  </div>
+                                  <div
+                                    className={`flex items-center gap-3 ${
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .codeCount == 0 && "hidden"
+                                    }`}
+                                  >
+                                    <svg
+                                      width="13"
+                                      height="12"
+                                      viewBox="0 0 13 12"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                        fill={
+                                          elem.is_free ? "#B153E0" : "#565656"
+                                        }
+                                      />
+                                    </svg>
+                                    <p
+                                      className={` ${
+                                        !elem.is_free && "text-[#565656]"
+                                      }`}
+                                    >
+                                      {
+                                        countAssignmentsAndVideos(elem.modules)
+                                          .codeCount
+                                      }{" "}
+                                      টি কোডিং চ্যালেঞ্জ
+                                    </p>
+                                  </div>
+                                  <div
+                                    className={`flex items-center gap-3 ${
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .pdfCount == 0 && "hidden"
+                                    }`}
+                                  >
+                                    <svg
+                                      width="13"
+                                      height="12"
+                                      viewBox="0 0 13 12"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                        fill={
+                                          elem.is_free ? "#B153E0" : "#565656"
+                                        }
+                                      />
+                                    </svg>
+                                    <p
+                                      className={` ${
+                                        !elem.is_free && "text-[#565656]"
+                                      }`}
+                                    >
+                                      {
+                                        countAssignmentsAndVideos(elem.modules)
+                                          .pdfCount
+                                      }{" "}
+                                      টি পিডিএফ
                                     </p>
                                   </div>
                                 </div>
@@ -1805,8 +1947,10 @@ export default function CourseDetailsPage() {
                 <iframe
                   className="rounded-t-xl w-full min-h-[200px] lg:min-h-[260px]"
                   src={
-                    courseData.intro_video +
-                    "?rel=0&modestbranding=1&autohide=1&showinfo=0"
+                    courseData.intro_video
+                      ? courseData.intro_video +
+                        "?rel=0&modestbranding=1&autohide=1&showinfo=0"
+                      : ""
                   }
                   title={courseData?.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -1851,17 +1995,17 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                            কোর্সটি প্রি বুক করেছে
+                            কোর্সটিতে ভর্তি হয়েছে
                           </p>
                           <p className="text-3xl font-bold ">
-                            {courseData?.prebooking} জন
+                            {courseData?.enrolled} জন
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="mt-8 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-3 border-b border-gray-300/30">
-                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                    {/* <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
                       <div>
                         <p className="text-paragraph dark:text-darkParagraph text-xl">
                           প্রি বুকিং চলবে
@@ -1880,7 +2024,7 @@ export default function CourseDetailsPage() {
                           রাত ১২:০০ টা
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
                       <div>
                         <p className="text-paragraph dark:text-darkParagraph text-xl">
@@ -2040,67 +2184,96 @@ export default function CourseDetailsPage() {
                       </div>
                     </div>
                   </div>
-                  {/* {!courseData.isTaken && (
-                  <div className="mt-6">
-                    <p className="text-lg font-semibold mb-1">Enter Coupon</p>
-                    <div className="flex items-center gap-2">
-                      <input
-                        className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
-                        placeholder=" Coupon Code"
-                        value={couponCode}
-                        onChange={(e) => {
-                          setCouponCode(e.target.value);
-                        }}
-                      />
-                      <Button
-                        callBackFunction={() => {
-                          if (isLoggedIn()) {
-                            setPrebookButtonLoading(true);
+                  {!courseData.isTaken && (
+                    <div className="mt-6">
+                      <p className="text-lg font-semibold mb-1">Enter Coupon</p>
+                      <div className="flex items-center gap-2">
+                        <input
+                          className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
+                          placeholder=" Coupon Code"
+                          value={couponCode}
+                          onChange={(e) => {
+                            setCouponCode(e.target.value);
+                          }}
+                        />
 
-                            const token = localStorage.getItem("token");
-                            axios
-                              .post(
-                                BACKEND_URL +
-                                  "/user/course/applyCoupon/" +
-                                  COURSE_ID,
-                                {
-                                  coupon: couponCode,
-                                },
-                                {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                },
-                              )
-                              .then((res) => {
-                                setUser({ ...user, loading: false });
+                        <button
+                          onClick={() => {
+                            if (isLoggedIn()) {
+                              // setPrebookButtonLoading(true);
 
-                                setPrebookButtonLoading(false);
+                              // const token = localStorage.getItem("token");
+                              // axios
+                              //   .post(
+                              //     BACKEND_URL +
+                              //       "/user/course/applyCoupon/" +
+                              //       COURSE_ID,
+                              //     {
+                              //       coupon: couponCode,
+                              //     },
+                              //     {
+                              //       headers: {
+                              //         Authorization: `Bearer ${token}`,
+                              //       },
+                              //     },
+                              //   )
+                              //   .then((res) => {
+                              //     setUser({ ...user, loading: false });
 
-                                toast.success(
-                                  "You have sucessfully bought this course!",
-                                );
-                                setCourseData({ ...courseData, isTaken: true });
-                                // router.push("/course/12");
-                                //setUser({ ...user, loading: false });
-                              })
-                              .catch((err) => {
-                                setUser({ ...user, loading: false });
+                              //     setPrebookButtonLoading(false);
+
+                              //     toast.success(
+                              //       "You have sucessfully bought this course!",
+                              //     );
+                              //     setCourseData({
+                              //       ...courseData,
+                              //       isTaken: true,
+                              //     });
+                              //     // router.push("/course/12");
+                              //     //setUser({ ...user, loading: false });
+                              //   })
+                              //   .catch((err) => {
+                              //     setUser({ ...user, loading: false });
+                              //     toast.error("Wrong Coupon Code!");
+                              //     setPrebookButtonLoading(false);
+                              //   });
+                              if (couponCode == "CPISCOOL") {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 4500,
+                                });
+                                toast.success("Discount Applied!");
+                              } else if (couponCode == "XCVRTUNT") {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 12,
+                                });
+                                toast.success("Discount Applied!");
+                              } else {
                                 toast.error("Wrong Coupon Code!");
-                                setPrebookButtonLoading(false);
-                              });
-                          } else {
-                            toast.error("Please login first!");
-                          }
-                        }}
-                        loading={prebookButtonLoading}
-                        bgColor={"#1CAB55"}
-                        label="Apply"
-                      ></Button>
+                              }
+                            } else {
+                              toast.error("Please login first!");
+                            }
+                          }}
+                          className={`py-2  flex gap-2 items-center  px-6 ${
+                            prebookButtonLoading
+                              ? "bg-gray-500 cursor-not-allowed"
+                              : `bg-[#B153E0] cursor-pointer hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80`
+                          }    rounded font-semibold text-white text-lg`}
+                          disabled={prebookButtonLoading}
+                        >
+                          {prebookButtonLoading ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : (
+                            ""
+                          )}{" "}
+                          Apply
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {courseData.isTaken ? (
+                  )}
+                  {/* {courseData.isTaken ? (
                   <Link
                     href="/course/12"
                     className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
@@ -2123,35 +2296,36 @@ export default function CourseDetailsPage() {
                   </button>
                 )} */}
                   <div className="flex gap-4">
-                    <Link
-                      href="/course/12"
-                      className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
-                    >
-                      Free Preview
-                    </Link>
-                    <button
-                      onClick={() => {
-                        let token: any = "";
-                        token = localStorage.getItem("token")
-                          ? localStorage.getItem("token")
-                          : "";
-                        if (token.length > 0) {
-                          const decodedToken: any = jwtDecode(token);
-
-                          setPrebookingData({
-                            name: decodedToken.name,
-                            phone: decodedToken.login,
-                            email: decodedToken.profile?.email,
-                          });
-                        }
-                        setOpenPrebookCourse(true);
-                      }}
-                      className={`${courseData.isWishList ? "bg-purple opacity-30 cursor-not-allowed" : "bg-purple hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
-                    >
-                      {courseData.isWishList
-                        ? "Prebooked"
-                        : "Prebook This Course"}
-                    </button>
+                    {!courseData.isTaken && (
+                      <Link
+                        href="/free-preview"
+                        className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
+                      >
+                        Free Preview
+                      </Link>
+                    )}
+                    {courseData.isTaken ? (
+                      <Link
+                        href="/course/12"
+                        className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                      >
+                        কোর্স প্রিভিউ দেখুন
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          if (isLoggedIn()) {
+                            setOpenBuyCourse(true);
+                          } else {
+                            window.location.href =
+                              "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
+                          }
+                        }}
+                        className="bg-purple text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                      >
+                        কোর্সটি কিনুন
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -2160,7 +2334,7 @@ export default function CourseDetailsPage() {
                   কোর্সটি সম্পর্কে বিস্তারিত জানতে
                 </p>
                 <a
-                  href="https://www.facebook.com/profile.php?id=61552652541126"
+                  href="https://www.facebook.com/groups/codervai.cp.batch01"
                   target="_blank"
                   className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
                 >

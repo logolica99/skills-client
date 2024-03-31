@@ -122,17 +122,34 @@ export function countAssignmentsAndVideos(data: any) {
   let assignmentCount = 0;
   let videoCount = 0;
 
+
+
+  let codeCount=0
+  let quizCount = 0;
+  let pdfCount=0;
+
   data.forEach((item: any) => {
     if (item.data.category === "ASSIGNMENT") {
       assignmentCount++;
     } else if (item.data.category === "VIDEO") {
       videoCount++;
+    } else if (item.data.category === "QUIZ") {
+      quizCount++;
+    
+    } else if (item.data.category === "CODE") {
+      codeCount++;
+    
+    } else if (item.data.category === "PDF") {
+      pdfCount++;
     }
   });
 
   return {
     assignmentCount,
     videoCount,
+    codeCount,
+    quizCount,
+    pdfCount
   };
 }
 
