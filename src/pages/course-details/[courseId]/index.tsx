@@ -2371,7 +2371,7 @@ export default function CourseDetailsPage() {
                       </defs>
                     </svg>
                   </div>
-                  Facebook Page
+                  Facebook Page   
                 </a>
               </div>
             </div>
