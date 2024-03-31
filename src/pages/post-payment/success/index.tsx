@@ -272,7 +272,7 @@ export default function SuccessPage() {
   const buyCourse = () => {
     setTimeout(function () {
       setUser({ ...user, loading: false });
-      router.push("/course/12");
+      router.push("/course-details/12");
     }, 3000);
     // setUser({ ...user, loading: true });
     //   const token = localStorage.getItem("token");

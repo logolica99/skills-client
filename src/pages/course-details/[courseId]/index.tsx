@@ -27,6 +27,10 @@ import jwtDecode from "jwt-decode";
 import Button from "@/components/Button";
 import GradientButton from "@/components/GradientButton";
 import { ButtonBase } from "@mui/material";
+import Lottie from "react-lottie";
+import celebrationLottieData from "./Animation - 1711894031153.json";
+import { useSearchParams } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 const settings = {
   dots: true,
@@ -52,7 +56,17 @@ const settings = {
   ],
 };
 
+const lottieOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: celebrationLottieData,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+
 export default function CourseDetailsPage() {
+  const searchParams = useSearchParams();
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -169,10 +183,9 @@ export default function CourseDetailsPage() {
   });
   useEffect(() => {
     if (courseData.isTaken == true) {
-      console.log("herlo");
       setCoursePurchaseSuccessfull(true);
     } else {
-      setCoursePurchaseSuccessfull(false);
+      // setCoursePurchaseSuccessfull(false);
     }
   }, [courseData]);
   const calculateTimeLeft = () => {
@@ -315,6 +328,24 @@ export default function CourseDetailsPage() {
       <Nav></Nav>
       <Toaster />
 
+      {coursePurchaseSuccessful && (
+        <div>
+          {/* forpc */}
+          <div className="absolute  hidden lg:block right-0 top-0 z-[999999]">
+            <Lottie options={lottieOptions} height={"50vh"} width={"30vw"} />
+          </div>
+          <div className="absolute hidden lg:block  left-0 bottom-0 z-[999999]">
+            <Lottie options={lottieOptions} height={"50vh"} width={"30vw"} />
+          </div>
+          {/* forPhones */}
+          <div className="absolute lg:hidden  right-0 top-0 z-[999999]">
+            <Lottie options={lottieOptions} height={400} width={400} />
+          </div>
+          <div className="absolute  lg:hidden left-0 bottom-0 z-[999999]">
+            <Lottie options={lottieOptions} height={400} width={400} />
+          </div>
+        </div>
+      )}
       <FloatingCompiler />
 
       <Transition appear show={openBuyCourse} as={Fragment}>
@@ -2040,67 +2071,81 @@ export default function CourseDetailsPage() {
                       </div>
                     </div>
                   </div>
-                  {/* {!courseData.isTaken && (
-                  <div className="mt-6">
-                    <p className="text-lg font-semibold mb-1">Enter Coupon</p>
-                    <div className="flex items-center gap-2">
-                      <input
-                        className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
-                        placeholder=" Coupon Code"
-                        value={couponCode}
-                        onChange={(e) => {
-                          setCouponCode(e.target.value);
-                        }}
-                      />
-                      <Button
-                        callBackFunction={() => {
-                          if (isLoggedIn()) {
-                            setPrebookButtonLoading(true);
+                  {!courseData.isTaken && (
+                    <div className="mt-6">
+                      <p className="text-lg font-semibold mb-1">Enter Coupon</p>
+                      <div className="flex items-center gap-2">
+                        <input
+                          className="w-full px-3 py-3 rounded bg-gray-200   dark:bg-gray-200/20 outline-none focus:ring ring-gray-400/80 dark:ring-gray-300/80"
+                          placeholder=" Coupon Code"
+                          value={couponCode}
+                          onChange={(e) => {
+                            setCouponCode(e.target.value);
+                          }}
+                        />
 
-                            const token = localStorage.getItem("token");
-                            axios
-                              .post(
-                                BACKEND_URL +
-                                  "/user/course/applyCoupon/" +
-                                  COURSE_ID,
-                                {
-                                  coupon: couponCode,
-                                },
-                                {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
+                        <button
+                          onClick={() => {
+                            if (isLoggedIn()) {
+                              setPrebookButtonLoading(true);
+
+                              const token = localStorage.getItem("token");
+                              axios
+                                .post(
+                                  BACKEND_URL +
+                                    "/user/course/applyCoupon/" +
+                                    COURSE_ID,
+                                  {
+                                    coupon: couponCode,
                                   },
-                                },
-                              )
-                              .then((res) => {
-                                setUser({ ...user, loading: false });
+                                  {
+                                    headers: {
+                                      Authorization: `Bearer ${token}`,
+                                    },
+                                  },
+                                )
+                                .then((res) => {
+                                  setUser({ ...user, loading: false });
 
-                                setPrebookButtonLoading(false);
+                                  setPrebookButtonLoading(false);
 
-                                toast.success(
-                                  "You have sucessfully bought this course!",
-                                );
-                                setCourseData({ ...courseData, isTaken: true });
-                                // router.push("/course/12");
-                                //setUser({ ...user, loading: false });
-                              })
-                              .catch((err) => {
-                                setUser({ ...user, loading: false });
-                                toast.error("Wrong Coupon Code!");
-                                setPrebookButtonLoading(false);
-                              });
-                          } else {
-                            toast.error("Please login first!");
-                          }
-                        }}
-                        loading={prebookButtonLoading}
-                        bgColor={"#1CAB55"}
-                        label="Apply"
-                      ></Button>
+                                  toast.success(
+                                    "You have sucessfully bought this course!",
+                                  );
+                                  setCourseData({
+                                    ...courseData,
+                                    isTaken: true,
+                                  });
+                                  // router.push("/course/12");
+                                  //setUser({ ...user, loading: false });
+                                })
+                                .catch((err) => {
+                                  setUser({ ...user, loading: false });
+                                  toast.error("Wrong Coupon Code!");
+                                  setPrebookButtonLoading(false);
+                                });
+                            } else {
+                              toast.error("Please login first!");
+                            }
+                          }}
+                          className={`py-2  flex gap-2 items-center  px-6 ${
+                            prebookButtonLoading
+                              ? "bg-gray-500 cursor-not-allowed"
+                              : `bg-[#B153E0] cursor-pointer hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80`
+                          }    rounded font-semibold text-white text-lg`}
+                          disabled={prebookButtonLoading}
+                        >
+                          {prebookButtonLoading ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : (
+                            ""
+                          )}{" "}
+                          Apply
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {courseData.isTaken ? (
+                  )}
+                  {/* {courseData.isTaken ? (
                   <Link
                     href="/course/12"
                     className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
@@ -2124,34 +2169,33 @@ export default function CourseDetailsPage() {
                 )} */}
                   <div className="flex gap-4">
                     <Link
-                      href="/course/12"
+                      href="/free-preview"
                       className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
                     >
                       Free Preview
                     </Link>
-                    <button
-                      onClick={() => {
-                        let token: any = "";
-                        token = localStorage.getItem("token")
-                          ? localStorage.getItem("token")
-                          : "";
-                        if (token.length > 0) {
-                          const decodedToken: any = jwtDecode(token);
-
-                          setPrebookingData({
-                            name: decodedToken.name,
-                            phone: decodedToken.login,
-                            email: decodedToken.profile?.email,
-                          });
-                        }
-                        setOpenPrebookCourse(true);
-                      }}
-                      className={`${courseData.isWishList ? "bg-purple opacity-30 cursor-not-allowed" : "bg-purple hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
-                    >
-                      {courseData.isWishList
-                        ? "Prebooked"
-                        : "Prebook This Course"}
-                    </button>
+                    {courseData.isTaken ? (
+                      <Link
+                        href="/course/12"
+                        className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                      >
+                        কোর্সে যান
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          if (isLoggedIn()) {
+                            setOpenBuyCourse(true);
+                          } else {
+                            window.location.href =
+                              "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
+                          }
+                        }}
+                        className="bg-purple text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                      >
+                        কোর্সটি কিনুন
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
