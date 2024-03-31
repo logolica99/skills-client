@@ -125,10 +125,10 @@ export default function Nav({}: Props) {
               </Link>
               {isLogged && (
                 <Link
-                  href="/course/12"
+                  href="/course-details/12"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
-                  আপনার প্রোগ্রেস
+               কোর্স ডিটেইলস 
                 </Link>
               )}
               {/* {isLogged && (

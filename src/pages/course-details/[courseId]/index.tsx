@@ -2232,7 +2232,7 @@ export default function CourseDetailsPage() {
                               if (couponCode == "CPISCOOL") {
                                 setCourseData({
                                   ...courseData,
-                                  price: 4500,
+                                  price: 12,
                                 });
                                 toast.success("Discount Applied!");
                               } else {
