@@ -1995,7 +1995,7 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                            কোর্সটি প্রি বুক করেছে
+                            কোর্সটিতে ভর্তি হয়েছে
                           </p>
                           <p className="text-3xl font-bold ">
                             {courseData?.enrolled} জন
@@ -2005,7 +2005,7 @@ export default function CourseDetailsPage() {
                     </div>
                   </div>
                   <div className="mt-8 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-3 border-b border-gray-300/30">
-                    <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
+                    {/* <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
                       <div>
                         <p className="text-paragraph dark:text-darkParagraph text-xl">
                           প্রি বুকিং চলবে
@@ -2024,7 +2024,7 @@ export default function CourseDetailsPage() {
                           রাত ১২:০০ টা
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
                       <div>
                         <p className="text-paragraph dark:text-darkParagraph text-xl">
@@ -2243,7 +2243,7 @@ export default function CourseDetailsPage() {
                                   price: 4500,
                                 });
                                 toast.success("Discount Applied!");
-                              }else if(couponCode == "XCVRTUNT"){
+                              } else if (couponCode == "XCVRTUNT") {
                                 setCourseData({
                                   ...courseData,
                                   price: 12,
