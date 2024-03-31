@@ -70,6 +70,7 @@ export default function CourseDetailsPage() {
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [initialPrice, setInitialPrice] = useState(0);
   const [coursePurchaseSuccessful, setCoursePurchaseSuccessfull] =
     useState(false);
   const [activeTab, setActiveTab] = useState({
@@ -246,6 +247,7 @@ export default function CourseDetailsPage() {
       })
       .then((res) => {
         setCourseData(res.data);
+        setInitialPrice(res.data.price);
         if (!token) {
           if (localStorage.getItem("isWishList") === "true") {
             setCourseData({ ...res.data, isWishList: true });
@@ -268,7 +270,7 @@ export default function CourseDetailsPage() {
       axios
         .post(
           BACKEND_URL + "/user/payment/initiate/" + COURSE_ID,
-          {},
+          { eventId: courseData.price * 6251 },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -1937,8 +1939,10 @@ export default function CourseDetailsPage() {
                 <iframe
                   className="rounded-t-xl w-full min-h-[200px] lg:min-h-[260px]"
                   src={
-                    courseData.intro_video +
-                    "?rel=0&modestbranding=1&autohide=1&showinfo=0"
+                    courseData.intro_video
+                      ? courseData.intro_video +
+                        "?rel=0&modestbranding=1&autohide=1&showinfo=0"
+                      : ""
                   }
                   title={courseData?.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -2188,43 +2192,52 @@ export default function CourseDetailsPage() {
                         <button
                           onClick={() => {
                             if (isLoggedIn()) {
-                              setPrebookButtonLoading(true);
+                              // setPrebookButtonLoading(true);
 
-                              const token = localStorage.getItem("token");
-                              axios
-                                .post(
-                                  BACKEND_URL +
-                                    "/user/course/applyCoupon/" +
-                                    COURSE_ID,
-                                  {
-                                    coupon: couponCode,
-                                  },
-                                  {
-                                    headers: {
-                                      Authorization: `Bearer ${token}`,
-                                    },
-                                  },
-                                )
-                                .then((res) => {
-                                  setUser({ ...user, loading: false });
+                              // const token = localStorage.getItem("token");
+                              // axios
+                              //   .post(
+                              //     BACKEND_URL +
+                              //       "/user/course/applyCoupon/" +
+                              //       COURSE_ID,
+                              //     {
+                              //       coupon: couponCode,
+                              //     },
+                              //     {
+                              //       headers: {
+                              //         Authorization: `Bearer ${token}`,
+                              //       },
+                              //     },
+                              //   )
+                              //   .then((res) => {
+                              //     setUser({ ...user, loading: false });
 
-                                  setPrebookButtonLoading(false);
+                              //     setPrebookButtonLoading(false);
 
-                                  toast.success(
-                                    "You have sucessfully bought this course!",
-                                  );
-                                  setCourseData({
-                                    ...courseData,
-                                    isTaken: true,
-                                  });
-                                  // router.push("/course/12");
-                                  //setUser({ ...user, loading: false });
-                                })
-                                .catch((err) => {
-                                  setUser({ ...user, loading: false });
-                                  toast.error("Wrong Coupon Code!");
-                                  setPrebookButtonLoading(false);
+                              //     toast.success(
+                              //       "You have sucessfully bought this course!",
+                              //     );
+                              //     setCourseData({
+                              //       ...courseData,
+                              //       isTaken: true,
+                              //     });
+                              //     // router.push("/course/12");
+                              //     //setUser({ ...user, loading: false });
+                              //   })
+                              //   .catch((err) => {
+                              //     setUser({ ...user, loading: false });
+                              //     toast.error("Wrong Coupon Code!");
+                              //     setPrebookButtonLoading(false);
+                              //   });
+                              if (couponCode == "CPISCOOL") {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 4500,
                                 });
+                                toast.success("Discount Applied!");
+                              } else {
+                                toast.error("Wrong Coupon Code!");
+                              }
                             } else {
                               toast.error("Please login first!");
                             }
