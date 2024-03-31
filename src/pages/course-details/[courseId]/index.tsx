@@ -754,9 +754,17 @@ export default function CourseDetailsPage() {
                         {/* <div className="w-[2px] h-[50%] bg-white absolute top-[50%] left-[50%] "></div> */}
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        প্রথমত আমাদের ফেইসবুক প্রাইভেট গ্রুপে যুক্ত হওয়ার জন্যে
-                        তোমার ফোনে পাঠানো ACCESS CODE টি সহ বাকি ইনফরমেশন দিয়ে
-                        রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে রিকুয়েস্ট এপ্রুভ করা হবে
+                        প্রথমত আমাদের{" "}
+                        <a
+                        className="text-heading dark:text-darkHeading font-bold underline"
+                          href="https://www.facebook.com/groups/codervai.cp.batch01"
+                          target="_blank"
+                        >
+                          ফেইসবুক প্রাইভেট  গ্রুপে{" "}
+                        </a>{" "}
+                        যুক্ত হওয়ার জন্যে তোমার ফোনে পাঠানো ACCESS CODE
+                        টি সহ বাকি ইনফরমেশন দিয়ে রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে
+                        রিকুয়েস্ট এপ্রুভ করা হবে
                       </p>
                     </div>
                     <div className="flex gap-4 items-center my-4">
