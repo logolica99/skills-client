@@ -756,14 +756,14 @@ export default function CourseDetailsPage() {
                       <p className="text-heading dark:text-darkHeading text-sm">
                         প্রথমত আমাদের{" "}
                         <a
-                        className="text-heading dark:text-darkHeading font-bold underline"
+                          className="text-heading dark:text-darkHeading font-bold underline"
                           href="https://www.facebook.com/groups/codervai.cp.batch01"
                           target="_blank"
                         >
-                          ফেইসবুক প্রাইভেট  গ্রুপে{" "}
+                          ফেইসবুক প্রাইভেট গ্রুপে{" "}
                         </a>{" "}
-                        যুক্ত হওয়ার জন্যে তোমার ফোনে পাঠানো ACCESS CODE
-                        টি সহ বাকি ইনফরমেশন দিয়ে রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে
+                        যুক্ত হওয়ার জন্যে তোমার ফোনে পাঠানো ACCESS CODE টি সহ
+                        বাকি ইনফরমেশন দিয়ে রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে
                         রিকুয়েস্ট এপ্রুভ করা হবে
                       </p>
                     </div>
@@ -2290,18 +2290,20 @@ export default function CourseDetailsPage() {
                   </button>
                 )} */}
                   <div className="flex gap-4">
-                    <Link
-                      href="/free-preview"
-                      className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
-                    >
-                      Free Preview
-                    </Link>
+                    {!courseData.isTaken && (
+                      <Link
+                        href="/free-preview"
+                        className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
+                      >
+                        Free Preview
+                      </Link>
+                    )}
                     {courseData.isTaken ? (
                       <Link
                         href="/course/12"
                         className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                       >
-                        কোর্সে যান
+                        কোর্স প্রিভিউ দেখুন
                       </Link>
                     ) : (
                       <button
