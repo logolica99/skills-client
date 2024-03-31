@@ -692,7 +692,7 @@ export default function CourseDetailsPage() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" lgXl:w-[30vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#BBBBBB]/10 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="md:w-[50vw] lg:w-[40vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#BBBBBB]/10 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
                     className="text-lg font-medium leading-6 p-2 "
