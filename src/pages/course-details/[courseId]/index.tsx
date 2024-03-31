@@ -1998,7 +1998,7 @@ export default function CourseDetailsPage() {
                             কোর্সটি প্রি বুক করেছে
                           </p>
                           <p className="text-3xl font-bold ">
-                            {courseData?.prebooking} জন
+                            {courseData?.enrolled} জন
                           </p>
                         </div>
                       </div>
