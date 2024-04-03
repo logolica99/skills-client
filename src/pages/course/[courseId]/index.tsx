@@ -632,7 +632,7 @@ export default function CourseDetailsPage() {
                   activeModule?.data?.videoHost === "Youtube" && (
                     <iframe
                       className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
-                      src={activeModule?.data?.videoUrl}
+                      src={activeModule?.data?.videoUrl+"&rel=0"}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     ></iframe>
