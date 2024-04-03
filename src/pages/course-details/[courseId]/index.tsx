@@ -2243,6 +2243,12 @@ export default function CourseDetailsPage() {
                                   price: 4500,
                                 });
                                 toast.success("Discount Applied!");
+                              } else if (couponCode == "CPSPECIAL") {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 4000,
+                                });
+                                toast.success("Discount Applied!");
                               } else if (couponCode == "XCVRTUNT") {
                                 setCourseData({
                                   ...courseData,
