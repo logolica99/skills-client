@@ -964,13 +964,14 @@ export default function CourseDetailsPage() {
               </div>
 
               <div className="mt-12">
-                {activeModule?.description?.length > 0 && (
-                  <p className="font-semibold text-2xl pb-4 border-b border-gray-300/10 ">
-                    Description
-                  </p>
-                )}
+                {activeModule?.description?.length > 0 &&
+                  activeModule?.data?.category != "TEXT" && (
+                    <p className="font-semibold text-2xl pb-4 border-b border-gray-300/10 ">
+                      Description
+                    </p>
+                  )}
                 <div
-                  className="text-lg pt-6 border-t border-gray-400/50 dark:border-gray-300/10 "
+                  className={`text-lg  ${activeModule?.data?.category != "TEXT" ? "border-t border-gray-400/50 pt-6" : ""}  dark:border-gray-300/10 `}
                   dangerouslySetInnerHTML={{
                     __html: activeModule?.description,
                   }}
@@ -1294,6 +1295,14 @@ export default function CourseDetailsPage() {
                                   setActiveModule(module);
                                   submitProgress(module.id, module.score);
                                 }
+                                if (
+                                  module.data.category === "TEXT" &&
+                                  courseData.maxModuleSerialProgress + 1 >=
+                                    module.serial
+                                ) {
+                                  setActiveModule(module);
+                                  submitProgress(module.id, module.score);
+                                }
                               }
                             }}
                           >
@@ -1348,6 +1357,32 @@ export default function CourseDetailsPage() {
                               </svg>
                             )}
                             {module.data.category == "PDF" && (
+                              <svg
+                                width="20"
+                                height="21"
+                                viewBox="0 0 20 21"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
+                                  fill={
+                                    (elem.is_free || courseData.isTaken) &&
+                                    courseData.maxModuleSerialProgress + 1 >=
+                                      module.serial
+                                      ? "#B153E0"
+                                      : "#565656"
+                                  }
+                                />
+                                <path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
+                                  fill="white"
+                                />
+                              </svg>
+                            )}
+                            {module.data.category == "TEXT" && (
                               <svg
                                 width="20"
                                 height="21"
@@ -1457,6 +1492,15 @@ export default function CourseDetailsPage() {
                                 courseData.maxModuleSerialProgress >=
                                   module.serial - 1 &&
                                 module.data.category === "PDF"
+                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                  : "cursor-not-allowed"
+                              }
+                              
+                              ${
+                                courseData.isTaken &&
+                                courseData.maxModuleSerialProgress >=
+                                  module.serial - 1 &&
+                                module.data.category === "TEXT"
                                   ? "hover:text-black dark:hover:text-white cursor-pointer"
                                   : "cursor-not-allowed"
                               }
