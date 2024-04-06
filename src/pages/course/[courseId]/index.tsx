@@ -28,6 +28,7 @@ import { RxButton } from "react-icons/rx";
 import FloatingCompiler from "@/components/FloatingCompiler";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
+import ReactYoutubePlayer from "@/components/ReactYoutubePlayer";
 const GreenRadio = withStyles({
   root: {
     color: "#fff",
@@ -630,12 +631,13 @@ export default function CourseDetailsPage() {
                 {/* <p>{activeModule?.title}</p> */}
                 {activeModule?.data?.category == "VIDEO" &&
                   activeModule?.data?.videoHost === "Youtube" && (
-                    <iframe
-                      className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
-                      src={activeModule?.data?.videoUrl+"&rel=0"}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    ></iframe>
+                    // <iframe
+                    //   className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
+                    //   src={activeModule?.data?.videoUrl+"&rel=0"}
+                    //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    //   allowFullScreen
+                    // ></iframe>
+                    <ReactYoutubePlayer videoUrl={activeModule?.data?.videoUrl}/>
                   )}
 
                 {activeModule?.data?.category == "PDF" && (

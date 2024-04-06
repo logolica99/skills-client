@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 import { fontFamily } from "tailwindcss/defaultTheme";
+const withMT = require("@material-tailwind/react/utils/withMT");
 
-module.exports = {
+module.exports = withMT({
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -37,4 +38,4 @@ module.exports = {
     },
   },
   plugins: [require("daisyui"), require("tailwind-scrollbar-hide")],
-};
+});
