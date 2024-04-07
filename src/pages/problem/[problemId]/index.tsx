@@ -4,7 +4,7 @@ import Link from "next/link";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Editor from "@monaco-editor/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
 import { UserContext } from "@/Contexts/UserContext";
 import { BACKEND_URL } from "@/api.config";
 import axios from "axios";
@@ -15,10 +15,19 @@ import Button from "@/components/Button";
 import { formatDate } from "@/helpers";
 import { CodeBlock, atomOneDark } from "react-code-blocks";
 import FloatingCompiler from "@/components/FloatingCompiler";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLock,
+  faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
+import { Dialog, Transition } from "@headlessui/react";
+import { set } from "zod";
 
 const testCases = ["[1,23,4]", "[33,35]"];
 
 export default function CourseDetailsPage() {
+  const [isEditorialOpen, setIsEditorialOpen] = useState<any>(false);
+  const [editorialWarningOpen, setEditorialWarningOpen] = useState<any>(false);
   const codeString =
     "Input: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]] \nOutput: 2\nExplanation: There is one obstacle in the middle of the 3x3 grid above.\nThere are two ways to reach the bottom-right corner:\n1. Right -> Right -> Down -> Down\n2. Down -> Down -> Right -> Right";
   const router = useRouter();
@@ -60,6 +69,28 @@ export default function CourseDetailsPage() {
     temp[tabName] = true;
 
     setProblemTab(temp);
+  };
+
+  const submitViewedEditorial = (module_id: any) => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        `${BACKEND_URL}/user/module/viewEditorial/${module_id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        fetchHasViewed();
+        setEditorialWarningOpen(false);
+        // toast.success("Editorial is open now!")
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
   };
 
   const submitProgress = (module_id: any) => {
@@ -134,6 +165,20 @@ int main(){
         setUser({ ...user, loading: false });
       });
   };
+  const fetchHasViewed = () => {
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(BACKEND_URL + "/user/module/hasViewed/" + router.query.problemId, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setIsEditorialOpen(res.data.data.hasViewed);
+      })
+      .catch((err) => {});
+  };
   const fetchSubmissions = () => {
     // setUser({ ...user, loading: true });
 
@@ -161,6 +206,7 @@ int main(){
   };
 
   useEffect(() => {
+    fetchHasViewed();
     fetchModule();
     fetchSubmissions();
   }, [router.query.problemId]);
@@ -218,6 +264,111 @@ int main(){
             </g>
           </svg>
         </button>
+        <Transition appear show={editorialWarningOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative "
+            style={{ zIndex: 99999 }}
+            onClose={() => {
+              // setCoursePurchaseSuccessfull(false);
+            }}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="md:w-[50vw] lg:w-[40vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-gray-900/70 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title
+                      as="div"
+                      className="text-lg font-medium leading-6 p-2 "
+                    >
+                      <div className="flex justify-end">
+                        <button
+                          className="hover:bg-gray-300/20 p-2 mr-2 rounded"
+                          onClick={() => {
+                            setEditorialWarningOpen(false);
+                          }}
+                        >
+                          <svg
+                            width="14"
+                            height="15"
+                            viewBox="0 0 14 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M13 1.25L1 13.25M1 1.25L13 13.25"
+                              stroke="#FBEEEC"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </Dialog.Title>
+                    <div className="border-b border-t border-gray-300/20 py-3 px-6">
+                      <div className="flex flex-col items-center ">
+                        <FontAwesomeIcon
+                          icon={faTriangleExclamation}
+                          className="text-4xl text-orange-300"
+                        />
+                        <p className="text-xl font-bold text-darkHeading mt-1">
+                          Warning!
+                        </p>
+                        <p className="text-darkHeading text-center mt-1 ">
+                          Hold on! Opening the editorial for
+                          <span className=" text-lg text-white font-bold">
+                            {" "}
+                            {problemData.title}
+                          </span>{" "}
+                          won't give you points. Try solving it yourself first!
+                        </p>
+                      </div>
+                    </div>
+                    <div className="p-6 flex gap-4">
+                      <button
+                        onClick={() => {
+                          setEditorialWarningOpen(false);
+                        }}
+                        className={`bg-gray-300/30 hover:opacity-60 ease-in-out duration-150  text-darkHeading py-3 w-full  rounded-xl font-bold`}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          submitViewedEditorial(problemData.id);
+                        }}
+                        className={`bg-red-600 hover:bg-opacity-50 ease-in-out duration-150  text-darkHeading py-3 w-full  rounded-xl font-bold`}
+                      >
+                        Open
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
         <div className="pt-16 pb-1 bg-white dark:bg-[#0B060D] overflow-x-hidden">
           <div className="w-[98%]  mx-auto pt-8 z-20">
             <div className="flex flex-col lg:flex-row gap-2 justify-between relative">
@@ -292,20 +443,45 @@ int main(){
                     >
                       Problem
                     </p>
-                    <p
-                      className={` text-xl font-semibold pb-2 cursor-pointer
+                    {isEditorialOpen ? (
+                      <p
+                        className={` text-xl font-semibold pb-2 cursor-pointer
                     ${
                       problemTab.editorial
                         ? "border-b border-black dark:border-white text-heading dark:text-darkHeading"
                         : "text-paragraph dark:text-darkParagraph/70"
                     }  
                        `}
-                      onClick={() => {
-                        changeProblemTab("editorial");
-                      }}
-                    >
-                      Editorial
-                    </p>
+                        onClick={() => {
+                          changeProblemTab("editorial");
+                        }}
+                      >
+                        Editorial
+                      </p>
+                    ) : (
+                      <div className="flex items-center gap-1 pb-2 cursor-pointer">
+                        <p
+                          className={` text-xl font-semibold 
+                    ${
+                      problemTab.editorial
+                        ? "border-b border-black dark:border-white text-heading dark:text-darkHeading"
+                        : "text-paragraph dark:text-darkParagraph/70"
+                    }  
+                       `}
+                          onClick={() => {
+                            //somefucntion about opening editorial
+
+                            setEditorialWarningOpen(true);
+                          }}
+                        >
+                          Editorial
+                        </p>
+                        <FontAwesomeIcon
+                          icon={faLock}
+                          className="text-orange-300"
+                        />
+                      </div>
+                    )}
                     <p
                       className={` text-xl font-semibold pb-2 cursor-pointer 
                     ${

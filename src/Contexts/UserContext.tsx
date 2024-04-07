@@ -7,7 +7,7 @@ export const UserContextProvider = (props: any) => {
     isLoggedIn: false,
     loading: false,
     openCompiler:false,
-    darkMode:false
+    darkMode:true
   });
 
   return (

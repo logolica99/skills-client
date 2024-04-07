@@ -29,7 +29,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
             playing={playing}
             onProgress={(e) => {
               setSeek(e);
-              console.log(e);
+             
             }}
             loop={false}
             height={`${handleFullScreen.active ? "94vh" : "50vh"}`}
@@ -101,7 +101,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
                 handleFullScreen.exit();
               } else {
                 handleFullScreen.enter();
-                console.log(handleFullScreen);
+             
               }
             }}
           >

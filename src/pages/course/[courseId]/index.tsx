@@ -39,6 +39,27 @@ const GreenRadio = withStyles({
   checked: {},
 })((props) => <Radio color="default" {...props} />);
 
+function findObjectBySerial(data: any, targetSerial: any) {
+  // Check if chapters exist in the data
+  const chapters = data?.chapters || [];
+
+  // Iterate through chapters
+  for (const chapter of chapters) {
+    // Check if modules exist in the current chapter
+    const modules = chapter?.modules || [];
+
+    // Iterate through modules searching for matching serial key
+    for (const module of modules) {
+      if (module.serial === targetSerial) {
+        return module;
+      }
+    }
+  }
+
+  // If no match is found, return undefined
+  return undefined;
+}
+
 export default function CourseDetailsPage() {
   const cancelButtonRef = useRef(null);
 
@@ -637,7 +658,9 @@ export default function CourseDetailsPage() {
                     //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     //   allowFullScreen
                     // ></iframe>
-                    <ReactYoutubePlayer videoUrl={activeModule?.data?.videoUrl}/>
+                    <ReactYoutubePlayer
+                      videoUrl={activeModule?.data?.videoUrl}
+                    />
                   )}
 
                 {activeModule?.data?.category == "PDF" && (
@@ -973,11 +996,109 @@ export default function CourseDetailsPage() {
                     </p>
                   )}
                 <div
-                  className={`text-lg  ${activeModule?.data?.category != "TEXT" ? "border-t border-gray-400/50 pt-6" : ""}  dark:border-gray-300/10 `}
+                  className={`text-lg  ${activeModule?.data?.category != "TEXT" ? "border-t border-gray-400/50 pt-2" : ""}  dark:border-gray-300/10 `}
                   dangerouslySetInnerHTML={{
                     __html: activeModule?.description,
                   }}
                 ></div>
+              </div>
+              <div className="mt-1">
+                <div className="flex justify-between items-center">
+                  <button
+                    onClick={() => {
+                      setActiveModule(
+                        findObjectBySerial(courseData, activeModule.serial - 1),
+                      );
+                    }}
+                    className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={() => {
+                      // if (
+                      //   activeModule.serial + 1 >=
+                      //   courseData.maxModuleSerialProgress
+                      // ) {
+                      //   const nextModule = findObjectBySerial(
+                      //     courseData,
+                      //     activeModule.serial + 1,
+                      //   );
+                      //   setActiveModule(nextModule);
+                      // }
+                      const nextModule = findObjectBySerial(
+                        courseData,
+                        activeModule.serial + 1,
+                      );
+                      if (nextModule.is_free || courseData.isTaken) {
+                        if (
+                          nextModule.data.category === "ASSIGNMENT" &&
+                          courseData.isTaken &&
+                          courseData.maxModuleSerialProgress + 1 >=
+                            nextModule.serial
+                        ) {
+                          fetchEvalutedAssignment(nextModule.id);
+                          setActiveModule(nextModule);
+                        }
+                        if (
+                          nextModule.data.category === "CODE" &&
+                          courseData.isTaken &&
+                          courseData.maxModuleSerialProgress + 1 >=
+                            nextModule.serial
+                        ) {
+                          setActiveModule(nextModule);
+                        }
+
+                        if (
+                          nextModule.data.category === "VIDEO" &&
+                          courseData.maxModuleSerialProgress + 1 >=
+                            nextModule.serial
+                        ) {
+                          setActiveModule(nextModule);
+                          submitProgress(nextModule.id, nextModule.score);
+                        }
+                        if (
+                          nextModule.data.category === "QUIZ" &&
+                          courseData.maxModuleSerialProgress + 1 >=
+                            nextModule.serial &&
+                          courseData.isTaken
+                        ) {
+                          setActiveModule(nextModule);
+                        }
+                        if (
+                          nextModule.data.category === "PDF" &&
+                          courseData.maxModuleSerialProgress + 1 >=
+                            nextModule.serial
+                        ) {
+                          setActiveModule(nextModule);
+                          submitProgress(nextModule.id, nextModule.score);
+                        }
+                        if (
+                          nextModule.data.category === "TEXT" &&
+                          courseData.maxModuleSerialProgress + 1 >=
+                            nextModule.serial
+                        ) {
+                          setActiveModule(nextModule);
+                          submitProgress(nextModule.id, nextModule.score);
+                        }
+                      }
+                    }}
+                    className={`py-2 mt-5 px-6  hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg
+                    ${
+                      activeModule.serial + 1 >
+                      courseData.maxModuleSerialProgress
+                        ? "bg-gray-300/30 cursor-not-allowed"
+                        : "bg-[#532e62]"
+                    }
+                    `}
+                    disabled={
+                      activeModule.serial + 1 >
+                      courseData.maxModuleSerialProgress
+                    }
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
               <div className="mt-3">
                 <button
@@ -1044,7 +1165,7 @@ export default function CourseDetailsPage() {
                                 {elem.title}
                               </p>
                               <div className="flex flex-wrap gap-3  lg:items-center mt-3 text-sm font-medium">
-                                  {/* <div className="flex items-center gap-3">
+                                {/* <div className="flex items-center gap-3">
                                     <svg
                                       width="13"
                                       height="12"
@@ -1083,135 +1204,135 @@ export default function CourseDetailsPage() {
                                       টি অ্যাসাইনমেন্ট{" "}
                                     </p>
                                   </div> */}
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .videoCount == 0 && "hidden"
+                                <div
+                                  className={`flex items-center gap-3 ${
+                                    countAssignmentsAndVideos(elem.modules)
+                                      .videoCount == 0 && "hidden"
+                                  }`}
+                                >
+                                  <svg
+                                    width="13"
+                                    height="12"
+                                    viewBox="0 0 13 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                      fill={
+                                        elem.is_free ? "#B153E0" : "#565656"
+                                      }
+                                    />
+                                  </svg>
+                                  <p
+                                    className={` ${
+                                      !elem.is_free && "text-[#565656]"
                                     }`}
                                   >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .videoCount
-                                      }{" "}
-                                      টি ভিডিও
-                                    </p>
-                                  </div>
-                                  <div
-                                    className={`flex items-center gap-3 ${
+                                    {
                                       countAssignmentsAndVideos(elem.modules)
-                                        .quizCount == 0 && "hidden"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .quizCount
-                                      }{" "}
-                                      টি কুইজ
-                                    </p>
-                                  </div>
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .codeCount == 0 && "hidden"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .codeCount
-                                      }{" "}
-                                      টি কোডিং চ্যালেঞ্জ
-                                    </p>
-                                  </div>
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .pdfCount == 0 && "hidden"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .pdfCount
-                                      }{" "}
-                                      টি পিডিএফ
-                                    </p>
-                                  </div>
+                                        .videoCount
+                                    }{" "}
+                                    টি ভিডিও
+                                  </p>
                                 </div>
+                                <div
+                                  className={`flex items-center gap-3 ${
+                                    countAssignmentsAndVideos(elem.modules)
+                                      .quizCount == 0 && "hidden"
+                                  }`}
+                                >
+                                  <svg
+                                    width="13"
+                                    height="12"
+                                    viewBox="0 0 13 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                      fill={
+                                        elem.is_free ? "#B153E0" : "#565656"
+                                      }
+                                    />
+                                  </svg>
+                                  <p
+                                    className={` ${
+                                      !elem.is_free && "text-[#565656]"
+                                    }`}
+                                  >
+                                    {
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .quizCount
+                                    }{" "}
+                                    টি কুইজ
+                                  </p>
+                                </div>
+                                <div
+                                  className={`flex items-center gap-3 ${
+                                    countAssignmentsAndVideos(elem.modules)
+                                      .codeCount == 0 && "hidden"
+                                  }`}
+                                >
+                                  <svg
+                                    width="13"
+                                    height="12"
+                                    viewBox="0 0 13 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                      fill={
+                                        elem.is_free ? "#B153E0" : "#565656"
+                                      }
+                                    />
+                                  </svg>
+                                  <p
+                                    className={` ${
+                                      !elem.is_free && "text-[#565656]"
+                                    }`}
+                                  >
+                                    {
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .codeCount
+                                    }{" "}
+                                    টি কোডিং চ্যালেঞ্জ
+                                  </p>
+                                </div>
+                                <div
+                                  className={`flex items-center gap-3 ${
+                                    countAssignmentsAndVideos(elem.modules)
+                                      .pdfCount == 0 && "hidden"
+                                  }`}
+                                >
+                                  <svg
+                                    width="13"
+                                    height="12"
+                                    viewBox="0 0 13 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
+                                      fill={
+                                        elem.is_free ? "#B153E0" : "#565656"
+                                      }
+                                    />
+                                  </svg>
+                                  <p
+                                    className={` ${
+                                      !elem.is_free && "text-[#565656]"
+                                    }`}
+                                  >
+                                    {
+                                      countAssignmentsAndVideos(elem.modules)
+                                        .pdfCount
+                                    }{" "}
+                                    টি পিডিএফ
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                           <div>
