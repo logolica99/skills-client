@@ -49,9 +49,9 @@ function findObjectBySerial(data: any, targetSerial: any) {
     const modules = chapter?.modules || [];
 
     // Iterate through modules searching for matching serial key
-    for (const module of modules) {
-      if (module.serial === targetSerial) {
-        return module;
+    for (let result of modules) {
+      if (result.serial === targetSerial) {
+        return result;
       }
     }
   }

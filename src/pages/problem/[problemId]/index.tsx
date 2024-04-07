@@ -341,7 +341,7 @@ int main(){
                             {" "}
                             {problemData.title}
                           </span>{" "}
-                          won't give you points. Try solving it yourself first!
+                          won{`'`}t give you points. Try solving it yourself first!
                         </p>
                       </div>
                     </div>

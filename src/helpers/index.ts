@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import  jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import CryptoJS from "crypto-js";
 
 export const HindSiliguri = localFont({
@@ -48,8 +48,7 @@ export const isLoggedIn = () => {
     // Perform localStorage action
 
     token = getCookie("token");
-    if(token){
-
+    if (token) {
       localStorage.setItem("token", token);
     }
   }
@@ -122,11 +121,9 @@ export function countAssignmentsAndVideos(data: any) {
   let assignmentCount = 0;
   let videoCount = 0;
 
-
-
-  let codeCount=0
+  let codeCount = 0;
   let quizCount = 0;
-  let pdfCount=0;
+  let pdfCount = 0;
 
   data.forEach((item: any) => {
     if (item.data.category === "ASSIGNMENT") {
@@ -135,10 +132,8 @@ export function countAssignmentsAndVideos(data: any) {
       videoCount++;
     } else if (item.data.category === "QUIZ") {
       quizCount++;
-    
     } else if (item.data.category === "CODE") {
       codeCount++;
-    
     } else if (item.data.category === "PDF") {
       pdfCount++;
     }
@@ -149,7 +144,7 @@ export function countAssignmentsAndVideos(data: any) {
     videoCount,
     codeCount,
     quizCount,
-    pdfCount
+    pdfCount,
   };
 }
 
@@ -157,9 +152,9 @@ export function countModulesAssignmentsVideos(data: any) {
   let totalModules = 0;
   let totalAssignments = 0;
   let totalVideos = 0;
-  let totalCodes=0
+  let totalCodes = 0;
   let totalQuiz = 0;
-  let totalPDF=0;
+  let totalPDF = 0;
 
   for (const chapter of data.chapters) {
     for (const elem of chapter.modules) {
@@ -167,13 +162,10 @@ export function countModulesAssignmentsVideos(data: any) {
         totalVideos++;
       } else if (elem.data.category === "ASSIGNMENT") {
         totalAssignments++;
-      
       } else if (elem.data.category === "QUIZ") {
         totalQuiz++;
-      
       } else if (elem.data.category === "CODE") {
         totalCodes++;
-      
       } else if (elem.data.category === "PDF") {
         totalPDF++;
       }
@@ -187,12 +179,14 @@ export function countModulesAssignmentsVideos(data: any) {
     totalVideos,
     totalCodes,
     totalQuiz,
-    totalPDF
+    totalPDF,
   };
 }
 
 export function decryptString(encryptedText: any, secretKey: any) {
+  console.log(encryptedText,secretKey)
   const bytes = CryptoJS.AES.decrypt(encryptedText, secretKey);
+  
   const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
   return decryptedText;
 }
