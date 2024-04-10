@@ -148,6 +148,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
               className={`${playbackRate == 1 && "bg-gray-800"} py-2 px-8 hover:bg-gray-700 cursor-pointer`}
               onClick={() => {
                 setPlaybackRate(1);
+                setShowPlaybackSpeed(false);
               }}
             >
               1x
@@ -156,6 +157,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
               className={`${playbackRate == 1.25 && "bg-gray-800"} py-2 px-8 hover:bg-gray-700 cursor-pointer`}
               onClick={() => {
                 setPlaybackRate(1.25);
+                setShowPlaybackSpeed(false);
               }}
             >
               1.25x
@@ -164,6 +166,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
               className={`${playbackRate == 1.5 && "bg-gray-800"} py-2 px-8 hover:bg-gray-700 cursor-pointer`}
               onClick={() => {
                 setPlaybackRate(1.5);
+                setShowPlaybackSpeed(false);
               }}
             >
               1.5x
@@ -172,6 +175,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
               className={`${playbackRate == 2 && "bg-gray-800"} py-2 px-8 hover:bg-gray-700 cursor-pointer`}
               onClick={() => {
                 setPlaybackRate(2);
+                setShowPlaybackSpeed(false);
               }}
             >
               2x
