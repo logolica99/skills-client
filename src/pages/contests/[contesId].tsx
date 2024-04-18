@@ -58,7 +58,7 @@ export default function SingleContestPage({}: Props) {
 
   const calculateTimeLeft = () => {
     const now: any = new Date();
-    const target: any = new Date(1712669237204);
+    const target: any = new Date(1713447000000);
     const difference: any = target - now;
 
     // Handle negative difference (target date in the past)
@@ -85,11 +85,11 @@ export default function SingleContestPage({}: Props) {
     setSeconds(remainingSeconds);
   };
 
-  //   useEffect(() => {
-  //     const intervalId = setInterval(calculateTimeLeft, 1000);
+  useEffect(() => {
+    const intervalId = setInterval(calculateTimeLeft, 1000);
 
-  //     return () => clearInterval(intervalId);
-  //   }, []);
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <ProtectedRoute>
       <div
@@ -228,25 +228,20 @@ export default function SingleContestPage({}: Props) {
                   <div className="flex justify-between items-center flex-col-reverse gap-4 lg:flex-row">
                     <div className="lg:py-6 lg:pl-10">
                       <p className="text-white font-bold text-3xl">
-                        কোডিং প্রতিযোগিতায় অংশগ্রহণ করুন{" "}
-                        <br className="hidden lg:block" />
-                        <span className="text-[#EB9E11]">
-                          উপহার এবং গুডি পাওয়ার{" "}
-                        </span>{" "}
-                        সুযোগ জিতুন!
+                        CoderVai presents <br /> CoderVai Programming Contest -
+                        CVPC 1.0
                       </p>
                       <p className="my-4 text-lg">
-                        অন্যান্য অংশগ্রহণকারীদের সাথে প্রতিযোগিতা করুন এবং আপনার
-                        দক্ষতা মূল্যায়ন করুন
+                      Sharpen your skills with basic programming challenges!
                       </p>
                       <p className="text-base">
-                        আপনার মত 500 জন শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ
-                        করছে!{" "}
+                      আপনার মত 480 জন শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ করছে!
+
                       </p>
                       <div className="flex justify-between items-center lg:mt-3 flex-col-reverse my-6 lg:mb-0 lg:flex-row">
                         <div>
                           <Link
-                            href=""
+                            href=" https://vjudge.net/contest/623126"
                             className="bg-[#EB9E11] px-6 py-3 mt-4 text-white rounded-lg font-semibold block hover:opacity-70 ease-in-out duration-150"
                           >
                             এখনি যোগদিন
@@ -293,19 +288,19 @@ export default function SingleContestPage({}: Props) {
                               <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
                                 {hours.toString().padStart(2, "0")}
                               </p>
-                              <p className="mt-1">দিন</p>
+                              <p className="mt-1">ঘন্টা</p>
                             </div>
                             <div className="flex flex-col items-center">
                               <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
                                 {minutes.toString().padStart(2, "0")}
                               </p>
-                              <p className="mt-1">ঘন্টা</p>
+                              <p className="mt-1">মিনিট</p>
                             </div>
                             <div className="flex flex-col items-center">
                               <p className="text-white bg-gray-300/5 py-2 px-4 rounded-lg font-bold text-2xl">
-                                21
+                                {seconds.toString().padStart(2, "0")}
                               </p>
-                              <p className="mt-1">মিনিট</p>
+                              <p className="mt-1">সেকেন্ড </p>
                             </div>
                           </div>
                         </div>
@@ -431,7 +426,7 @@ export default function SingleContestPage({}: Props) {
                         সমস্যার সংখ্যা
                       </p>
                       <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                        30 টি
+                        7 টি
                       </p>
                     </div>
                   </div>
@@ -454,7 +449,7 @@ export default function SingleContestPage({}: Props) {
                         সময়কাল
                       </p>
                       <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                        50 ঘণ্টা
+                        3 ঘণ্টা
                       </p>
                     </div>
                   </div>
@@ -477,7 +472,7 @@ export default function SingleContestPage({}: Props) {
                         শেষ সময়সীমা
                       </p>
                       <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                        রাত ৮টা, ২৫ নভেম্বর
+                        রাত ১০.৩০ টা, ১৮ এপ্রিল
                       </p>
                     </div>
                   </div>
@@ -500,7 +495,7 @@ export default function SingleContestPage({}: Props) {
                         প্রতিযোগিতার পুরস্কার
                       </p>
                       <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                        20 হাজার টাকা
+                        40 হাজার টাকা
                       </p>
                     </div>
                   </div>
@@ -539,10 +534,7 @@ export default function SingleContestPage({}: Props) {
                           1
                         </p>
                       </div>
-                      <p className="text-lg">
-                        সব প্রতিযোগীকে নিজের কোড লিখতে হবে, অন্যদের সাহায্য নিতে
-                        বা প্রাপ্ত কোড ব্যবহার করা সম্পূর্ণভাবে নিষিদ্ধ।
-                      </p>
+                      <p className="text-lg">VJudge এ একাউন্ট থাকতে হবে।</p>
                     </div>
                     <div className="flex my-2 items-center gap-2 text-base text-paragraph dark:text-darkParagraph">
                       <div
@@ -555,9 +547,8 @@ export default function SingleContestPage({}: Props) {
                         </p>
                       </div>
                       <p className="text-lg">
-                        প্রতিযোগিতার ফলাফল এবং বিজয়ী প্রতিষ্ঠানের নিষ্ক্রিয়তা
-                        সম্পর্কে প্রতিষ্ঠানের নির্দিষ্ট সিদ্ধান্ত চুক্তি সম্পাদন
-                        করে।
+                        কন্টেস্ট লিঙ্কে যেতে হবে এবং Password দিতে হবে। Password
+                        দিলেই কন্টেস্ট ওপেন হবে।
                       </p>
                     </div>
                     <div className="flex my-2 items-center gap-2 text-base text-paragraph dark:text-darkParagraph">
@@ -571,9 +562,7 @@ export default function SingleContestPage({}: Props) {
                         </p>
                       </div>
                       <p className="text-lg">
-                        প্রতিটি প্রতিযোগীকে নিজের ডিভাইস ব্যবহার করতে হবে।
-                        প্রতিটি প্রতিযোগীকে সকল সময় মৌলিক ও নেটওয়ার্ক নিয়ে
-                        সতর্ক থাকতে হবে
+                        VJudge এ Codeforces এর মতই Problem submit দেয়া যাবে।
                       </p>
                     </div>
                     <div className="flex my-2 items-center gap-2 text-base text-paragraph dark:text-darkParagraph">
@@ -587,14 +576,41 @@ export default function SingleContestPage({}: Props) {
                         </p>
                       </div>
                       <p className="text-lg">
-                        প্রতিযোগিতার ফলাফল এবং বিজয়ী প্রতিষ্ঠানের নিষ্ক্রিয়তা
-                        সম্পর্কে প্রতিষ্ঠানের নির্দিষ্ট সিদ্ধান্ত চুক্তি সম্পাদন
-                        করে।
+                        কনটেস্ট এ ৮-১০ টি প্রভলেম থাকবে এবং সময় থাকবে ৩ ঘণ্টা
+                      </p>
+                    </div>
+                    <div className="flex my-2 items-center gap-2 text-base text-paragraph dark:text-darkParagraph">
+                      <div
+                        className={`px-2 py-2 rounded-full bg-[#2BA98B]/[.14]  `}
+                      >
+                        <p
+                          className={`px-3 py-[2px] rounded-full  font-bold text-xl bg-[#03614A]/[1] text-darkHeading `}
+                        >
+                          5
+                        </p>
+                      </div>
+                      <p className="text-lg">
+                        যেকোনো ল্যাঙ্গুয়েজ ব্যবহার করা যাবে
+                      </p>
+                    </div>
+                    <div className="flex my-2 items-center gap-2 text-base text-paragraph dark:text-darkParagraph">
+                      <div
+                        className={`px-2 py-2 rounded-full bg-[#2BA98B]/[.14]  `}
+                      >
+                        <p
+                          className={`px-3 py-[2px] rounded-full  font-bold text-xl bg-[#03614A]/[1] text-darkHeading `}
+                        >
+                          6
+                        </p>
+                      </div>
+                      <p className="text-lg">
+                        কোনো প্লাগারিজম এর প্রমাণ মিললে তাঁকে কনটেস্ট থেকে
+                        ডিসকুয়েলিফাই করা হবে।
                       </p>
                     </div>
                   </div>
                 </div>
-                <div className="mt-10">
+                {/* <div className="mt-10">
                   <p className="mt-8 text-3xl font-bold text-heading dark:text-darkHeading">
                     FAQ
                   </p>
@@ -646,7 +662,7 @@ export default function SingleContestPage({}: Props) {
                       এটা হতাশাজনক
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
