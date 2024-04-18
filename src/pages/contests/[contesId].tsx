@@ -238,10 +238,10 @@ export default function SingleContestPage({}: Props) {
                         CoderVai presents <br /> CoderVai Programming Contest -
                         CVPC 1.0
                       </p>
-                      <p className="my-4 text-lg">
+                      <p className="my-4 text-lg text-darkHeading">
                         Sharpen your skills with basic programming challenges!
                       </p>
-                      <p className="text-base">
+                      <p className="text-base text-darkHeading">
                         আপনার মত 480 জন শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ
                         করছে!
                       </p>
