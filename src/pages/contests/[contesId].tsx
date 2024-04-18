@@ -173,6 +173,13 @@ export default function SingleContestPage({}: Props) {
                 Contest List
               </p>
             </Link>
+            <div className="mb-10">
+              <img
+                className="lg:w-[40%] mx-auto rounded-lg"
+                src="/CoderVai Programming Contest.png"
+                alt=""
+              />
+            </div>
             <div className=" rounded-lg    bg-gray-400/20 backdrop-blur-lg dark:bg-gray-200/5  relative z-30">
               <svg
                 width="1447"
@@ -232,16 +239,16 @@ export default function SingleContestPage({}: Props) {
                         CVPC 1.0
                       </p>
                       <p className="my-4 text-lg">
-                      Sharpen your skills with basic programming challenges!
+                        Sharpen your skills with basic programming challenges!
                       </p>
                       <p className="text-base">
-                      আপনার মত 480 জন শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ করছে!
-
+                        আপনার মত 480 জন শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ
+                        করছে!
                       </p>
                       <div className="flex justify-between items-center lg:mt-3 flex-col-reverse my-6 lg:mb-0 lg:flex-row">
                         <div>
                           <Link
-                            href=" https://vjudge.net/contest/623126"
+                            href="https://vjudge.net/contest/623126"
                             className="bg-[#EB9E11] px-6 py-3 mt-4 text-white rounded-lg font-semibold block hover:opacity-70 ease-in-out duration-150"
                           >
                             এখনি যোগদিন
@@ -404,6 +411,7 @@ export default function SingleContestPage({}: Props) {
                       </p>
                     </div>
                   </div> */}
+
                 <p className="mt-8 text-3xl font-bold text-heading dark:text-darkHeading">
                   প্রতিযোগিতার বিবরণ
                 </p>
