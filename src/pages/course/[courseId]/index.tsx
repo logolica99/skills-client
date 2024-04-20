@@ -1003,6 +1003,16 @@ export default function CourseDetailsPage() {
                 ></div>
               </div>
               <div className="mt-1">
+                {activeModule.serial < 48 && (
+                  <button
+                    onClick={() => {
+                      setActiveModule(findObjectBySerial(courseData, 48));
+                    }}
+                    className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
+                  >
+                    Skip Archive
+                  </button>
+                )}
                 <div className="flex justify-between items-center">
                   <button
                     onClick={() => {
