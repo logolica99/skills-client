@@ -2374,6 +2374,13 @@ export default function CourseDetailsPage() {
                                   "mahditalukder123@gmail.com"
                               ) {
                                 purchaseFreeCourse();
+                              } else if (
+                                couponCode == "cvpc-hasan-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "juubaerjaami@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
                               } else if (couponCode == "XCVRTUNT") {
                                 setCourseData({
                                   ...courseData,
