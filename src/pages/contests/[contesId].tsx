@@ -251,7 +251,7 @@ export default function SingleContestPage({}: Props) {
                             href="https://vjudge.net/contest/623126"
                             className="bg-[#EB9E11] px-6 py-3 mt-4 text-white rounded-lg font-semibold block hover:opacity-70 ease-in-out duration-150"
                           >
-                            এখনি যোগদিন
+                            রেজাল্ট দেখ
                           </Link>
                         </div>
                         <div className="mr-4">
