@@ -229,7 +229,7 @@ export default function CourseDetailsPage() {
       .post(
         BACKEND_URL + "/user/course/applyCoupon/" + COURSE_ID,
         {
-          coupon: couponCode,
+          coupon: "PY100",
         },
         {
           headers: {
@@ -247,7 +247,6 @@ export default function CourseDetailsPage() {
           ...courseData,
           isTaken: true,
         });
-       
       })
       .catch((err) => {
         setUser({ ...user, loading: false });
@@ -2333,6 +2332,48 @@ export default function CourseDetailsPage() {
                                   price: 3000,
                                 });
                                 toast.success("Discount Applied!");
+                              } else if (
+                                couponCode == "cvpc-niloy-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "dasniloy2020@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
+                              } else if (
+                                couponCode == "cvpc-samee-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "samee.sevas@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
+                              } else if (
+                                couponCode == "cvpc-ahmed-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "istiaqueahmedarik@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
+                              } else if (
+                                couponCode == "cvpc-tanim-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "tanimahmed710@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
+                              } else if (
+                                couponCode == "cvpc-roy-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "anirbanroysourov5@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
+                              } else if (
+                                couponCode == "cvpc-hasan-100" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "mahditalukder123@gmail.com"
+                              ) {
+                                purchaseFreeCourse();
                               } else if (couponCode == "XCVRTUNT") {
                                 setCourseData({
                                   ...courseData,
