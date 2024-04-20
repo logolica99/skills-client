@@ -223,6 +223,39 @@ export default function CourseDetailsPage() {
     return () => clearInterval(intervalId);
   }, [courseData]);
 
+  const purchaseFreeCourse = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        BACKEND_URL + "/user/course/applyCoupon/" + COURSE_ID,
+        {
+          coupon: couponCode,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        setUser({ ...user, loading: false });
+
+        setPrebookButtonLoading(false);
+
+        toast.success("You have sucessfully bought this course!");
+        setCourseData({
+          ...courseData,
+          isTaken: true,
+        });
+       
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+        toast.error("Wrong Coupon Code!");
+        setPrebookButtonLoading(false);
+      });
+  };
+
   const [prebookButtonLoading, setPrebookButtonLoading] = useState(false);
 
   const [openBuyCourse, setOpenBuyCourse] = useState(false);
@@ -2200,6 +2233,7 @@ export default function CourseDetailsPage() {
                         <button
                           onClick={() => {
                             if (isLoggedIn()) {
+                              const token = localStorage.getItem("token");
                               // setPrebookButtonLoading(true);
 
                               // const token = localStorage.getItem("token");
@@ -2250,6 +2284,50 @@ export default function CourseDetailsPage() {
                                 });
                                 toast.success("Discount Applied!");
                               } else if (couponCode == "CPSUPERSPECIAL") {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 3000,
+                                });
+                                toast.success("Discount Applied!");
+                              } else if (
+                                couponCode == "cvpc-habib-50" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "h.r.sihab155@gmail.com"
+                              ) {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 3000,
+                                });
+                                toast.success("Discount Applied!");
+                              } else if (
+                                couponCode == "cvpc-nadim-50" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "azizul.haque.nadim.47@gmail.com"
+                              ) {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 3000,
+                                });
+                                toast.success("Discount Applied!");
+                              } else if (
+                                couponCode == "cvpc-fahim-50" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "alfahim.ru@gmail.com"
+                              ) {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 3000,
+                                });
+                                toast.success("Discount Applied!");
+                              } else if (
+                                couponCode == "cvpc-rifat-50" &&
+                                token &&
+                                jwtDecode<any>(token).profile.email ==
+                                  "kazirifatalmuin246@gmail.com"
+                              ) {
                                 setCourseData({
                                   ...courseData,
                                   price: 3000,
