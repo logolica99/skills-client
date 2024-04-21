@@ -235,8 +235,8 @@ export default function CourseDetailsPage() {
 
   const submitProgress = (module_id: any, score: any) => {
     const token = localStorage.getItem("token");
-    const module = findObjectById(courseData, module_id);
-    if (module.is_live) {
+    const module_search = findObjectById(courseData, module_id);
+    if (module_search.is_live) {
       axios
         .post(
           `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${activeModule?.data?.category}`,
@@ -1038,9 +1038,9 @@ export default function CourseDetailsPage() {
                   <button
                     onClick={() => {
                       // submitProgress(24);
-                      const module = findObjectBySerial(courseData, 48);
-                      submitProgress(module.id, module.score);
-                      setActiveModule(module);
+                      const module_search = findObjectBySerial(courseData, 48);
+                      submitProgress(module_search.id, module_search.score);
+                      setActiveModule(module_search);
                     }}
                     className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                   >
