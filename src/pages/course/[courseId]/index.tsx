@@ -93,6 +93,7 @@ export default function CourseDetailsPage() {
   const [quizVerdict, setQuizVerdict] = useState([]);
   const [newDiscussion, setNewDiscussion] = useState<any>("");
   const [showQuizAnswer, setShowQuizAnswer] = useState(false);
+  const [comments, setComments] = useState([]);
   const activeModuleRef = useRef<any>();
   const nonActiveModuleRef = useRef<any>();
 
@@ -342,6 +343,7 @@ export default function CourseDetailsPage() {
 
   const fetchDiscussions = () => {
     const token = localStorage.getItem("token");
+    setDiscussions([]);
 
     axios
       .get(BACKEND_URL + `/user/module/discussion/list/${activeModule.id}`, {
@@ -350,7 +352,6 @@ export default function CourseDetailsPage() {
         },
       })
       .then((res) => {
-        setDiscussions([]);
         setDiscussions(res.data.data);
       })
       .catch((err) => {});
