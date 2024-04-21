@@ -59,6 +59,26 @@ function findObjectBySerial(data: any, targetSerial: any) {
   // If no match is found, return undefined
   return undefined;
 }
+function findObjectById(data: any, targetId: any) {
+  // Check if chapters exist in the data
+  const chapters = data?.chapters || [];
+
+  // Iterate through chapters
+  for (const chapter of chapters) {
+    // Check if modules exist in the current chapter
+    const modules = chapter?.modules || [];
+
+    // Iterate through modules searching for matching serial key
+    for (let result of modules) {
+      if (result.id === targetId) {
+        return result;
+      }
+    }
+  }
+
+  // If no match is found, return undefined
+  return undefined;
+}
 
 function formatTime(timestamp: any) {
   const date = new Date(timestamp * 1000);
@@ -215,45 +235,48 @@ export default function CourseDetailsPage() {
 
   const submitProgress = (module_id: any, score: any) => {
     const token = localStorage.getItem("token");
-    axios
-      .post(
-        `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${activeModule?.data?.category}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      .then((res) => {
-        axios
-          .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+    const module = findObjectById(courseData, module_id);
+    if (module.is_live) {
+      axios
+        .post(
+          `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${activeModule?.data?.category}`,
+          {},
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          })
-          .then((res) => {
-            setCourseData(res.data);
-            if (res.data.maxModuleSerialProgress === 0) {
-              submitProgress(
-                res.data.chapters[0].modules[0].id,
-                res.data.chapters[0].modules[0].score,
-              );
-            }
+          },
+        )
+        .then((res) => {
+          axios
+            .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              setCourseData(res.data);
+              if (res.data.maxModuleSerialProgress === 0) {
+                submitProgress(
+                  res.data.chapters[0].modules[0].id,
+                  res.data.chapters[0].modules[0].score,
+                );
+              }
 
-            setUser({
-              ...user,
-              loading: false,
-              scoreTrigger: !user.scoreTrigger,
+              setUser({
+                ...user,
+                loading: false,
+                scoreTrigger: !user.scoreTrigger,
+              });
+            })
+            .catch((err) => {
+              setUser({ ...user, loading: false });
             });
-          })
-          .catch((err) => {
-            setUser({ ...user, loading: false });
-          });
-      })
-      .catch((err) => {
-        setUser({ ...user, loading: false });
-      });
+        })
+        .catch((err) => {
+          setUser({ ...user, loading: false });
+        });
+    }
   };
 
   const submitQuiz = () => {
@@ -1014,7 +1037,10 @@ export default function CourseDetailsPage() {
                 {activeModule.serial < 48 && (
                   <button
                     onClick={() => {
-                      setActiveModule(findObjectBySerial(courseData, 48));
+                      // submitProgress(24);
+                      const module = findObjectBySerial(courseData, 48);
+                      submitProgress(module.id, module.score);
+                      setActiveModule(module);
                     }}
                     className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                   >
@@ -1103,15 +1129,13 @@ export default function CourseDetailsPage() {
                     }}
                     className={`py-2 mt-5 px-6  hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg
                     ${
-                      activeModule.serial + 1 >
-                      courseData.maxModuleSerialProgress
+                      activeModule.serial > courseData.maxModuleSerialProgress
                         ? "bg-gray-300/30 cursor-not-allowed"
                         : "bg-[#532e62]"
                     }
                     `}
                     disabled={
-                      activeModule.serial + 1 >
-                      courseData.maxModuleSerialProgress
+                      activeModule.serial > courseData.maxModuleSerialProgress
                     }
                   >
                     Next
