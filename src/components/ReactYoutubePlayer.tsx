@@ -42,7 +42,7 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
             }}
             loop={false}
             playbackRate={playbackRate}
-            height={`${handleFullScreen.active ? "80vh" : "50vh"}`}
+            height={`${handleFullScreen.active ? "94vh" : "50vh"}`}
        
             width="100%"
             ref={player}
