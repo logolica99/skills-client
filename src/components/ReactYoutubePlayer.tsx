@@ -42,7 +42,8 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
             }}
             loop={false}
             playbackRate={playbackRate}
-            height={`${handleFullScreen.active ? "94vh" : "50vh"}`}
+            height={`${handleFullScreen.active ? "80vh" : "50vh"}`}
+       
             width="100%"
             ref={player}
             onEnded={() => {
@@ -60,12 +61,12 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
           />
         </div>
         <div className="bg-gray-900 rounded-b-lg text-white p-4 pt-0  ">
-        <div className="w-full   md:hidden ">
+          <div className="w-full   md:hidden ">
             <div className="flex items-center gap-2 mb-1 pt-2">
               <Duration className={""} seconds={duration * seek.played} /> /{" "}
               <Duration className={""} seconds={duration} />
             </div>
-          
+
             <Slider
               barClassName=" bg-[#B153E0]"
               className="text-[#B153E0] "
@@ -73,7 +74,6 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
               value={seek.played * 100}
               onMouseDown={() => {}}
               onMouseUp={(e: any) => {
-                
                 // player.seekTo(parseFloat(e.target.value));
               }}
               onChange={(e: any) => {
@@ -148,7 +148,6 @@ const ReactYoutubePlayer = ({ videoUrl }: { videoUrl: string }) => {
                 defaultValue={0}
                 value={seek.played * 100}
                 onMouseDown={() => {}}
-               
                 onChange={(e: any) => {
                   player.current.seekTo(parseFloat(e.target.value) / 100);
                   setSeek({
