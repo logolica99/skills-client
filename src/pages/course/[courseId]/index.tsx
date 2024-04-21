@@ -60,6 +60,16 @@ function findObjectBySerial(data: any, targetSerial: any) {
   return undefined;
 }
 
+function formatTime(timestamp: any) {
+  const date = new Date(timestamp * 1000);
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = date.toLocaleString("en-US", { month: "short" });
+
+  return `${hours}:${minutes}, ${day} ${month}`;
+}
+
 export default function CourseDetailsPage() {
   const cancelButtonRef = useRef(null);
 
@@ -97,28 +107,27 @@ export default function CourseDetailsPage() {
   };
 
   const submitNewDiscussion = () => {
-    setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
-    axios
-      .post(
-        BACKEND_URL + "/user/module/discussion/create/" + activeModule.id,
-        {
-          content: newDiscussion,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+    if (newDiscussion.length > 0) {
+      axios
+        .post(
+          BACKEND_URL + "/user/module/discussion/create/" + activeModule.id,
+          {
+            content: newDiscussion,
           },
-        },
-      )
-      .then((res) => {
-        fetchDiscussions();
-        setNewDiscussion("");
-        setUser({ ...user, loading: false });
-      })
-      .catch((err) => {
-        setUser({ ...user, loading: false });
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        .then((res) => {
+          fetchDiscussions();
+          setNewDiscussion("");
+          toast.success("Your comment was added!");
+        })
+        .catch((err) => {});
+    }
   };
 
   const checkCFStatus = () => {
@@ -276,6 +285,7 @@ export default function CourseDetailsPage() {
     setQuizAnswer([]);
     setQuizVerdict([]);
     setShowQuizAnswer(false);
+    fetchDiscussions();
   }, [activeModule]);
 
   const submitAssignment = (e: any) => {
@@ -331,7 +341,6 @@ export default function CourseDetailsPage() {
   };
 
   const fetchDiscussions = () => {
-    setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
 
     axios
@@ -341,12 +350,10 @@ export default function CourseDetailsPage() {
         },
       })
       .then((res) => {
+        setDiscussions([]);
         setDiscussions(res.data.data);
-        setUser({ ...user, loading: false });
       })
-      .catch((err) => {
-        setUser({ ...user, loading: false });
-      });
+      .catch((err) => {});
   };
 
   const getCFHandle = () => {
@@ -1110,8 +1117,8 @@ export default function CourseDetailsPage() {
                   </button>
                 </div>
               </div>
-              <div className="mt-3">
-                <button
+              <div className="mt-10">
+                {/* <button
                   onClick={() => {
                     fetchDiscussions();
                     setOpenDiscussions(true);
@@ -1119,7 +1126,39 @@ export default function CourseDetailsPage() {
                   className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                 >
                   View Discussions
-                </button>
+                </button> */}
+                <p className="text-white font-bold text-2xl">Discussions</p>
+                <div>
+                  <textarea
+                    className="w-full px-3 py-3 rounded mb-2 resize-none bg-gray-200/20 outline-none focus:ring ring-gray-300/80 text-white"
+                    placeholder="Write a question or an answer"
+                    value={newDiscussion}
+                    onChange={(e) => {
+                      setNewDiscussion(e.target.value);
+                    }}
+                  />
+                  <div className="flex justify-end mb-4">
+                    <button
+                      onClick={submitNewDiscussion}
+                      className="py-2 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+                {discussions.map((elem: any) => (
+                  <div className="my-4" key={elem.id}>
+                    <div className="flex justify-between items-center">
+                      <p className="text-white font-semibold">{elem.name}</p>
+                      <p className="text-sm">{formatTime(elem.timestamp)}</p>
+                    </div>
+                    <div className="flex">
+                      <p className="p-2 px-3 mt-2 rounded bg-gray-300/5 text-white border border-gray-300/30 rounded-tl-none">
+                        {elem.content}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
             <div style={{ flex: 1 }} className="z-10 relative">
