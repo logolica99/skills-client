@@ -93,11 +93,12 @@ export default function CourseDetailsPage() {
       });
   };
 
-  const submitProgress = (module_id: any) => {
+  const submitProgress = (module_id: any, score: any) => {
     const token = localStorage.getItem("token");
+
     axios
       .post(
-        `${BACKEND_URL}/user/module/addProgress/${module_id}`,
+        `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${problemData?.data?.category}`,
         {},
         {
           headers: {
@@ -341,7 +342,8 @@ int main(){
                             {" "}
                             {problemData.title}
                           </span>{" "}
-                          won{`'`}t give you points. Try solving it yourself first!
+                          won{`'`}t give you points. Try solving it yourself
+                          first!
                         </p>
                       </div>
                     </div>
@@ -1043,7 +1045,10 @@ int main(){
                                 message: res.data.data.message,
                               });
                               if (res.data.data.status === "Accepted") {
-                                submitProgress(problemData.id);
+                                submitProgress(
+                                  problemData.id,
+                                  problemData.score,
+                                );
                               }
                               setsubmitButtonLoading(false);
                             })
