@@ -140,21 +140,14 @@ export default function Nav({}: Props) {
                 </Link>
               )} */}
 
-              {/* {isLogged ? (
+              {isLogged ? (
                 <Link
                   href="/course/12"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   আপনার প্রোগ্রেস
                 </Link>
-              ) : (
-                <Link
-                  href="/course/12"
-                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
-                >
-                  ফ্রি ট্রায়াল
-                </Link>
-              )} */}
+              ) : ""}
 
               {/* {isLogged && (
                 <Link
