@@ -310,6 +310,18 @@ export default function CourseDetailsPage() {
     setQuizVerdict([]);
     setShowQuizAnswer(false);
     fetchDiscussions();
+    if (
+      (activeModule?.is_free || courseData?.isTaken) &&
+      activeModule?.serial > courseData?.maxModuleSerialProgress
+    ) {
+      if (
+        activeModule?.data?.category === "VIDEO" ||
+        activeModule?.data?.category === "PDF" ||
+        activeModule?.data?.category === "TEXT"
+      ) {
+        submitProgress(activeModule.id, activeModule.score);
+      }
+    }
   }, [activeModule]);
 
   const submitAssignment = (e: any) => {
