@@ -2215,7 +2215,13 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div> */}
-                    <p className="text-orange-800 dark:text-orange-600 text-center text-xl font-semibold">কম্পেটিটিভ প্রোগ্রামিং ব্যাচ ১ এর এনরোলমেন্ট বন্ধ আছে। GST এর রেজাল্ট এর পর শুধুমাত্র ৩ দিনের জন্যে এনরোলমেন্ট চালু করে আবার বন্ধ করে দেয়া হবে</p>
+                    {!courseData.isTaken && (
+                      <p className="text-orange-800 dark:text-orange-600 text-center text-xl font-semibold">
+                        কম্পেটিটিভ প্রোগ্রামিং ব্যাচ ১ এর এনরোলমেন্ট বন্ধ আছে।
+                        GST এর রেজাল্ট এর পর শুধুমাত্র ৩ দিনের জন্যে এনরোলমেন্ট
+                        চালু করে আবার বন্ধ করে দেয়া হবে
+                      </p>
+                    )}
                   </div>
                   {/* {!courseData.isTaken && (
                     <div className="mt-6">
