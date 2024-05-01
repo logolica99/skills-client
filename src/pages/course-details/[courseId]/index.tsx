@@ -2126,16 +2126,15 @@ export default function CourseDetailsPage() {
                       </div>
                     ))}
                   </div>
-                  {/* <div className="mt-4 border-t py-4 border-b  border-gray-300/30"> */}
-            
-                  {/* <p className="text-xl font-bold">
+                  <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
+                    {/* <p className="text-xl font-bold">
                     {englishToBanglaNumbers(
                       calculateRemainingDays(courseData?.chips?.deadline),
                     )}{" "}
                   দিন বাকি প্রি বুক এর
                   </p> */}
 
-                  {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                    {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
                     <svg
                       width="18"
                       height="18"
@@ -2151,7 +2150,7 @@ export default function CourseDetailsPage() {
                     প্রি বুকিং এর বাকি{" "}
                     {calculateRemainingDays(courseData?.chips?.deadline)} দিন
                   </div> */}
-                  {/* <div className="">
+                    <div className="">
                       <div className="flex  text-sm justify-center">
                         <p className="text-heading dark:text-darkHeading mr-16  font-bold text-lg">
                           অবশিষ্ট সময়
@@ -2215,18 +2214,9 @@ export default function CourseDetailsPage() {
                           </p>
                         </div>
                       </div>
-                    </div> */}
-                  {/* </div> */}
-                  {!courseData.isTaken && (
-                    <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
-                      <p className="text-orange-800 dark:text-orange-600 text-center text-xl font-semibold">
-                        কম্পেটিটিভ প্রোগ্রামিং ব্যাচ ১ এর এনরোলমেন্ট বন্ধ আছে।
-                        GST এর রেজাল্ট এর পর শুধুমাত্র ৩ দিনের জন্যে এনরোলমেন্ট
-                        চালু করে আবার বন্ধ করে দেয়া হবে
-                      </p>
                     </div>
-                  )}
-                  {/* {!courseData.isTaken && (
+                  </div>
+                  {!courseData.isTaken && (
                     <div className="mt-6">
                       <p className="text-lg font-semibold mb-1">Enter Coupon</p>
                       <div className="flex items-center gap-2">
@@ -2280,7 +2270,13 @@ export default function CourseDetailsPage() {
                               //     toast.error("Wrong Coupon Code!");
                               //     setPrebookButtonLoading(false);
                               //   });
-                              if (couponCode == "CPSPECIAL") {
+                              if (couponCode == "GSTSPECIAL23") {
+                                setCourseData({
+                                  ...courseData,
+                                  price: 4500,
+                                });
+                                toast.success("Discount Applied!");
+                              } else if (couponCode == "CPSPECIAL") {
                                 setCourseData({
                                   ...courseData,
                                   price: 4000,
@@ -2414,7 +2410,7 @@ export default function CourseDetailsPage() {
                         </button>
                       </div>
                     </div>
-                  )} */}
+                  )}
                   {/* {courseData.isTaken ? (
                   <Link
                     href="/course/12"
@@ -2438,14 +2434,14 @@ export default function CourseDetailsPage() {
                   </button>
                 )} */}
                   <div className="flex gap-4">
-                    {/* {!courseData.isTaken && (
+                    {!courseData.isTaken && (
                       <Link
                         href="/free-preview"
                         className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
                       >
                         Free Preview
                       </Link>
-                    )} */}
+                    )}
                     {courseData.isTaken ? (
                       <Link
                         href="/course/12"
@@ -2454,20 +2450,19 @@ export default function CourseDetailsPage() {
                         কোর্স দেখুন
                       </Link>
                     ) : (
-                      ""
-                      // <button
-                      //   onClick={() => {
-                      //     if (isLoggedIn()) {
-                      //       setOpenBuyCourse(true);
-                      //     } else {
-                      //       window.location.href =
-                      //         "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
-                      //     }
-                      //   }}
-                      //   className="bg-purple text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
-                      // >
-                      //   কোর্সটি কিনুন
-                      // </button>
+                      <button
+                        onClick={() => {
+                          if (isLoggedIn()) {
+                            setOpenBuyCourse(true);
+                          } else {
+                            window.location.href =
+                              "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
+                          }
+                        }}
+                        className="bg-purple text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                      >
+                        কোর্সটি কিনুন
+                      </button>
                     )}
                   </div>
                 </div>
