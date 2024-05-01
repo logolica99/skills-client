@@ -2063,7 +2063,7 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শুরু
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ১ এপ্রিল
+                          ১ মে
                         </p>
                       </div>
                     </div>
@@ -2073,7 +2073,7 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শেষ
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ২০ এপ্রিল
+                          ১০ মে
                         </p>
                       </div>
                     </div>
