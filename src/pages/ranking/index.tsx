@@ -23,6 +23,7 @@ export default function Ranking({}: Props) {
   const [firstThree, setFirstThree] = useState<any>([]);
   const [myPosition, setMyposition] = useState<any>({});
   const [positions, setPositions] = useState<any>([]);
+  const [firstCalled, setFirstCalled] = useState(false);
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
@@ -41,11 +42,25 @@ export default function Ranking({}: Props) {
         },
       )
       .then((res) => {
-        setPositions(res.data.data.allPositions);
+        const tempPositions = [...positions, ...res.data.data.allPositions];
+
+        const sortedData = tempPositions.sort((a, b) => {
+          // Parse the rank values as numbers for proper comparison
+          const rankA = parseInt(a.rank, 10);
+          const rankB = parseInt(b.rank, 10);
+
+          // Sort by rank in ascending order
+          if (rankA < rankB) return -1;
+          if (rankA > rankB) return 1;
+          return 0; // If ranks are equal, maintain original order
+        });
+        setPositions(sortedData);
+
         setFirstThree(res.data.data.top3Positions);
         setMyposition(res.data.data.myData);
 
         setUser({ ...user, loading: false });
+        setFirstCalled(true);
       })
       .catch((err) => {
         setUser({ ...user, loading: false });
@@ -86,10 +101,11 @@ export default function Ranking({}: Props) {
         setUser({ ...user, loading: false });
       });
   };
-
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchRanking();
   }, []);
+  useEffect(() => {}, []);
   useEffect(() => {
     fetchMoreRanking();
   }, [currentPage]);
@@ -524,7 +540,9 @@ export default function Ranking({}: Props) {
                 <InfiniteScroll
                   dataLength={positions.length}
                   next={() => {
-                    setCurrentPage((prev: any) => prev + 1);
+                    if (firstCalled) {
+                      setCurrentPage((prev: any) => prev + 1);
+                    }
                   }}
                   hasMore={true}
                   loader={
