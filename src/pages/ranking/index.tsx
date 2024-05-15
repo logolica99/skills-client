@@ -529,10 +529,10 @@ export default function Ranking({}: Props) {
                   hasMore={true}
                   loader={
                     <div className="text-center mt-8">
-                      <PulseLoader
+                      <SyncLoader
                         color={"#B153E0"}
                         loading={true}
-                        size={20}
+                        size={6}
                         aria-label="Loading Spinner"
                         data-testid="loader"
                       />
