@@ -48,6 +48,7 @@
     "react-parallax-tilt": "^1.7.168",
     "react-player": "^2.15.1",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
     "react-syntax-highlighter": "^15.5.0",
     "react-toggle-dark-mode": "^1.1.1",
     "react-visibility-sensor": "^5.1.1",

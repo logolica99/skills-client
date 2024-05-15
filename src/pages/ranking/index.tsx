@@ -1,5 +1,6 @@
 import React, { use, useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { PulseLoader, SyncLoader } from "react-spinners";
 
 type Props = {};
 
@@ -56,7 +57,7 @@ export default function Ranking({}: Props) {
     axios
       .get(
         BACKEND_URL +
-          `/user/course/getRanking/3?offset=${currentPage}&limit=10`,
+          `/user/course/getRanking/${COURSE_ID}?offset=${currentPage * 10}&limit=10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,6 +65,19 @@ export default function Ranking({}: Props) {
         },
       )
       .then((res) => {
+        // const tempPositions = [...positions, ...res.data.data.allPositions];
+        // const sortedData = tempPositions.sort((a, b) => {
+        //   // Parse the rank values as numbers for proper comparison
+        //   const rankA = parseInt(a.rank, 10);
+        //   const rankB = parseInt(b.rank, 10);
+
+        //   // Sort by rank in ascending order
+        //   if (rankA < rankB) return -1;
+        //   if (rankA > rankB) return 1;
+        //   return 0; // If ranks are equal, maintain original order
+        // });
+        // setPositions(sortedData);
+
         setPositions((prev: any) => [...prev, ...res.data.data.allPositions]);
 
         setUser({ ...user, loading: false });
@@ -76,6 +90,9 @@ export default function Ranking({}: Props) {
   useEffect(() => {
     fetchRanking();
   }, []);
+  useEffect(() => {
+    fetchMoreRanking();
+  }, [currentPage]);
 
   return (
     <ProtectedRoute>
@@ -505,13 +522,22 @@ export default function Ranking({}: Props) {
                 <div className="my-4 bg-gray-300/30 h-[1px]"></div>
 
                 <InfiniteScroll
-                  dataLength={10 * currentPage}
+                  dataLength={positions.length}
                   next={() => {
                     setCurrentPage((prev: any) => prev + 1);
-                    fetchMoreRanking();
                   }}
                   hasMore={true}
-                  loader={<h4>Loading...</h4>}
+                  loader={
+                    <div className="text-center mt-8">
+                      <PulseLoader
+                        color={"#B153E0"}
+                        loading={true}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />
+                    </div>
+                  }
                 >
                   {positions?.map((position: any, index: number) => (
                     <div

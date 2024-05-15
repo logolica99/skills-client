@@ -124,12 +124,12 @@ export default function Nav({}: Props) {
                 />
               </Link>
               {/* {isLogged && ( */}
-                <Link
-                  href="/course-details/12"
-                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
-                >
-               কোর্স ডিটেইলস 
-                </Link>
+              <Link
+                href="/course-details/12"
+                className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
+              >
+                কোর্স ডিটেইলস
+              </Link>
               {/* )} */}
               {/* {isLogged && (
                 <Link
@@ -147,16 +147,18 @@ export default function Nav({}: Props) {
                 >
                   আপনার প্রোগ্রেস
                 </Link>
-              ) : ""}
+              ) : (
+                ""
+              )}
 
-              {/* {isLogged && (
+              {isLogged && (
                 <Link
                   href="/ranking"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
-              )} */}
+              )}
             </div>
 
             {isLogged ? (
@@ -384,14 +386,14 @@ export default function Nav({}: Props) {
                 </Link>
               )}
 
-              {/* {isLogged && (
+              {isLogged && (
                 <Link
                   href="/ranking"
                   className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
-              )} */}
+              )}
             </div>
 
             {!isLogged ? (
