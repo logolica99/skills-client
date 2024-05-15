@@ -151,14 +151,14 @@ export default function Nav({}: Props) {
                 ""
               )}
 
-              {isLogged && (
+              {/* {isLogged && (
                 <Link
                   href="/ranking"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
-              )}
+              )} */}
             </div>
 
             {isLogged ? (
@@ -386,14 +386,14 @@ export default function Nav({}: Props) {
                 </Link>
               )}
 
-              {isLogged && (
+              {/* {isLogged && (
                 <Link
                   href="/ranking"
                   className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   র‍্যাঙ্কিং
                 </Link>
-              )}
+              )} */}
             </div>
 
             {!isLogged ? (
