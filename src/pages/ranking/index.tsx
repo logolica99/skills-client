@@ -65,20 +65,20 @@ export default function Ranking({}: Props) {
         },
       )
       .then((res) => {
-        // const tempPositions = [...positions, ...res.data.data.allPositions];
-        // const sortedData = tempPositions.sort((a, b) => {
-        //   // Parse the rank values as numbers for proper comparison
-        //   const rankA = parseInt(a.rank, 10);
-        //   const rankB = parseInt(b.rank, 10);
+        const tempPositions = [...positions, ...res.data.data.allPositions];
+        const sortedData = tempPositions.sort((a, b) => {
+          // Parse the rank values as numbers for proper comparison
+          const rankA = parseInt(a.rank, 10);
+          const rankB = parseInt(b.rank, 10);
 
-        //   // Sort by rank in ascending order
-        //   if (rankA < rankB) return -1;
-        //   if (rankA > rankB) return 1;
-        //   return 0; // If ranks are equal, maintain original order
-        // });
-        // setPositions(sortedData);
+          // Sort by rank in ascending order
+          if (rankA < rankB) return -1;
+          if (rankA > rankB) return 1;
+          return 0; // If ranks are equal, maintain original order
+        });
+        setPositions(sortedData);
 
-        setPositions((prev: any) => [...prev, ...res.data.data.allPositions]);
+        // setPositions((prev: any) => [...prev, ...res.data.data.allPositions]);
 
         setUser({ ...user, loading: false });
       })
