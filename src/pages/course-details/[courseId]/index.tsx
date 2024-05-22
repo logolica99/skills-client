@@ -2375,6 +2375,13 @@ export default function CourseDetailsPage() {
                               ) {
                                 purchaseFreeCourse();
                               } else if (
+                                couponCode == "CP100SPECIAL" &&
+                                token &&
+                                jwtDecode<any>(token).login ==
+                                  "01761986057"
+                              ) {
+                                purchaseFreeCourse();
+                              } else if (
                                 couponCode == "cvpc-hasan-100" &&
                                 token &&
                                 jwtDecode<any>(token).profile.email ==
