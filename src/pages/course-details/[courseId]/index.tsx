@@ -2381,7 +2381,23 @@ export default function CourseDetailsPage() {
                                   "01761986057"
                               ) {
                                 purchaseFreeCourse();
-                              } else if (
+                              }else if (
+                                couponCode == "CPFREE87G5" &&
+                                token &&
+                                jwtDecode<any>(token).login ==
+                                  "01712842755"
+                              ) {
+                                purchaseFreeCourse();
+                              }
+                                else if (
+                                couponCode == "CPFREE87G5" &&
+                                token &&
+                                jwtDecode<any>(token).login ==
+                                  "01775120752"
+                              ) {
+                                purchaseFreeCourse();
+                              }
+                              else if (
                                 couponCode == "cvpc-hasan-100" &&
                                 token &&
                                 jwtDecode<any>(token).profile.email ==
