@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import React, { useState, useContext, useEffect } from "react";
 import { HindSiliguri } from "@/helpers";
 import axios from "axios";
-import { BACKEND_URL } from "@/api.config";
+import { BACKEND_URL, COURSE_ID } from "@/api.config";
 import { UserContext } from "@/Contexts/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,11 +10,141 @@ import { isLoggedIn } from "@/helpers";
 import FloatingCompiler from "@/components/FloatingCompiler";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Footer from "@/components/Footer";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { PulseLoader, SyncLoader } from "react-spinners";
 
 type Props = {};
+function formatTimestamp(timestamp: any) {
+  const date = new Date(timestamp);
 
+  // Get the day, month, year
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  // Get the month name
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const month = monthNames[date.getMonth()];
+
+  // Get the hours and minutes
+  let hours = date.getHours();
+  let minutes: any = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+
+  // Convert hours to 12-hour format
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+
+  // Add leading zero to minutes if needed
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+
+  // Format the date string
+  const formattedDate = `${day} ${month} ${year},  ${hours}:${minutes}${ampm}`;
+
+  return formattedDate;
+}
 export default function NotificationPage({}: Props) {
   const [user, setUser] = useContext<any>(UserContext);
+  const [token, setToken] = useState<any>("");
+  const [firstCalled, setFirstCalled] = useState(false);
+  const [currentPage, setCurrentPage] = useState<any>(0);
+  const [notifications, setNotifications] = useState<any>([]);
+  const [hasMoreNotifications, setHasMoreNotifications] = useState<any>(true);
+  const notificationPerpageLimit = 10;
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
+
+  const markAllAsRead = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        BACKEND_URL + `/user/notification/markAllAsRead?courseId=${COURSE_ID}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {})
+      .catch((err) => {});
+  };
+
+  const fetchNotifications = () => {
+    const token = localStorage.getItem("token");
+    setUser({ ...user, loading: true });
+
+    axios
+      .get(
+        BACKEND_URL +
+          `/user/notification/list?offset=${currentPage}&limit=${notificationPerpageLimit}&courseId=${COURSE_ID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        setNotifications(res.data.data);
+        if (res.data.data.length < notificationPerpageLimit) {
+          setHasMoreNotifications(false);
+        }
+        setUser({ ...user, loading: false });
+        setFirstCalled(true);
+        markAllAsRead();
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
+  };
+  const fetchMoreNotifications = () => {
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(
+        BACKEND_URL +
+          `/user/notification/list?offset=${currentPage * notificationPerpageLimit}&limit=${notificationPerpageLimit}&courseId=${COURSE_ID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        if (res.data.data.length < notificationPerpageLimit) {
+          setHasMoreNotifications(false);
+        }
+        let tempNotifications = [...notifications, ...res.data.data];
+        setNotifications(tempNotifications);
+
+        setUser({ ...user, loading: false });
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    fetchNotifications();
+  }, []);
+
+  useEffect(() => {
+    fetchMoreNotifications();
+  }, [currentPage]);
 
   return (
     <ProtectedRoute>
@@ -83,7 +213,7 @@ export default function NotificationPage({}: Props) {
               <p className="text-paragraph dark:text-darkParagraph mt-2 ">
                 এখানে আপনি আপনার সমস্ত নোটিফিকেশানস দেখতে পাবেন
               </p>
-              <div className="mt-10">
+              {/* <div className="mt-10">
                 <div className="flex items-center  gap-8 hover:opacity-70 ease-in-out duration-150 cursor-pointer dark:bg-gray-300/20 bg-gray-400/80  backdrop-blur-lg  rounded-lg my-4 p-8">
                   <svg
                     width="20"
@@ -142,6 +272,91 @@ export default function NotificationPage({}: Props) {
                     </p>
                   </div>
                 </div>
+              </div> */}
+              <div className="mt-10">
+                <InfiniteScroll
+                  dataLength={notifications.length}
+                  next={() => {
+                    if (firstCalled) {
+                      setCurrentPage((prev: any) => prev + 1);
+                    }
+                  }}
+                  hasMore={hasMoreNotifications}
+                  loader={
+                    <div className="text-center mt-8">
+                      <SyncLoader
+                        color={"#B153E0"}
+                        loading={true}
+                        size={6}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />
+                    </div>
+                  }
+                >
+                  {notifications.map((notification: any, index: any) => (
+                    <div key={Math.random()} className="my-4">
+                      <div
+                        className={`flex items-center  gap-8 hover:opacity-70 ease-in-out duration-150 cursor-pointer ${notification.is_read ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
+                      >
+                        <svg
+                        
+                          width="20"
+                          height="23"
+                          viewBox="0 0 20 23"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M13.4673 19.5024C13.2242 21.1987 11.7652 22.5025 10.0016 22.5025C8.23812 22.5025 6.77911 21.1987 6.536 19.5024H13.4673ZM10.0016 0.5C14.6114 0.5 18.3642 4.16899 18.4991 8.74605V9.00124H18.5029L18.5026 13.113L19.9167 16.7573C19.9548 16.8557 19.9806 16.9583 19.9936 17.0627L20.0033 17.2203C20.0033 17.883 19.4996 18.4281 18.8542 18.4937L18.7233 18.5003H1.27644C1.11773 18.5003 0.960407 18.4708 0.812492 18.4133C0.194816 18.173 -0.130655 17.506 0.0422008 16.8807L0.0834777 16.7563L1.49965 13.112L1.50041 9.00124C1.50041 4.30614 5.30654 0.5 10.0016 0.5Z"
+                            fill={notification.is_read?"#B1ACA9":"#EE6800"}
+                          />
+                        </svg>
+
+                        <div className=" w-full ">
+                          <p className="text-heading dark:text-darkHeading text-xl">
+                            {notification?.data?.body}
+                          </p>
+
+                          <p className="text-paragraph dark:text-darkParagraph">
+                            {/* 21 নভেম্বর 2022 <span className="ml-4"></span>বিকেল
+                            ৫:৪৫ */}
+                            {formatTimestamp(notification.timestamp * 1000)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {/* {positions?.map((position: any, index: number) => (
+                    <div
+                      key={Math.random()}
+                      className={`flex justify-between text-heading mb-3 dark:text-darkHeading  py-4 rounded-lg bg-gray-400/20 backdrop-blur-lg  ${
+                        index + 1 == myPosition.rank
+                          ? "dark:bg-gray-200/20"
+                          : "dark:bg-gray-200/5"
+                      }`}
+                    >
+                      <div className="flex-1 flex justify-center">
+                        <p>{index + 1}</p>
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <p> {position.name}</p>
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <p>{position.score}</p>
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <a
+                          target="_blank"
+                          className="underline"
+                          href={`https://codeforces.com/profile/${position.cf_handle}`}
+                        >
+                          {position.cf_handle}
+                        </a>
+                      </div>
+                    </div>
+                  ))} */}
+                </InfiniteScroll>
               </div>
             </div>
           </div>

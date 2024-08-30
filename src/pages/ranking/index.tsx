@@ -24,6 +24,7 @@ export default function Ranking({}: Props) {
   const [myPosition, setMyposition] = useState<any>({});
   const [positions, setPositions] = useState<any>([]);
   const [firstCalled, setFirstCalled] = useState(false);
+  
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
@@ -105,7 +106,7 @@ export default function Ranking({}: Props) {
     window.scrollTo(0, 0);
     fetchRanking();
   }, []);
-  useEffect(() => {}, []);
+
   useEffect(() => {
     fetchMoreRanking();
   }, [currentPage]);
