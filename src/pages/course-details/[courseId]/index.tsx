@@ -2216,7 +2216,7 @@ export default function CourseDetailsPage() {
                       </div>
                     </div>
                   </div>
-                  {!courseData.isTaken && (
+                  {/* {!courseData.isTaken && (
                     <div className="mt-6">
                       <p className="text-lg font-semibold mb-1">Enter Coupon</p>
                       <div className="flex items-center gap-2">
@@ -2433,7 +2433,7 @@ export default function CourseDetailsPage() {
                         </button>
                       </div>
                     </div>
-                  )}
+                  )} */}
                   {/* {courseData.isTaken ? (
                   <Link
                     href="/course/12"
@@ -2457,15 +2457,15 @@ export default function CourseDetailsPage() {
                   </button>
                 )} */}
                   <div className="flex gap-4">
-                    {!courseData.isTaken && (
+                    {/* {!courseData.isTaken && (
                       <Link
                         href="/free-preview"
                         className=" block bg-gray-600 text-center hover:opacity-30 ease-in-out duration-150 text-darkHeading py-3 w-full mt-8 rounded-xl font-bold"
                       >
                         Free Preview
                       </Link>
-                    )}
-                    {courseData.isTaken ? (
+                    )} */}
+                    {/* {courseData.isTaken ? (
                       <Link
                         href="/course/12"
                         className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
@@ -2486,6 +2486,14 @@ export default function CourseDetailsPage() {
                       >
                         কোর্সটি কিনুন
                       </button>
+                    )} */}
+                    {courseData.isTaken && (
+                      <Link
+                        href="/course/12"
+                        className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                      >
+                        কোর্স দেখুন
+                      </Link>
                     )}
                   </div>
                 </div>
