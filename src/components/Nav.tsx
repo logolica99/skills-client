@@ -142,7 +142,7 @@ export default function Nav({}: Props) {
 
               {isLogged ? (
                 <Link
-                  href="/course/12"
+                  href="/course"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   আপনার প্রোগ্রেস
