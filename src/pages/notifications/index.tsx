@@ -58,6 +58,7 @@ function formatTimestamp(timestamp: any) {
 }
 
 export default function NotificationPage({}: Props) {
+  const router = useRouter();
   const [user, setUser] = useContext<any>(UserContext);
   const [token, setToken] = useState<any>("");
   const [firstCalled, setFirstCalled] = useState(false);
@@ -71,6 +72,7 @@ export default function NotificationPage({}: Props) {
   const notificationPerpageLimit = 10;
 
   function populateNotificationDialog(notification: any): void {
+    console.log(notification);
     setNotificationTitle(notification.data.title ?? "<N/A>");
     setNotificationTime(formatTimestamp(notification.timestamp * 1000));
     setNotificationBody(notification.data.body ?? "<N/A>");
@@ -389,7 +391,16 @@ export default function NotificationPage({}: Props) {
                       <div
                         className={`flex items-center  gap-8 hover:opacity-70 ease-in-out duration-150 cursor-pointer ${notification.is_read ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
                         onClick={(): void => {
-                          populateNotificationDialog(notification);
+                          console.log(notification);
+
+                          if(notification.type === "COURSE_UPDATE") {
+                            populateNotificationDialog(notification);
+                          } else if(notification.type === "LIVE") {
+                            const token = localStorage.getItem("token");
+                            window.location.href = "https://live.codervai.com/?id=" + notification.liveclassid + "&token=" + token;  // notification.liveclassid is undefined for now
+                          } else if(notification.type === "ASSIGNMENT") {
+                            router.push(`/course/${17}/${87}`); // hardcoded for now
+                          }
                         }}
                       >
                         <svg
