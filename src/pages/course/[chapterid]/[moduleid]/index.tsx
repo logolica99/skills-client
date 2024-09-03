@@ -196,15 +196,37 @@ export default function CourseDetailsPage() {
           );
         }
 
+        let targetModule: any = null;
+        let lastValidModule: any = null;
+
         res.data.chapters.forEach((chapter: any) => {
           chapter.modules.forEach((module: any) => {
-            console.log(module.chapter_id);
+            if (
+              module.id === parseInt(router.query.moduleid as string) &&
+              module.chapter_id === parseInt(router.query.chapterid as string) &&
+              module.serial <= res.data.maxModuleSerialProgress + 1
+            ) {
+              targetModule = module;
+            }
 
-            if (module.id === parseInt(router.query.moduleid as string) && module.chapter_id === parseInt(router.query.chapterid as string)) {
-              setActiveModule(module);
+            if(module.serial === res.data.maxModuleSerialProgress + 1) {
+              lastValidModule = module;
             }
           });
         });
+
+        if(targetModule !== null) {
+          setActiveModule(targetModule);
+        } else if(lastValidModule !== null) {
+          router.replace(`/course/${lastValidModule.chapter_id}/${lastValidModule.id}`);
+        } else {
+          const chapters: Array<any> = res.data.chapters;
+          const chapter = chapters[chapters.length - 1]; 
+          const modules: Array<any> = chapter.modules;
+          const validModule = modules[modules.length - 1];
+          
+          router.replace(`/course/${validModule.chapter_id}/${validModule.id}`);
+        }
 
         setUser({ ...user, loading: false });
       })

@@ -51,8 +51,6 @@ export default function CourseRedirect(): JSX.Element {
           );
         }
 
-        console.log("hehe");
-
         res.data.chapters.forEach((chapter: any) => {
           chapter.modules.forEach((module: any) => {
             if (module.serial === res.data.maxModuleSerialProgress + 1) {
