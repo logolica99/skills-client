@@ -136,7 +136,7 @@ export default function CourseRedirect(): JSX.Element {
 
   useEffect(() => {
     fetchCourse();
-  }, []);
+  }, [router]);
 
   return (
     <></>
