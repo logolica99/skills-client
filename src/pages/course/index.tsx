@@ -70,7 +70,7 @@ export default function CourseRedirect(): JSX.Element {
           activeModule = modules[modules.length - 1];
         }
 
-        router.push(`/course/${activeModule.chapter_id}/${activeModule.id}`);
+        router.replace(`/course/${activeModule.chapter_id}/${activeModule.id}`);
       })
       .catch((err) => {
         setUser({ ...user, loading: false });
