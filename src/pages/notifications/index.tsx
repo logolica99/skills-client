@@ -389,7 +389,7 @@ export default function NotificationPage({}: Props) {
                   {notifications.map((notification: any, index: any) => (
                     <div key={Math.random()} className="my-4">
                       <div
-                        className={`flex items-center  gap-8 hover:opacity-70 ease-in-out duration-150 ${notification.type != "COURSE_UPDATE" && "cursor-pointer"} ${notification.is_read ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
+                        className={`flex items-center  gap-8 ${notification.type != "COURSE_UPDATE" && "hover:opacity-70"}  ease-in-out duration-150 ${notification.type != "COURSE_UPDATE" && "cursor-pointer"} ${notification.is_read ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
                         onClick={(): void => {
                           console.log(notification);
 
