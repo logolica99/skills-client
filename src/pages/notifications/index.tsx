@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, Fragment } from "react";
 import { HindSiliguri } from "@/helpers";
 import axios from "axios";
 import { BACKEND_URL, COURSE_ID } from "@/api.config";
@@ -12,6 +12,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Footer from "@/components/Footer";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PulseLoader, SyncLoader } from "react-spinners";
+import { Dialog, Transition } from "@headlessui/react";
 
 type Props = {};
 function formatTimestamp(timestamp: any) {
@@ -55,14 +56,28 @@ function formatTimestamp(timestamp: any) {
 
   return formattedDate;
 }
+
 export default function NotificationPage({}: Props) {
+  const router = useRouter();
   const [user, setUser] = useContext<any>(UserContext);
   const [token, setToken] = useState<any>("");
   const [firstCalled, setFirstCalled] = useState(false);
   const [currentPage, setCurrentPage] = useState<any>(0);
   const [notifications, setNotifications] = useState<any>([]);
   const [hasMoreNotifications, setHasMoreNotifications] = useState<any>(true);
+  const [showNotificationDialog, setShowNotificationDialog] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState("");
+  const [notificationTime, setNotificationTime] = useState("");
+  const [notificationBody, setNotificationBody] = useState("");
   const notificationPerpageLimit = 10;
+
+  function populateNotificationDialog(notification: any): void {
+    console.log(notification);
+    setNotificationTitle(notification.data.title ?? "<N/A>");
+    setNotificationTime(formatTimestamp(notification.timestamp * 1000));
+    setNotificationBody(notification.data.body ?? "<N/A>");
+    setShowNotificationDialog(true);
+  }
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -154,6 +169,83 @@ export default function NotificationPage({}: Props) {
         <Nav></Nav>
 
         <FloatingCompiler />
+        <Transition appear show={showNotificationDialog} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative "
+            style={{ zIndex: 99999 }}
+            onClose={() => {}}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="md:w-[50vw] lg:w-[40vw] text-darkHeading transform overflow-hidden  rounded-2xl bg-[#B2F100]/5  dark:bg-[#BBBBBB]/10 backdrop-blur-3xl border border-gray-300/30  text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title
+                      as="div"
+                      className="text-lg font-medium leading-6 p-2 "
+                    >
+                      <div className="flex justify-end">
+                        <button
+                          className="hover:bg-gray-300/20 p-2 mr-2 rounded"
+                          onClick={(): void => {
+                            setShowNotificationDialog(false);
+                          }}
+                        >
+                          <svg
+                            width="14"
+                            height="15"
+                            viewBox="0 0 14 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M13 1.25L1 13.25M1 1.25L13 13.25"
+                              stroke="#FBEEEC"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </Dialog.Title>
+                    <div className="border-b border-t border-black/20 dark:border-gray-300/20 py-3 px-6">
+                      <p className="text-2xl font-bold text-heading dark:text-darkHeading">
+                        {notificationTitle}
+                      </p>
+                      <p className="text-xs text-gray-700 pb-4">
+                        {notificationTime}
+                      </p>
+                      <p className="text-paragraph dark:text-darkParagraph text-sm mt-1 font-semibold">
+                        {notificationBody}
+                      </p>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
         <button
           style={{ zIndex: 999 }}
           onClick={() => {
@@ -297,10 +389,27 @@ export default function NotificationPage({}: Props) {
                   {notifications.map((notification: any, index: any) => (
                     <div key={Math.random()} className="my-4">
                       <div
-                        className={`flex items-center  gap-8 hover:opacity-70 ease-in-out duration-150 cursor-pointer ${notification.is_read ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
+                        className={`flex items-center  gap-8 ${notification.type != "COURSE_UPDATE" && "hover:opacity-70"}  ease-in-out duration-150 ${notification.type != "COURSE_UPDATE" && "cursor-pointer"} ${notification.is_read ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
+                        onClick={(): void => {
+                          console.log(notification);
+
+                          if (notification.type === "ADMIN_SIDE") {
+                            populateNotificationDialog(notification);
+                          } else if (notification.type === "LIVE") {
+                            const token = localStorage.getItem("token");
+                            window.location.href =
+                              "https://live.codervai.com/?id=" +
+                              notification?.data?.moduleData?.liveId +
+                              "&token=" +
+                              token; // notification.liveclassid is undefined for now
+                          } else if (notification.type === "ASSIGNMENT") {
+                            router.push(
+                              `/course/${notification?.data?.moduleData?.chapterId}/${notification?.data?.moduleData?.moduleId}`,
+                            ); // hardcoded for now
+                          }
+                        }}
                       >
                         <svg
-                        
                           width="20"
                           height="23"
                           viewBox="0 0 20 23"
@@ -309,13 +418,13 @@ export default function NotificationPage({}: Props) {
                         >
                           <path
                             d="M13.4673 19.5024C13.2242 21.1987 11.7652 22.5025 10.0016 22.5025C8.23812 22.5025 6.77911 21.1987 6.536 19.5024H13.4673ZM10.0016 0.5C14.6114 0.5 18.3642 4.16899 18.4991 8.74605V9.00124H18.5029L18.5026 13.113L19.9167 16.7573C19.9548 16.8557 19.9806 16.9583 19.9936 17.0627L20.0033 17.2203C20.0033 17.883 19.4996 18.4281 18.8542 18.4937L18.7233 18.5003H1.27644C1.11773 18.5003 0.960407 18.4708 0.812492 18.4133C0.194816 18.173 -0.130655 17.506 0.0422008 16.8807L0.0834777 16.7563L1.49965 13.112L1.50041 9.00124C1.50041 4.30614 5.30654 0.5 10.0016 0.5Z"
-                            fill={notification.is_read?"#B1ACA9":"#EE6800"}
+                            fill={notification.is_read ? "#B1ACA9" : "#EE6800"}
                           />
                         </svg>
 
                         <div className=" w-full ">
                           <p className="text-heading dark:text-darkHeading text-xl">
-                            {notification?.data?.body}
+                            {notification?.data?.title}
                           </p>
 
                           <p className="text-paragraph dark:text-darkParagraph">

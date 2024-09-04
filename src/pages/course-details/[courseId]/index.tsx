@@ -2489,7 +2489,7 @@ export default function CourseDetailsPage() {
                     )} */}
                     {courseData.isTaken && (
                       <Link
-                        href="/course/12"
+                        href="/course/"
                         className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                       >
                         কোর্স দেখুন
