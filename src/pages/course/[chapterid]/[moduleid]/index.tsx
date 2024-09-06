@@ -1246,10 +1246,10 @@ export default function CourseDetailsPage() {
                         Reply
                       </button>
                     </div>
-                    <div className="bg-gray-200/20 px-3 py-3 rounded ml-6">
+                    <div className=" py-1 rounded ml-6">
                       <textarea
-                        className="w-full px-3 py-3 rounded mb-2 resize-none bg-gray-200/20 bg-none outline-none focus:ring ring-gray-300/80 text-white"
-                        placeholder="Write a question or an answer"
+                        className="w-full px-2 py-2 rounded mb-2 resize-none bg-gray-200/20 bg-none outline-none focus:ring ring-gray-300/80 text-white"
+                        placeholder="Add a reply..."
                         value=""
                         onChange={(e) => {}}
                       />
@@ -1261,8 +1261,8 @@ export default function CourseDetailsPage() {
                       </div>
                     </div>
                     {subdiscussions.map((subdiscussion: any) => (
-                      <div className="ml-6">
-                        <div className="my-2" key={Math.random()}>
+                      <div className="ml-6" key={Math.random()}>
+                        <div className="my-2">
                           <div className="flex justify-between items-center">
                             <p className="text-white font-semibold text-sm">
                               {subdiscussion.name} |{" "}
