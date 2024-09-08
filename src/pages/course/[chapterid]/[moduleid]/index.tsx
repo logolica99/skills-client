@@ -1241,7 +1241,7 @@ export default function CourseDetailsPage() {
                         {elem.content}
                       </p>
                     </div>
-                    <div className="flex mt-2 mb-3">
+                    {/* <div className="flex mt-2 mb-3">
                       <button className="font-bold px-4 py-1 bg-purple bg-opacity-20 hover:bg-opacity-50 rounded">
                         Reply
                       </button>
@@ -1287,7 +1287,7 @@ export default function CourseDetailsPage() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
                 ))}
               </div>
