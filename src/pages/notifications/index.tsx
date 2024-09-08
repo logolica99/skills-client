@@ -73,7 +73,6 @@ export default function NotificationPage({}: Props) {
   const notificationPerpageLimit = 10;
 
   function populateNotificationDialog(notification: any): void {
-    console.log(notification);
     setNotificationTitle(notification.data.title ?? "<N/A>");
     setNotificationTime(formatTimestamp(notification.timestamp * 1000));
     setNotificationBody(notification.data.body ?? "<N/A>");
@@ -96,7 +95,9 @@ export default function NotificationPage({}: Props) {
           },
         },
       )
-      .then((res) => {})
+      .then((res) => {
+        fetchNotifications();
+      })
       .catch((err) => {});
   };
 
