@@ -62,7 +62,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
         }
       )
       .then(() => {
-        setIsReadState(false);  // on success update state without loading whole page
+        setIsReadState(true);  // on success update state without loading whole page
       });
   };
 
