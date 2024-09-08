@@ -39,6 +39,21 @@ const GreenRadio = withStyles({
   checked: {},
 })((props) => <Radio color="default" {...props} />);
 
+const subdiscussions = [
+  {
+    type: "2",
+    name: "John doe",
+    content: "is this working",
+    timestamp: Date.now() / 1000,
+  },
+  {
+    type: "3",
+    name: "John dis",
+    content: "is not working",
+    timestamp: Date.now() / 1000,
+  },
+];
+
 function findObjectBySerial(data: any, targetSerial: any) {
   // Check if chapters exist in the data
   const chapters = data?.chapters || [];
@@ -155,9 +170,9 @@ export default function CourseDetailsPage() {
     const token = localStorage.getItem("token");
     setUser({ ...user, loading: true });
     axios
-      .get(
-        BACKEND_URL +
-          `/user/module/checkCfStatus?handle=${cfHandle}&problem=${activeModule?.data?.cf_name}`,
+      .post(
+        BACKEND_URL + `/user/module/checkCfStatus`,
+        { problem: activeModule?.data?.cf_name, handle: cfHandle },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -203,28 +218,31 @@ export default function CourseDetailsPage() {
           chapter.modules.forEach((module: any) => {
             if (
               module.id === parseInt(router.query.moduleid as string) &&
-              module.chapter_id === parseInt(router.query.chapterid as string) &&
+              module.chapter_id ===
+                parseInt(router.query.chapterid as string) &&
               module.serial <= res.data.maxModuleSerialProgress + 1
             ) {
               targetModule = module;
             }
 
-            if(module.serial === res.data.maxModuleSerialProgress + 1) {
+            if (module.serial === res.data.maxModuleSerialProgress + 1) {
               lastValidModule = module;
             }
           });
         });
 
-        if(targetModule !== null) {
+        if (targetModule !== null) {
           setActiveModule(targetModule);
-        } else if(lastValidModule !== null) {
-          router.replace(`/course/${lastValidModule.chapter_id}/${lastValidModule.id}`);
+        } else if (lastValidModule !== null) {
+          router.replace(
+            `/course/${lastValidModule.chapter_id}/${lastValidModule.id}`,
+          );
         } else {
           const chapters: Array<any> = res.data.chapters;
-          const chapter = chapters[chapters.length - 1]; 
+          const chapter = chapters[chapters.length - 1];
           const modules: Array<any> = chapter.modules;
           const validModule = modules[modules.length - 1];
-          
+
           router.replace(`/course/${validModule.chapter_id}/${validModule.id}`);
         }
 
@@ -437,7 +455,7 @@ export default function CourseDetailsPage() {
   };
 
   useEffect(() => {
-    if(router.query.chapterid && router.query.moduleid) {
+    if (router.query.chapterid && router.query.moduleid) {
       fetchCourse();
     }
   }, [router]);
@@ -610,7 +628,7 @@ export default function CourseDetailsPage() {
                     </div>
                   </Dialog.Title>
                   <div className="mt-2 max-h-[50vh]  overflow-y-scroll">
-                    {discussions.map((elem: any) => (
+                    {discussions?.map((elem: any) => (
                       <div className="my-4" key={Math.random()}>
                         <p className="text-white text-2xl">{elem.name}</p>
                         <p className="text-white ">{elem.content}</p>
@@ -1210,10 +1228,12 @@ export default function CourseDetailsPage() {
                     </button>
                   </div>
                 </div>
-                {discussions.map((elem: any) => (
+                {discussions?.map((elem: any) => (
                   <div className="my-4" key={elem.id}>
                     <div className="flex justify-between items-center">
-                      <p className="text-white font-semibold">{elem.name}</p>
+                      <div>
+                        <p className="text-white font-semibold">{elem.name}</p>
+                      </div>
                       <p className="text-sm">{formatTime(elem.timestamp)}</p>
                     </div>
                     <div className="flex">
@@ -1221,6 +1241,53 @@ export default function CourseDetailsPage() {
                         {elem.content}
                       </p>
                     </div>
+                    <div className="flex mt-2 mb-3">
+                      <button className="font-bold px-4 py-1 bg-purple bg-opacity-20 hover:bg-opacity-50 rounded">
+                        Reply
+                      </button>
+                    </div>
+                    <div className=" py-1 rounded ml-6">
+                      <textarea
+                        className="w-full px-2 py-2 rounded mb-2 resize-none bg-gray-200/20 bg-none outline-none focus:ring ring-gray-300/80 text-white"
+                        placeholder="Add a reply..."
+                        value=""
+                        onChange={(e) => {}}
+                      />
+
+                      <div className="flex justify-end ">
+                        <button className="font-bold px-4 py-1 bg-[#532e62] focus:ring ring-gray-300/80 hover:bg-opacity-70 rounded">
+                          Reply
+                        </button>
+                      </div>
+                    </div>
+                    {subdiscussions.map((subdiscussion: any) => (
+                      <div className="ml-6" key={Math.random()}>
+                        <div className="my-2">
+                          <div className="flex justify-between items-center">
+                            <p className="text-white font-semibold text-sm">
+                              {subdiscussion.name} |{" "}
+                              <span
+                                className={`${subdiscussion.type == 1 || subdiscussion.type == 2 ? "text-yellow" : "text-purple"}`}
+                              >
+                                {" "}
+                                {subdiscussion.type == 1 ||
+                                subdiscussion.type == 2
+                                  ? "Teacher"
+                                  : "Student"}
+                              </span>
+                            </p>
+                            <p className="text-sm">
+                              {formatTime(subdiscussion.timestamp)}
+                            </p>
+                          </div>
+                          <div className="flex">
+                            <p className="p-2 px-3 mt-1 rounded bg-gray-300/5 text-white border border-gray-300/30 rounded-tl-none">
+                              {subdiscussion.content}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
@@ -1502,7 +1569,9 @@ export default function CourseDetailsPage() {
                                         module.serial
                                     ) {
                                       fetchEvalutedAssignment(module.id);
-                                      router.push(`/course/${module.chapter_id}/${module.id}`);
+                                      router.push(
+                                        `/course/${module.chapter_id}/${module.id}`,
+                                      );
                                       // setActiveModule(module);
                                     }
                                     if (
@@ -1512,7 +1581,9 @@ export default function CourseDetailsPage() {
                                         module.serial
                                     ) {
                                       // setActiveModule(module);
-                                      router.push(`/course/${module.chapter_id}/${module.id}`);
+                                      router.push(
+                                        `/course/${module.chapter_id}/${module.id}`,
+                                      );
                                     }
 
                                     if (
@@ -1522,7 +1593,9 @@ export default function CourseDetailsPage() {
                                     ) {
                                       // setActiveModule(module);
                                       submitProgress(module.id, module.score);
-                                      router.push(`/course/${module.chapter_id}/${module.id}`);
+                                      router.push(
+                                        `/course/${module.chapter_id}/${module.id}`,
+                                      );
                                     }
                                     if (
                                       module.data.category === "QUIZ" &&
@@ -1531,7 +1604,9 @@ export default function CourseDetailsPage() {
                                       courseData.isTaken
                                     ) {
                                       // setActiveModule(module);
-                                      router.push(`/course/${module.chapter_id}/${module.id}`);
+                                      router.push(
+                                        `/course/${module.chapter_id}/${module.id}`,
+                                      );
                                     }
                                     if (
                                       module.data.category === "PDF" &&
@@ -1540,7 +1615,9 @@ export default function CourseDetailsPage() {
                                     ) {
                                       // setActiveModule(module);
                                       submitProgress(module.id, module.score);
-                                      router.push(`/course/${module.chapter_id}/${module.id}`);
+                                      router.push(
+                                        `/course/${module.chapter_id}/${module.id}`,
+                                      );
                                     }
                                     if (
                                       module.data.category === "TEXT" &&
@@ -1549,7 +1626,9 @@ export default function CourseDetailsPage() {
                                     ) {
                                       // setActiveModule(module);
                                       submitProgress(module.id, module.score);
-                                      router.push(`/course/${module.chapter_id}/${module.id}`);
+                                      router.push(
+                                        `/course/${module.chapter_id}/${module.id}`,
+                                      );
                                     }
                                   }
                                 }}
