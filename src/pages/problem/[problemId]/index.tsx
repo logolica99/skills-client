@@ -200,6 +200,11 @@ int main(){
         setUser({ ...user, loading: false });
         // setProblemData(res.data.data[0]);
         setSubmissions(res.data.data);
+        res.data.data.map((elem: any) => {
+          if (elem.data.verdict === "Accepted") {
+            setIsEditorialOpen(true);
+          }
+        });
       })
       .catch((err) => {
         setUser({ ...user, loading: false });
@@ -1000,6 +1005,7 @@ int main(){
                                   problemData.id,
                                   problemData.score,
                                 );
+                                setIsEditorialOpen(true);
                               }
                               setsubmitButtonLoading(false);
                             })
