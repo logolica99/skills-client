@@ -1,7 +1,7 @@
 import { BACKEND_URL } from "@/api.config";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   populateFn: (notification: any) => void,
@@ -65,6 +65,10 @@ export default function NotificationItem({populateFn: populate, notification}: P
         setIsReadState(true);  // on success update state without loading whole page
       });
   };
+
+  useEffect(() => {
+    setIsReadState(notification.is_read)
+  }, [notification]);
 
   return (
     <div
