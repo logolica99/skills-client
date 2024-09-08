@@ -1,9 +1,9 @@
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
-import { UserContext } from "@/Contexts/UserContext";
-import { decryptString } from "@/helpers";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { UserContext } from "@/Contexts/UserContext";
+import axios from "axios";
+import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { decryptString } from "@/helpers";
 
 function findObjectById(data: any, targetId: any) {
   // Check if chapters exist in the data
@@ -26,11 +26,21 @@ function findObjectById(data: any, targetId: any) {
   return undefined;
 }
 
-export default function CourseRedirect(): JSX.Element {
-  const [user, setUser] = useContext<any>(UserContext);
+export default function CourseRedirect() {
   const router = useRouter();
-  let activeModule: any = null;
-  let courseData: any = {};
+
+  const [user, setUser] = useContext<any>(UserContext);
+  const [quizAnswer, setQuizAnswer] = useState<any>({});
+  const [assignmentSubmission, setAssignmentSubmission] = useState({
+    youtube_link: "",
+    github_link: "",
+  });
+  const [assignmentEvaluted, setAssignmentEvaluted] = useState<any>([]);
+
+  const [activeModule, setActiveModule] = useState<any>({});
+
+  const [courseData, setCourseData] = useState<any>({});
+  const activeModuleRef = useRef<any>();
 
   const fetchCourse = () => {
     setUser({ ...user, loading: true });
@@ -42,33 +52,22 @@ export default function CourseRedirect(): JSX.Element {
         },
       })
       .then((res) => {
-        courseData = res.data;
-
+        setCourseData(res.data);
         if (res.data.maxModuleSerialProgress === 0) {
           submitProgress(
             res.data.chapters[0].modules[0].id,
             res.data.chapters[0].modules[0].score,
           );
         }
-
         res.data.chapters.forEach((chapter: any) => {
           chapter.modules.forEach((module: any) => {
             if (module.serial === res.data.maxModuleSerialProgress + 1) {
-              activeModule = module;
+              setActiveModule(module);
             }
           });
         });
 
         setUser({ ...user, loading: false });
-        
-        if(activeModule === null) {
-          const chapters: Array<any> = res.data.chapters;
-          const chapter = chapters[chapters.length - 1]; 
-          const modules: Array<any> = chapter.modules; 
-          activeModule = modules[modules.length - 1];
-        }
-
-        router.replace(`/course/${activeModule.chapter_id}/${activeModule.id}`);
       })
       .catch((err) => {
         setUser({ ...user, loading: false });
@@ -81,7 +80,7 @@ export default function CourseRedirect(): JSX.Element {
     if (module_search.is_live) {
       axios
         .post(
-          `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${activeModule.data.category}`,
+          `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${activeModule?.data?.category}`,
           {},
           {
             headers: {
@@ -97,8 +96,7 @@ export default function CourseRedirect(): JSX.Element {
               },
             })
             .then((res) => {
-              courseData = res.data;
-
+              setCourseData(res.data);
               if (res.data.maxModuleSerialProgress === 0) {
                 submitProgress(
                   res.data.chapters[0].modules[0].id,
@@ -122,11 +120,111 @@ export default function CourseRedirect(): JSX.Element {
     }
   };
 
+  const submitAssignment = (e: any) => {
+    e.preventDefault();
+    setUser({ ...user, loading: true });
+    const token = localStorage.getItem("token");
+
+    if (assignmentEvaluted?.length > 0) {
+      axios
+        .put(
+          BACKEND_URL + "/user/assignment/edit/" + activeModule.id,
+          {
+            submission: assignmentSubmission,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        .then(() => {
+          setUser({ ...user, loading: false });
+          toast.success("Assignment Submitted Successfully");
+          submitProgress(activeModule.id, activeModule.score);
+        })
+        .catch((err) => {
+          setUser({ ...user, loading: false });
+          toast.error("Something Went Wrong");
+        });
+    } else {
+      axios
+        .post(
+          BACKEND_URL + "/user/assignment/submit/" + activeModule.id,
+          {
+            submission: assignmentSubmission,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        .then(() => {
+          setUser({ ...user, loading: false });
+          toast.success("Assignment Submitted Successfully");
+          submitProgress(activeModule.id, activeModule.score);
+        })
+        .catch((err) => {
+          setUser({ ...user, loading: false });
+          toast.error("Something Went Wrong");
+        });
+    }
+  };
+
+  const fetchDiscussions = () => {
+    const token = localStorage.getItem("token");
+    setDiscussions([]);
+
+    axios
+      .get(BACKEND_URL + `/user/module/discussion/list/${activeModule.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setDiscussions(res.data.data);
+      })
+      .catch((err) => {});
+  };
+
+  const getCFHandle = () => {
+    setUser({ ...user, loading: true });
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(BACKEND_URL + "/user/module/getCfHandle", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setCfHandle(res.data.data[0].cf_handle);
+        setUser({ ...user, loading: false });
+      })
+      .catch((err) => {
+        setUser({ ...user, loading: false });
+      });
+  };
+
   useEffect(() => {
     fetchCourse();
   }, []);
 
-  return (
-    <></>
-  );
+  useEffect(() => {
+    if (activeModule?.data?.category === "CODE" && activeModule?.data?.is_cf) {
+      getCFHandle();
+    }
+    activeModuleRef?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "start",
+    });
+  }, [activeModule]);
+
+    useEffect(() => {
+        router.push("/course/12");
+    });
+
+    return <></>;
 }
