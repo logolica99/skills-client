@@ -121,7 +121,7 @@ export default function NotificationPage({}: Props) {
         }
         setUser({ ...user, loading: false });
         setFirstCalled(true);
-        markAllAsRead();
+        // markAllAsRead();
       })
       .catch((err) => {
         setUser({ ...user, loading: false });

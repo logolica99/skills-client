@@ -68,7 +68,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
 
   return (
     <div
-      className="flex items-start justify-between my-4"
+      className={`flex items-start justify-between ${notification.type !== "COURSE_UPDATE" && "hover:opacity-70"} ${notification.type != "COURSE_UPDATE" && "cursor-pointer"} ${isReadState ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"} ease-in-out duration-150 backdrop-blur-lg rounded-lg my-4`}
       onMouseEnter={() => {
         setMouseIn(true);
       }}
@@ -77,7 +77,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
       }}
     >
       <div
-        className={`flex items-center gap-8 ${notification.type !== "COURSE_UPDATE" && "hover:opacity-70"}  ease-in-out duration-150 ${notification.type != "COURSE_UPDATE" && "cursor-pointer"} ${isReadState ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"}  backdrop-blur-lg  rounded-lg  p-8`}
+        className={`flex items-center gap-8 p-8`}
       >
         <svg
           width="20"
@@ -88,7 +88,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
         >
           <path
             d="M13.4673 19.5024C13.2242 21.1987 11.7652 22.5025 10.0016 22.5025C8.23812 22.5025 6.77911 21.1987 6.536 19.5024H13.4673ZM10.0016 0.5C14.6114 0.5 18.3642 4.16899 18.4991 8.74605V9.00124H18.5029L18.5026 13.113L19.9167 16.7573C19.9548 16.8557 19.9806 16.9583 19.9936 17.0627L20.0033 17.2203C20.0033 17.883 19.4996 18.4281 18.8542 18.4937L18.7233 18.5003H1.27644C1.11773 18.5003 0.960407 18.4708 0.812492 18.4133C0.194816 18.173 -0.130655 17.506 0.0422008 16.8807L0.0834777 16.7563L1.49965 13.112L1.50041 9.00124C1.50041 4.30614 5.30654 0.5 10.0016 0.5Z"
-            fill={notification.is_read ? "#B1ACA9" : "#EE6800"}
+            fill={isReadState ? "#B1ACA9" : "#EE6800"}
           />
         </svg>
 
@@ -127,7 +127,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
           </p>
         </div>
       </div>
-      {mouseIn && isReadState && (
+      {mouseIn && !isReadState && (
         <button
           className="hover:opacity-70 m-8"
           onClick={() => {
