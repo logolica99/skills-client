@@ -170,9 +170,9 @@ export default function CourseDetailsPage() {
     const token = localStorage.getItem("token");
     setUser({ ...user, loading: true });
     axios
-      .get(
-        BACKEND_URL +
-          `/user/module/checkCfStatus?handle=${cfHandle}&problem=${activeModule?.data?.cf_name}`,
+      .post(
+        BACKEND_URL + `/user/module/checkCfStatus`,
+        { problem: activeModule?.data?.cf_name, handle: cfHandle },
         {
           headers: {
             Authorization: `Bearer ${token}`,
