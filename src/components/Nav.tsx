@@ -49,6 +49,26 @@ export default function Nav({}: Props) {
   const [user, setUser] = useContext<any>(UserContext);
   const [notificationsCount, setNotificationsCount] = useState<any>(0);
 
+  const resetBellCount = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        BACKEND_URL +
+          `/user/notification/bellIconClicked?courseId=${COURSE_ID}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        // fetchNotifications();
+        fetchNotificationsCount();
+      })
+      .catch((err) => {});
+  };
+
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     if (isLoggedIn()) {
@@ -108,7 +128,7 @@ export default function Nav({}: Props) {
         },
       })
       .then((res) => {
-        setNotificationsCount(res.data.data[0].count)
+        setNotificationsCount(res.data.data[0].count);
       })
       .catch((err) => {});
   };
@@ -181,10 +201,10 @@ export default function Nav({}: Props) {
                 <div className="relative">
                   {notificationsCount > 0 && (
                     <div className="bg-red-500  text-[13px] pl-[7px] pr-[8px] py-[1px] rounded-full absolute  -top-3  -right-2 text-darkHeading">
-                      {notificationsCount}
+                      {notificationsCount > 9 ? "9+" : notificationsCount}
                     </div>
                   )}
-                  <Link href={"/notifications"}>
+                  <Link href={"/notifications"} onClick={resetBellCount}>
                     <svg
                       className="w-[20px] h-[20px]"
                       viewBox="0 0 24 24"
