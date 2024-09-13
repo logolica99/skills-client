@@ -22,7 +22,7 @@ function formatTime(timestamp: any) {
 
 export default function DiscussionItem({ discussion }: Props) {
   const [active, setActive] = useState(false);
-  const [replyCount, setReplyCount] = useState(discussion.subdiscussion_count);
+  const [replyCount, setReplyCount] = useState(parseInt(discussion.subdiscussion_count));
   const [reply, setReply] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -93,7 +93,11 @@ export default function DiscussionItem({ discussion }: Props) {
       })
       .then((res) => {
         toast.success("You comment was deleted successfully!");
-        setComments(comments.toSpliced(comments.indexOf(comment), 1));
+        
+        let temp = Array.from(comments);
+        temp.splice(comments.indexOf(comment), 1);
+
+        setComments(temp);
         setReplyCount(replyCount - 1);
       })
       .catch((err) => {

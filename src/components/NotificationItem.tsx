@@ -113,6 +113,10 @@ export default function NotificationItem({populateFn: populate, notification}: P
               router.push(
                 `/course/${notification?.data?.moduleData?.chapterId}/${notification?.data?.moduleData?.moduleId}`,
               );
+            } else if(notification.type === "THREADS") {
+              router.push(
+                `/course/${notification?.data?.moduleData?.chapterId}/${notification?.data?.moduleData?.moduleId}?discussionId=${notification?.data?.moduleData?.discussionId}`,
+              );
             }
   
             if(notification.type !== "COURSE_UPDATE") {
@@ -121,7 +125,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
           }}
         >
           <p className="text-heading dark:text-darkHeading text-xl">
-            {notification?.data?.title}
+            {notification.type === "THREADS" ? `${({1: "Teacher", 2: "Teacher", 3: "Student"}[parseInt(notification.data.body)])} has replied to your comment` : notification?.data?.title}
           </p>
 
           <p className="text-paragraph dark:text-darkParagraph">
