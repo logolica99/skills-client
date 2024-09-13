@@ -59,7 +59,6 @@ function formatTimestamp(timestamp: any) {
 }
 
 export default function NotificationPage({}: Props) {
-  const router = useRouter();
   const [user, setUser] = useContext<any>(UserContext);
   const [token, setToken] = useState<any>("");
   const [firstCalled, setFirstCalled] = useState(false);

@@ -32,6 +32,7 @@ import ReactYoutubePlayer from "@/components/ReactYoutubePlayer";
 import { SyncLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import DiscussionItem from "@/components/DiscussionItem.";
 const GreenRadio = withStyles({
   root: {
     color: "#fff",
@@ -131,12 +132,8 @@ export default function CourseDetailsPage() {
   const [quizVerdict, setQuizVerdict] = useState([]);
   const [newDiscussion, setNewDiscussion] = useState<any>("");
   const [showQuizAnswer, setShowQuizAnswer] = useState(false);
-  const [comments, setComments] = useState([]);
   const activeModuleRef = useRef<any>();
   const nonActiveModuleRef = useRef<any>();
-  const [activeThreads, setActiveThreads] = useState<any>({});
-  const [subdiscussionTexts, setSubdiscussionTexts] = useState<any>({});
-  const [subdiscussionComments, setSubdiscussionComments] = useState<any>({});
   const [openDiscussionDeleteDialogue, setOpenDicussionDeleteDialogue] =
     useState<any>(false);
   const [deleteOption, setDeleteOption] = useState<any>("");
@@ -196,7 +193,6 @@ export default function CourseDetailsPage() {
       .then((res) => {
         toast.success("You comment was deleted successfully!");
         if (deleteOption == "subdiscussion") {
-          fetchSubdiscussions(activeCommentDeletionData.discussion_id);
           setActiveCommentDeletionData({});
         }
       })
@@ -471,63 +467,11 @@ export default function CourseDetailsPage() {
       })
       .then((res) => {
         setDiscussionLoading(false);
-
         setDiscussions(res.data.data);
-        let tempActiveThreads: any = {};
-        let tempSubdiscussionTexts: any = {};
-        let tempSubdiscussionComments: any = {};
-        res.data.data.forEach((elem: any, index: any) => {
-          tempActiveThreads[elem.id] = false;
-          (tempSubdiscussionTexts[elem.id] = ""),
-            (tempSubdiscussionComments[elem.id] = []);
-        });
-        setSubdiscussionComments(tempSubdiscussionComments);
-        setSubdiscussionTexts(tempSubdiscussionTexts);
-        setActiveThreads(tempActiveThreads);
       })
       .catch((err) => {
         setDiscussionLoading(false);
       });
-  };
-  const fetchSubdiscussions = (id: any) => {
-    const token = localStorage.getItem("token");
-
-    axios
-      .get(BACKEND_URL + `/user/subDiscussion/list/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setSubdiscussionComments((prev: any) => ({
-          ...prev,
-          [id]: res.data.data,
-        }));
-      })
-      .catch((err) => {});
-  };
-  const postSubdiscussion = (id: any) => {
-    const token = localStorage.getItem("token");
-    if (subdiscussionTexts[id].length > 0) {
-      axios
-        .post(
-          BACKEND_URL + "/user/subDiscussion/create/" + id,
-          {
-            content: subdiscussionTexts[id],
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        )
-        .then((res) => {
-          fetchSubdiscussions(id);
-          setSubdiscussionTexts((prev: any) => ({ ...prev, [id]: "" }));
-          toast.success("Your comment was added!");
-        })
-        .catch((err) => {});
-    }
   };
 
   const getCFHandle = () => {
@@ -1439,106 +1383,7 @@ export default function CourseDetailsPage() {
                   </div>
                 )}
                 {discussions?.map((elem: any, index: any) => (
-                  <div className="my-8" key={elem.id}>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="text-white font-semibold">{elem.name}</p>
-                      </div>
-                      <p className="text-sm">{formatTime(elem.timestamp)}</p>
-                    </div>
-                    <div className="flex">
-                      <p className="p-2 px-3 mt-2 rounded bg-gray-300/5 text-white border border-gray-300/30 rounded-tl-none">
-                        {elem.content}
-                      </p>
-                    </div>
-                    {/* <button className="cursor-pointer hover:underline ml-3 mt-1">
-                      Delete
-                    </button> */}
-                    <div className="flex mt-2 mb-3">
-                      <button
-                        onClick={() => {
-                          fetchSubdiscussions(elem.id);
-                          setActiveThreads((prev: any) => {
-                            return { ...prev, [elem.id]: true };
-                          });
-                        }}
-                        className="font-bold px-4 py-1 bg-purple bg-opacity-20 hover:bg-opacity-50 rounded"
-                      >
-                        Reply
-                      </button>
-                    </div>
-
-                    {activeThreads[elem.id] && (
-                      <div>
-                        <div className=" py-1 rounded ml-6">
-                          <textarea
-                            className="w-full px-2 py-2 rounded mb-2 resize-none bg-gray-200/20 bg-none outline-none focus:ring ring-gray-300/80 text-white"
-                            placeholder="Add a reply..."
-                            value={subdiscussionTexts[elem.id]}
-                            onChange={(e) => {
-                              console.log(e.target.value);
-                              setSubdiscussionTexts((prev: any) => ({
-                                ...prev,
-                                [elem.id]: e.target.value,
-                              }));
-                            }}
-                          />
-
-                          <div className="flex justify-end ">
-                            <button
-                              onClick={() => {
-                                postSubdiscussion(elem.id);
-                              }}
-                              className="font-bold px-4 py-1 bg-[#532e62] focus:ring ring-gray-300/80 hover:bg-opacity-70 rounded"
-                            >
-                              Reply
-                            </button>
-                          </div>
-                        </div>
-
-                        {subdiscussionComments[elem.id].map(
-                          (subdiscussion: any) => (
-                            <div className="ml-6" key={Math.random()}>
-                              <div className="my-2">
-                                <div className="flex justify-between items-center">
-                                  <p className="text-white font-semibold text-sm">
-                                    {subdiscussion.user_name} |{" "}
-                                    <span
-                                      className={`${subdiscussion.type == 1 || subdiscussion.type == 2 ? "text-yellow" : "text-purple"}`}
-                                    >
-                                      {" "}
-                                      {subdiscussion.type == 1 ||
-                                      subdiscussion.type == 2
-                                        ? "Teacher"
-                                        : "Student"}
-                                    </span>
-                                  </p>
-                                  <p className="text-sm">
-                                    {formatTime(subdiscussion.created_at)}
-                                  </p>
-                                </div>
-                                <div className="flex">
-                                  <p className="p-2 px-3 mt-1 rounded bg-gray-300/5 text-white border border-gray-300/30 rounded-tl-none">
-                                    {subdiscussion.content}
-                                  </p>
-                                </div>
-                              </div>
-                              <button
-                                className="cursor-pointer hover:underline ml-3"
-                                onClick={() => {
-                                  setDeleteOption("subdiscussion");
-                                  setOpenDicussionDeleteDialogue(true);
-                                  setActiveCommentDeletionData(subdiscussion);
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          ),
-                        )}
-                      </div>
-                    )}
-                  </div>
+                  <DiscussionItem key={index} discussion={elem} />
                 ))}
               </div>
             </div>
