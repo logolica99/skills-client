@@ -60,11 +60,11 @@ export default function CourseRedirect(): JSX.Element {
         });
 
         setUser({ ...user, loading: false });
-        
-        if(activeModule === null) {
+
+        if (activeModule === null) {
           const chapters: Array<any> = res.data.chapters;
-          const chapter = chapters[chapters.length - 1]; 
-          const modules: Array<any> = chapter.modules; 
+          const chapter = chapters[chapters.length - 1];
+          const modules: Array<any> = chapter.modules;
           activeModule = modules[modules.length - 1];
         }
 
@@ -78,47 +78,37 @@ export default function CourseRedirect(): JSX.Element {
   const submitProgress = (module_id: any, score: any) => {
     const token = localStorage.getItem("token");
     const module_search = findObjectById(courseData, module_id);
-    if (module_search.is_live) {
-      axios
-        .post(
-          `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${activeModule.data.category}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        )
-        .then((res) => {
-          axios
-            .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-            .then((res) => {
-              courseData = res.data;
-
-              if (res.data.maxModuleSerialProgress === 0) {
-                submitProgress(
-                  res.data.chapters[0].modules[0].id,
-                  res.data.chapters[0].modules[0].score,
-                );
-              }
-
-              setUser({
-                ...user,
-                loading: false,
-                scoreTrigger: !user.scoreTrigger,
-              });
-            })
-            .catch((err) => {
-              setUser({ ...user, loading: false });
-            });
-        })
-        .catch((err) => {
-          setUser({ ...user, loading: false });
-        });
+    console.log("Module search result:", module_search);
+    console.log("Is module live?", module_search?.is_live);
+    
+    if (module_search && module_search.is_live) {
+      console.log("Attempting to submit progress for module:", module_id);
+      
+      const url = `${BACKEND_URL}/user/module/addProgress/${module_id}?points=${score}&type=${module_search.data.category}`;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      
+      console.log("POST request URL:", url);
+      console.log("POST request headers:", headers);
+      
+      try {
+        axios.post(url, {}, { headers })
+          .then((res) => {
+            console.log("Progress submission successful:", res.data);
+            // ... rest of the code ...
+          })
+          .catch((err) => {
+            console.error("Error submitting progress:", err);
+            setUser({ ...user, loading: false });
+          });
+        
+        console.log("axios.post call made");
+      } catch (error) {
+        console.error("Error calling axios.post:", error);
+      }
+    } else {
+      console.log("Module is not live or not found. Skipping progress submission.");
     }
   };
 
@@ -126,7 +116,5 @@ export default function CourseRedirect(): JSX.Element {
     fetchCourse();
   }, []);
 
-  return (
-    <></>
-  );
+  return <></>;
 }

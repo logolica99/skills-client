@@ -296,7 +296,7 @@ export default function NotificationPage({}: Props) {
           </svg>
         </button>
 
-        <div className="py-16 bg-white dark:bg-[#0B060D] overflow-x-hidden">
+        <div className="py-16 bg-white dark:bg-black overflow-x-hidden">
           <div className="w-[90%] lgXl:w-[80%] mx-auto py-12 z-20">
             <div className="min-h-[80vh]">
               <p className="text-heading dark:text-darkHeading text-3xl">

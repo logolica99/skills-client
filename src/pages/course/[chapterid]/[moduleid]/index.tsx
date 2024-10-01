@@ -265,6 +265,7 @@ export default function CourseDetailsPage() {
             }
           });
         });
+       
 
         if (targetModule !== null) {
           setActiveModule(targetModule);
@@ -495,6 +496,7 @@ export default function CourseDetailsPage() {
 
   useEffect(() => {
     if (router.query.chapterid && router.query.moduleid) {
+  
       fetchCourse();
     }
   }, [router]);
