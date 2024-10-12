@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 type Props = {
-  populateFn: (notification: any) => void,
-  notification: any
+  populateFn: (notification: any) => void;
+  notification: any;
 };
 
 const MONTH_NAMES = [
@@ -34,45 +34,43 @@ const formatTimestamp = (timestamp: number) => {
   hours = hours % 12;
   hours = hours ? hours : 12;
 
-  return `${day
+  return `${day.toString().padStart(2, "")} ${month} ${year},  ${hours
     .toString()
-    .padStart(2, "")
-  } ${month} ${year},  ${hours
-    .toString()
-    .padStart(2, "0")
-  }:${minutes
-    .toString()
-    .padStart(2, "0")
-  }${ampm}`;;
-}
+    .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}${ampm}`;
+};
 
-export default function NotificationItem({populateFn: populate, notification}: Props) {
+export default function NotificationItem({
+  populateFn: populate,
+  notification,
+}: Props) {
   const router = useRouter();
   const [isReadState, setIsReadState] = useState(notification.is_read);
   const [mouseIn, setMouseIn] = useState(false);
   const readNotification = (notification: any): void => {
     const token = localStorage.getItem("token");
-  
+
     axios
-      .post(`${BACKEND_URL}/user/notification/markAsRead/${notification.id}?courseId=${notification.course_id}`,
-        null, {
+      .post(
+        `${BACKEND_URL}/user/notification/markAsRead/${notification.id}?courseId=${notification.course_id}`,
+        null,
+        {
           headers: {
-            Authorization: `bearer ${token}`
-          }
-        }
+            Authorization: `bearer ${token}`,
+          },
+        },
       )
       .then(() => {
-        setIsReadState(true);  // on success update state without loading whole page
+        setIsReadState(true); // on success update state without loading whole page
       });
   };
 
   useEffect(() => {
-    setIsReadState(notification.is_read)
+    setIsReadState(notification.is_read);
   }, [notification]);
 
   return (
     <div
-      className={`flex items-start justify-between ${notification.type !== "COURSE_UPDATE" && "hover:opacity-70"} ${notification.type != "COURSE_UPDATE" && "cursor-pointer"} ${isReadState ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"} ease-in-out duration-150 backdrop-blur-lg rounded-lg my-4`}
+      className={`flex items-start justify-between hover:opacity-70 cursor-pointer ${isReadState ? "dark:bg-gray-300/5 bg-gray-400/30" : "dark:bg-gray-300/20 bg-gray-400/80"} ease-in-out duration-150 backdrop-blur-lg rounded-lg my-4`}
       onMouseEnter={() => {
         setMouseIn(true);
       }}
@@ -80,9 +78,7 @@ export default function NotificationItem({populateFn: populate, notification}: P
         setMouseIn(false);
       }}
     >
-      <div
-        className={`flex items-center gap-8 p-8`}
-      >
+      <div className={`flex items-center gap-8 p-8`}>
         <svg
           width="20"
           height="23"
@@ -96,10 +92,14 @@ export default function NotificationItem({populateFn: populate, notification}: P
           />
         </svg>
 
-        <div 
+        <div
           className="w-full"
-          onClick={(): void => {  
-            if (notification.type === "ADMIN_SIDE") {
+          onClick={(): void => {
+            console.log(notification);
+            if (
+              notification.type === "ADMIN_SIDE" ||
+              notification.type === "ANNOUNCEMENT"
+            ) {
               populate(notification);
             } else if (notification.type === "LIVE") {
               const token = localStorage.getItem("token");
@@ -113,19 +113,26 @@ export default function NotificationItem({populateFn: populate, notification}: P
               router.push(
                 `/course/${notification?.data?.moduleData?.chapterId}/${notification?.data?.moduleData?.moduleId}`,
               );
-            } else if(notification.type === "THREADS") {
+            } else if (notification.type === "THREADS") {
               router.push(
                 `/course/${notification?.data?.moduleData?.chapterId}/${notification?.data?.moduleData?.moduleId}?discussionId=${notification?.data?.moduleData?.discussionId}`,
               );
             }
-  
-            if(notification.type !== "COURSE_UPDATE") {
+
+            if (notification.type === "COURSE_UPDATE") {
+              router.push(
+                `/course/${notification?.data?.moduleData?.chapterId}/`,
+              );
+            }
+            if (notification.type !== "COURSE_UPDATE") {
               readNotification(notification);
             }
           }}
         >
           <p className="text-heading dark:text-darkHeading text-xl">
-            {notification.type === "THREADS" ? `${({1: "Teacher", 2: "Teacher", 3: "Student"}[parseInt(notification.data.body)])} has replied to your comment` : notification?.data?.title}
+            {notification.type === "THREADS"
+              ? `${{ 1: "Teacher", 2: "Teacher", 3: "Student" }[parseInt(notification.data.body)]} has replied to your comment`
+              : notification?.data?.title}
           </p>
 
           <p className="text-paragraph dark:text-darkParagraph">
@@ -142,8 +149,20 @@ export default function NotificationItem({populateFn: populate, notification}: P
             readNotification(notification);
           }}
         >
-          <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
+          <svg
+            className="w-6 h-6 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+              clip-rule="evenodd"
+            />
           </svg>
         </button>
       )}

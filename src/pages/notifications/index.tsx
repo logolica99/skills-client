@@ -236,9 +236,11 @@ export default function NotificationPage({}: Props) {
                       <p className="text-xs text-gray-700 pb-4">
                         {notificationTime}
                       </p>
-                      <p className="text-paragraph dark:text-darkParagraph text-sm mt-1 font-semibold">
-                        {notificationBody}
-                      </p>
+             
+                      <div
+                        className="text-paragraph dark:text-darkParagraph text-sm mt-1 font-semibold"
+                        dangerouslySetInnerHTML={{ __html: notificationBody }}
+                      ></div>
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
