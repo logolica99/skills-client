@@ -8,7 +8,7 @@ import { BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BACKEND_URL, COURSE_ID, COURSE_ID_2 } from "@/api.config";
+import { BACKEND_URL, COURSE_ID_2 } from "@/api.config";
 import {
   apiConfig,
   calculateRemainingDays,
@@ -157,7 +157,7 @@ export default function CourseDetailsPage() {
     chapters: [
       {
         id: 6,
-        course_id: 3,
+        COURSE_ID_2: 3,
         title: "",
         serial_string: "1",
         chips_list: {},
@@ -2237,6 +2237,15 @@ export default function CourseDetailsPage() {
                   {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
                 </button>
                   </div>
+
+                  <button
+                    onClick={() => {
+                     setOpenPrebookCourse(true);
+                    }}
+                    className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                  >
+                    প্রিবুক করুন 
+                  </button>
                   {/* {!courseData.isTaken && (
                     <div className="mt-6">
                       <p className="text-lg font-semibold mb-1">Enter Coupon</p>
@@ -2261,7 +2270,7 @@ export default function CourseDetailsPage() {
                               //   .post(
                               //     BACKEND_URL +
                               //       "/user/course/applyCoupon/" +
-                              //       COURSE_ID,
+                              //       COURSE_ID_2,
                               //     {
                               //       coupon: couponCode,
                               //     },

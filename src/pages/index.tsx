@@ -295,7 +295,89 @@ export default function Home() {
             </defs>
           </svg>
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
-            <div className="w-[90%] lg:w-[80%] mx-auto mt-24  text-heading dark:text-darkHeading py-20 z-10">
+            {/* Add the new batch information section */}
+            <div className="w-[90%] lg:w-[80%] mx-auto mt-24 text-heading dark:text-darkHeading py-20 z-10">
+              <div className="text-center mb-16">
+                <div className="flex flex-col items-center gap-8">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-[#2C1F39] p-6 rounded-2xl">
+                      <img src="/hashtag.png" alt="batch info" className="w-12 h-12" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-2xl text-[#B153E0]">ব্যাচ ইনফরমেশন</h3>
+                      <p className="text-gray-600 dark:text-gray-400">আমাদের ব্যাচের টাইমলাইন</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
+                      <div className="bg-[#FFB800] p-2 rounded-lg">
+                        <img src="/calendar-start.png" alt="calendar" className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-400">প্রিবুকিং শুরু</p>
+                        <p className="text-xl">15 October, 2024</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
+                      <div className="bg-[#00A651] p-2 rounded-lg">
+                        <img src="/calendar-end.png" alt="calendar" className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-400">প্রিবুকিং শেষ</p>
+                        <p className="text-xl">20 October, 2024</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
+                      <div className="bg-[#00A651] p-2 rounded-lg">
+                        <img src="/enrollment-start.png" alt="enrollment" className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-400">এনরোলমেন্ট শুরু</p>
+                        <p className="text-xl">21 October, 2024</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
+                      <div className="bg-[#FF2D55] p-2 rounded-lg">
+                        <img src="/enrollment-end.png" alt="enrollment" className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-400">এনরোলমেন্ট শেষ</p>
+                        <p className="text-xl">30 October, 2024</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
+                      <div className="bg-[#00A651] p-2 rounded-lg">
+                        <img src="/orientation.png" alt="orientation" className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-400">ওরিয়েন্টেশন ক্লাস</p>
+                        <p className="text-xl">04 November, 2024</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
+                      <div className="bg-[#FF2D55] p-2 rounded-lg">
+                        <img src="/class-start.png" alt="class" className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-400">ক্লাস শুরু</p>
+                        <p className="text-xl">05 November, 2024</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-400 mt-4">
+                    তুমি যদি আমাদের কোর্সে আগ্রহী হয় থাকো, আমাদের ব্যাচ 02 এ প্রিবুকিং চলছে, এখনি রেজিস্টার করে ফেলো
+                  </p>
+                </div>
+              </div>
+
+              {/* Original এক নজরে আমাদের section */}
               <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
                 <img
                   src="/eye icon.png"
