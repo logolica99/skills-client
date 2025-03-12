@@ -11,8 +11,68 @@ import { AnimationOnScroll } from "react-animation-on-scroll";
 import VisibilitySensor from "react-visibility-sensor";
 import Tilt from "react-parallax-tilt";
 import { Toaster } from "react-hot-toast";
+import TimelineItem from "@/components/TimelineItem";
+import Typewriter from 'typewriter-effect';
 
 const inter = Inter({ subsets: ["latin"] });
+
+const logo1: JSX.Element = (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.48438 8.00171H7.5167L8.50108 5.67524L9.48438 8.00171ZM0 2.75C0 1.23122 1.23122 0 2.75 0H19.25C20.7688 0 22 1.23122 22 2.75V11.5372C20.7381 10.5728 19.161 10 17.4502 10C14.9973 10 12.8195 11.1775 11.4511 12.9981L4.2251 12.9981C3.81088 12.9981 3.4751 13.3339 3.4751 13.7481C3.4751 14.1623 3.81089 14.4981 4.2251 14.4981L10.5751 14.4981C10.1732 15.4173 9.9502 16.4326 9.9502 17.5C9.9502 19.1884 10.5081 20.7465 11.4496 22H2.75C1.23122 22 0 20.7688 0 19.25V2.75ZM9.19229 3.45768C9.07498 3.18012 8.80294 2.99972 8.50161 2.99966C8.20028 2.99961 7.92817 3.1799 7.81075 3.45741L5.05924 9.96029C4.89783 10.3418 5.07622 10.7819 5.45769 10.9433C5.83916 11.1047 6.27926 10.9263 6.44066 10.5448L6.88202 9.50171H10.1184L10.5591 10.5445C10.7204 10.9261 11.1604 11.1046 11.5419 10.9434C11.9235 10.7821 12.102 10.3421 11.9408 9.96057L9.19229 3.45768ZM3.4751 17.7511C3.4751 18.1653 3.81088 18.5011 4.22509 18.5011L8.7505 18.5012C9.16471 18.5012 9.5005 18.1654 9.5005 17.7512C9.5005 17.3369 9.16472 17.0012 8.75051 17.0012L4.2251 17.0011C3.81089 17.0011 3.4751 17.3369 3.4751 17.7511ZM15.5 3.74991C15.5 3.3357 15.1642 2.99991 14.75 2.99991C14.3358 2.99991 14 3.3357 14 3.74991V5H12.7523C12.3381 5 12.0023 5.33579 12.0023 5.75C12.0023 6.16421 12.3381 6.5 12.7523 6.5H14V7.7476C14 8.16181 14.3358 8.4976 14.75 8.4976C15.1642 8.4976 15.5 8.16181 15.5 7.7476V6.5H16.75C17.1642 6.5 17.5 6.16421 17.5 5.75C17.5 5.33579 17.1642 5 16.75 5H15.5V3.74991ZM23.9502 17.5C23.9502 21.0899 21.04 24 17.4502 24C13.8603 24 10.9502 21.0899 10.9502 17.5C10.9502 13.9101 13.8603 11 17.4502 11C21.04 11 23.9502 13.9101 23.9502 17.5ZM17.9502 13.5C17.9502 13.2239 17.7263 13 17.4502 13C17.1741 13 16.9502 13.2239 16.9502 13.5V17H13.4502C13.1741 17 12.9502 17.2239 12.9502 17.5C12.9502 17.7761 13.1741 18 13.4502 18H16.9502V21.5C16.9502 21.7761 17.1741 22 17.4502 22C17.7263 22 17.9502 21.7761 17.9502 21.5V18H21.4502C21.7263 18 21.9502 17.7761 21.9502 17.5C21.9502 17.2239 21.7263 17 21.4502 17H17.9502V13.5Z"
+      fill="#FFA500"
+    />
+  </svg>
+);
+const logo2 = (
+  <svg
+    width="24"
+    height="26"
+    viewBox="0 0 24 26"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M10 8V0.875H2.875C1.56332 0.875 0.5 1.93832 0.5 3.25V22.25C0.5 23.5617 1.56332 24.625 2.875 24.625H10.9614C10.0239 23.6481 9.3409 22.4251 9.01904 21.0625H8.51563C8.02375 21.0625 7.625 20.6638 7.625 20.1719C7.625 19.68 8.02375 19.2813 8.51563 19.2813H8.8125C8.8125 18.6682 8.88397 18.0718 9.01904 17.5H8.51563C8.02375 17.5 7.625 17.1013 7.625 16.6094C7.625 16.1175 8.02375 15.7188 8.51563 15.7188H9.682C10.023 15.0644 10.4551 14.4651 10.9614 13.9375H8.51563C8.02375 13.9375 7.625 13.5388 7.625 13.0469C7.625 12.555 8.02375 12.1563 8.51563 12.1563H13.5573C14.4726 11.7738 15.4772 11.5625 16.5313 11.5625C17.5833 11.5625 18.5861 11.773 19.5 12.1541V10.375H12.375C11.0633 10.375 10 9.31168 10 8ZM4.0625 13.0469C4.0625 12.555 4.46125 12.1563 4.95313 12.1563C5.445 12.1563 5.84375 12.555 5.84375 13.0469C5.84375 13.5388 5.445 13.9375 4.95313 13.9375C4.46125 13.9375 4.0625 13.5388 4.0625 13.0469ZM4.0625 16.6094C4.0625 16.1175 4.46125 15.7188 4.95313 15.7188C5.445 15.7188 5.84375 16.1175 5.84375 16.6094C5.84375 17.1013 5.445 17.5 4.95313 17.5C4.46125 17.5 4.0625 17.1013 4.0625 16.6094ZM4.0625 20.1719C4.0625 19.68 4.46125 19.2813 4.95313 19.2813C5.445 19.2813 5.84375 19.68 5.84375 20.1719C5.84375 20.6638 5.445 21.0625 4.95313 21.0625C4.46125 21.0625 4.0625 20.6638 4.0625 20.1719ZM11.7813 8V1.46875L18.9063 8.59375H12.375C12.0471 8.59375 11.7813 8.32792 11.7813 8ZM23.0625 19.2813C23.0625 15.6741 20.1384 12.75 16.5313 12.75C12.9241 12.75 10 15.6741 10 19.2813C10 22.8884 12.9241 25.8125 16.5313 25.8125C20.1384 25.8125 23.0625 22.8884 23.0625 19.2813ZM16.1994 19.777C16.0388 19.6708 15.9329 19.4884 15.9329 19.2813C15.9329 19.2527 15.9349 19.2245 15.9388 19.197L15.9375 14.5304C15.9375 14.2025 16.2033 13.9367 16.5313 13.9367C16.8592 13.9367 17.125 14.2025 17.125 14.5304L17.1262 18.6875H20.0897C20.4173 18.6875 20.6829 18.9534 20.6829 19.2813C20.6829 19.6092 20.4173 19.875 20.0897 19.875H16.6033C16.5801 19.8778 16.5565 19.8792 16.5326 19.8792C16.4091 19.8792 16.2944 19.8415 16.1994 19.777Z"
+      fill="#B2F100"
+    />
+  </svg>
+);
+
+const logo3 = (
+  <svg
+    width="26"
+    height="25"
+    viewBox="0 0 26 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22.9691 0.416016C24.1369 0.416016 25.0837 1.36275 25.0837 2.5306V6.20721C25.0837 7.44473 24.396 8.57973 23.299 9.15262L15.6865 13.1286C17.6753 14.1174 19.042 16.17 19.042 18.5417C19.042 21.8785 16.337 24.5834 13.0003 24.5834C9.66361 24.5834 6.95866 21.8785 6.95866 18.5417C6.95866 16.17 8.32534 14.1174 10.3141 13.1286L2.70162 9.15262C1.60469 8.57973 0.916992 7.44473 0.916992 6.20721V2.5306C0.916992 1.36275 1.86372 0.416016 3.03158 0.416016H22.9691ZM13.0003 14.3126C10.6646 14.3126 8.77116 16.206 8.77116 18.5417C8.77116 20.8774 10.6646 22.7709 13.0003 22.7709C15.336 22.7709 17.2295 20.8774 17.2295 18.5417C17.2295 16.206 15.336 14.3126 13.0003 14.3126ZM17.8337 2.22852H8.16337V9.95943L12.8605 12.4134C12.9481 12.4592 13.0526 12.4592 13.1402 12.4134L17.8337 9.96064V2.22852Z"
+      fill="#2BA98B"
+    />
+  </svg>
+);
+const logo4 = (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0 12C0 18.6274 5.37258 24 12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12ZM13.25 6C13.25 6.69036 12.6904 7.25 12 7.25C11.3096 7.25 10.75 6.69036 10.75 6C10.75 5.30964 11.3096 4.75 12 4.75C12.6904 4.75 13.25 5.30964 13.25 6ZM12 9C12.5523 9 13 9.44772 13 10L13 18C13 18.5523 12.5523 19 12 19C11.4477 19 11 18.5523 11 18L11 10C11 9.44771 11.4477 9 12 9Z"
+      fill="#EE4878"
+    />
+  </svg>
+);
 
 const HindSiliguri = localFont({
   src: [
@@ -192,39 +252,55 @@ export default function Home() {
               </defs>
             </svg>
 
-            <div className="text-heading dark:text-darkHeading flex flex-col gap-4 z-10">
+            <div className="text-heading dark:text-darkHeading flex flex-col gap-4 z-10" style={{ width: '400px' }}>
               <p className="text-[#B153E0]">কম্পেটিটিভ প্রোগ্রামিং কোর্স</p>
               <div>
                 <h2 className="text-2xl lg:text-4xl">
-                  Competitive Programming 2.0 SuperCharged
+                  <div className="min-w-0 w-full">
+                    <h2 className="text-2xl lg:text-4xl relative">
+                      <div className="typewriter-container" style={{ minWidth: '500px', whiteSpace: 'normal', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
+                        <Typewriter
+                          options={{
+                            strings: ['Competitive Programming <span class="text-[#B153E0]">3.0</span> TurboCharged'],
+                            autoStart: true,
+                            loop: true,
+                            delay: 75,
+                            deleteSpeed: 50,
+                            cursor: '|',
+                            wrapperClassName: 'typewriter-wrapper'
+                          }}
+                        />
+                      </div>
+                    </h2>
+                  </div>
                 </h2>
-                {/* <h2 className="text-2xl lg:text-4xl">শিখব এবার হাতে কলমে</h2> */}
               </div>
+              
               <p className="">
                 প্রতিযোগিতামূলক প্রোগ্রামিং শিখে নাও বিশ্বসেরা দেশসেরা সব
                 প্রোগ্রামার দের হাত ধরে
               </p>
               <div className="flex">
                 <Link
-                  href="/course-details/12"
-                  className="flex gap-3 items-center  bg-gray-400/40 hover:bg-gray-400/60 dark:bg-gray-300/10 dark:hover:bg-gray-300/20 duration-150 ease-in-out backdrop-blur-lg py-2 px-8 rounded-lg"
+                  href="/course-details/15"
+                  className="flex gap-4 items-center bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md py-3 px-8 rounded-lg border-2 border-[#B153E0]"
                 >
                   <svg
-                    width="20"
-                    height="14"
-                    viewBox="0 0 20 14"
+                    width="22"
+                    height="16"
+                    viewBox="0 0 22 16"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M13 5L17.5528 2.72361C18.2177 2.39116 19 2.87465 19 3.61803V10.382C19 11.1253 18.2177 11.6088 17.5528 11.2764L13 9M3 13H11C12.1046 13 13 12.1046 13 11V3C13 1.89543 12.1046 1 11 1H3C1.89543 1 1 1.89543 1 3V11C1 12.1046 1.89543 13 3 13Z"
-                      stroke="#B153E0"
+                      d="M14 6L19.5528 3.72361C20.2177 3.39116 21 3.87465 21 4.61803V11.382C21 12.1253 20.2177 12.6088 19.5528 12.2764L14 10M3 15H12C13.1046 15 14 14.1046 14 13V3C14 1.89543 13.1046 1 12 1H3C1.89543 1 1 1.89543 1 3V13C1 14.1046 1.89543 15 3 15Z"
+                      stroke="#FFFFFF"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p>কোর্স  এর বিস্তারিত  জেনে নাও </p>
+                  <p className="text-white font-semibold text-base">কোর্স  এর বিস্তারিত  জেনে নাও</p>
                 </Link>
               </div>
             </div>
@@ -296,86 +372,89 @@ export default function Home() {
           </svg>
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             {/* Add the new batch information section */}
+            
             <div className="w-[90%] lg:w-[80%] mx-auto mt-24 text-heading dark:text-darkHeading py-20 z-10">
-              <div className="text-center mb-16">
-                <div className="flex flex-col items-center gap-8">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-[#2C1F39] p-6 rounded-2xl">
-                      <img src="/hashtag.png" alt="batch info" className="w-12 h-12" />
-                    </div>
-                    <div className="text-left">
-                      <h3 className="text-2xl text-[#B153E0]">ব্যাচ ইনফরমেশন</h3>
-                      <p className="text-gray-600 dark:text-gray-400">আমাদের ব্যাচের টাইমলাইন</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
-                      <div className="bg-[#FFB800] p-2 rounded-lg">
-                        <img src="/calendar-start.png" alt="calendar" className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-gray-400">প্রিবুকিং শুরু</p>
-                        <p className="text-xl">15 October, 2024</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
-                      <div className="bg-[#00A651] p-2 rounded-lg">
-                        <img src="/calendar-end.png" alt="calendar" className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-gray-400">প্রিবুকিং শেষ</p>
-                        <p className="text-xl">20 October, 2024</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
-                      <div className="bg-[#00A651] p-2 rounded-lg">
-                        <img src="/enrollment-start.png" alt="enrollment" className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-gray-400">এনরোলমেন্ট শুরু</p>
-                        <p className="text-xl">21 October, 2024</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
-                      <div className="bg-[#FF2D55] p-2 rounded-lg">
-                        <img src="/enrollment-end.png" alt="enrollment" className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-gray-400">এনরোলমেন্ট শেষ</p>
-                        <p className="text-xl">30 October, 2024</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
-                      <div className="bg-[#00A651] p-2 rounded-lg">
-                        <img src="/orientation.png" alt="orientation" className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-gray-400">ওরিয়েন্টেশন ক্লাস</p>
-                        <p className="text-xl">04 November, 2024</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#1E1E1E] p-4 rounded-xl flex items-center gap-4">
-                      <div className="bg-[#FF2D55] p-2 rounded-lg">
-                        <img src="/class-start.png" alt="class" className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-gray-400">ক্লাস শুরু</p>
-                        <p className="text-xl">05 November, 2024</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-400 mt-4">
-                    তুমি যদি আমাদের কোর্সে আগ্রহী হয় থাকো, আমাদের ব্যাচ 02 এ প্রিবুকিং চলছে, এখনি রেজিস্টার করে ফেলো
-                  </p>
-                </div>
+              
+              
+            <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
+              <img
+                src="/Frame 2147223087.png"
+                alt=""
+                className="max-w-[90px] max-h-[90px] lg:max-w-[100px] lg:max-h-[100px] flex-1"
+              />
+              <div className="relative">
+                <h2 className="text-2xl lg:text-4xl">
+                  {" "}
+                  <span className="text-[#B153E0]">ব্যাচ</span> ইনফরমেশন{" "}
+                </h2>
+                <p className=" text-paragraph dark:text-darkParagraph text-left mt-2">
+                  আমাদের ব্যাচের টাইমলাইন
+                </p>
+                {/* <p>আমাদের কোর্সের সব ফিচার দেখে নাও</p> */}
               </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-10 lg:w-[60%] mx-auto">
+              <TimelineItem
+                icon={logo1}
+                date="১৩ মার্চ ২০২৫"
+                label="প্রিবুকিং শুরু"
+                
+              />
+              <TimelineItem
+                icon={logo2}
+                date="১৭ মার্চ ২০২৫"
+                label="প্রিবুকিং শেষ"
+                
+              />
+              <TimelineItem
+                icon={logo3}
+                date="১৭ মার্চ ২০২৫ রাত ১০ টা থেকে"
+                label="এনরোলমেন্ট শুরু"
+                isHighlighted
+              />
+              <TimelineItem
+                icon={logo4}
+                date="৩০ মার্চ ২০২৫"
+                label="এনরোলমেন্ট শেষ"
+                isHighlighted
+              />
+              <TimelineItem
+                icon={logo3}
+                date="৫ এপ্রিল ২০২৫"
+                label="ওরিয়েন্টেশন ক্লাস"
+              />
+              <TimelineItem
+                icon={logo4}
+                date="১০ এপ্রিল"
+                label="ক্লাস শুরু"
+              />
+              <TimelineItem
+                // put a live class icon with svg 
+                icon = {<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L2 22h20L12 2Z" stroke="#B153E0" stroke-width="3" stroke-linejoin="round"/>
+                </svg>}
+                date="এনরোলমেন্ট এর পর থেকে"
+                label="আর্কাইভ ক্লাস দেখতে পারবে"
+              />
+            </div>
+            <p className="mt-8  text-gray-400 text-center">
+              তুমি যদি আমাদের কোনো আগ্রহী হয়ে থাকো, আমাদের{" "}
+              <span className="text-[#B153E0] font-semibold">
+                ব্যাচ ০৩ এ প্রিবুকিং
+              </span>{" "}
+              চলছে, এখনি{" "}
+              <Link
+                href="/course-details/15"
+                className="text-[#B153E0] font-semibold"
+              >
+                রেজিস্টার
+              </Link>{" "}
+              করে ফেলো।
+            </p>
+          {/* //put some space here */}
+
+          <div className="h-20"></div>
+              
 
               {/* Original এক নজরে আমাদের section */}
               <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">

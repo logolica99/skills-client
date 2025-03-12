@@ -70,6 +70,7 @@ export default function CourseDetailsPage() {
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const [initialPrice, setInitialPrice] = useState(0);
   const [coursePurchaseSuccessful, setCoursePurchaseSuccessfull] =
     useState(false);
@@ -199,7 +200,7 @@ export default function CourseDetailsPage() {
       setDays(0);
       setHours(0);
       setMinutes(0);
-
+      setSeconds(0);
       return;
     }
 
@@ -215,6 +216,8 @@ export default function CourseDetailsPage() {
     setDays(remainingDays);
     setHours(remainingHours);
     setMinutes(remainingMinutes);
+    setSeconds(remainingSeconds);
+    
   };
 
   useEffect(() => {
@@ -2027,7 +2030,7 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                            কোর্সটি   প্রিবুক করেছে  
+                            কোর্সটিতে প্রি বুক করেছে
                           </p>
                           <p className="text-3xl font-bold ">
                             {courseData?.prebooking} জন
@@ -2063,7 +2066,7 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শুরু
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ১ মে
+                          17 মার্চ
                         </p>
                       </div>
                     </div>
@@ -2073,8 +2076,8 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শেষ
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ১০ মে
-                        </p>
+                          ৩০ মার্চ                        
+                          </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
@@ -2083,7 +2086,7 @@ export default function CourseDetailsPage() {
                           ক্লাস শুরু
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ১৫ এপ্রিল
+                          ৫ এপ্রিল
                         </p>
                       </div>
                     </div>
@@ -2188,9 +2191,9 @@ export default function CourseDetailsPage() {
                           <p className="text-[#FDAF22] text-lg">তারাতারি কর</p>
                         </div>
                       </div>
-                      <div className="flex gap-4  justify-center">
+                      <div className="flex gap-4 justify-center">
                         <div className="flex flex-col items-center">
-                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl w-[80px] text-center">
                             {days.toString().padStart(2, "0")}
                           </p>
                           <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
@@ -2198,7 +2201,7 @@ export default function CourseDetailsPage() {
                           </p>
                         </div>
                         <div className="flex flex-col items-center">
-                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl w-[80px] text-center">
                             {hours.toString().padStart(2, "0")}
                           </p>
                           <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
@@ -2206,7 +2209,7 @@ export default function CourseDetailsPage() {
                           </p>
                         </div>
                         <div className="flex flex-col items-center">
-                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl w-[80px] text-center">
                             {minutes.toString().padStart(2, "0")}
                           </p>
                           <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
