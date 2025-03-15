@@ -8,7 +8,7 @@ import { BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { BACKEND_URL, COURSE_ID, COURSE_ID_2 } from "@/api.config";
 import {
   apiConfig,
   calculateRemainingDays,
@@ -227,7 +227,7 @@ export default function CourseDetailsPage() {
     const token = localStorage.getItem("token");
     axios
       .post(
-        BACKEND_URL + "/user/course/applyCoupon/" + COURSE_ID,
+        BACKEND_URL + "/user/course/applyCoupon/" + COURSE_ID_2,
         {
           coupon: "PY100",
         },
@@ -272,7 +272,7 @@ export default function CourseDetailsPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID_2, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -301,7 +301,7 @@ export default function CourseDetailsPage() {
 
       axios
         .post(
-          BACKEND_URL + "/user/payment/initiate/" + COURSE_ID,
+          BACKEND_URL + "/user/payment/initiate/" + COURSE_ID_2,
           { eventId: courseData.price * 6251 },
           {
             headers: {
@@ -330,7 +330,7 @@ export default function CourseDetailsPage() {
     const token = localStorage.getItem("token");
     axios
       .post(
-        BACKEND_URL + "/user/course/prebook/" + COURSE_ID,
+        BACKEND_URL + "/user/course/prebook/" + COURSE_ID_2,
         {
           ...prebookingData,
         },
@@ -2215,6 +2215,27 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div>
+                    <button
+                  onClick={() => {
+                    let token: any = "";
+                    token = localStorage.getItem("token")
+                      ? localStorage.getItem("token")
+                      : "";
+                    if (token.length > 0) {
+                      const decodedToken: any = jwtDecode(token);
+
+                      setPrebookingData({
+                        name: decodedToken.name,
+                        phone: decodedToken.login,
+                        email: decodedToken.profile?.email,
+                      });
+                    }
+                    setOpenPrebookCourse(true);
+                  }}
+                  className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
+                >
+                  {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
+                </button>
                   </div>
                   {/* {!courseData.isTaken && (
                     <div className="mt-6">
