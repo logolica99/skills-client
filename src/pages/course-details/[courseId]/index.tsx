@@ -2027,10 +2027,10 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                            কোর্সটিতে ভর্তি হয়েছে
+                            কোর্সটি   প্রিবুক করেছে  
                           </p>
                           <p className="text-3xl font-bold ">
-                            {courseData?.enrolled} জন
+                            {courseData?.prebooking} জন
                           </p>
                         </div>
                       </div>
