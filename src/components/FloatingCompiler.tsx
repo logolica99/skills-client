@@ -1,7 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
-
-type Props = {};
-
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { UserContext } from "@/Contexts/UserContext";
 import { Editor } from "@monaco-editor/react";
@@ -9,25 +6,44 @@ import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import { BACKEND_URL } from "@/api.config";
 
+type Props = {};
+
 export default function FloatingCompiler({}: Props) {
   const [user, setUser] = useContext<any>(UserContext);
   const [language, setLanguage] = useState("cpp");
   const [buttonLoading, setButtonLoading] = useState(false);
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check for token only on client-side
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    }
+  }, []);
+
   const [code, setCode] = useState<any>({
-    java: ` class HelloWorld {
-        public static void main(String[] args) {
-            System.out.println("Hello, World!"); 
-        }
-    }`,
-    python: `print("hello World")`,
-    cpp: `#include<bits/stdc++.h>
-using namespace std; 
-    
-int main(){
-    
-    
+    java: `public class Main {
+    public static void main(String[] args) {
+        // Your code here
+        System.out.println("Hello, World!");
+    }
+}`,
+    python: `# Your Python code here
+def main():
+    print("Hello, World!")
+
+if __name__ == "__main__":
+    main()`,
+    cpp: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Your code here
+    cout << "Hello, World!" << endl;
+    return 0;
 }`,
   });
   const languageIds: any = {
@@ -38,7 +54,22 @@ int main(){
 
   const submitCompiler = () => {
     setButtonLoading(true);
-    const token = localStorage.getItem("token");
+
+    if (!isLoggedIn) {
+      setOutput("Please login to run the code");
+      setButtonLoading(false);
+      return;
+    }
+
+    // Safe access to localStorage
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) {
+      setOutput("Please login to run the code");
+      setButtonLoading(false);
+      return;
+    }
+
     axios
       .post(
         BACKEND_URL + "/user/module/quick-compile",
@@ -58,7 +89,11 @@ int main(){
           setOutput(
             res.data.data.stdout
               .split("\n")
-              .map((str: any) => <p key={Math.random()}>{str.length !== 0 ? str : <>&nbsp;</>}</p>),
+              .map((str: any) => (
+                <p key={Math.random()}>
+                  {str.length !== 0 ? str : <>&nbsp;</>}
+                </p>
+              )),
           );
         } else if (res.data.data.status.description === "Compilation Error") {
           setOutput("Compilation Error!");
@@ -106,12 +141,37 @@ int main(){
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" w-[90vw]  text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className=" w-[90vw]  text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30  backdrop-blur-lg border border-gray-200/20 p-4 md:p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
                     className="text-lg font-medium leading-6 "
                   >
-                    <div></div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg md:text-xl font-semibold text-white tracking-wide">
+                        Quick Compiler
+                      </span>
+                      <button
+                        onClick={() =>
+                          setUser({ ...user, openCompiler: false })
+                        }
+                        className="p-1 rounded-full hover:bg-gray-200/20"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
                   </Dialog.Title>
                   <div className=" flex flex-col-reverse md:flex-row justify-between gap-8">
                     <div className="pt-4 bg-[#1e1e1e]  " style={{ flex: 3 }}>
@@ -126,7 +186,7 @@ int main(){
                     </div>
                     <div style={{ flex: 1 }}>
                       <select
-                        className="select select-bordered w-full max-w-xs bg-gray-100/10"
+                        className="select select-bordered w-full max-w-xs bg-gray-100/10 text-sm md:text-base"
                         onChange={(e) => {
                           setLanguage(e.target.value);
                         }}
@@ -143,9 +203,9 @@ int main(){
                           Java
                         </option>
                       </select>
-                      <p className="mt-4">Input</p>
+                      <p className="mt-4 text-sm md:text-base">Input</p>
                       <textarea
-                        className="w-full mt-2 px-3 py-3 rounded mb-2 resize-none bg-gray-200/20 outline-none focus:ring ring-gray-300/80 text-white"
+                        className="w-full mt-2 px-3 py-2 md:py-3 rounded mb-2 resize-none bg-gray-200/20 outline-none focus:ring ring-gray-300/80 text-white text-sm md:text-base"
                         placeholder="Input"
                         value={input}
                         onChange={(e) => {
@@ -154,19 +214,19 @@ int main(){
                       />
 
                       <div>
-                        <p>Output</p>
-                        <div className="w-full h-[80px] overflow-y-scroll md:h-[160px] mt-2 px-3 py-3 rounded mb-2 bg-gray-200/20  text-white">
+                        <p className="text-sm md:text-base">Output</p>
+                        <div className="w-full h-[80px] overflow-y-scroll md:h-[160px] mt-2 px-3 py-2 md:py-3 rounded mb-2 bg-gray-200/20 text-white text-sm md:text-base">
                           {output}
                         </div>
                       </div>
-                      <div className="flex justify-end mt-3">
+                      <div className="flex justify-end mt-2 md:mt-3">
                         <button
                           onClick={submitCompiler}
-                          className={`py-2  flex gap-2 items-center  px-6 ${
+                          className={`py-1.5 md:py-2 flex gap-2 items-center px-4 md:px-6 ${
                             buttonLoading
                               ? "bg-gray-500 cursor-not-allowed"
                               : "bg-green-700 cursor-pointer hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80"
-                          }    rounded font-semibold text-white text-lg`}
+                          } rounded font-semibold text-white text-base md:text-lg`}
                           disabled={buttonLoading}
                         >
                           {buttonLoading ? (
@@ -196,6 +256,12 @@ int main(){
                           Run
                         </button>
                       </div>
+                      {/* Safe check for login status */}
+                      {!isLoggedIn && (
+                        <div className="mt-2 text-yellow-400 text-sm text-center">
+                          Please login to run the code
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Dialog.Panel>
