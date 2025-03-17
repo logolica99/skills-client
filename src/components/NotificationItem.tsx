@@ -118,6 +118,7 @@ export default function NotificationItem({
                 `/course/${notification?.data?.moduleData?.chapterId}/${notification?.data?.moduleData?.moduleId}?discussionId=${notification?.data?.moduleData?.discussionId}`,
               );
             }
+            
 
             if (notification.type === "COURSE_UPDATE") {
               router.push(
