@@ -396,38 +396,34 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-10 lg:w-[60%] mx-auto">
               <TimelineItem
                 icon={logo1}
-                date="১৩ মার্চ ২০২৫"
+                date="18 মার্চ 2025"
                 label="প্রিবুকিং শুরু"
                 
               />
               <TimelineItem
                 icon={logo2}
-                date="১৭ মার্চ ২০২৫"
+                date="23 মার্চ ২০২৫"
                 label="প্রিবুকিং শেষ"
                 
               />
               <TimelineItem
                 icon={logo3}
-                date="১৭ মার্চ ২০২৫ রাত ১০ টা থেকে"
+                date="23 মার্চ 2025 রাত 10 টা থেকে"
                 label="এনরোলমেন্ট শুরু"
                 isHighlighted
               />
               <TimelineItem
                 icon={logo4}
-                date="৩০ মার্চ ২০২৫"
+                date="05 এপ্রিল 2025"
                 label="এনরোলমেন্ট শেষ"
                 isHighlighted
               />
               <TimelineItem
                 icon={logo3}
-                date="৫ এপ্রিল ২০২৫"
+                date="10 এপ্রিল 2025"
                 label="ওরিয়েন্টেশন ক্লাস"
               />
-              <TimelineItem
-                icon={logo4}
-                date="১০ এপ্রিল"
-                label="ক্লাস শুরু"
-              />
+              
               <TimelineItem
                 // put a live class icon with svg 
                 icon = {<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
