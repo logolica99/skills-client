@@ -44,7 +44,6 @@ const logo2 = (
     />
   </svg>
 );
-
 const logo3 = (
   <svg
     width="26"
@@ -107,11 +106,13 @@ export default function Home() {
   const [titlY, setTiltY] = useState(0);
 
   return (
-    <main className={`  ${HindSiliguri.variable} font-hind  `}>
+    <main className={`${HindSiliguri.variable} font-hind`}>
       <Nav></Nav>
+
       <Toaster />
 
       <FloatingCompiler />
+
       <button
         style={{ zIndex: 999 }}
         onClick={() => {
@@ -162,7 +163,7 @@ export default function Home() {
         </svg>
       </button>
 
-      <div className="bg-[#F3F3F3] dark:bg-black  pt-20  overflow-x-hidden">
+      <div className="bg-[#F3F3F3] dark:bg-black pt-20 overflow-x-hidden">
         <div className="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
           <div className="flex justify-between items-center flex-col-reverse lg:flex-row gap-20 pt-10 lg:pt-0 relative ">
             <svg
@@ -385,22 +386,22 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
+
           <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
             {/* Add the new batch information section */}
-
             <div className="w-[90%] lg:w-[80%] mx-auto mt-24 text-heading dark:text-darkHeading py-20 z-10">
               <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
-                <img
-                  src="/Frame 2147223087.png"
+                {/* <img
+                  src="/cpbatchhashtrasnparent.png"
                   alt=""
                   className="max-w-[90px] max-h-[90px] lg:max-w-[100px] lg:max-h-[100px] flex-1"
-                />
+                /> */}
                 <div className="relative">
                   <h2 className="text-2xl lg:text-4xl">
                     {" "}
                     <span className="text-[#B153E0]">ব্যাচ</span> ইনফরমেশন{" "}
                   </h2>
-                  <p className=" text-paragraph dark:text-darkParagraph text-left mt-2">
+                  <p className="text-paragraph dark:text-darkParagraph mt-2">
                     আমাদের ব্যাচের টাইমলাইন
                   </p>
                   {/* <p>আমাদের কোর্সের সব ফিচার দেখে নাও</p> */}
@@ -471,10 +472,14 @@ export default function Home() {
                 </Link>{" "}
                 করে ফেলো।
               </p>
-              {/* //put some space here */}
+            </div>
+          </AnimationOnScroll>
 
-              <div className="h-20"></div>
+          {/* //put some space here */}
 
+          {/* <div className="h-20"></div> */}
+          <AnimationOnScroll animateIn="animate__fadeIn" animateOnce>
+            <div className="w-[90%] lg:w-[80%] mx-auto mt-24 text-heading dark:text-darkHeading py-20 z-10">
               {/* Original এক নজরে আমাদের section */}
               <div className="flex gap-8 md:gap-20 justify-center flex-col items-center lg:flex-row text-center">
                 <img
@@ -483,7 +488,7 @@ export default function Home() {
                   className="max-w-[90px] max-h-[90px] lg:max-w-[100px] lg:max-h-[100px] flex-1"
                 />
                 <div className="relative">
-                  <h2 className="text-2xl lg:text-4xl">এক নজরে আমাদের </h2>
+                  <h2 className="text-2xl lg:text-4xl">এক নজরে আমাদের</h2>
                   <h2 className="text-2xl lg:text-4xl">
                     <span className="text-[#B153E0]">
                       কম্পেটিটিভ প্রোগ্রামিং
