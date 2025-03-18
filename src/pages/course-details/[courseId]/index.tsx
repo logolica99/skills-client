@@ -670,7 +670,7 @@ export default function CourseDetailsPage() {
                   </Dialog.Title>
                   <div className="border-b border-t border-black/20 dark:border-gray-300/20 py-8 px-6">
                     <p className="text-heading dark:text-darkHeading text-xl font-semibold">
-                      Congratulations! তুমি প্রিবুক করেছ।{" "}
+                      Congratulations! তুমি প্রিবুক করেছ!{" "}
                     </p>
                     <p className="text-heading dark:text-darkHeading text-xl mt-4 font-semibold">
                       প্রোগ্রামিং এ তোমার আগ্রহ দেখে আমরা অত্যন্ত খুশী!
