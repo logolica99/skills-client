@@ -217,7 +217,6 @@ export default function CourseDetailsPage() {
     setHours(remainingHours);
     setMinutes(remainingMinutes);
     setSeconds(remainingSeconds);
-    
   };
 
   useEffect(() => {
@@ -521,11 +520,11 @@ export default function CourseDetailsPage() {
                       <img src="/logo.png" alt="" className="py-6 lg:p-6" />
                       <div>
                         <p className="text-heading dark:text-darkHeading text-xl text-center lg:text-left">
-                          Competitive Programming 2.0 SuperCharged
+                          Competitive Programming 3.0 TurboCharged
                         </p>
                         <p className="text-paragraph dark:text-darkParagraph mt-2 text-base text-center lg:text-left">
-                          খুব শীঘ্রয় আসছে আমাদের এই কোর্স তাই কোর্সের সম্বন্ধে
-                          আগাম জেনে রাখার জন্য এখনি নিচে দেওয়া ফর্ম ফিল আপ করুন
+                          খুব শীঘ্রই আমাদের এই কোর্সটি আসছে তাই কোর্সের সম্বন্ধে
+                          আগাম জেনে রাখার জন্য এখনি নিচে দেওয়া ফর্ম ফিল আপ করো
                         </p>
                       </div>
                     </div>
@@ -660,7 +659,7 @@ export default function CourseDetailsPage() {
                       <img src="/logo.png" alt="" className="py-6 lg:p-6" />
                       <div>
                         <p className="text-heading dark:text-darkHeading text-xl text-center lg:text-left">
-                          Competitive Programming 2.0 SuperCharged
+                          Competitive Programming 3.0 TurboCharged
                         </p>
                         {/* <p className="text-paragraph dark:text-darkParagraph mt-2 text-base text-center lg:text-left">
                           খুব শীঘ্রয় আসছে আমাদের এই কোর্স তাই কোর্সের সম্বন্ধে
@@ -674,9 +673,9 @@ export default function CourseDetailsPage() {
                       Congratulations! তুমি প্রিবুক করেছ।{" "}
                     </p>
                     <p className="text-heading dark:text-darkHeading text-xl mt-4 font-semibold">
-                      প্রোগ্রামিং এ তোমার আগ্রহ দেখে আমরা অত্যন্ত খুশী।
+                      প্রোগ্রামিং এ তোমার আগ্রহ দেখে আমরা অত্যন্ত খুশী!
                       <br />
-                      এখন যা যা করবে
+                      এখন যা যা করবে -
                       <br />
                       ১। প্রি বুকিং এর মেয়াদ শেষ হলে তোমার ফোন নাম্বার ও ইমেইলে
                       আমাদের সিক্রেট কুপন পাঠানো হবে।
@@ -767,15 +766,16 @@ export default function CourseDetailsPage() {
                         অভিনন্দন!
                       </p>
                       <p className="text-paragraph dark:text-darkParagraph text-sm text-center mt-1 font-bold">
-                        তুমি সফলভাবে কোর্সটি পারচেস করতে পেরেছ ! প্রোগ্রামিং এ
-                        তোমার আগ্রহ দেখে আমরা অন্ত্যন্ত খুশি । এখন শুধু প্রয়োজন
-                        ডেডিকেশন এর সাথে লেগে থাকা , ক্লাস গুলো ঠিক মত করা সাথে
+                        তুমি সফলভাবে কোর্সটি পারচেস করতে পেরেছ! প্রোগ্রামিং এ
+                        তোমার আগ্রহ দেখে আমরা অন্ত্যন্ত খুশি। এখন শুধু প্রয়োজন
+                        ডেডিকেশন এর সাথে লেগে থাকা, ক্লাস গুলো ঠিক মত করা সাথে
                         এসাইনমেন্ট কুইজ ও প্রোগ্রামিং প্রব্লেম সলভের মাধ্যমে
-                        নিজেকে একজন দক্ষ প্রোগ্রামার করে গড়ে তোলা । আর তোমাকে
-                        সর্বাত্নক হেল্প করতে পাশে আছি আমরা কোডার ভাই পরিবার
+                        নিজেকে একজন দক্ষ প্রোগ্রামার করে গড়ে তোলা। আর তোমাকে
+                        সর্বাত্নক হেল্প করতে পাশে আছি আমরা কোডার ভাই পরিবার!
                       </p>
                     </div>
-
+                    
+                    {/* after purchase tasks */}
                     <p className="text-heading dark:text-darkHeading text-lg my-3 font-semibold ">
                       এখন তোমার কি করনীয়
                     </p>
@@ -1035,7 +1035,7 @@ export default function CourseDetailsPage() {
                       চ্যাপ্টার সংখ্যা{" "}
                     </p>
                     <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                      30 টি
+                      40 টি
                     </p>
                   </div>
                 </div>
@@ -1229,7 +1229,7 @@ export default function CourseDetailsPage() {
                           countModulesAssignmentsVideos(courseData)
                             .totalAssignments,
                         )}{" "}
-                        টি এসাইনমেন্ট
+                        টি এসাইনমেন্ট{" "}
                       </p> */}
                       <svg
                         width="5"
@@ -1366,45 +1366,6 @@ export default function CourseDetailsPage() {
                                   {elem.title}
                                 </p>
                                 <div className="flex flex-wrap gap-3  lg:items-center mt-3 text-sm font-medium">
-                                  {/* <div className="flex items-center gap-3">
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <g clipPath="url(#clip0_261_7601)">
-                                        <path
-                                          d="M10.46 1C10.736 1 10.96 1.224 10.96 1.5V3.3785L9.95996 4.3785V2H2.95996V10H9.95996V8.621L10.96 7.621V10.5C10.96 10.776 10.736 11 10.46 11H2.45996C2.18396 11 1.95996 10.776 1.95996 10.5V1.5C1.95996 1.224 2.18396 1 2.45996 1H10.46ZM11.349 4.404L12.056 5.111L8.16696 9L7.45896 8.999L7.45996 8.293L11.349 4.404ZM6.95996 6V7H4.45996V6H6.95996ZM8.45996 4V5H4.45996V4H8.45996Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip0_261_7601">
-                                          <rect
-                                            width="12"
-                                            height="12"
-                                            fill="white"
-                                            transform="translate(0.459961)"
-                                          />
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .assignmentCount
-                                      }{" "}
-                                      টি অ্যাসাইনমেন্ট{" "}
-                                    </p>
-                                  </div> */}
                                   <div
                                     className={`flex items-center gap-3 ${
                                       countAssignmentsAndVideos(elem.modules)
@@ -2066,7 +2027,7 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শুরু
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          17 মার্চ
+                          23 মার্চ
                         </p>
                       </div>
                     </div>
@@ -2076,17 +2037,17 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শেষ
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ৩০ মার্চ                        
-                          </p>
+                          05 এপ্রিল
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-8 p-4 rounded-xl bg-black/20 dark:bg-white/5 ">
                       <div>
                         <p className="text-paragraph dark:text-darkParagraph text-xl">
-                          ক্লাস শুরু
+                          ওরিয়েন্টেশন ক্লাস
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          ৫ এপ্রিল
+                          10 এপ্রিল
                         </p>
                       </div>
                     </div>
@@ -2102,7 +2063,7 @@ export default function CourseDetailsPage() {
                     </div>
                   </div>
                   <p className="text-lg mt-6 font-bold">
-                    এই কোর্সে আপনি পাচ্ছেন
+                    এই কোর্সে তুমি পাচ্ছো
                   </p>
                   <div className="grid grid-cols-1 lg:grid-cols-2 mt-3 gap-y-1 gap-x-16">
                     {courseData.you_get.you_get.split(",").map((item: any) => (
@@ -2219,35 +2180,37 @@ export default function CourseDetailsPage() {
                       </div>
                     </div>
                     <button
-                  onClick={() => {
-                    let token: any = "";
-                    token = localStorage.getItem("token")
-                      ? localStorage.getItem("token")
-                      : "";
-                    if (token.length > 0) {
-                      const decodedToken: any = jwtDecode(token);
+                      onClick={() => {
+                        let token: any = "";
+                        token = localStorage.getItem("token")
+                          ? localStorage.getItem("token")
+                          : "";
+                        if (token.length > 0) {
+                          const decodedToken: any = jwtDecode(token);
 
-                      setPrebookingData({
-                        name: decodedToken.name,
-                        phone: decodedToken.login,
-                        email: decodedToken.profile?.email,
-                      });
-                    }
-                    setOpenPrebookCourse(true);
-                  }}
-                  className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
-                >
-                  {courseData.isWishList ? "Prebooked" : "Prebook This Course"}
-                </button>
+                          setPrebookingData({
+                            name: decodedToken.name,
+                            phone: decodedToken.login,
+                            email: decodedToken.profile?.email,
+                          });
+                        }
+                        setOpenPrebookCourse(true);
+                      }}
+                      className={`${courseData.isWishList ? "bg-gray-400 cursor-not-allowed" : "bg-[#1CAB55] hover:bg-opacity-50 ease-in-out duration-150 "} text-darkHeading py-3 w-full mt-8 rounded-xl font-bold`}
+                    >
+                      {courseData.isWishList
+                        ? "Prebooked"
+                        : "Prebook This Course"}
+                    </button>
                   </div>
 
                   <button
                     onClick={() => {
-                     setOpenPrebookCourse(true);
+                      setOpenPrebookCourse(true);
                     }}
                     className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                   >
-                    প্রিবুক করুন 
+                    প্রিবুক করুন
                   </button>
                   {/* {!courseData.isTaken && (
                     <div className="mt-6">
@@ -2533,48 +2496,74 @@ export default function CourseDetailsPage() {
               </div>
               <div className="bg-gray-400/20 dark:bg-gray-300/10    flex items-center justify-between gap-8 py-3 px-4 lg:px-6 rounded-xl rounded-t-none">
                 <p className="text-sm text-paragraph dark:text-darkParagraph">
-                  কোর্সটি সম্পর্কে বিস্তারিত জানতে
+                  কোর্সটি সম্পর্কে বিস্তারিত জানতে মেসেজ করতে পারো
                 </p>
-                <a
-                  href="https://www.facebook.com/groups/codervai.cp.batch01"
-                  target="_blank"
-                  className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
-                >
-                  <div className="">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="16"
-                        cy="16"
-                        r="14"
-                        fill="url(#paint0_linear_1630_2247)"
-                      />
-                      <path
-                        d="M21.2137 20.2816L21.8356 16.3301H17.9452V13.767C17.9452 12.6857 18.4877 11.6311 20.2302 11.6311H22V8.26699C22 8.26699 20.3945 8 18.8603 8C15.6548 8 13.5617 9.89294 13.5617 13.3184V16.3301H10V20.2816H13.5617V29.8345C14.2767 29.944 15.0082 30 15.7534 30C16.4986 30 17.2302 29.944 17.9452 29.8345V20.2816H21.2137Z"
-                        fill="white"
-                      />
-                      <defs>
-                        <linearGradient
-                          id="paint0_linear_1630_2247"
-                          x1="16"
-                          y1="2"
-                          x2="16"
-                          y2="29.917"
-                          gradientUnits="userSpaceOnUse"
-                        >
-                          <stop stop-color="#18ACFE" />
-                          <stop offset="1" stop-color="#0163E0" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  </div>
-                  Facebook Page
-                </a>
+                <div className="flex gap-3">
+                  <a
+                    href="https://wa.me/8801768976036"
+                    target="_blank"
+                    className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
+                  >
+                    <div className="">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle cx="16" cy="16" r="14" fill="#25D366" />
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M16.0014 7C11.0297 7 7.00391 11.0276 7.00391 16.0016C7.00391 17.6357 7.44249 19.2053 8.25505 20.5611L7.02332 24.7941L11.3655 23.5807C12.6761 24.314 14.3093 24.7031 16.0014 24.7031C20.973 24.7031 25.0014 20.673 25.0014 16.0016C25.0014 11.3276 20.973 7 16.0014 7ZM16.0014 23.1562C14.5008 23.1562 13.0363 22.7538 11.7932 21.9983L11.5174 21.8341L8.8668 22.5689L9.61467 20.0003L9.43244 19.711C8.59373 18.4278 8.1497 17.239 8.1497 16.0016C8.1497 11.8783 11.6957 8.55078 16.0014 8.55078C20.3068 8.55078 23.8528 11.8783 23.8528 16.0016C23.8528 20.1224 20.3068 23.1562 16.0014 23.1562ZM20.5182 17.9473C20.3704 17.873 19.1219 17.2579 18.9865 17.2089C18.8512 17.1596 18.7523 17.1352 18.6534 17.2834C18.5544 17.4318 18.0645 18.0222 17.9779 18.1213C17.8914 18.2204 17.805 18.2325 17.6571 18.1581C17.5093 18.0837 16.6969 17.8121 15.7503 16.9747C15.0103 16.3227 14.519 15.5218 14.4323 15.3734C14.3458 15.2252 14.4231 15.1454 14.4976 15.0732C14.564 15.0084 14.6461 14.9042 14.7204 14.8179C14.7946 14.7316 14.8188 14.6699 14.868 14.5708C14.9172 14.4718 14.8928 14.3855 14.856 14.3112C14.8188 14.2368 14.3289 13.089 14.1804 12.7925C14.0369 12.5069 13.8902 12.5553 13.7979 12.5484C13.7113 12.5424 13.6124 12.5417 13.5134 12.5417C13.4145 12.5417 13.2546 12.5789 13.1193 12.7271C12.9839 12.8755 12.3237 13.493 12.3237 14.6406C12.3237 15.7883 13.1317 16.8869 13.2059 16.9859C13.2801 17.085 14.5142 18.9711 16.3782 19.9722C16.9143 20.2092 17.3337 20.356 17.6598 20.4667C18.1827 20.6491 18.6637 20.6223 19.0436 20.5838C19.4677 20.5405 20.4427 20.0003 20.5911 19.6546C20.7394 19.309 20.7394 19.0124 20.7024 18.9504C20.6653 18.8883 20.5664 18.8513 20.4182 18.777L20.5182 17.9473Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </div>
+                    Whatsapp
+                  </a>
+                  <a
+                    href="https://www.facebook.com/codervaibd/"
+                    target="_blank"
+                    className="flex items-center bg-gray-400/30 dark:bg-gray-300/10 p-2 rounded-lg gap-3 hover:bg-gray-400/40 dark:hover:bg-gray-300/5 ease-in-out duration-150 text-sm text-paragraph dark:text-darkParagraph"
+                  >
+                    <div className="">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="16"
+                          cy="16"
+                          r="14"
+                          fill="url(#paint0_linear_1630_2247)"
+                        />
+                        <path
+                          d="M21.2137 20.2816L21.8356 16.3301H17.9452V13.767C17.9452 12.6857 18.4877 11.6311 20.2302 11.6311H22V8.26699C22 8.26699 20.3945 8 18.8603 8C15.6548 8 13.5617 9.89294 13.5617 13.3184V16.3301H10V20.2816H13.5617V29.8345C14.2767 29.944 15.0082 30 15.7534 30C16.4986 30 17.2302 29.944 17.9452 29.8345V20.2816H21.2137Z"
+                          fill="white"
+                        />
+                        <defs>
+                          <linearGradient
+                            id="paint0_linear_1630_2247"
+                            x1="16"
+                            y1="2"
+                            x2="16"
+                            y2="29.917"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#18ACFE" />
+                            <stop offset="1" stop-color="#0163E0" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                    Facebook Page
+                  </a>
+                </div>
               </div>
             </div>
           </div>
