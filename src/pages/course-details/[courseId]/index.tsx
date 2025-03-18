@@ -80,6 +80,28 @@ export default function CourseDetailsPage() {
     courseComplete: false,
   });
   const [conditionsChecked, setConditionsChecked] = useState(false);
+  const [openFaqItems, setOpenFaqItems] = useState<{ [key: number]: boolean }>(
+    {},
+  );
+  const [openChapterItems, setOpenChapterItems] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  // Toggle FAQ item
+  const toggleFaqItem = (index: number) => {
+    setOpenFaqItems((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
+  // Toggle Chapter item
+  const toggleChapterItem = (index: number) => {
+    setOpenChapterItems((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   const changeTab = (tabName: string) => {
     let temp: any = {
@@ -359,6 +381,12 @@ export default function CourseDetailsPage() {
       });
   };
 
+  // Initialize first items as open
+  useEffect(() => {
+    setOpenFaqItems({ 0: true });
+    setOpenChapterItems({ 0: true });
+  }, [courseData]);
+
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  overflow-x-hidden `}>
       <Nav></Nav>
@@ -395,7 +423,7 @@ export default function CourseDetailsPage() {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-700 ease-in-out"
             enterFrom="opacity-0"
             enterTo="opacity-100"
             leave="ease-in duration-200"
@@ -409,7 +437,7 @@ export default function CourseDetailsPage() {
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
+                enter="ease-out duration-700 ease-in-out"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
@@ -490,7 +518,7 @@ export default function CourseDetailsPage() {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-700 ease-in-out"
             enterFrom="opacity-0"
             enterTo="opacity-100"
             leave="ease-in duration-200"
@@ -504,7 +532,7 @@ export default function CourseDetailsPage() {
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
+                enter="ease-out duration-700 ease-in-out"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
@@ -629,7 +657,7 @@ export default function CourseDetailsPage() {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-700 ease-in-out"
             enterFrom="opacity-0"
             enterTo="opacity-100"
             leave="ease-in duration-200"
@@ -643,7 +671,7 @@ export default function CourseDetailsPage() {
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
+                enter="ease-out duration-700 ease-in-out"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
@@ -705,7 +733,7 @@ export default function CourseDetailsPage() {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-700 ease-in-out"
             enterFrom="opacity-0"
             enterTo="opacity-100"
             leave="ease-in duration-200"
@@ -719,7 +747,7 @@ export default function CourseDetailsPage() {
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
+                enter="ease-out duration-700 ease-in-out"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
@@ -774,7 +802,7 @@ export default function CourseDetailsPage() {
                         সর্বাত্নক হেল্প করতে পাশে আছি আমরা কোডার ভাই পরিবার!
                       </p>
                     </div>
-                    
+
                     {/* after purchase tasks */}
                     <p className="text-heading dark:text-darkHeading text-lg my-3 font-semibold ">
                       এখন তোমার কি করনীয়
@@ -1026,7 +1054,7 @@ export default function CourseDetailsPage() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M9.48438 8.00171H7.5167L8.50108 5.67524L9.48438 8.00171ZM0 2.75C0 1.23122 1.23122 0 2.75 0H19.25C20.7688 0 22 1.23122 22 2.75V11.5372C20.7381 10.5728 19.161 10 17.4502 10C14.9973 10 12.8195 11.1775 11.4511 12.9981L4.2251 12.9981C3.81088 12.9981 3.4751 13.3339 3.4751 13.7481C3.4751 14.1623 3.81089 14.4981 4.2251 14.4981L10.5751 14.4981C10.1732 15.4173 9.9502 16.4326 9.9502 17.5C9.9502 19.1884 10.5081 20.7465 11.4496 22H2.75C1.23122 22 0 20.7688 0 19.25V2.75ZM9.19229 3.45768C9.07498 3.18012 8.80294 2.99972 8.50161 2.99966C8.20028 2.99961 7.92817 3.1799 7.81075 3.45741L5.05924 9.96029C4.89783 10.3418 5.07622 10.7819 5.45769 10.9433C5.83916 11.1047 6.27926 10.9263 6.44066 10.5448L6.88202 9.50171H10.1184L10.5591 10.5445C10.7204 10.9261 11.1604 11.1046 11.5419 10.9434C11.9235 10.7821 12.102 10.3421 11.9408 9.96057L9.19229 3.45768ZM3.4751 17.7511C3.4751 18.1653 3.81088 18.5011 4.22509 18.5011L8.7505 18.5012C9.16471 18.5012 9.5005 18.1654 9.5005 17.7512C9.5005 17.3369 9.16472 17.0012 8.75051 17.0012L4.2251 17.0011C3.81089 17.0011 3.4751 17.3369 3.4751 17.7511ZM15.5 3.74991C15.5 3.3357 15.1642 2.99991 14.75 2.99991C14.3358 2.99991 14 3.3357 14 3.74991V5H12.7523C12.3381 5 12.0023 5.33579 12.0023 5.75C12.0023 6.16421 12.3381 6.5 12.7523 6.5H14V7.7476C14 8.16181 14.3358 8.4976 14.75 8.4976C15.1642 8.4976 15.5 8.16181 15.5 7.7476V6.5H16.75C17.1642 6.5 17.5 6.16421 17.5 5.75C17.5 5.33579 17.1642 5 16.75 5H15.5V3.74991ZM23.9502 17.5C23.9502 21.0899 21.04 24 17.4502 24C13.8603 24 10.9502 21.0899 10.9502 17.5C10.9502 13.9101 13.8603 11 17.4502 11C21.04 11 23.9502 13.9101 23.9502 17.5ZM17.9502 13.5C17.9502 13.2239 17.7263 13 17.4502 13C17.1741 13 16.9502 13.2239 16.9502 13.5V17H13.4502C13.1741 17 12.9502 17.2239 12.9502 17.5C12.9502 17.7761 13.1741 18 13.4502 18H16.9502V21.5C16.9502 21.7761 17.1741 22 17.4502 22C17.7263 22 17.9502 21.7761 17.9502 21.5V18H21.4502C21.7263 18 21.9502 17.7761 21.9502 17.5C21.9502 17.2239 21.7263 17 21.4502 17H17.9502V13.5Z"
+                      d="M9.48438 8.00171H7.5167L8.50108 5.67524L9.48438 8.00171ZM0 2.75C0 1.23122 1.23122 0 2.75 0H19.25C20.7688 0 22 1.23122 22 2.75V11.5372C20.7381 10.5728 19.161 10 17.4502 10C14.9973 10 12.8195 11.1775 11.4511 12.9981L4.2251 12.9981C3.81088 12.9981 3.4751 13.3339 3.4751 13.7481C3.4751 14.1623 3.81089 14.4981 4.2251 14.4981L10.5751 14.4981C10.1732 15.4173 9.9502 16.4326 9.9502 17.5C9.9502 19.1884 10.5081 20.7465 11.4496 22H2.75C1.23122 22 0 20.7688 0 19.25V2.75ZM9.19229 3.45768C9.07498 3.18012 8.80294 2.99972 8.50161 2.99966C8.20028 2.99961 7.92817 3.1799 7.81075 3.45741L5.05924 9.96029C4.89783 10.3418 5.07622 10.7819 5.45769 10.9433C5.83916 11.1047 6.27926 10.9263 6.44066 10.5448L6.88202 9.50171H10.1184L10.5591 10.5445C10.7204 10.9261 11.1604 11.1046 11.5419 10.9434C11.9235 10.7821 12.102 10.3421 11.9408 9.96057L9.19229 3.45768ZM3.4751 17.7511C3.4751 18.1653 3.81088 18.5011 4.22509 18.5011L8.7505 18.5012C9.16471 18.5012 9.5005 18.1654 9.5005 17.7512C9.5005 17.3369 9.16472 17.0012 8.75051 17.0011C4.2251 17.0011 3.4751 17.3369 3.4751 17.7511ZM15.5 3.74991C15.5 3.3357 15.1642 2.99991 14.75 2.99991C14.3358 2.99991 14 3.3357 14 3.74991V5H12.7523C12.3381 5 12.0023 5.33579 12.0023 5.75C12.0023 6.16421 12.3381 6.5 12.7523 6.5H14V7.7476C14 8.16181 14.3358 8.4976 14.75 8.4976C15.1642 8.4976 15.5 8.16181 15.5 7.7476V6.5H16.75C17.1642 6.5 17.5 6.16421 17.5 5.75C17.5 5.33579 17.1642 5 16.75 5H15.5V3.74991ZM23.9502 17.5C23.9502 21.0899 21.04 24 17.4502 24C13.8603 24 10.9502 21.0899 10.9502 17.5C10.9502 13.9101 13.8603 11 17.4502 11C21.04 11 23.9502 13.9101 23.9502 17.5ZM17.9502 13.5C17.9502 13.2239 17.7263 13 17.4502 13C17.1741 13 16.9502 13.2239 16.9502 13.5V17H13.4502C13.1741 17 12.9502 17.2239 12.9502 17.5C12.9502 17.7761 13.1741 18 13.4502 18H16.9502V21.5C16.9502 21.7761 17.1741 22 17.4502 22C17.7263 22 17.9502 21.7761 17.9502 21.5V18H21.4502C21.7263 18 21.9502 17.7761 21.9502 17.5C21.9502 17.2239 21.7263 17 21.4502 17H17.9502V13.5Z"
                       fill="#D95344"
                     />
                   </svg>
@@ -1325,16 +1353,14 @@ export default function CourseDetailsPage() {
                     {courseData?.chapters.map((elem: any, index: any) => (
                       <div
                         className={
-                          "collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-6"
+                          "dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-6 rounded-lg overflow-hidden"
                         }
                         key={Math.random()}
                       >
-                        <input
-                          type="radio"
-                          name="my-accordion-3"
-                          defaultChecked={index == 0}
-                        />
-                        <div className="collapse-title  font-medium ">
+                        <div
+                          className="p-5 cursor-pointer"
+                          onClick={() => toggleChapterItem(index)}
+                        >
                           <div className="flex justify-between">
                             <div
                               className="flex gap-4 flex-col lg:flex-row justify-start"
@@ -1365,11 +1391,10 @@ export default function CourseDetailsPage() {
                                 >
                                   {elem.title}
                                 </p>
-                                <div className="flex flex-wrap gap-3  lg:items-center mt-3 text-sm font-medium">
+                                <div className="flex flex-wrap gap-3 lg:items-center mt-3 text-sm font-medium">
                                   <div
                                     className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .videoCount == 0 && "hidden"
+                                      !elem.is_free && "text-[#565656]"
                                     }`}
                                   >
                                     <svg
@@ -1379,125 +1404,55 @@ export default function CourseDetailsPage() {
                                       fill="none"
                                       xmlns="http://www.w3.org/2000/svg"
                                     >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
+                                      <g clipPath="url(#clip0_261_8176)">
+                                        <path
+                                          d="M8.95996 3.75C8.95996 4.22 8.76307 4.67 8.41301 5.01C8.06295 5.36 7.6067 5.56 7.12996 5.56C6.65323 5.56 6.19697 5.36 5.84691 5.01C5.49685 4.67 5.29996 4.22 5.29996 3.75C5.29996 3.28 5.49685 2.83 5.84691 2.48C6.19697 2.13 6.65323 1.94 7.12996 1.94C7.6067 1.94 8.06295 2.13 8.41301 2.48C8.76307 2.83 8.95996 3.28 8.95996 3.75Z"
+                                          fill={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                        />
+                                        <path
+                                          d="M3.45996 7.2C3.45996 6.66 3.99996 6.12 4.72796 5.7C4.15996 6.09 3.45996 7.07 3.45996 8.15C3.45996 9.23 4.15996 10.21 4.72796 10.6C3.99996 10.18 3.45996 9.65 3.45996 9.1V7.2Z"
+                                          fill={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                        />
+                                        <path
+                                          d="M10.8 7.2C10.8 6.66 10.26 6.12 9.53196 5.7C10.1 6.09 10.8 7.07 10.8 8.15C10.8 9.23 10.1 10.21 9.53196 10.6C10.26 10.18 10.8 9.65 10.8 9.1V7.2Z"
+                                          fill={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                        />
+                                        <path
+                                          d="M7.12996 6.12C5.95196 6.12 4.22396 7.19 3.45996 8.82C4.22396 10.45 5.95196 11.52 7.12996 11.52C8.30796 11.52 10.036 10.45 10.8 8.82C10.036 7.19 8.30796 6.12 7.12996 6.12Z"
+                                          fill={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                        />
+                                      </g>
+                                      <defs>
+                                        <clipPath id="clip0_261_8176">
+                                          <rect
+                                            width="12"
+                                            height="12"
+                                            fill="white"
+                                            transform="translate(0.929932)"
+                                          />
+                                        </clipPath>
+                                      </defs>
                                     </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
+                                    <p>
                                       {
                                         countAssignmentsAndVideos(elem.modules)
                                           .videoCount
                                       }{" "}
-                                      টি ভিডিও
-                                    </p>
-                                  </div>
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .quizCount == 0 && "hidden"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .quizCount
-                                      }{" "}
-                                      টি কুইজ
-                                    </p>
-                                  </div>
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .codeCount == 0 && "hidden"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .codeCount
-                                      }{" "}
-                                      টি কোডিং চ্যালেঞ্জ
-                                    </p>
-                                  </div>
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      countAssignmentsAndVideos(elem.modules)
-                                        .pdfCount == 0 && "hidden"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                        fill={
-                                          elem.is_free ? "#B153E0" : "#565656"
-                                        }
-                                      />
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .pdfCount
-                                      }{" "}
-                                      টি পিডিএফ
+                                      টি ভিডিও{" "}
                                     </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div>
+                            <div className="flex items-center gap-2">
                               {elem.is_free ? (
                                 <p
                                   className="px-4 py-1 text-[#1CAB55] bg-[#1CAB55]/10 rounded-full text-sm"
@@ -1521,10 +1476,29 @@ export default function CourseDetailsPage() {
                                   />
                                 </svg>
                               )}
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className={`transition-transform duration-500 ease-in-out transform ${openChapterItems[index] ? "rotate-180" : "rotate-0"}`}
+                              >
+                                <path
+                                  d="M8 12L2 6H14L8 12Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
                             </div>
                           </div>
                         </div>
-                        <div className="collapse-content   border-t border-gray-400/50 dark:border-gray-300/20 ">
+                        <div
+                          className={`transition-all duration-500 ease-in-out px-6 overflow-hidden ${
+                            openChapterItems[index]
+                              ? "max-h-[1000px] opacity-100 transform translate-y-0"
+                              : "max-h-0 opacity-0 transform -translate-y-4"
+                          }`}
+                        >
                           <div className="pt-6"></div>
                           {elem.modules.map((module: any) => (
                             <div
@@ -1630,11 +1604,12 @@ export default function CourseDetailsPage() {
                                 </svg>
                               )}
                               <p className="text-black dark:text-[#737373] text-base">
-                                {module.data.category == "VIDEO" && "Video:"}{" "}
-                                {module.data.category == "ASSIGNMENT" &&
+                                {module.data.category === "VIDEO" && "Video:"}{" "}
+                                {module.data.category === "ASSIGNMENT" &&
                                   "Assignment:"}{" "}
-                                {module.data.category == "CODE" && "Code:"}{" "}
-                                {module.data.category == "QUIZ" && "Quiz:"}{" "}
+                                {module.data.category === "CODE" && "Code:"}{" "}
+                                {module.data.category === "QUIZ" && "Quiz:"}{" "}
+                                {module.data.category === "PDF" && "PDF:"}{" "}
                                 {module.title}
                               </p>
                             </div>
@@ -1918,19 +1893,34 @@ export default function CourseDetailsPage() {
                     </p>
                     {courseData.faq_list.faqs.map((faq: any, index: any) => (
                       <div
-                        className="collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-4"
+                        className="dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-4 rounded-lg overflow-hidden"
                         key={Math.random()}
                       >
-                        <input
-                          type="radio"
-                          name="my-accordion-4"
-                          defaultChecked={index == 0}
-                        />
-                        <div className="collapse-title text-xl font-medium">
+                        <div
+                          className="text-xl font-medium p-5 cursor-pointer flex justify-between items-center"
+                          onClick={() => toggleFaqItem(index)}
+                        >
                           {faq.question}
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className={`transition-all duration-700 ease-in-out ${openFaqItems[index] ? "rotate-180" : ""}`}
+                          >
+                            <path d="M8 12L2 6H14L8 12Z" fill="currentColor" />
+                          </svg>
                         </div>
-                        <div className="collapse-content">
-                          <p>{faq.answer}</p>
+                        <div
+                          className={`transition-all duration-500 ease-in-out px-5 overflow-hidden ${
+                            openFaqItems[index]
+                              ? "max-h-[500px] opacity-100"
+                              : "max-h-0 opacity-0"
+                          }`}
+                        >
+                          <p className="pt-5">{faq.answer}</p>
+                          <div className="pb-5"></div>
                         </div>
                       </div>
                     ))}
