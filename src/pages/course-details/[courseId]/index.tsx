@@ -2241,14 +2241,14 @@ export default function CourseDetailsPage() {
                 </button>
                   </div>
 
-                  <button
+                  {/* <button
                     onClick={() => {
                      setOpenPrebookCourse(true);
                     }}
                     className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                   >
                     প্রিবুক করুন 
-                  </button>
+                  </button> */}
                   {/* {!courseData.isTaken && (
                     <div className="mt-6">
                       <p className="text-lg font-semibold mb-1">Enter Coupon</p>
