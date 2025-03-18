@@ -1392,63 +1392,187 @@ export default function CourseDetailsPage() {
                                   {elem.title}
                                 </p>
                                 <div className="flex flex-wrap gap-3 lg:items-center mt-3 text-sm font-medium">
-                                  <div
-                                    className={`flex items-center gap-3 ${
-                                      !elem.is_free && "text-[#565656]"
-                                    }`}
-                                  >
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
+                                  {countAssignmentsAndVideos(elem.modules)
+                                    .videoCount > 0 && (
+                                    <div
+                                      className={`flex items-center gap-3 ${!elem.is_free && "text-[#565656]"}`}
                                     >
-                                      <g clipPath="url(#clip0_261_8176)">
-                                        <path
-                                          d="M8.95996 3.75C8.95996 4.22 8.76307 4.67 8.41301 5.01C8.06295 5.36 7.6067 5.56 7.12996 5.56C6.65323 5.56 6.19697 5.36 5.84691 5.01C5.49685 4.67 5.29996 4.22 5.29996 3.75C5.29996 3.28 5.49685 2.83 5.84691 2.48C6.19697 2.13 6.65323 1.94 7.12996 1.94C7.6067 1.94 8.06295 2.13 8.41301 2.48C8.76307 2.83 8.95996 3.28 8.95996 3.75Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                        <path
-                                          d="M3.45996 7.2C3.45996 6.66 3.99996 6.12 4.72796 5.7C4.15996 6.09 3.45996 7.07 3.45996 8.15C3.45996 9.23 4.15996 10.21 4.72796 10.6C3.99996 10.18 3.45996 9.65 3.45996 9.1V7.2Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                        <path
-                                          d="M10.8 7.2C10.8 6.66 10.26 6.12 9.53196 5.7C10.1 6.09 10.8 7.07 10.8 8.15C10.8 9.23 10.1 10.21 9.53196 10.6C10.26 10.18 10.8 9.65 10.8 9.1V7.2Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                        <path
-                                          d="M7.12996 6.12C5.95196 6.12 4.22396 7.19 3.45996 8.82C4.22396 10.45 5.95196 11.52 7.12996 11.52C8.30796 11.52 10.036 10.45 10.8 8.82C10.036 7.19 8.30796 6.12 7.12996 6.12Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip0_261_8176">
-                                          <rect
-                                            width="12"
-                                            height="12"
-                                            fill="white"
-                                            transform="translate(0.929932)"
+                                      <svg
+                                        width="13"
+                                        height="12"
+                                        viewBox="0 0 13 12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <g clipPath="url(#clip0_261_8176)">
+                                          <path
+                                            d="M8.95996 3.75C8.95996 4.22 8.76307 4.67 8.41301 5.01C8.06295 5.36 7.6067 5.56 7.12996 5.56C6.65323 5.56 6.19697 5.36 5.84691 5.01C5.49685 4.67 5.29996 4.22 5.29996 3.75C5.29996 3.28 5.49685 2.83 5.84691 2.48C6.19697 2.13 6.65323 1.94 7.12996 1.94C7.6067 1.94 8.06295 2.13 8.41301 2.48C8.76307 2.83 8.95996 3.28 8.95996 3.75Z"
+                                            fill={
+                                              elem.is_free
+                                                ? "#B153E0"
+                                                : "#565656"
+                                            }
                                           />
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                    <p>
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .videoCount
-                                      }{" "}
-                                      টি ভিডিও{" "}
-                                    </p>
-                                  </div>
+                                          <path
+                                            d="M3.45996 7.2C3.45996 6.66 3.99996 6.12 4.72796 5.7C4.15996 6.09 3.45996 7.07 3.45996 8.15C3.45996 9.23 4.15996 10.21 4.72796 10.6C3.99996 10.18 3.45996 9.65 3.45996 9.1V7.2Z"
+                                            fill={
+                                              elem.is_free
+                                                ? "#B153E0"
+                                                : "#565656"
+                                            }
+                                          />
+                                          <path
+                                            d="M10.8 7.2C10.8 6.66 10.26 6.12 9.53196 5.7C10.1 6.09 10.8 7.07 10.8 8.15C10.8 9.23 10.1 10.21 9.53196 10.6C10.26 10.18 10.8 9.65 10.8 9.1V7.2Z"
+                                            fill={
+                                              elem.is_free
+                                                ? "#B153E0"
+                                                : "#565656"
+                                            }
+                                          />
+                                          <path
+                                            d="M7.12996 6.12C5.95196 6.12 4.22396 7.19 3.45996 8.82C4.22396 10.45 5.95196 11.52 7.12996 11.52C8.30796 11.52 10.036 10.45 10.8 8.82C10.036 7.19 8.30796 6.12 7.12996 6.12Z"
+                                            fill={
+                                              elem.is_free
+                                                ? "#B153E0"
+                                                : "#565656"
+                                            }
+                                          />
+                                        </g>
+                                      </svg>
+                                      <p>
+                                        {
+                                          countAssignmentsAndVideos(
+                                            elem.modules,
+                                          ).videoCount
+                                        }{" "}
+                                        টি ভিডিও{" "}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {countAssignmentsAndVideos(elem.modules)
+                                    .quizCount > 0 && (
+                                    <div
+                                      className={`flex items-center gap-3 ${!elem.is_free && "text-[#565656]"}`}
+                                    >
+                                      <svg
+                                        width="13"
+                                        height="12"
+                                        viewBox="0 0 13 12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M6.5 0C3.18629 0 0.5 2.68629 0.5 6C0.5 9.31371 3.18629 12 6.5 12C9.81371 12 12.5 9.31371 12.5 6C12.5 2.68629 9.81371 0 6.5 0ZM7.35714 9L6.5 8.14286L4.07143 5.71429L4.92857 4.85714L6.5 6.42857L8.92857 4L9.78571 4.85714L7.35714 7.28571V9Z"
+                                          fill={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                        />
+                                      </svg>
+                                      <p>
+                                        {
+                                          countAssignmentsAndVideos(
+                                            elem.modules,
+                                          ).quizCount
+                                        }{" "}
+                                        টি কুইজ{" "}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {countAssignmentsAndVideos(elem.modules)
+                                    .codeCount > 0 && (
+                                    <div
+                                      className={`flex items-center gap-3 ${!elem.is_free && "text-[#565656]"}`}
+                                    >
+                                      <svg
+                                        width="13"
+                                        height="12"
+                                        viewBox="0 0 13 12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M4.83333 9L1.5 6L4.83333 3M8.16667 3L11.5 6L8.16667 9"
+                                          stroke={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                      <p>
+                                        {
+                                          countAssignmentsAndVideos(
+                                            elem.modules,
+                                          ).codeCount
+                                        }{" "}
+                                        টি কোডিং প্রব্লেম{" "}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {countAssignmentsAndVideos(elem.modules)
+                                    .pdfCount > 0 && (
+                                    <div
+                                      className={`flex items-center gap-3 ${!elem.is_free && "text-[#565656]"}`}
+                                    >
+                                      <svg
+                                        width="13"
+                                        height="12"
+                                        viewBox="0 0 13 12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M7.5 1H3.5C2.94772 1 2.5 1.44772 2.5 2V10C2.5 10.5523 2.94772 11 3.5 11H9.5C10.0523 11 10.5 10.5523 10.5 10V4L7.5 1Z"
+                                          stroke={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                        <path
+                                          d="M7.5 1V4H10.5"
+                                          stroke={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                        <path
+                                          d="M8.5 6.5H4.5"
+                                          stroke={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                        <path
+                                          d="M8.5 8.5H4.5"
+                                          stroke={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                        <path
+                                          d="M5.5 4.5H4.5"
+                                          stroke={
+                                            elem.is_free ? "#B153E0" : "#565656"
+                                          }
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                      <p>
+                                        {
+                                          countAssignmentsAndVideos(
+                                            elem.modules,
+                                          ).pdfCount
+                                        }{" "}
+                                        টি পিডিএফ{" "}
+                                      </p>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1495,7 +1619,7 @@ export default function CourseDetailsPage() {
                         <div
                           className={`transition-all duration-500 ease-in-out px-6 overflow-hidden ${
                             openChapterItems[index]
-                              ? "max-h-[1000px] opacity-100 transform translate-y-0"
+                              ? "max-h-[2000px] opacity-100 transform translate-y-0"
                               : "max-h-0 opacity-0 transform -translate-y-4"
                           }`}
                         >
