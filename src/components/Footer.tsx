@@ -1,13 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {};
 
 export default function Footer({}: Props) {
   return (
     <div className="bg-[#151014] z-30 relative overflow-hidden">
-      <div className="w-[90%] lg:w-[80%] mx-auto  text-darkHeading py-20 ">
-        <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+      <div className="w-[90%] lg:w-[80%] text-darkHeading py-10 max-w-[1440px] mx-auto">
+        <div className="flex flex-col lg:flex-row">
+          {/* Background SVG */}
           <svg
             width="1161"
             viewBox="0 0 1161 326"
@@ -50,15 +52,34 @@ export default function Footer({}: Props) {
             </defs>
           </svg>
 
-          <div className="mb-20 lg:mb-0 z-10">
-            <img src="/logo.png" alt="" className="w-14 " />
-            <p className="text-white mt-4">
-              H-123,Nurer Chaya,
+          {/* Column 1 - Logo and Contact */}
+          <div className="mb-10 lg:mb-0 z-10 lg:w-[45%]">
+            <Image
+              src="/codervai_logo_light.png"
+              alt="CoderVai Logo"
+              className="w-24 mb-3"
+              width={96}
+              height={24}
+            />
+            <h2 className="text-3xl font-bold text-white mb-2 cursor-default">
+              তোমার কোডিং পার্টনার
+            </h2>
+            <p className="font-medium text-lg mb-6 cursor-default">
+              প্রতিযোগিতামূলক প্রোগ্রামিং এর হাতেখড়ি হোক এখন থেকেই
               <br />
-              Ashkona Haji Camp Dakhin Khan,
-              <br />
-              Dhaka, Bangladesh
+              বিশ্বসেরা সব প্রোগ্রামারদের হাত ধরে
             </p>
+
+            {/* Address */}
+            <p className="text-white text-gray-400">
+              H-123, Nurer Chaya, Ashkona Haji
+              <br />
+              Camp Dakhin Khan, Dhaka,
+              <br />
+              Bangladesh
+            </p>
+
+            {/* Phone */}
             <div className="flex items-center gap-2 mt-4">
               <svg
                 width="25"
@@ -84,9 +105,16 @@ export default function Footer({}: Props) {
                   stroke-linejoin="round"
                 />
               </svg>
-              <a href="tel:+8801768976036">+8801768976036</a>
+              <Link
+                href="tel:+8801768976036"
+                className="hover:text-white transition-colors"
+              >
+                +8801768976036
+              </Link>
             </div>
-            <div className="flex items-center gap-2 mt-4">
+
+            {/* Trade Licence */}
+            <div className="flex items-center gap-2 mt-2">
               <svg
                 width="25"
                 height="24"
@@ -110,186 +138,246 @@ export default function Footer({}: Props) {
                   stroke-linejoin="round"
                 />
               </svg>
-
-              <p className="text-white ">
-                {" "}
-                Trade License: TRAD/DNCC/022261/2023{" "}
+              <p className="hover:text-white transition-colors">
+                Trade License: TRAD/DNCC/022261/2023
               </p>
             </div>
 
-            {/* <div className="text-darkParagraph mt-8">
-              <a
-                href="https://www.facebook.com/groups/coder.vai.2023"
-                className="block hover:underline"
+            {/* Email */}
+            <div className="flex items-center gap-2 mt-2">
+              <svg
+                width="25"
+                height="24"
+                viewBox="0 0 25 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Facebook
-              </a>
-              <a
-                href="https://wa.me/+8801768976036"
-                className="block hover:underline"
-              >
-                Whatsapp
-              </a>
-              <a
+                <rect
+                  x="0.5"
+                  width="24"
+                  height="24"
+                  rx="6"
+                  fill="#EE4878"
+                  fill-opacity="0.15"
+                />
+                <text
+                  x="50%"
+                  y="50%"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                  font-size="12"
+                  font-family="Arial, sans-serif"
+                  font-weight="bold"
+                  fill="#EE4878"
+                >
+                  @
+                </text>
+              </svg>
+              <Link
                 href="mailto:support@codervai.com"
-                className="block hover:underline"
+                className="hover:text-white transition-colors"
               >
-                Email
-              </a>
-            </div> */}
+                support@codervai.com
+              </Link>
+            </div>
           </div>
 
-          <div className="flex gap-20 text-lg text-darkParagraph flex-col lg:flex-row z-10">
-            <div className="flex flex-col gap-4 ">
-              {/* <Link href="/notifications" className="hover:text-white">
-                নোটিফিকেশান
-              </Link> */}
-              {/* <Link href="/live-class" className="hover:text-white">
-                লাইফ ক্লাস শিডিউল
-              </Link> */}
-              <Link href="/" className="hover:text-white">
-                কোস কন্টেন্ট
-              </Link>
-              <a
-                href="https://www.codervai.com/terms-and-conditions"
-                className="hover:text-white"
-              >
-                শর্তাবলি
-              </a>
-              <a
-                href="https://www.codervai.com/privacy-policy"
-                className="hover:text-white"
-              >
-                প্রাইভেসি পলিসি
-              </a>
-              <a
-                href="https://www.codervai.com/refund-policy"
-                className="hover:text-white"
-              >
-                রিফান্ড পলিসি
-              </a>
-              <a
-                href="https://www.codervai.com/about-us"
-                className="hover:text-white"
-              >
-                About Us
-              </a>
+          {/* Right section with Our Courses and Company */}
+          <div className="flex flex-col md:flex-col lg:flex-row lg:w-[55%] lg:justify-end gap-10 lg:gap-40">
+            {/* Our Courses Column */}
+            <div>
+              <h3 className="text-white text-3xl font-semibold mb-6 font-inter cursor-default">
+                Our Courses
+              </h3>
+              <ul className="lg:space-y-4 space-y-2">
+                <li>
+                  <Link
+                    href="https://cp.codervai.com"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Competitive Programming 3.0 TurboCharged
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://android.codervai.com"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Android App Developement from Zero to Pro
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://py.codervai.com"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Introduction to Programming : Building Your First Game with
+                    Python
+                  </Link>
+                </li>
+              </ul>
             </div>
 
-            {/* <div className="flex flex-col gap-4">
-              <Link href="" className="hover:text-white">
-                নোটিফিকেশান
-              </Link>
-              <Link href="" className="hover:text-white">
-                লাইফ ক্লাস শিডিউল
-              </Link>
-              <Link href="" className="hover:text-white">
-                কোস কন্টেন্ট
-              </Link>
-            </div> */}
+            {/* Company Column */}
+            <div className="z-10">
+              <h3 className="text-white text-3xl font-semibold mb-6 font-inter cursor-default">
+                Company
+              </h3>
+              <ul className="lg:space-y-4 space-y-2">
+                <li>
+                  <Link
+                    href="https://www.codervai.com/about-us"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Our Team
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://www.codervai.com/refund-policy"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Refund Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://www.codervai.com/privacy-policy"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://www.codervai.com/terms-and-conditions"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Terms & Condition
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="mt-10">
-
-          <img alt="ssl-commerz" src="/SSLCommerz-Pay-With-logo-All-Size-03.png" />
-        </div>
-        <div className="mt-10 flex gap-8 justify-center items-center  pb-10  border-b  border-gray-300/40">
-          <a
-            href="https://www.facebook.com/groups/coder.vai.2023"
-            target="__blank"
+        {/* Social Media Icons */}
+        <div className="mt-10 flex gap-8 justify-center items-center pb-5">
+          {/* Facebook */}
+          <Link
+            href="https://www.facebook.com/codervaibd"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Facebook"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-b from-[#18ACFE] to-[#0163E0] hover:opacity-90 transition-opacity"
           >
             <svg
-              className="w-[32px]"
-              viewBox="0 0 32 32"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                fill="url(#paint0_linear_1630_2247)"
-              />
               <path
-                d="M21.2137 20.2816L21.8356 16.3301H17.9452V13.767C17.9452 12.6857 18.4877 11.6311 20.2302 11.6311H22V8.26699C22 8.26699 20.3945 8 18.8603 8C15.6548 8 13.5617 9.89294 13.5617 13.3184V16.3301H10V20.2816H13.5617V29.8345C14.2767 29.944 15.0082 30 15.7534 30C16.4986 30 17.2302 29.944 17.9452 29.8345V20.2816H21.2137Z"
+                d="M16.2137 15.2816L16.8356 11.3301H12.9452V8.76704C12.9452 7.68574 13.4877 6.63114 15.2302 6.63114H17V3.26699C17 3.26699 15.3945 3 13.8603 3C10.6548 3 8.56174 4.89294 8.56174 8.31843V11.3301H5V15.2816H8.56174V24.8345C9.27673 24.944 10.0082 25 10.7534 25C11.4986 25 12.2302 24.944 12.9452 24.8345V15.2816H16.2137Z"
                 fill="white"
               />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_1630_2247"
-                  x1="16"
-                  y1="2"
-                  x2="16"
-                  y2="29.917"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#18ACFE" />
-                  <stop offset="1" stop-color="#0163E0" />
-                </linearGradient>
-              </defs>
             </svg>
-          </a>
+          </Link>
 
-          <a href="mailto:support@codervai.com">
+          {/* LinkedIn */}
+          <Link
+            href="https://www.linkedin.com/company/codervai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0077B5] hover:opacity-90 transition-opacity"
+          >
             <svg
-              className="w-[32px]"
-              viewBox="0 0 36 36"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_3750_2472)">
-                <path
-                  d="M18 36.0001C27.9411 36.0001 36 27.9412 36 18.0001C36 8.05894 27.9411 0 18 0C8.05887 0 0 8.05894 0 18.0001C0 27.9412 8.05887 36.0001 18 36.0001Z"
-                  fill="#1D67B1"
-                />
-                <path
-                  d="M18.0024 12.5898L8.99439 12.6108C8.99373 12.6108 8.99306 12.6108 8.99239 12.6108C8.96004 12.6053 8.92721 12.603 8.89439 12.6038C8.76196 12.6059 8.63577 12.6605 8.54352 12.7556C8.45128 12.8506 8.40052 12.9784 8.40239 13.1108V24.5008C8.40239 24.6335 8.45507 24.7606 8.54884 24.8544C8.64261 24.9482 8.76979 25.0008 8.90239 25.0008H27.0934C27.226 25.0008 27.3532 24.9482 27.4469 24.8544C27.5407 24.7606 27.5934 24.6335 27.5934 24.5008V13.1748C27.604 13.1039 27.5992 13.0316 27.5794 12.9626C27.5596 12.8937 27.5252 12.8299 27.4785 12.7754C27.4319 12.721 27.374 12.6772 27.309 12.6471C27.2439 12.617 27.1731 12.6012 27.1014 12.6008L18.0024 12.5898ZM18.0024 13.5898H18.0044L25.3634 13.5998L18.0024 18.2048L10.6424 13.6098L18.0024 13.5898ZM26.5934 14.0078V23.9998H9.40239V14.0118L17.7384 19.2188C17.8179 19.2685 17.9097 19.2948 18.0034 19.2948C18.0971 19.2948 18.1889 19.2685 18.2684 19.2188L26.5934 14.0078Z"
-                  fill="white"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_3750_2472">
-                  <rect width="36" height="36" fill="white" />
-                </clipPath>
-              </defs>
+              <path
+                d="M19 3H5C3.895 3 3 3.895 3 5V19C3 20.105 3.895 21 5 21H19C20.105 21 21 20.105 21 19V5C21 3.895 20.105 3 19 3ZM8.5 18H6.5V10H8.5V18ZM7.5 9C6.672 9 6 8.328 6 7.5C6 6.672 6.672 6 7.5 6C8.328 6 9 6.672 9 7.5C9 8.328 8.328 9 7.5 9ZM18 18H16V13.5C16 12.672 15.328 12 14.5 12C13.672 12 13 12.672 13 13.5V18H11V10H13V11.116C13.532 10.435 14.414 10 15.5 10C16.881 10 18 11.119 18 12.5V18Z"
+                fill="white"
+              />
             </svg>
-          </a>
-          <a href="https://wa.me/+8801768976036">
+          </Link>
+
+          {/* YouTube */}
+          <Link
+            href="https://www.youtube.com/@codervaibd"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="YouTube"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#FF0000] hover:opacity-90 transition-opacity"
+          >
             <svg
-              className="w-[32px]"
-              viewBox="0 0 100 100"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_3750_2476)">
-                <path
-                  d="M90.3743 0H9.62567C4.30956 0 0 4.30956 0 9.62567V90.3743C0 95.6904 4.30956 100 9.62567 100H90.3743C95.6904 100 100 95.6904 100 90.3743V9.62567C100 4.30956 95.6904 0 90.3743 0Z"
-                  fill="#009846"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M50.8011 78.0758C44.9188 78.0758 39.0364 76.4715 34.2236 73.263L22.9936 77.0063L26.737 66.3111C23.5284 61.4983 21.3894 55.6159 21.3894 49.1988V46.525C22.9936 31.5518 35.2931 19.787 50.8011 19.787C66.3092 19.787 78.6086 31.5518 80.2129 47.0598V49.1988C80.2129 65.2416 66.8439 78.0758 50.8011 78.0758ZM85.5605 48.1293C85.0257 29.4127 69.5177 14.4395 50.8011 14.4395C32.0846 14.4395 16.5765 28.878 15.507 47.5945V49.1988C15.507 55.6159 17.6461 62.033 20.8546 66.8459L14.4375 85.5624L33.6888 79.6801C38.5017 82.3539 44.384 83.9582 50.8011 83.9582C70.0525 83.9582 85.5605 68.4501 85.5605 49.1988V48.1293Z"
-                  fill="#FEFEFE"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M66.8465 56.1489C65.777 55.6142 61.4989 53.4752 60.9641 53.4752C59.8946 52.9404 59.3599 52.9404 58.8251 54.0099C58.2903 54.5447 56.6861 56.6837 56.1513 57.2185C55.6165 57.7532 55.0818 57.7532 54.547 57.2185C53.4775 56.6837 50.8037 56.1489 47.5951 52.9404C44.9214 50.8014 43.3171 48.1276 42.7823 47.058C42.2476 46.5233 42.7823 45.9885 42.7823 45.4538L44.3866 43.8495V43.3147C44.9214 43.3147 44.9214 42.78 44.9214 42.78C45.4561 41.7104 45.4561 41.7104 44.9214 41.1757C44.9214 40.6409 43.3171 36.3629 42.2476 34.7586C41.7128 33.1543 41.178 33.1543 40.6433 33.1543H39.039C38.5042 33.1543 37.4347 33.6891 36.3652 34.2238C35.8304 35.2933 33.6914 37.4324 33.6914 41.1757C33.6914 42.2452 33.6914 43.3147 34.2262 44.3842C34.7609 47.058 36.9 49.7318 36.9 50.2666C37.4347 50.8014 42.7823 59.8923 51.8732 63.1008C60.4294 66.3094 60.4294 65.2399 62.0337 65.2399C63.6379 65.2399 67.3812 63.1008 67.916 60.9618C68.4508 59.3575 68.4508 57.2185 68.4508 57.2185C67.916 56.6837 67.3812 56.6837 66.8465 56.1489Z"
-                  fill="#FEFEFE"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_3750_2476">
-                  <rect width="100" height="100" fill="white" />
-                </clipPath>
-              </defs>
+              <path
+                d="M21.543 6.498C22 8.28 22 12 22 12C22 12 22 15.72 21.543 17.502C21.289 18.487 20.546 19.262 19.605 19.524C17.896 20 12 20 12 20C12 20 6.107 20 4.395 19.524C3.45 19.258 2.708 18.484 2.457 17.502C2 15.72 2 12 2 12C2 12 2 8.28 2.457 6.498C2.711 5.513 3.454 4.738 4.395 4.476C6.107 4 12 4 12 4C12 4 17.896 4 19.605 4.476C20.55 4.742 21.292 5.516 21.543 6.498ZM10 15.5L16 12L10 8.5V15.5Z"
+                fill="white"
+              />
             </svg>
-          </a>
+          </Link>
+
+          {/* WhatsApp */}
+          <Link
+            href="https://wa.me/8801768976036"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="WhatsApp"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#25D366] hover:opacity-90 transition-opacity"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M20.463 3.488C18.217 1.24 15.231 0 12.05 0C5.495 0 0.16 5.334 0.157 11.892C0.156 13.988 0.741 16.034 1.851 17.812L0 24L6.319 22.181C8.024 23.191 9.968 23.724 11.954 23.724H11.959C18.513 23.724 23.849 18.39 23.852 11.831C23.854 8.653 22.709 5.737 20.463 3.488ZM12.049 21.729H12.045C10.264 21.729 8.522 21.222 6.992 20.263L6.631 20.048L2.871 21.115L3.959 17.446L3.724 17.07C2.677 15.474 2.121 13.608 2.122 11.892C2.124 6.434 6.594 1.964 12.054 1.964C14.714 1.965 17.211 2.986 19.074 4.85C20.937 6.715 21.887 9.212 21.886 11.83C21.884 17.289 17.414 21.729 12.049 21.729ZM17.472 14.382C17.183 14.237 15.719 13.516 15.454 13.419C15.19 13.323 14.999 13.275 14.807 13.564C14.616 13.853 14.042 14.526 13.875 14.717C13.708 14.909 13.541 14.933 13.252 14.788C12.963 14.643 11.991 14.326 10.843 13.299C9.946 12.496 9.329 11.504 9.162 11.215C8.995 10.926 9.144 10.77 9.287 10.627C9.416 10.498 9.574 10.289 9.717 10.122C9.86 9.955 9.908 9.835 10.004 9.643C10.1 9.452 10.052 9.285 9.98 9.14C9.908 8.995 9.293 7.529 9.053 6.951C8.819 6.389 8.581 6.47 8.405 6.461C8.238 6.452 8.047 6.451 7.855 6.451C7.664 6.451 7.351 6.523 7.087 6.812C6.822 7.101 6.053 7.822 6.053 9.288C6.053 10.754 7.111 12.172 7.254 12.363C7.397 12.555 9.327 15.525 12.273 16.812C13.007 17.118 13.579 17.301 14.022 17.437C14.747 17.664 15.403 17.632 15.923 17.558C16.499 17.476 17.713 16.837 17.953 16.163C18.193 15.489 18.193 14.91 18.121 14.789C18.049 14.668 17.858 14.597 17.569 14.452L17.472 14.382Z"
+                fill="white"
+              />
+            </svg>
+          </Link>
         </div>
-        <div className="flex justify-center my-10">
-          <p className="text-white mt-4 ">Copyright © Codervai2024</p>
+
+        {/* Copyright */}
+        <div className="text-center text-gray-600 mt-3 cursor-default">
+          <p className="font-inter text-xs">
+            © Copyright {new Date().getFullYear()}, All Rights Reserved by
+            CoderVai
+          </p>
+        </div>
+
+        {/* SSL Commerz */}
+        <div className="mt-10">
+          <Link
+            href="https://www.sslcommerz.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="SSLCommerz"
+          >
+            <Image
+              src="/SSLCommerz-Pay-With-logo-All-Size-transparent.png"
+              alt="SSLCommerz"
+              className="w-full max-w-[1000px] mx-auto"
+              width={1000}
+              height={200}
+            />
+          </Link>
         </div>
       </div>
     </div>
