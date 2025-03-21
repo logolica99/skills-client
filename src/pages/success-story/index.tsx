@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import { HindSiliguri } from "@/helpers";
 import { Toaster } from "react-hot-toast";
 import Image from "next/image";
+import Link from "next/link";
 import {
   successStories,
   getStoriesByBatch,
@@ -16,13 +17,17 @@ import {
 const GridCard = ({
   story,
   index = 0,
+  animateDelay = false,
 }: {
   story: StoryType;
   index?: number;
+  animateDelay?: boolean;
 }) => (
   <div
-    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg hover:border-purple/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] dark:hover:border-purple/70 dark:hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] animate-fadeIn"
-    style={{ animationDelay: `${index * 0.1}s` }}
+    className={`bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg hover:border-purple/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] dark:hover:border-purple/70 dark:hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] ${
+      animateDelay ? "animate-card" : ""
+    }`}
+    style={animateDelay ? { animationDelay: `${index * 100}ms` } : undefined}
   >
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
@@ -43,6 +48,7 @@ const GridCard = ({
               className="object-cover"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-2xl font-bold">
@@ -68,6 +74,7 @@ const GridCard = ({
                       className="object-contain"
                       width={20}
                       height={20}
+                      priority
                       onError={(e) => {
                         // @ts-ignore
                         e.currentTarget.src =
@@ -114,6 +121,7 @@ const GridCard = ({
                       className="object-contain"
                       width={20}
                       height={20}
+                      priority
                       onError={(e) => {
                         // @ts-ignore
                         e.currentTarget.src =
@@ -158,13 +166,17 @@ const GridCard = ({
 const ListCard = ({
   story,
   index = 0,
+  animateDelay = false,
 }: {
   story: StoryType;
   index?: number;
+  animateDelay?: boolean;
 }) => (
   <div
-    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg hover:border-purple/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] dark:hover:border-purple/70 dark:hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] animate-fadeIn"
-    style={{ animationDelay: `${index * 0.1}s` }}
+    className={`bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg hover:border-purple/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] dark:hover:border-purple/70 dark:hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] ${
+      animateDelay ? "animate-card" : ""
+    }`}
+    style={animateDelay ? { animationDelay: `${index * 100}ms` } : undefined}
   >
     <div className="p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
       <div className="flex-shrink-0">
@@ -176,6 +188,7 @@ const ListCard = ({
               className="object-cover"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-2xl font-bold">
@@ -213,6 +226,7 @@ const ListCard = ({
                       className="object-contain"
                       width={20}
                       height={20}
+                      priority
                       onError={(e) => {
                         // @ts-ignore
                         e.currentTarget.src =
@@ -259,6 +273,7 @@ const ListCard = ({
                       className="object-contain"
                       width={20}
                       height={20}
+                      priority
                       onError={(e) => {
                         // @ts-ignore
                         e.currentTarget.src =
@@ -307,6 +322,7 @@ const SuccessStory = () => {
   const [filteredStories, setFilteredStories] = useState(successStories);
   const [viewType, setViewType] = useState("grid"); // 'grid' or 'list'
   const [mounted, setMounted] = useState(false);
+  const [contentKey, setContentKey] = useState(0); // Used to force re-render with animations
 
   // Get unique batch numbers from the data
   const uniqueBatches = React.useMemo(() => {
@@ -320,11 +336,58 @@ const SuccessStory = () => {
     setMounted(true);
   }, []);
 
+  // Handle batch change
+  const handleBatchChange = (batch: string) => {
+    if (batch === selectedBatch) return;
+
+    // Apply fade-out effect first
+    document
+      .getElementById("content-container")
+      ?.classList.add("animate-fade-out");
+
+    // After fade-out, update the data and trigger fade-in
+    setTimeout(() => {
+      setSelectedBatch(batch);
+      setCurrentPage(1);
+      setContentKey((prev) => prev + 1); // Force re-render with animations
+    }, 300);
+  };
+
+  // Handle pagination
+  const handlePageChange = (pageNumber: number) => {
+    if (pageNumber === currentPage) return;
+
+    // Apply fade-out effect first
+    document
+      .getElementById("content-container")
+      ?.classList.add("animate-fade-out");
+
+    // After fade-out, update the page and trigger fade-in
+    setTimeout(() => {
+      setCurrentPage(pageNumber);
+      setContentKey((prev) => prev + 1); // Force re-render with animations
+    }, 300);
+  };
+
+  // Handle view type change
+  const handleViewTypeChange = (type: string) => {
+    if (type === viewType) return;
+
+    // Apply fade-out effect first
+    document
+      .getElementById("content-container")
+      ?.classList.add("animate-fade-out");
+
+    // After fade-out, update the view type and trigger fade-in
+    setTimeout(() => {
+      setViewType(type);
+      setContentKey((prev) => prev + 1); // Force re-render with animations
+    }, 300);
+  };
+
   useEffect(() => {
-    // Filter stories based on batch selection using our helper function
+    // Update filtered stories when the selected batch changes
     setFilteredStories(getStoriesByBatch(selectedBatch));
-    // Reset to first page when filter changes
-    setCurrentPage(1);
   }, [selectedBatch]);
 
   // Get current page stories
@@ -335,21 +398,22 @@ const SuccessStory = () => {
     indexOfLastStory,
   );
 
-  // Change page
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
   // Calculate total pages
   const totalPages = Math.ceil(filteredStories.length / storiesPerPage);
 
   return (
     <div className={`${HindSiliguri.variable} font-hind overflow-x-hidden`}>
       <style jsx global>{`
+        /* Remove any existing animation/transition styles that might conflict */
+        .page-transition {
+          transition: none;
+        }
+
+        /* Initial animation for content when page loads */
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
@@ -357,83 +421,113 @@ const SuccessStory = () => {
           }
         }
 
-        .animate-fadeIn {
+        /* Animation for cards with staggered delay */
+        @keyframes cardFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(15px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Animation for content to fade out */
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+        }
+
+        /* Apply animations to elements */
+        .animate-fade-in {
           animation: fadeIn 0.5s ease-out forwards;
           opacity: 0;
         }
 
-        .page-transition {
-          transition: all 0.3s ease-out;
+        .animate-fade-out {
+          animation: fadeOut 0.3s ease-out forwards;
         }
 
-        .page-exit {
+        .animate-card {
           opacity: 0;
-          transform: scale(0.98);
+          animation: cardFadeIn 0.5s ease-out forwards;
         }
 
-        .page-enter {
-          opacity: 1;
-          transform: scale(1);
+        /* Transition for buttons */
+        .btn-transition {
+          transition: all 0.2s ease;
         }
       `}</style>
 
       <Nav />
       <Toaster />
-      <FloatingCompiler />
+      {mounted && <FloatingCompiler />}
 
-      <button
-        style={{ zIndex: 999 }}
-        onClick={() => {
-          setUser({ ...user, openCompiler: true });
-        }}
-        className="fixed top-80 -left-2 bg-[#0B060D] bg-opacity-30 backdrop-blur-lg border border-gray-200/20 p-3 hover:bg-gray-300/20"
-      >
-        <svg
-          width={40}
-          height={40}
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      {mounted && (
+        <button
+          style={{ zIndex: 999 }}
+          onClick={() => {
+            setUser({ ...user, openCompiler: true });
+          }}
+          className="fixed top-80 -left-2 bg-[#0B060D] bg-opacity-30 backdrop-blur-lg border border-gray-200/20 p-3 hover:bg-gray-300/20"
         >
-          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></g>
-          <g id="SVGRepo_iconCarrier">
-            <path
-              d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15"
-              stroke="#fff"
-              strokeWidth="1.5"
+          <svg
+            width={40}
+            height={40}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
               strokeLinecap="round"
-            ></path>
-            <path
-              d="M13.2942 7.17041L12.0001 12L10.706 16.8297"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            ></path>
-            <path
-              d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            ></path>
-            <path
-              d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            ></path>
-          </g>
-        </svg>
-      </button>
+              strokeLinejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              ></path>
+              <path
+                d="M13.2942 7.17041L12.0001 12L10.706 16.8297"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              ></path>
+              <path
+                d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              ></path>
+              <path
+                d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              ></path>
+            </g>
+          </svg>
+        </button>
+      )}
 
       <div className="py-16 bg-white dark:bg-[#000] overflow-x-hidden">
         <div className="w-[90%] lgXl:w-[80%] mx-auto py-12 z-20 min-h-[80vh]">
           {/* Hero Section */}
-          <div className="mb-10 text-center">
+          <div
+            className={`mb-10 text-center ${mounted ? "animate-fade-in" : ""}`}
+            style={{ animationDelay: "0ms" }}
+          >
             <h1 className="text-4xl md:text-5xl font-bold text-heading dark:text-darkHeading mb-4">
               Journey to Success
             </h1>
@@ -448,12 +542,15 @@ const SuccessStory = () => {
           </div>
 
           {/* Controls Section */}
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+          <div
+            className={`flex flex-col md:flex-row justify-between items-center mb-8 gap-4 ${mounted ? "animate-fade-in" : ""}`}
+            style={{ animationDelay: "200ms" }}
+          >
             {/* Filter Tabs */}
             <div className="inline-flex rounded-md shadow-sm flex-wrap">
               <button
-                onClick={() => setSelectedBatch("all")}
-                className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
+                onClick={() => handleBatchChange("all")}
+                className={`px-4 py-2 text-sm font-medium rounded-l-lg btn-transition ${
                   selectedBatch === "all"
                     ? "bg-purple text-white"
                     : "bg-white dark:bg-gray-800 text-paragraph dark:text-darkParagraph border border-gray-200 dark:border-gray-600"
@@ -464,8 +561,8 @@ const SuccessStory = () => {
               {uniqueBatches.map((batch, index) => (
                 <button
                   key={batch}
-                  onClick={() => setSelectedBatch(batch.toString())}
-                  className={`px-4 py-2 text-sm font-medium ${
+                  onClick={() => handleBatchChange(batch.toString())}
+                  className={`px-4 py-2 text-sm font-medium btn-transition ${
                     index === uniqueBatches.length - 1 ? "rounded-r-lg" : ""
                   } ${
                     selectedBatch === batch.toString()
@@ -481,8 +578,8 @@ const SuccessStory = () => {
             {/* View toggle */}
             <div className="inline-flex rounded-md shadow-sm">
               <button
-                onClick={() => setViewType("grid")}
-                className={`p-2 rounded-l-lg ${
+                onClick={() => handleViewTypeChange("grid")}
+                className={`p-2 rounded-l-lg btn-transition ${
                   viewType === "grid"
                     ? "bg-purple text-white"
                     : "bg-white dark:bg-gray-800 text-paragraph dark:text-darkParagraph border border-gray-200 dark:border-gray-600"
@@ -504,8 +601,8 @@ const SuccessStory = () => {
                 </svg>
               </button>
               <button
-                onClick={() => setViewType("list")}
-                className={`p-2 rounded-r-lg ${
+                onClick={() => handleViewTypeChange("list")}
+                className={`p-2 rounded-r-lg btn-transition ${
                   viewType === "list"
                     ? "bg-purple text-white"
                     : "bg-white dark:bg-gray-800 text-paragraph dark:text-darkParagraph border border-gray-200 dark:border-gray-600"
@@ -530,32 +627,57 @@ const SuccessStory = () => {
           </div>
 
           {/* Problem Solvers Grid/List View */}
-          <div className="page-transition">
-            {viewType === "grid" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentStories.map((story, index) => (
-                  <GridCard key={story.id} story={story} index={index} />
-                ))}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-6">
-                {currentStories.map((story, index) => (
-                  <ListCard key={story.id} story={story} index={index} />
-                ))}
-              </div>
-            )}
-          </div>
+          {mounted && (
+            <div
+              id="content-container"
+              key={contentKey}
+              className="animate-fade-in"
+              onAnimationEnd={(e) => {
+                if (e.animationName === "fadeOut") {
+                  e.currentTarget.classList.remove("animate-fade-out");
+                  e.currentTarget.classList.add("animate-fade-in");
+                }
+              }}
+            >
+              {viewType === "grid" ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {currentStories.map((story, index) => (
+                    <GridCard
+                      key={story.id}
+                      story={story}
+                      index={index}
+                      animateDelay={mounted}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-6">
+                  {currentStories.map((story, index) => (
+                    <ListCard
+                      key={story.id}
+                      story={story}
+                      index={index}
+                      animateDelay={mounted}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center mt-10">
+            <div
+              className={`flex justify-center mt-10 ${mounted ? "animate-fade-in" : ""}`}
+              style={{ animationDelay: "400ms" }}
+            >
               <nav className="inline-flex items-center">
                 <button
                   onClick={() =>
-                    paginate(currentPage > 1 ? currentPage - 1 : 1)
+                    handlePageChange(currentPage > 1 ? currentPage - 1 : 1)
                   }
                   disabled={currentPage === 1}
-                  className="p-2 mr-2 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-paragraph dark:text-darkParagraph disabled:opacity-50"
+                  className="p-2 mr-2 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-paragraph dark:text-darkParagraph disabled:opacity-50 btn-transition"
                 >
                   <svg
                     className="w-5 h-5"
@@ -575,8 +697,8 @@ const SuccessStory = () => {
                 {[...Array(totalPages)].map((_, idx) => (
                   <button
                     key={idx}
-                    onClick={() => paginate(idx + 1)}
-                    className={`px-4 py-2 mx-1 rounded-md ${
+                    onClick={() => handlePageChange(idx + 1)}
+                    className={`px-4 py-2 mx-1 rounded-md btn-transition ${
                       currentPage === idx + 1
                         ? "bg-purple text-white"
                         : "bg-white dark:bg-gray-800 text-paragraph dark:text-darkParagraph border border-gray-200 dark:border-gray-700"
@@ -588,12 +710,12 @@ const SuccessStory = () => {
 
                 <button
                   onClick={() =>
-                    paginate(
+                    handlePageChange(
                       currentPage < totalPages ? currentPage + 1 : totalPages,
                     )
                   }
                   disabled={currentPage === totalPages}
-                  className="p-2 ml-2 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-paragraph dark:text-darkParagraph disabled:opacity-50"
+                  className="p-2 ml-2 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-paragraph dark:text-darkParagraph disabled:opacity-50 btn-transition"
                 >
                   <svg
                     className="w-5 h-5"
