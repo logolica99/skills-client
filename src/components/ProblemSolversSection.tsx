@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import {
   getTopSuccessStories,
@@ -87,16 +88,20 @@ const ProblemSolversSection = () => {
                   </div>
 
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full overflow-hidden bg-purple/10 mb-4">
-                      <img
-                        src={
-                          story.image && story.image !== "placeholder"
-                            ? story.image
-                            : `https://placehold.co/96x96@2x.png?text=${story.name.charAt(0)}`
-                        }
-                        alt={story.name}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-24 h-24 rounded-full overflow-hidden bg-purple/10 mb-4 relative">
+                      {story.image && story.image !== "placeholder" ? (
+                        <Image
+                          src={story.image}
+                          alt={story.name}
+                          className="object-cover"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-2xl font-bold">
+                          {story.name.charAt(0)}
+                        </div>
+                      )}
                     </div>
                     <h3 className="text-xl font-semibold text-heading dark:text-darkHeading mb-2 text-center">
                       {story.name}
@@ -110,15 +115,20 @@ const ProblemSolversSection = () => {
                       {story.codeforces && (
                         <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
                           <div className="flex items-center">
-                            <img
-                              src="/assets/success-story/codeforces-96x96.png"
-                              alt="Codeforces"
-                              className="w-5 h-5 mr-2 object-contain"
-                              onError={(e) => {
-                                e.currentTarget.src =
-                                  "https://codeforces.org/s/0/favicon-32x32.png";
-                              }}
-                            />
+                            <div className="w-5 h-5 mr-2 relative">
+                              <Image
+                                src="/assets/success-story/codeforces-96x96.png"
+                                alt="Codeforces"
+                                className="object-contain"
+                                width={20}
+                                height={20}
+                                onError={(e) => {
+                                  // @ts-ignore
+                                  e.currentTarget.src =
+                                    "https://codeforces.org/s/0/favicon-32x32.png";
+                                }}
+                              />
+                            </div>
                             <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
                               Codeforces
                             </span>
@@ -141,15 +151,20 @@ const ProblemSolversSection = () => {
                       {story.codechef && (
                         <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
                           <div className="flex items-center">
-                            <img
-                              src="/assets/success-story/codechef-100x100.png"
-                              alt="CodeChef"
-                              className="w-5 h-5 mr-2 object-contain"
-                              onError={(e) => {
-                                e.currentTarget.src =
-                                  "https://cdn.codechef.com/images/favicon-32x32.png";
-                              }}
-                            />
+                            <div className="w-5 h-5 mr-2 relative">
+                              <Image
+                                src="/assets/success-story/codechef-100x100.png"
+                                alt="CodeChef"
+                                className="object-contain"
+                                width={20}
+                                height={20}
+                                onError={(e) => {
+                                  // @ts-ignore
+                                  e.currentTarget.src =
+                                    "https://cdn.codechef.com/images/favicon-32x32.png";
+                                }}
+                              />
+                            </div>
                             <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
                               CodeChef
                             </span>
@@ -174,7 +189,6 @@ const ProblemSolversSection = () => {
               </div>
             ))}
           </Slider>
-          {/* <div className="mb-12"></div> */}
         </div>
 
         <div className="mt-12 text-center">
