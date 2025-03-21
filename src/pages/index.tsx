@@ -597,7 +597,7 @@ export default function Home() {
                         className="flex gap-3 items-center bg-gray-300/10 hover:bg-gray-300/20 duration-150 ease-in-out backdrop-blur-lg py-2 px-8 rounded-lg"
                       >
                         <CourseIntroIcon />
-                        <p>কোর্স ইন্ট্রো ভিডিও দেখুন</p>
+                        <p>কোর্স ইন্ট্রো ভিডিও দেখো</p>
                       </Link>
                     </div>
                   </div>

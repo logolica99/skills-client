@@ -2,11 +2,13 @@
 export interface CodeforcesStat {
   handle: string;
   rating: number;
+  rankName?: string; // Pupil, Specialist, Expert, etc.
 }
 
 export interface CodechefStat {
   handle: string;
   rating: number;
+  rankName?: string; // 1 star, 2 star, etc.
 }
 
 // Success story type definition
@@ -23,60 +25,222 @@ export interface SuccessStory {
 export const successStories: SuccessStory[] = [
   {
     id: 1,
-    name: "MD. Tanbir Hasan",
-    image: "/assets/success-story/tanbir.jpg",
-    batch: 5,
+    name: "Niloy Das",
+    image: "/assets/success-story/niloydas.jpg",
+    batch: 2,
     codeforces: {
-      handle: "mdkamrulhasant",
-      rating: 1553
-    },
-    codechef: {
-      handle: "mdkamrulhasant",
-      rating: 1720
+      handle: "Niloy_Das_19",
+      rating: 1781,
+      rankName: "Expert"
     }
   },
   {
     id: 2,
-    name: "Abdullah Al Fahim",
-    image: "/assets/success-story/abdullah.jpg",
-    batch: 4,
+    name: "Rahsan Al Saymon",
+    image: "placeholder",
+    batch: 1,
     codeforces: {
-      handle: "abdullahfahim",
-      rating: 1484
+      handle: "saymon",
+      rating: 1518,
+      rankName: "Specialist"
     }
   },
   {
     id: 3,
-    name: "Samiul Basir Fahim",
-    image: "/assets/success-story/samiul.jpg",
-    batch: 4,
+    name: "Mahdi Talukder",
+    image: "/assets/success-story/mahditalukder.jpeg",
+    batch: 2,
     codeforces: {
-      handle: "samiulbasir",
-      rating: 1508
+      handle: "MahD",
+      rating: 1581,
+      rankName: "Specialist"
     }
   },
   {
     id: 4,
-    name: "Md Murad Hossain",
-    image: "/assets/success-story/murad.jpg",
-    batch: 5,
+    name: "Aminul Haque",
+    image: "/assets/success-story/aminulhaque.jpeg",
+    batch: 2,
     codeforces: {
-      handle: "muradhossain",
-      rating: 1572
-    },
-    codechef: {
-      handle: "pupil_murad",
-      rating: 1235
+      handle: "Ami_Nul",
+      rating: 1697,
+      rankName: "Expert"
     }
   },
   {
     id: 5,
-    name: "Motasem Billah Asik",
-    image: "/assets/success-story/motasem.jpg",
-    batch: 5,
+    name: "Mostofa Labib",
+    image: "/assets/success-story/mostofalabib.jpg",
+    batch: 1,
     codeforces: {
-      handle: "motasem_asik",
-      rating: 1420
+      handle: "Labib_",
+      rating: 1488,
+      rankName: "Specialist"
+    }
+  },
+  {
+    id: 6,
+    name: "Tonmoy Shaha",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "tonmoy6052",
+      rating: 1548,
+      rankName: "Specialist"
+    }
+  },
+  {
+    id: 7,
+    name: "Md. Anamul Haque",
+    image: "/assets/success-story/anamulhaque.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "BrAin",
+      rating: 1400,
+      rankName: "Specialist"
+    }
+  },
+  {
+    id: 8,
+    name: "Mahfuz Saim",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "attoCoder",
+      rating: 1327,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 9,
+    name: "MD. Akibur Rahman",
+    image: "/assets/success-story/akiburrahman.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "akibur_r",
+      rating: 1300,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 10,
+    name: "Faiyaz Ismail",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "EDM",
+      rating: 1249,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 11,
+    name: "Arko Chowdhury",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "Quanta07",
+      rating: 1236,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 12,
+    name: "Snehangshu Roy",
+    image: "/assets/success-story/snehangshu.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "Snehangshu7494",
+      rating: 1246,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 13,
+    name: "Akik Mutsuddy",
+    image: "/assets/success-story/akik.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "Akik04",
+      rating: 1315,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 14,
+    name: "Md. Farhan Israq",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "Cheater_",
+      rating: 1226,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 15,
+    name: "Tafsir Al Nafin",
+    image: "/assets/success-story/nafin.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "Tafsir_Al_Nafin",
+      rating: 1248,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 16,
+    name: "Safiullah Saimun",
+    image: "/assets/success-story/saimun.jpg",
+    batch: 1,
+    codeforces: {
+      handle: "JorgeSaimun",
+      rating: 1219,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 17,
+    name: "Aritra Debnath",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "noobguyone",
+      rating: 1211,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 18,
+    name: "Tamvir Shahabuddin",
+    image: "/assets/success-story/tamvir.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "tamdesu",
+      rating: 1206,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 19,
+    name: "Tanzim Tousif",
+    image: "placeholder",
+    batch: 1,
+    codeforces: {
+      handle: "tuko_tanzwoo",
+      rating: 1200,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 20,
+    name: "Sadman",
+    image: "/assets/success-story/sadman.jpg",
+    batch: 2,
+    codeforces: {
+      handle: "_Sadman_",
+      rating: 1298,
+      rankName: "Pupil"
     }
   }
 ];
@@ -99,3 +263,20 @@ export const getStoriesByBatch = (batch: string | number): SuccessStory[] => {
   const batchNum = typeof batch === 'string' ? parseInt(batch) : batch;
   return successStories.filter(story => story.batch === batchNum);
 }; 
+
+
+// with codeforces and codechef data
+// {
+//     id: 1,
+//     name: "Niloy Das",
+//     image: "/assets/success-story/niloydas.jpg",
+//     batch: 2,
+//     codeforces: {
+//       handle: "Niloy_Das_19",
+//       rating: 1553
+//     },
+//     codechef: {
+//       handle: "mdkamrulhasant",
+//       rating: 1720
+//     }
+//   }

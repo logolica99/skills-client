@@ -12,8 +12,17 @@ import {
 } from "@/data/successStories";
 
 // Component for Grid View Card
-const GridCard = ({ story }: { story: StoryType }) => (
-  <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg">
+const GridCard = ({
+  story,
+  index = 0,
+}: {
+  story: StoryType;
+  index?: number;
+}) => (
+  <div
+    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg hover:border-purple/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] dark:hover:border-purple/70 dark:hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] animate-fadeIn"
+    style={{ animationDelay: `${index * 0.1}s` }}
+  >
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
         <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 px-3 py-1 rounded-full text-sm font-medium">
@@ -27,7 +36,11 @@ const GridCard = ({ story }: { story: StoryType }) => (
       <div className="flex flex-col items-center">
         <div className="w-28 h-28 rounded-full overflow-hidden bg-purple/10 mb-4">
           <img
-            src={`https://via.placeholder.com/112x112?text=${story.name.charAt(0)}`}
+            src={
+              story.image && story.image !== "placeholder"
+                ? story.image
+                : `https://placehold.co/96x96@2x.png?text=${story.name.charAt(0)}`
+            }
             alt={story.name}
             className="w-full h-full object-cover"
           />
@@ -38,80 +51,115 @@ const GridCard = ({ story }: { story: StoryType }) => (
       </div>
 
       <div className="mt-4 space-y-2">
-        {story.codeforces && (
-          <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
-            <div className="flex items-center">
-              <svg
-                className="w-5 h-5 mr-2 text-blue-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
-                Codeforces
-              </span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-sm font-medium text-paragraph dark:text-darkParagraph mr-1">
-                {story.codeforces.handle}
-              </span>
-              <span className="text-sm font-bold bg-purple/10 text-purple px-2 py-1 rounded">
-                {story.codeforces.rating}
-              </span>
-            </div>
-          </div>
-        )}
+        <div className="grid grid-cols-1 gap-2">
+          {story.codeforces && (
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <img
+                    src="/assets/success-story/codeforces-96x96.png"
+                    alt="Codeforces"
+                    className="w-5 h-5 mr-2 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://codeforces.org/s/0/favicon-32x32.png";
+                    }}
+                  />
+                  <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
+                    Codeforces
+                  </span>
+                </div>
 
-        {story.codechef && (
-          <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
-            <div className="flex items-center">
-              <svg
-                className="w-5 h-5 mr-2 text-yellow-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
-                CodeChef
-              </span>
+                <a
+                  href={`https://codeforces.com/profile/${story.codeforces.handle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-paragraph dark:text-darkParagraph hover:text-purple transition-colors"
+                >
+                  {story.codeforces.handle}
+                </a>
+
+                <div className="flex flex-col items-end">
+                  <span className="text-sm font-bold bg-purple/10 text-purple px-2 py-1 rounded">
+                    {story.codeforces.rating}
+                  </span>
+                  {story.codeforces.rankName && (
+                    <span className="text-sm mt-1 font-medium text-paragraph dark:text-darkParagraph text-right">
+                      {story.codeforces.rankName}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="flex items-center">
-              <span className="text-sm font-medium text-paragraph dark:text-darkParagraph mr-1">
-                {story.codechef.handle}
-              </span>
-              <span className="text-sm font-bold bg-yellow/10 text-yellow px-2 py-1 rounded">
-                {story.codechef.rating}
-              </span>
+          )}
+
+          {story.codechef && (
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <img
+                    src="/assets/success-story/codechef-100x100.png"
+                    alt="CodeChef"
+                    className="w-5 h-5 mr-2 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://cdn.codechef.com/images/favicon-32x32.png";
+                    }}
+                  />
+                  <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
+                    CodeChef
+                  </span>
+                </div>
+
+                <a
+                  href={`https://www.codechef.com/users/${story.codechef.handle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-paragraph dark:text-darkParagraph hover:text-yellow transition-colors"
+                >
+                  {story.codechef.handle}
+                </a>
+
+                <div className="flex flex-col items-end">
+                  <span className="text-sm font-bold bg-yellow/10 text-yellow px-2 py-1 rounded">
+                    {story.codechef.rating}
+                  </span>
+                  {story.codechef.rankName && (
+                    <span className="text-sm mt-1 font-medium text-paragraph dark:text-darkParagraph text-right">
+                      {story.codechef.rankName}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   </div>
 );
 
 // Component for List View Card
-const ListCard = ({ story }: { story: StoryType }) => (
-  <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg">
+const ListCard = ({
+  story,
+  index = 0,
+}: {
+  story: StoryType;
+  index?: number;
+}) => (
+  <div
+    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 transition-all hover:shadow-lg hover:border-purple/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] dark:hover:border-purple/70 dark:hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] animate-fadeIn"
+    style={{ animationDelay: `${index * 0.1}s` }}
+  >
     <div className="p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
       <div className="flex-shrink-0">
         <div className="w-24 h-24 rounded-full overflow-hidden bg-purple/10">
           <img
-            src={`https://via.placeholder.com/96x96?text=${story.name.charAt(0)}`}
+            src={
+              story.image && story.image !== "placeholder"
+                ? story.image
+                : `https://placehold.co/96x96@2x.png?text=${story.name.charAt(0)}`
+            }
             alt={story.name}
             className="w-full h-full object-cover"
           />
@@ -134,65 +182,85 @@ const ListCard = ({ story }: { story: StoryType }) => (
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2">
           {story.codeforces && (
-            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
-              <div className="flex items-center">
-                <svg
-                  className="w-5 h-5 mr-2 text-blue-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <img
+                    src="/assets/success-story/codeforces-96x96.png"
+                    alt="Codeforces"
+                    className="w-5 h-5 mr-2 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://codeforces.org/s/0/favicon-32x32.png";
+                    }}
                   />
-                </svg>
-                <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
-                  Codeforces
-                </span>
-              </div>
-              <div className="flex items-center">
-                <span className="text-sm font-medium text-paragraph dark:text-darkParagraph mr-1">
+                  <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
+                    Codeforces
+                  </span>
+                </div>
+
+                <a
+                  href={`https://codeforces.com/profile/${story.codeforces.handle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-paragraph dark:text-darkParagraph hover:text-purple transition-colors"
+                >
                   {story.codeforces.handle}
-                </span>
-                <span className="text-sm font-bold bg-purple/10 text-purple px-2 py-1 rounded">
-                  {story.codeforces.rating}
-                </span>
+                </a>
+
+                <div className="flex flex-col items-end">
+                  <span className="text-sm font-bold bg-purple/10 text-purple px-2 py-1 rounded">
+                    {story.codeforces.rating}
+                  </span>
+                  {story.codeforces.rankName && (
+                    <span className="text-sm mt-1 font-medium text-paragraph dark:text-darkParagraph text-right">
+                      {story.codeforces.rankName}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}
 
           {story.codechef && (
-            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
-              <div className="flex items-center">
-                <svg
-                  className="w-5 h-5 mr-2 text-yellow-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <img
+                    src="/assets/success-story/codechef-100x100.png"
+                    alt="CodeChef"
+                    className="w-5 h-5 mr-2 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://cdn.codechef.com/images/favicon-32x32.png";
+                    }}
                   />
-                </svg>
-                <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
-                  CodeChef
-                </span>
-              </div>
-              <div className="flex items-center">
-                <span className="text-sm font-medium text-paragraph dark:text-darkParagraph mr-1">
+                  <span className="text-sm font-medium text-paragraph dark:text-darkParagraph">
+                    CodeChef
+                  </span>
+                </div>
+
+                <a
+                  href={`https://www.codechef.com/users/${story.codechef.handle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-paragraph dark:text-darkParagraph hover:text-yellow transition-colors"
+                >
                   {story.codechef.handle}
-                </span>
-                <span className="text-sm font-bold bg-yellow/10 text-yellow px-2 py-1 rounded">
-                  {story.codechef.rating}
-                </span>
+                </a>
+
+                <div className="flex flex-col items-end">
+                  <span className="text-sm font-bold bg-yellow/10 text-yellow px-2 py-1 rounded">
+                    {story.codechef.rating}
+                  </span>
+                  {story.codechef.rankName && (
+                    <span className="text-sm mt-1 font-medium text-paragraph dark:text-darkParagraph text-right">
+                      {story.codechef.rankName}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}
@@ -209,6 +277,19 @@ const SuccessStory = () => {
   const [storiesPerPage] = useState(6);
   const [filteredStories, setFilteredStories] = useState(successStories);
   const [viewType, setViewType] = useState("grid"); // 'grid' or 'list'
+  const [mounted, setMounted] = useState(false);
+
+  // Get unique batch numbers from the data
+  const uniqueBatches = React.useMemo(() => {
+    const batchSet = new Set<number>();
+    successStories.forEach((story) => batchSet.add(story.batch));
+    return Array.from(batchSet).sort((a, b) => a - b);
+  }, []);
+
+  useEffect(() => {
+    // Set mounted to true after component mounts to prevent animation issues
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     // Filter stories based on batch selection using our helper function
@@ -226,13 +307,47 @@ const SuccessStory = () => {
   );
 
   // Change page
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   // Calculate total pages
   const totalPages = Math.ceil(filteredStories.length / storiesPerPage);
 
   return (
     <div className={`${HindSiliguri.variable} font-hind overflow-x-hidden`}>
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-out forwards;
+          opacity: 0;
+        }
+
+        .page-transition {
+          transition: all 0.3s ease-out;
+        }
+
+        .page-exit {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+
+        .page-enter {
+          opacity: 1;
+          transform: scale(1);
+        }
+      `}</style>
+
       <Nav />
       <Toaster />
       <FloatingCompiler />
@@ -291,20 +406,22 @@ const SuccessStory = () => {
           {/* Hero Section */}
           <div className="mb-10 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-heading dark:text-darkHeading mb-4">
-              প্রবলেম সল্ভারস ক্লাব🔥
+              Journey to Success
             </h1>
             <p className="text-paragraph dark:text-darkParagraph text-lg max-w-3xl mx-auto">
-              অনলাইনে কম্পিটিটিভ প্রোগ্রামিং কোর্স ফিনিশ করে ছাত্রদেরকে একটা
-              স্পেশাল প্রগ্রাম দিয়ে প্রবলেম সল্ভারস ক্লাবে জয়েন হতে হয়।
-              সেখানে ৬-৮ মাসের রেগুলারিজম ট্রেনিং করাটিং করে যে সকল ছাত্র
-              বিভিন্ন অনলাইন জাজে লাভ এচিভ করছে তাদের একাংশ --
+              ৫-৬ মাসব্যাপী আমাদের কম্পিটিটিভ প্রোগ্রামিং কোর্সটি সফলভাবে শেষ
+              করার পর, বিগত ব্যাচের অনেক শিক্ষার্থীই বিভিন্ন আন্তর্জাতিক ও
+              জাতীয় অনলাইন জাজ প্ল্যাটফর্মে অসাধারণ দক্ষতা প্রদর্শন করেছে। আমরা
+              তাদের মধ্য থেকে কিছু স্ট্যান্ডআউট পারফর্মারেরদের তুলে ধরছি, যারা
+              কোর্স শেষে বাস্তব জাজ প্ল্যাটফর্মে নিজেদের মেধা ও পরিশ্রমের
+              মাধ্যমে প্রমাণ করেছে
             </p>
           </div>
 
           {/* Controls Section */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             {/* Filter Tabs */}
-            <div className="inline-flex rounded-md shadow-sm">
+            <div className="inline-flex rounded-md shadow-sm flex-wrap">
               <button
                 onClick={() => setSelectedBatch("all")}
                 className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
@@ -315,12 +432,12 @@ const SuccessStory = () => {
               >
                 Batch-All
               </button>
-              {[2, 3, 4, 5].map((batch) => (
+              {uniqueBatches.map((batch, index) => (
                 <button
                   key={batch}
                   onClick={() => setSelectedBatch(batch.toString())}
                   className={`px-4 py-2 text-sm font-medium ${
-                    batch === 5 ? "rounded-r-lg" : ""
+                    index === uniqueBatches.length - 1 ? "rounded-r-lg" : ""
                   } ${
                     selectedBatch === batch.toString()
                       ? "bg-purple text-white"
@@ -384,19 +501,21 @@ const SuccessStory = () => {
           </div>
 
           {/* Problem Solvers Grid/List View */}
-          {viewType === "grid" ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentStories.map((story) => (
-                <GridCard key={story.id} story={story} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col gap-6">
-              {currentStories.map((story) => (
-                <ListCard key={story.id} story={story} />
-              ))}
-            </div>
-          )}
+          <div className="page-transition">
+            {viewType === "grid" ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentStories.map((story, index) => (
+                  <GridCard key={story.id} story={story} index={index} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-6">
+                {currentStories.map((story, index) => (
+                  <ListCard key={story.id} story={story} index={index} />
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -467,7 +586,7 @@ const SuccessStory = () => {
         </div>
       </div>
 
-      <Footer />
+      {mounted && <Footer />}
     </div>
   );
 };
