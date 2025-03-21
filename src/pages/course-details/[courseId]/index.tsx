@@ -78,6 +78,7 @@ export default function CourseDetailsPage() {
     studyPlan: true,
     instructor: false,
     courseComplete: false,
+    successStudents: false,
   });
   const [conditionsChecked, setConditionsChecked] = useState(false);
   const [openFaqItems, setOpenFaqItems] = useState<{ [key: number]: boolean }>(
@@ -86,6 +87,7 @@ export default function CourseDetailsPage() {
   const [openChapterItems, setOpenChapterItems] = useState<{
     [key: number]: boolean;
   }>({});
+  const [expandedDescription, setExpandedDescription] = useState(false);
 
   // Toggle FAQ item
   const toggleFaqItem = (index: number) => {
@@ -108,6 +110,7 @@ export default function CourseDetailsPage() {
       studyPlan: false,
       instructor: false,
       courseComplete: false,
+      successStudents: false,
     };
     temp[tabName] = true;
     setActiveTab(temp);
@@ -1220,6 +1223,18 @@ export default function CourseDetailsPage() {
                 >
                   কোর্স সম্পর্কে বিস্তারিত
                 </button>{" "}
+                <button
+                  onClick={() => {
+                    changeTab("successStudents");
+                  }}
+                  className={`${
+                    activeTab.successStudents
+                      ? "text-[#F1BA41] border-[#F1BA41] bg-[#F1BA41]/20 dark:text-[#F1BA41] dark:border-[#F1BA41] dark:bg-[#F1BA41]/5"
+                      : "text-gray-600/70 border-gray-600/70 bg-gray-600/5 hover:text-gray-600/90 hover:border-gray-600/90 dark:text-gray-300/40 dark:border-gray-300/40 dark:hover:text-gray-300/70 dark:hover:border-gray-300/70"
+                  } px-4 lg:px-8 py-3 border rounded-full duration-150 ease-in-out text-sm lg:text-base`}
+                >
+                  সাকসেসফুল স্টুডেন্টস
+                </button>{" "}
               </div>
               {activeTab.studyPlan && (
                 <div>
@@ -1848,48 +1863,62 @@ export default function CourseDetailsPage() {
                   <h2 className="text-2xl lg:text-4xl font-semibold pt-12 border-t border-gray-300/10  relative z-10">
                     কোর্স সম্পর্কে বিস্তারিত
                   </h2>
-                  {/* <div className="flex gap-8 items-center pb-6 border-b border-gray-300/10  relative z-10">
-                    <div className="flex gap-3 mt-6 items-center bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                  <div className="my-6 text-black/70 dark:text-[#A3A3A3] text-lg relative z-10">
+                    <div
+                      className={`${!expandedDescription && "max-h-[150px] overflow-hidden relative"} transition-all duration-300`}
+                    >
+                      {courseData.description
+                        .split("\n")
+                        .map((paragraph, index) => (
+                          <p key={index} className="mb-4">
+                            {paragraph}
+                          </p>
+                        ))}
+                    </div>
+                    {courseData.description.length > 300 && (
+                      <button
+                        onClick={() =>
+                          setExpandedDescription(!expandedDescription)
+                        }
+                        className="flex items-center gap-2 text-purple hover:text-purple/80 font-medium mt-2 transition-all"
+                      >
+                        {expandedDescription ? "সংক্ষিপ্ত করো" : "আরও পড়ো"}
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`transition-transform duration-300 ${expandedDescription ? "rotate-180" : ""}`}
+                        >
+                          <path d="M8 12L2 6H14L8 12Z" fill="currentColor" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="mb-8">
+                    <Link
+                      href="/success-story"
+                      className="inline-flex items-center gap-2 px-6 py-3 text-white bg-gradient-to-r from-purple to-[#8A2BE2] rounded-lg font-medium hover:opacity-90 transition-all"
+                    >
+                      সাকসেসফুল স্টুডেন্টসদের দেখো
                       <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
+                        className="w-5 h-5"
                         fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
                         <path
-                          d="M8.99855 17.6269C4.23361 17.6269 0.371094 13.7645 0.371094 8.99951C0.371094 4.23457 4.23361 0.37207 8.99855 0.37207C13.7635 0.37207 17.6259 4.23457 17.6259 8.99951C17.6259 13.7645 13.7635 17.6269 8.99855 17.6269ZM8.99855 15.9015C10.8291 15.9015 12.5846 15.1743 13.879 13.8799C15.1733 12.5856 15.9005 10.83 15.9005 8.99951C15.9005 7.16901 15.1733 5.41346 13.879 4.1191C12.5846 2.82472 10.8291 2.09756 8.99855 2.09756C7.16803 2.09756 5.4125 2.82472 4.11812 4.1191C2.82376 5.41346 2.09659 7.16901 2.09659 8.99951C2.09659 10.83 2.82376 12.5856 4.11812 13.8799C5.4125 15.1743 7.16803 15.9015 8.99855 15.9015ZM9.8613 8.99951H13.3123V10.725H8.1358V4.68579H9.8613V8.99951Z"
-                          fill="#F1BA41"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
                         />
                       </svg>
-                      {englishToBanglaNumbers(
-                        calculateRemainingDays(courseData?.chips?.deadline),
-                      )}{" "}
-                      দিন বাকি
-                    </div>
-                    <div className="flex gap-3 mt-6 items-center bg-[#A144FF]/10 px-3 py-2 rounded-xl">
-                      <svg
-                        width="23"
-                        height="22"
-                        viewBox="0 0 23 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.0943 12.9745V14.807C12.3007 14.5264 11.4514 14.4403 10.6177 14.5561C9.78391 14.6717 8.99011 14.9858 8.30288 15.4719C7.61567 15.9579 7.05511 16.6017 6.66827 17.3492C6.28144 18.0968 6.07963 18.9263 6.07979 19.768L4.32617 19.7671C4.32589 18.6965 4.57073 17.6399 5.04191 16.6785C5.51309 15.717 6.1981 14.8762 7.04447 14.2204C7.89084 13.5647 8.8761 13.1114 9.92476 12.8953C10.9734 12.6791 12.0576 12.7068 13.0943 12.9745ZM11.3407 11.8767C8.43403 11.8767 6.07979 9.52248 6.07979 6.61585C6.07979 3.70922 8.43403 1.35498 11.3407 1.35498C14.2473 1.35498 16.6016 3.70922 16.6016 6.61585C16.6016 9.52248 14.2473 11.8767 11.3407 11.8767ZM11.3407 10.1231C13.2784 10.1231 14.8479 8.5536 14.8479 6.61585C14.8479 4.67809 13.2784 3.1086 11.3407 3.1086C9.40291 3.1086 7.83341 4.67809 7.83341 6.61585C7.83341 8.5536 9.40291 10.1231 11.3407 10.1231ZM16.42 17.939L19.5195 14.8395L20.7602 16.0792L16.42 20.4195L13.3196 17.3191L14.5604 16.0792L16.42 17.939Z"
-                          fill="#A144FF"
-                        />
-                      </svg>
-                      {englishToBanglaNumbers(
-                        parseInt(courseData?.chips?.total_seats) -
-                          courseData?.enrolled,
-                      )}{" "}
-                      টি সিট বাকি
-                    </div>
-                  </div> */}
-                  <p className="my-6 text-black/70 dark:text-[#A3A3A3] text-lg  relative z-10">
-                    {courseData.description}
-                  </p>
+                    </Link>
+                  </div>
+
                   <div className=" pt-8 border-t border-gray-300/10 pb-8">
                     <p className="text-2xl lg:text-4xl pb-8 font-semibold">
                       শিক্ষার্থীরা যা বলছে
@@ -2048,6 +2077,49 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab.successStudents && (
+                <div>
+                  <h2 className="text-2xl lg:text-4xl font-semibold pt-12 border-t border-gray-300/10 relative z-10">
+                    আমাদের সাকসেসফুল স্টুডেন্টস
+                  </h2>
+                  <div className="my-6 text-black/70 dark:text-[#A3A3A3] text-lg relative z-10">
+                    <p>
+                      ৫-৬ মাসব্যাপী আমাদের কম্পিটিটিভ প্রোগ্রামিং কোর্সটি
+                      সফলভাবে শেষ করার পর, বিগত ব্যাচের অনেক শিক্ষার্থীই বিভিন্ন
+                      আন্তর্জাতিক ও জাতীয় অনলাইন জাজ প্ল্যাটফর্মে অসাধারণ
+                      দক্ষতা প্রদর্শন করেছে।
+                    </p>
+                    <p className="mt-4">
+                      আমরা তাদের মধ্য থেকে কিছু স্ট্যান্ডআউট পারফর্মারেরদের তুলে
+                      ধরছি, যারা কোর্স শেষে বাস্তব জাজ প্ল্যাটফর্মে নিজেদের মেধা
+                      ও পরিশ্রমের মাধ্যমে প্রমাণ করেছে।
+                    </p>
+                  </div>
+
+                  <div className="my-8">
+                    <Link
+                      href="/success-story"
+                      className="inline-flex items-center gap-2 px-8 py-4 text-white bg-gradient-to-r from-purple to-[#8A2BE2] rounded-lg font-medium hover:opacity-90 transition-all text-lg"
+                    >
+                      সবাইকে দেখো
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
               )}
