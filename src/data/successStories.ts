@@ -242,6 +242,28 @@ export const successStories: SuccessStory[] = [
       rating: 1298,
       rankName: "Pupil"
     }
+  },
+  {
+    id: 21,
+    name: "Sarafat Karim",
+    image: "/assets/success-story/sarafat.jpg",
+    batch: 1,
+    codeforces: {
+      handle: "Schr0Smi1ey",
+      rating: 1290,
+      rankName: "Pupil"
+    }
+  },
+  {
+    id: 22,
+    name: "Mohammad Jahid Hasan",
+    image: "/assets/success-story/jahid.jpg",
+    batch: 1,
+    codeforces: {
+      handle: "Jahid__Noob",
+      rating: 1550,
+      rankName: "Specialist"
+    }
   }
 ];
 
