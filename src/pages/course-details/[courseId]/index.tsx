@@ -939,9 +939,10 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        কোর্স সম্পর্কে তোমার যাবতীয় যত জিজ্ঞাসা প্রশ্ন সব আমাদের
-                        ফেসবুক গ্রুপে পোস্ট করতে পারো বা ওয়েবসাইট সাপোর্ট
-                        মেন্যুতে গিয়ে টিকেট বানিয়ে আমাদের থেকে জেনে নিতে পারো।
+                        কোর্স সম্পর্কে তোমার যাবতীয় যত জিজ্ঞাসা প্রশ্ন সব
+                        আমাদের ফেসবুক গ্রুপে পোস্ট করতে পারো বা ওয়েবসাইট
+                        সাপোর্ট মেন্যুতে গিয়ে টিকেট বানিয়ে আমাদের থেকে জেনে
+                        নিতে পারো।
                       </p>
                     </div>
                   </div>
@@ -2235,7 +2236,7 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                            কোর্সটিতে প্রি বুক করেছে
+                            কোর্সটিতে ভর্তি হয়েছে
                           </p>
                           <p className="text-3xl font-bold ">
                             {courseData?.enrolled} জন
