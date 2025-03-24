@@ -820,17 +820,10 @@ export default function CourseDetailsPage() {
                         {/* <div className="w-[2px] h-[50%] bg-white absolute top-[50%] left-[50%] "></div> */}
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        প্রথমত আমাদের{" "}
-                        <a
-                          className="text-heading dark:text-darkHeading font-bold underline"
-                          href="www.facebook.com/groups/codervai.cp.batch03/"
-                          target="_blank"
-                        >
-                          ফেইসবুক প্রাইভেট গ্রুপে{" "}
-                        </a>{" "}
-                        যুক্ত হওয়ার জন্যে তোমার ফোনে পাঠানো ACCESS CODE টি সহ
-                        বাকি ইনফরমেশন দিয়ে রিকুয়েস্ট দাও । ২৪ ঘণ্টার মধ্যে
-                        রিকুয়েস্ট এপ্রুভ করা হবে
+                        প্রথমত আমাদের ফেসবুক প্রাইভেট গ্রুপ ও Discord Server এ
+                        জয়েন হওয়ার জন্য তোমার ফোনে পাঠানো ACCESS CODE টি Copy
+                        করে বাকি ইনফরমেশন দিয়ে রিকোয়েস্ট দাও। ২৪ ঘন্টার মধ্যে
+                        অ্যাপ্রুভ করা হবে।
                       </p>
                     </div>
                     <div className="flex gap-4 items-center my-4">
@@ -842,8 +835,14 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        আমাদের অরিয়েন্টেশন ক্লাস হবে 5 April রাত ৯:৩০ এ ফেসবুক
-                        সিক্রেট গ্রুপে আর ওয়েব সাইটেও
+                        যুক্ত হয়ে যাও আমাদের{" "}
+                        <a
+                          className="text-heading dark:text-darkHeading font-bold underline"
+                          href="https://www.facebook.com/groups/codervai.cp.batch03/"
+                          target="_blank"
+                        >
+                          ফেইসবুক প্রাইভেট গ্রুপে{" "}
+                        </a>
                       </p>
                     </div>
                     <div className="flex gap-4 items-center my-4">
@@ -855,8 +854,14 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        ওয়েবসাইট থেকে লাইভ ক্লাস গুলো দেখার জন্যে তোমার
-                        প্রোফাইলে লাইভ ক্লাস ম্যেনু তে যেতে হবে
+                        যুক্ত হয়ে যাও আমাদের{" "}
+                        <a
+                          className="text-heading dark:text-darkHeading font-bold underline"
+                          href="https://discord.gg/u3m7PAnfeq"
+                          target="_blank"
+                        >
+                          Discord Server এ{" "}
+                        </a>
                       </p>
                     </div>
                     <div className="flex gap-4 items-center my-4">
@@ -868,9 +873,8 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        কোর্স সম্পর্কে তোমার যাবতীয় যত জিজ্ঞাসা প্রশ্ন সব আমাদের
-                        ফেইসবুক গ্রুপে পোস্ট করতে পার বা ওয়েবসাইটের সাপোর্ট
-                        ম্যেনু তে গিয়ে টিকেট বানিয়ে আমাদের থেকে জেনে নিতে পার{" "}
+                        ⁠আমাদের ওরিয়েন্টেশন ক্লাস হবে 10 April রাত ৯.৩০ এ
+                        ফেসবুক সিক্রেট গ্রুপে এবং ওয়েবসাইটেও।{" "}
                       </p>
                     </div>
                     <div className="flex gap-4 items-center">
@@ -882,12 +886,66 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        প্রতি সপ্তাহে আমাদের কোন কোন কন্টেন্ট আপলোড হবে বা কি কি
-                        কন্টেস্ট হবে তা এনাউন্সমেন্ট সেকশনে জানিয়ে দেয়া হবে
+                        ওয়েবসাইট থেকে লাইভ ক্লাস গুলো দেখার জন্য তোমার
+                        প্রোফাইলে লাইভ ক্লাস মেন্যুতে যেতে হবে।
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <div className="">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            6
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        কোর্স শুরু হওয়ার আগে C এবং C++ সম্পর্কে তোমরা এখান থেকে
+                        জেনে নিতে পারো। আগে থেকেই প্রিপেয়ার হয়ে গেলে !
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <div className="">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            7
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        Learn C from
+                        <a
+                          className="text-heading dark:text-darkHeading font-bold underline"
+                          href="https://www.w3schools.com/c/"
+                          target="_blank"
+                        >
+                          w3schools{" "}
+                        </a>
+                        and C++ from
+                        <a
+                          className="text-heading dark:text-darkHeading font-bold underline"
+                          href="https://www.w3schools.com/cpp/"
+                          target="_blank"
+                        >
+                          w3schools{" "}
+                        </a>
+                      </p>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <div className="">
+                        <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
+                          <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
+                            8
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-heading dark:text-darkHeading text-sm">
+                        কোর্স সম্পর্কে তোমার যাবতীয় যত জিজ্ঞাসা প্রশ্ন সব আমাদের
+                        ফেসবুক গ্রুপে পোস্ট করতে পারো বা ওয়েবসাইট সাপোর্ট
+                        মেন্যুতে গিয়ে টিকেট বানিয়ে আমাদের থেকে জেনে নিতে পারো।
                       </p>
                     </div>
                   </div>
-                  <div className="p-6 ">
+                  <div className="p-6">
                     <button
                       onClick={() => {
                         setCoursePurchaseSuccessfull(false);
