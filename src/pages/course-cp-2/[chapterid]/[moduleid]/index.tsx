@@ -7,7 +7,7 @@ import { BsChevronRight } from "react-icons/bs";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserContext } from "@/Contexts/UserContext";
 import axios from "axios";
-import { BACKEND_URL, COURSE_ID_2 } from "@/api.config";
+import { BACKEND_URL, COURSE_ID } from "@/api.config";
 import {
   calculateRemainingDays,
   countAssignmentsAndVideos,
@@ -232,7 +232,7 @@ export default function CourseDetailsPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID_2, {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -328,7 +328,7 @@ export default function CourseDetailsPage() {
         )
         .then((res) => {
           axios
-            .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID_2, {
+            .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },

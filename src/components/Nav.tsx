@@ -48,6 +48,25 @@ export default function Nav({}: Props) {
   const [score, setScore] = useState(0);
   const [user, setUser] = useContext<any>(UserContext);
   const [notificationsCount, setNotificationsCount] = useState<any>(0);
+  const [isCP2Taken, setIsCP2Taken] = useState(false);
+
+  const fetchCP2 = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.isTaken) {
+          setIsCP2Taken(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const resetBellCount = () => {
     const token = localStorage.getItem("token");
@@ -75,6 +94,7 @@ export default function Nav({}: Props) {
       setIsLoggedIn(true);
       fetchScore();
       fetchNotificationsCount();
+      fetchCP2();
     } else {
       setIsLoggedIn(false);
     }
@@ -181,6 +201,17 @@ export default function Nav({}: Props) {
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   আপনার প্রোগ্রেস
+                </Link>
+              ) : (
+                ""
+              )}
+
+              {isLogged && isCP2Taken ? (
+                <Link
+                  href="/course-cp-2"
+                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
+                >
+                  CP 2.0 Progress
                 </Link>
               ) : (
                 ""

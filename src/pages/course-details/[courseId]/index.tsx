@@ -823,7 +823,7 @@ export default function CourseDetailsPage() {
                         প্রথমত আমাদের{" "}
                         <a
                           className="text-heading dark:text-darkHeading font-bold underline"
-                          href="https://www.facebook.com/groups/codervai.cp.batch01"
+                          href="www.facebook.com/groups/codervai.cp.batch03/"
                           target="_blank"
                         >
                           ফেইসবুক প্রাইভেট গ্রুপে{" "}
@@ -842,7 +842,7 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        আমাদের অরিয়েন্টেশন ক্লাস হবে 15 April রাত ৯:৩০ এ ফেসবুক
+                        আমাদের অরিয়েন্টেশন ক্লাস হবে 5 April রাত ৯:৩০ এ ফেসবুক
                         সিক্রেট গ্রুপে আর ওয়েব সাইটেও
                       </p>
                     </div>
@@ -2365,7 +2365,9 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                     </div>
-                    <button
+
+                    {/* for prebooking comment out this section */}
+                    {/* <button
                       onClick={() => {
                         let token: any = "";
                         token = localStorage.getItem("token")
@@ -2387,18 +2389,11 @@ export default function CourseDetailsPage() {
                       {courseData.isWishList
                         ? "Prebooked"
                         : "Prebook This Course"}
-                    </button>
+                    </button> */}
+                    {/* for prebooking comment out this section */}
                   </div>
 
-                  {/* <button
-                    onClick={() => {
-                      setOpenPrebookCourse(true);
-                    }}
-                    className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
-                  >
-                    প্রিবুক করুন 
-                  </button> */}
-                  {/* {!courseData.isTaken && (
+                  {!courseData.isTaken && (
                     <div className="mt-6">
                       <p className="text-lg font-semibold mb-1">Enter Coupon</p>
                       <div className="flex items-center gap-2">
@@ -2452,141 +2447,144 @@ export default function CourseDetailsPage() {
                               //     toast.error("Wrong Coupon Code!");
                               //     setPrebookButtonLoading(false);
                               //   });
-                              if (couponCode == "GSTSPECIAL23") {
+                              if (couponCode == "CPEARLYBIRD") {
                                 setCourseData({
                                   ...courseData,
                                   price: 4500,
                                 });
                                 toast.success("Discount Applied!");
-                              } else if (couponCode == "CPSPECIAL") {
+                              } else if (couponCode == "CPINSTRUCTORSPECIAL") {
                                 setCourseData({
                                   ...courseData,
-                                  price: 4000,
+                                  price: 3250,
                                 });
                                 toast.success("Discount Applied!");
                               } else if (couponCode == "CPSUPERSPECIAL") {
                                 setCourseData({
                                   ...courseData,
-                                  price: 3000,
+                                  price: 2500,
                                 });
                                 toast.success("Discount Applied!");
-                              } else if (
-                                couponCode == "cvpc-habib-50" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "h.r.sihab155@gmail.com"
-                              ) {
+                              } else if (couponCode == "CPSPECIAL") {
                                 setCourseData({
                                   ...courseData,
-                                  price: 3000,
+                                  price: 5000,
                                 });
                                 toast.success("Discount Applied!");
-                              } else if (
-                                couponCode == "cvpc-nadim-50" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "azizul.haque.nadim.47@gmail.com"
-                              ) {
-                                setCourseData({
-                                  ...courseData,
-                                  price: 3000,
-                                });
-                                toast.success("Discount Applied!");
-                              } else if (
-                                couponCode == "cvpc-fahim-50" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "alfahim.ru@gmail.com"
-                              ) {
-                                setCourseData({
-                                  ...courseData,
-                                  price: 3000,
-                                });
-                                toast.success("Discount Applied!");
-                              } else if (
-                                couponCode == "cvpc-rifat-50" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "kazirifatalmuin246@gmail.com"
-                              ) {
-                                setCourseData({
-                                  ...courseData,
-                                  price: 3000,
-                                });
-                                toast.success("Discount Applied!");
-                              } else if (
-                                couponCode == "cvpc-niloy-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "dasniloy2020@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (
-                                couponCode == "cvpc-samee-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "samee.sevas@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (
-                                couponCode == "cvpc-ahmed-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "istiaqueahmedarik@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (
-                                couponCode == "cvpc-tanim-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "tanimahmed710@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (
-                                couponCode == "cvpc-roy-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "anirbanroysourov5@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (
-                                couponCode == "cvpc-hasan-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "mahditalukder123@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (
-                                couponCode == "CP100SPECIAL" &&
-                                token &&
-                                jwtDecode<any>(token).login ==
-                                  "01761986057"
-                              ) {
-                                purchaseFreeCourse();
-                              }else if (
-                                couponCode == "CPFREE87G5" &&
-                                token &&
-                                jwtDecode<any>(token).login ==
-                                  "01712842755"
-                              ) {
-                                purchaseFreeCourse();
                               }
-                                else if (
-                                couponCode == "CPFREE87G5" &&
-                                token &&
-                                jwtDecode<any>(token).login ==
-                                  "01775120752"
-                              ) {
-                                purchaseFreeCourse();
-                              }
-                              else if (
-                                couponCode == "cvpc-hasan-100" &&
-                                token &&
-                                jwtDecode<any>(token).profile.email ==
-                                  "juubaerjaami@gmail.com"
-                              ) {
-                                purchaseFreeCourse();
-                              } else if (couponCode == "XCVRTUNT") {
+                              //  else if (
+                              //   couponCode == "cvpc-habib-50" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "h.r.sihab155@gmail.com"
+                              // ) {
+                              //   setCourseData({
+                              //     ...courseData,
+                              //     price: 3000,
+                              //   });
+                              //   toast.success("Discount Applied!");
+                              // } else if (
+                              //   couponCode == "cvpc-nadim-50" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "azizul.haque.nadim.47@gmail.com"
+                              // ) {
+                              //   setCourseData({
+                              //     ...courseData,
+                              //     price: 3000,
+                              //   });
+                              //   toast.success("Discount Applied!");
+                              // } else if (
+                              //   couponCode == "cvpc-fahim-50" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "alfahim.ru@gmail.com"
+                              // ) {
+                              //   setCourseData({
+                              //     ...courseData,
+                              //     price: 3000,
+                              //   });
+                              //   toast.success("Discount Applied!");
+                              // } else if (
+                              //   couponCode == "cvpc-rifat-50" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "kazirifatalmuin246@gmail.com"
+                              // ) {
+                              //   setCourseData({
+                              //     ...courseData,
+                              //     price: 3000,
+                              //   });
+                              //   toast.success("Discount Applied!");
+                              // } else if (
+                              //   couponCode == "cvpc-niloy-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "dasniloy2020@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "cvpc-samee-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "samee.sevas@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "cvpc-ahmed-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "istiaqueahmedarik@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "cvpc-tanim-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "tanimahmed710@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "cvpc-roy-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "anirbanroysourov5@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "cvpc-hasan-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "mahditalukder123@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "CP100SPECIAL" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).login == "01761986057"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "CPFREE87G5" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).login == "01712842755"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "CPFREE87G5" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).login == "01775120752"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // } else if (
+                              //   couponCode == "cvpc-hasan-100" &&
+                              //   token &&
+                              //   jwtDecode<any>(token).profile.email ==
+                              //     "juubaerjaami@gmail.com"
+                              // ) {
+                              //   purchaseFreeCourse();
+                              // }
+                              else if (couponCode == "XCVRTUNT") {
                                 setCourseData({
                                   ...courseData,
                                   price: 12,
@@ -2615,29 +2613,29 @@ export default function CourseDetailsPage() {
                         </button>
                       </div>
                     </div>
-                  )} */}
-                  {/* {courseData.isTaken ? (
-                  <Link
-                    href="/course/12"
-                    className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
-                  >
-                    কোর্সে যান
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => {
-                      if (isLoggedIn()) {
-                        setOpenBuyCourse(true);
-                      } else {
-                        window.location.href =
-                          "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
-                      }
-                    }}
-                    className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
-                  >
-                    কোর্সটি কিনুন
-                  </button>
-                )} */}
+                  )}
+                  {courseData.isTaken ? (
+                    <Link
+                      href="/course/"
+                      className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                    >
+                      কোর্সে যান
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        if (isLoggedIn()) {
+                          setOpenBuyCourse(true);
+                        } else {
+                          window.location.href =
+                            "https://www.codervai.com/auth/login?redirect=cp.codervai.com";
+                        }
+                      }}
+                      className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                    >
+                      কোর্সটি কিনুন
+                    </button>
+                  )}
                   <div className="flex gap-4">
                     {/* {!courseData.isTaken && (
                       <Link
@@ -2669,14 +2667,17 @@ export default function CourseDetailsPage() {
                         কোর্সটি কিনুন
                       </button>
                     )} */}
-                    {courseData.isTaken && (
+
+                    {/* for post enrollment comment out this section */}
+                    {/* {courseData.isTaken && (
                       <Link
                         href="/course/"
                         className=" flex justify-center text-darkHeading items-center bg-purple py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                       >
                         কোর্স দেখুন
                       </Link>
-                    )}
+                    )} */}
+                    {/* for post enrollment comment out this section */}
                   </div>
                 </div>
               </div>
