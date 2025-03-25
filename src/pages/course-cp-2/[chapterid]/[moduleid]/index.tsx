@@ -271,7 +271,7 @@ export default function CourseDetailsPage() {
           setActiveModule(targetModule);
         } else if (lastValidModule !== null) {
           router.replace(
-            `/course/${lastValidModule.chapter_id}/${lastValidModule.id}`,
+            `/course-cp-2/${lastValidModule.chapter_id}/${lastValidModule.id}`,
           );
         } else {
           const chapters: Array<any> = res.data.chapters;
@@ -279,7 +279,7 @@ export default function CourseDetailsPage() {
           const modules: Array<any> = chapter.modules;
           const validModule = modules[modules.length - 1];
 
-          router.replace(`/course/${validModule.chapter_id}/${validModule.id}`);
+          router.replace(`/course-cp-2/${validModule.chapter_id}/${validModule.id}`);
         }
 
         setUser({ ...user, loading: false });
@@ -1667,7 +1667,7 @@ export default function CourseDetailsPage() {
                                     ) {
                                       fetchEvalutedAssignment(module.id);
                                       router.push(
-                                        `/course/${module.chapter_id}/${module.id}`,
+                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
                                       );
                                       // setActiveModule(module);
                                     }
@@ -1679,7 +1679,7 @@ export default function CourseDetailsPage() {
                                     ) {
                                       // setActiveModule(module);
                                       router.push(
-                                        `/course/${module.chapter_id}/${module.id}`,
+                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
                                       );
                                     }
 
@@ -1691,7 +1691,7 @@ export default function CourseDetailsPage() {
                                       // setActiveModule(module);
                                       submitProgress(module.id, module.score);
                                       router.push(
-                                        `/course/${module.chapter_id}/${module.id}`,
+                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
                                       );
                                     }
                                     if (
@@ -1702,7 +1702,7 @@ export default function CourseDetailsPage() {
                                     ) {
                                       // setActiveModule(module);
                                       router.push(
-                                        `/course/${module.chapter_id}/${module.id}`,
+                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
                                       );
                                     }
                                     if (
@@ -1713,7 +1713,7 @@ export default function CourseDetailsPage() {
                                       // setActiveModule(module);
                                       submitProgress(module.id, module.score);
                                       router.push(
-                                        `/course/${module.chapter_id}/${module.id}`,
+                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
                                       );
                                     }
                                     if (
@@ -1724,7 +1724,7 @@ export default function CourseDetailsPage() {
                                       // setActiveModule(module);
                                       submitProgress(module.id, module.score);
                                       router.push(
-                                        `/course/${module.chapter_id}/${module.id}`,
+                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
                                       );
                                     }
                                   }

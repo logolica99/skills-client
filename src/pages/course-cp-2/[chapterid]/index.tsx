@@ -70,16 +70,16 @@ export default function CourseRedirect(): JSX.Element {
         setUser({ ...user, loading: false });
 
         if(activeModule !== null) {
-          router.replace(`/course/${activeModule.chapter_id}/${activeModule.id}`);
+          router.replace(`/course-cp-2/${activeModule.chapter_id}/${activeModule.id}`);
         } else if(lastValidModule !== null) {
-          router.replace(`/course/${lastValidModule.chapter_id}/${lastValidModule.id}`);
+          router.replace(`/course-cp-2/${lastValidModule.chapter_id}/${lastValidModule.id}`);
         } else {
           const chapters: Array<any> = res.data.chapters;
           const chapter = chapters[chapters.length - 1]; 
           const modules: Array<any> = chapter.modules; 
           const validModule = modules[modules.length - 1];
 
-          router.replace(`/course/${validModule.chapter_id}/${validModule.id}`);
+          router.replace(`/course-cp-2/${validModule.chapter_id}/${validModule.id}`);
         }
       })
       .catch((err) => {
