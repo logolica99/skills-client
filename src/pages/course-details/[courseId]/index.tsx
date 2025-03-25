@@ -211,6 +211,13 @@ export default function CourseDetailsPage() {
   useEffect(() => {
     if (courseData.isTaken == true) {
       setCoursePurchaseSuccessfull(true);
+      // Check if user has both batches or just one
+      const token = localStorage.getItem("token");
+      if (token) {
+        // This is a mock function - in a real implementation, you would make an API call
+        // to determine which batches the user has access to
+        checkUserBatches(token);
+      }
     } else {
       // setCoursePurchaseSuccessfull(false);
     }
@@ -294,6 +301,9 @@ export default function CourseDetailsPage() {
     email: "",
     phone: "",
   });
+  const [openBatchSelector, setOpenBatchSelector] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [userBatches, setUserBatches] = useState<number[]>([]);
 
   const fetchCourse = () => {
     setUser({ ...user, loading: true });
@@ -389,6 +399,83 @@ export default function CourseDetailsPage() {
     setOpenFaqItems({ 0: true });
     setOpenChapterItems({ 0: true });
   }, [courseData]);
+
+  const checkUserBatches = (token: string) => {
+    // This would be replaced with actual API logic to check which batches user has access to
+    // For now, we'll use a try-catch with a timeout to simulate the API call and provide a fallback
+    try {
+      // Set a timeout to simulate API call timing
+      setTimeout(() => {
+        // Temporary mock solution until real API is implemented
+        // In production, replace this with actual API call to check user's batches
+        const mockData = {
+          batches: [2, 3], // For testing - this simulates a user having both batch 2 and 3
+          // For testing with single batch: use [2] or [3]
+        };
+
+        const batches = mockData.batches || [];
+        setUserBatches(batches);
+
+        if (batches.length > 1) {
+          // User has multiple batches, show selector modal
+          setOpenBatchSelector(true);
+        } else if (batches.length === 1) {
+          // User has only one batch, redirect directly
+          setIsRedirecting(true);
+          redirectToLMS(batches[0]);
+        } else {
+          // If no batches found, default to batch 3
+          setIsRedirecting(true);
+          redirectToLMS(3);
+        }
+      }, 500);
+
+      /* 
+      // Real API implementation (uncomment when endpoint is available)
+      axios
+        .get(BACKEND_URL + `/user/course/batches/${COURSE_ID_2}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          const batches = res.data.batches || [];
+          setUserBatches(batches);
+          
+          if (batches.length > 1) {
+            setOpenBatchSelector(true);
+          } else if (batches.length === 1) {
+            setIsRedirecting(true);
+            redirectToLMS(batches[0]);
+          } else {
+            setIsRedirecting(true);
+            redirectToLMS(3);
+          }
+        })
+        .catch((err) => {
+          console.error("Error checking user batches:", err);
+          setIsRedirecting(true);
+          redirectToLMS(3);
+        });
+      */
+    } catch (error) {
+      console.error("Error in batch checking:", error);
+      // Default fallback - redirect to batch 3
+      setIsRedirecting(true);
+      redirectToLMS(3);
+    }
+  };
+
+  const redirectToLMS = (batchId: number) => {
+    // Redirect to the appropriate URL based on batch
+    setTimeout(() => {
+      if (batchId === 2) {
+        window.location.href = `https://cp.codervai.com/course-cp-2/`;
+      } else {
+        window.location.href = `https://cp.codervai.com/course/`;
+      }
+    }, 2000); // 2 second delay for the "redirecting" message to be shown
+  };
 
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  overflow-x-hidden `}>
@@ -2686,12 +2773,21 @@ export default function CourseDetailsPage() {
                     </div>
                   )}
                   {courseData.isTaken ? (
-                    <Link
-                      href="/course/"
-                      className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                    <button
+                      onClick={() => {
+                        const token = localStorage.getItem("token");
+                        if (token) {
+                          checkUserBatches(token);
+                        } else {
+                          // If no token, just redirect to batch 3 (default)
+                          setIsRedirecting(true);
+                          redirectToLMS(3);
+                        }
+                      }}
+                      className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                     >
                       কোর্সে যান
-                    </Link>
+                    </button>
                   ) : (
                     <button
                       onClick={() => {
@@ -2829,6 +2925,149 @@ export default function CourseDetailsPage() {
       </div>
 
       <Footer />
+
+      {/* Batch selector modal */}
+      <Transition appear show={openBatchSelector} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative"
+          style={{ zIndex: 99999 }}
+          onClose={() => {
+            setOpenBatchSelector(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-700 ease-in-out"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-700 ease-in-out"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-[90vw] lg:w-[40vw] text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30 backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="div"
+                    className="text-xl font-medium leading-6 mb-6 text-center"
+                  >
+                    <div>আপনি কোন ব্যাচে যেতে চান?</div>
+                  </Dialog.Title>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div
+                      onClick={() => {
+                        setOpenBatchSelector(false);
+                        setIsRedirecting(true);
+                        redirectToLMS(2);
+                      }}
+                      className="bg-gradient-to-br from-purple/10 to-purple/20 border border-purple/30 hover:border-purple/60 rounded-xl p-5 flex flex-col items-center cursor-pointer hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="text-2xl font-bold text-purple mb-2">
+                        ব্যাচ ০২
+                      </div>
+                      <p className="text-paragraph dark:text-darkParagraph text-center text-sm mb-4">
+                        কম্পিটিটিভ প্রোগ্রামিং ব্যাচ ০২ এ যেতে এখানে ক্লিক করুন
+                      </p>
+                      <div className="mt-auto">
+                        <button className="bg-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition-all">
+                          এই ব্যাচে যান
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() => {
+                        setOpenBatchSelector(false);
+                        setIsRedirecting(true);
+                        redirectToLMS(3);
+                      }}
+                      className="bg-gradient-to-br from-purple/10 to-purple/20 border border-purple/30 hover:border-purple/60 rounded-xl p-5 flex flex-col items-center cursor-pointer hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="text-2xl font-bold text-purple mb-2">
+                        ব্যাচ ০৩
+                      </div>
+                      <p className="text-paragraph dark:text-darkParagraph text-center text-sm mb-4">
+                        কম্পিটিটিভ প্রোগ্রামিং ব্যাচ ০৩ এ যেতে এখানে ক্লিক করুন
+                      </p>
+                      <div className="mt-auto">
+                        <button className="bg-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition-all">
+                          এই ব্যাচে যান
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+      {/* Redirecting loader modal */}
+      <Transition appear show={isRedirecting} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative"
+          style={{ zIndex: 99999 }}
+          onClose={() => {
+            // Don't close this modal on outside click
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-[90vw] max-w-md text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30 backdrop-blur-lg border border-gray-200/20 p-6 text-center align-middle shadow-xl transition-all">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple mb-4"></div>
+                    <Dialog.Title
+                      as="div"
+                      className="text-xl font-medium leading-6 mb-2"
+                    >
+                      <div>আপনাকে LMS এ রিডাইরেক্ট করা হচ্ছে</div>
+                    </Dialog.Title>
+                    <p className="text-paragraph dark:text-darkParagraph">
+                      অনুগ্রহ করে অপেক্ষা করুন...
+                    </p>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 }
