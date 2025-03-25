@@ -2335,33 +2335,37 @@ export default function CourseDetailsPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
-                    {/* <p className="text-xl font-bold">
-                    {englishToBanglaNumbers(
-                      calculateRemainingDays(courseData?.chips?.deadline),
-                    )}{" "}
-                  দিন বাকি প্রি বুক এর
-                  </p> */}
 
-                    {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                  <a
+                    href="https://drive.google.com/file/d/15Pvd0Ffh60hU81lyr4V3jtpkaLG0ZgW2/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 text-heading dark:text-darkHeading border border-purple/30 hover:border-purple/60 dark:border-purple/30 dark:hover:border-purple/60 transition-all duration-300 rounded-lg font-medium relative group overflow-hidden"
+                    style={{
+                      boxShadow: "0 0 10px rgba(177, 83, 224, 0.1)",
+                    }}
+                  >
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-purple via-[#B153E0] to-purple transition-opacity duration-300"></div>
                     <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      className="text-purple"
                     >
                       <path
-                        d="M8.99855 17.6269C4.23361 17.6269 0.371094 13.7645 0.371094 8.99951C0.371094 4.23457 4.23361 0.37207 8.99855 0.37207C13.7635 0.37207 17.6259 4.23457 17.6259 8.99951C17.6259 13.7645 13.7635 17.6269 8.99855 17.6269ZM8.99855 15.9015C10.8291 15.9015 12.5846 15.1743 13.879 13.8799C15.1733 12.5856 15.9005 10.83 15.9005 8.99951C15.9005 7.16901 15.1733 5.41346 13.879 4.1191C12.5846 2.82472 10.8291 2.09756 8.99855 2.09756C7.16803 2.09756 5.4125 2.82472 4.11812 4.1191C2.82376 5.41346 2.09659 7.16901 2.09659 8.99951C2.09659 10.83 2.82376 12.5856 4.11812 13.8799C5.4125 15.1743 7.16803 15.9015 8.99855 15.9015ZM9.8613 8.99951H13.3123V10.725H8.1358V4.68579H9.8613V8.99951Z"
-                        fill="#F1BA41"
+                        d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+                        fill="currentColor"
                       />
                     </svg>
-                    প্রি বুকিং এর বাকি{" "}
-                    {calculateRemainingDays(courseData?.chips?.deadline)} দিন
-                  </div> */}
+                    See Course Outline
+                  </a>
+
+                  <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
                     <div className="">
-                      <div className="flex  text-sm justify-center">
-                        <p className="text-heading dark:text-darkHeading mr-16  font-bold text-lg">
+                      <div className="flex  text-sm justify-center mb-4">
+                        <p className="text-heading dark:text-darkHeading mr-16 font-bold text-lg">
                           অবশিষ্ট সময়
                         </p>
                         <div className="flex gap-2 items-center">
@@ -2420,6 +2424,14 @@ export default function CourseDetailsPage() {
                           </p>
                           <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
                             মিনিট
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl w-[80px] text-center">
+                            {seconds.toString().padStart(2, "0")}
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
+                            সেকেন্ড
                           </p>
                         </div>
                       </div>
