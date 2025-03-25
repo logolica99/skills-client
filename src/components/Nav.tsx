@@ -465,13 +465,26 @@ export default function Nav({}: Props) {
                 </Link>
               )} */}
 
-              {isLogged && (
+              {isLogged ? (
                 <Link
-                  href="/course/12"
+                  href="/course"
                   className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   আপনার প্রোগ্রেস
                 </Link>
+              ) : (
+                ""
+              )}
+
+              {isLogged && isCP2Taken ? (
+                <Link
+                  href="/course-cp-2"
+                  className=" hover:text-black dark:hover:text-white ease-in-out duration-150"
+                >
+                  CP 2.0 Progress
+                </Link>
+              ) : (
+                ""
               )}
 
               {/* {isLogged && (
