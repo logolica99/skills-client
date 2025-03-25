@@ -211,13 +211,6 @@ export default function CourseDetailsPage() {
   useEffect(() => {
     if (courseData.isTaken == true) {
       setCoursePurchaseSuccessfull(true);
-      // Check if user has both batches or just one
-      const token = localStorage.getItem("token");
-      if (token) {
-        // This is a mock function - in a real implementation, you would make an API call
-        // to determine which batches the user has access to
-        checkUserBatches(token);
-      }
     } else {
       // setCoursePurchaseSuccessfull(false);
     }
@@ -301,9 +294,6 @@ export default function CourseDetailsPage() {
     email: "",
     phone: "",
   });
-  const [openBatchSelector, setOpenBatchSelector] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
-  const [userBatches, setUserBatches] = useState<number[]>([]);
 
   const fetchCourse = () => {
     setUser({ ...user, loading: true });
@@ -399,83 +389,6 @@ export default function CourseDetailsPage() {
     setOpenFaqItems({ 0: true });
     setOpenChapterItems({ 0: true });
   }, [courseData]);
-
-  const checkUserBatches = (token: string) => {
-    // This would be replaced with actual API logic to check which batches user has access to
-    // For now, we'll use a try-catch with a timeout to simulate the API call and provide a fallback
-    try {
-      // Set a timeout to simulate API call timing
-      setTimeout(() => {
-        // Temporary mock solution until real API is implemented
-        // In production, replace this with actual API call to check user's batches
-        const mockData = {
-          batches: [2, 3], // For testing - this simulates a user having both batch 2 and 3
-          // For testing with single batch: use [2] or [3]
-        };
-
-        const batches = mockData.batches || [];
-        setUserBatches(batches);
-
-        if (batches.length > 1) {
-          // User has multiple batches, show selector modal
-          setOpenBatchSelector(true);
-        } else if (batches.length === 1) {
-          // User has only one batch, redirect directly
-          setIsRedirecting(true);
-          redirectToLMS(batches[0]);
-        } else {
-          // If no batches found, default to batch 3
-          setIsRedirecting(true);
-          redirectToLMS(3);
-        }
-      }, 500);
-
-      /* 
-      // Real API implementation (uncomment when endpoint is available)
-      axios
-        .get(BACKEND_URL + `/user/course/batches/${COURSE_ID_2}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const batches = res.data.batches || [];
-          setUserBatches(batches);
-          
-          if (batches.length > 1) {
-            setOpenBatchSelector(true);
-          } else if (batches.length === 1) {
-            setIsRedirecting(true);
-            redirectToLMS(batches[0]);
-          } else {
-            setIsRedirecting(true);
-            redirectToLMS(3);
-          }
-        })
-        .catch((err) => {
-          console.error("Error checking user batches:", err);
-          setIsRedirecting(true);
-          redirectToLMS(3);
-        });
-      */
-    } catch (error) {
-      console.error("Error in batch checking:", error);
-      // Default fallback - redirect to batch 3
-      setIsRedirecting(true);
-      redirectToLMS(3);
-    }
-  };
-
-  const redirectToLMS = (batchId: number) => {
-    // Redirect to the appropriate URL based on batch
-    setTimeout(() => {
-      if (batchId === 2) {
-        window.location.href = `https://cp.codervai.com/course-cp-2/`;
-      } else {
-        window.location.href = `https://cp.codervai.com/course/`;
-      }
-    }, 2000); // 2 second delay for the "redirecting" message to be shown
-  };
 
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  overflow-x-hidden `}>
@@ -2422,30 +2335,34 @@ export default function CourseDetailsPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
-                    {/* <p className="text-xl font-bold">
-                    {englishToBanglaNumbers(
-                      calculateRemainingDays(courseData?.chips?.deadline),
-                    )}{" "}
-                  দিন বাকি প্রি বুক এর
-                  </p> */}
 
-                    {/* <div className="flex justify-center text-xl font-bold gap-3 items-center bg-[#fddecc]  dark:bg-[#FFF1E9]/20 px-3 py-2 rounded-xl">
+                  <a
+                    href="https://drive.google.com/file/d/15Pvd0Ffh60hU81lyr4V3jtpkaLG0ZgW2/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 text-heading dark:text-darkHeading border border-purple/30 hover:border-purple/60 dark:border-purple/30 dark:hover:border-purple/60 transition-all duration-300 rounded-lg font-medium relative group overflow-hidden"
+                    style={{
+                      boxShadow: "0 0 10px rgba(177, 83, 224, 0.1)",
+                    }}
+                  >
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-purple via-[#B153E0] to-purple transition-opacity duration-300"></div>
                     <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      className="text-purple"
                     >
                       <path
-                        d="M8.99855 17.6269C4.23361 17.6269 0.371094 13.7645 0.371094 8.99951C0.371094 4.23457 4.23361 0.37207 8.99855 0.37207C13.7635 0.37207 17.6259 4.23457 17.6259 8.99951C17.6259 13.7645 13.7635 17.6269 8.99855 17.6269ZM8.99855 15.9015C10.8291 15.9015 12.5846 15.1743 13.879 13.8799C15.1733 12.5856 15.9005 10.83 15.9005 8.99951C15.9005 7.16901 15.1733 5.41346 13.879 4.1191C12.5846 2.82472 10.8291 2.09756 8.99855 2.09756C7.16803 2.09756 5.4125 2.82472 4.11812 4.1191C2.82376 5.41346 2.09659 7.16901 2.09659 8.99951C2.09659 10.83 2.82376 12.5856 4.11812 13.8799C5.4125 15.1743 7.16803 15.9015 8.99855 15.9015ZM9.8613 8.99951H13.3123V10.725H8.1358V4.68579H9.8613V8.99951Z"
-                        fill="#F1BA41"
+                        d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+                        fill="currentColor"
                       />
                     </svg>
-                    প্রি বুকিং এর বাকি{" "}
-                    {calculateRemainingDays(courseData?.chips?.deadline)} দিন
-                  </div> */}
+                    See Course Outline
+                  </a>
+
+                  <div className="mt-4 border-t py-4 border-b  border-gray-300/30">
                     <div className="">
                       <div className="flex  text-sm justify-center">
                         <p className="text-heading dark:text-darkHeading mr-16  font-bold text-lg">
@@ -2507,6 +2424,14 @@ export default function CourseDetailsPage() {
                           </p>
                           <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
                             মিনিট
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <p className="text-heading dark:text-darkHeading bg-black/30 dark:bg-gray-300/5 py-3 px-6 rounded-lg font-bold text-4xl w-[80px] text-center">
+                            {seconds.toString().padStart(2, "0")}
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-paragraph dark:text-darkParagraph">
+                            সেকেন্ড
                           </p>
                         </div>
                       </div>
@@ -2761,21 +2686,12 @@ export default function CourseDetailsPage() {
                     </div>
                   )}
                   {courseData.isTaken ? (
-                    <button
-                      onClick={() => {
-                        const token = localStorage.getItem("token");
-                        if (token) {
-                          checkUserBatches(token);
-                        } else {
-                          // If no token, just redirect to batch 3 (default)
-                          setIsRedirecting(true);
-                          redirectToLMS(3);
-                        }
-                      }}
-                      className="bg-[#1CAB55] text-darkHeading py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
+                    <Link
+                      href="/course/"
+                      className=" flex justify-center text-darkHeading items-center bg-[#1CAB55] py-3 w-full mt-8 rounded-xl hover:bg-opacity-50 ease-in-out duration-150"
                     >
                       কোর্সে যান
-                    </button>
+                    </Link>
                   ) : (
                     <button
                       onClick={() => {
@@ -2913,149 +2829,6 @@ export default function CourseDetailsPage() {
       </div>
 
       <Footer />
-
-      {/* Batch selector modal */}
-      <Transition appear show={openBatchSelector} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative"
-          style={{ zIndex: 99999 }}
-          onClose={() => {
-            setOpenBatchSelector(false);
-          }}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-700 ease-in-out"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-700 ease-in-out"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-[90vw] lg:w-[40vw] text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30 backdrop-blur-lg border border-gray-200/20 p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="div"
-                    className="text-xl font-medium leading-6 mb-6 text-center"
-                  >
-                    <div>আপনি কোন ব্যাচে যেতে চান?</div>
-                  </Dialog.Title>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div
-                      onClick={() => {
-                        setOpenBatchSelector(false);
-                        setIsRedirecting(true);
-                        redirectToLMS(2);
-                      }}
-                      className="bg-gradient-to-br from-purple/10 to-purple/20 border border-purple/30 hover:border-purple/60 rounded-xl p-5 flex flex-col items-center cursor-pointer hover:shadow-lg transition-all duration-300"
-                    >
-                      <div className="text-2xl font-bold text-purple mb-2">
-                        ব্যাচ ০২
-                      </div>
-                      <p className="text-paragraph dark:text-darkParagraph text-center text-sm mb-4">
-                        কম্পিটিটিভ প্রোগ্রামিং ব্যাচ ০২ এ যেতে এখানে ক্লিক করুন
-                      </p>
-                      <div className="mt-auto">
-                        <button className="bg-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition-all">
-                          এই ব্যাচে যান
-                        </button>
-                      </div>
-                    </div>
-
-                    <div
-                      onClick={() => {
-                        setOpenBatchSelector(false);
-                        setIsRedirecting(true);
-                        redirectToLMS(3);
-                      }}
-                      className="bg-gradient-to-br from-purple/10 to-purple/20 border border-purple/30 hover:border-purple/60 rounded-xl p-5 flex flex-col items-center cursor-pointer hover:shadow-lg transition-all duration-300"
-                    >
-                      <div className="text-2xl font-bold text-purple mb-2">
-                        ব্যাচ ০৩
-                      </div>
-                      <p className="text-paragraph dark:text-darkParagraph text-center text-sm mb-4">
-                        কম্পিটিটিভ প্রোগ্রামিং ব্যাচ ০৩ এ যেতে এখানে ক্লিক করুন
-                      </p>
-                      <div className="mt-auto">
-                        <button className="bg-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition-all">
-                          এই ব্যাচে যান
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-
-      {/* Redirecting loader modal */}
-      <Transition appear show={isRedirecting} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative"
-          style={{ zIndex: 99999 }}
-          onClose={() => {
-            // Don't close this modal on outside click
-          }}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-[90vw] max-w-md text-darkHeading transform overflow-hidden rounded-2xl bg-[#0B060D]/60 dark:bg-[#0B060D]/30 bg-opacity-30 backdrop-blur-lg border border-gray-200/20 p-6 text-center align-middle shadow-xl transition-all">
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple mb-4"></div>
-                    <Dialog.Title
-                      as="div"
-                      className="text-xl font-medium leading-6 mb-2"
-                    >
-                      <div>আপনাকে LMS এ রিডাইরেক্ট করা হচ্ছে</div>
-                    </Dialog.Title>
-                    <p className="text-paragraph dark:text-darkParagraph">
-                      অনুগ্রহ করে অপেক্ষা করুন...
-                    </p>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
     </div>
   );
 }
