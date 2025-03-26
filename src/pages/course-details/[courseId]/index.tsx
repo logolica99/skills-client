@@ -1,6 +1,5 @@
 import Nav from "@/components/Nav";
 import { HindSiliguri } from "@/helpers";
-import CourseInformation from "@/components/CourseInformation";
 
 import { useContext, useEffect, useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
@@ -89,7 +88,6 @@ export default function CourseDetailsPage() {
     [key: number]: boolean;
   }>({});
   const [expandedDescription, setExpandedDescription] = useState(false);
-  const [showFirstTimeDialog, setShowFirstTimeDialog] = useState(false);
 
   // Toggle FAQ item
   const toggleFaqItem = (index: number) => {
@@ -252,16 +250,6 @@ export default function CourseDetailsPage() {
     return () => clearInterval(intervalId);
   }, [courseData]);
 
-  useEffect(() => {
-    if (courseData.isTaken) {
-      const hasSeenDialog = localStorage.getItem("hasSeenCourseDialog");
-      if (!hasSeenDialog) {
-        setShowFirstTimeDialog(true);
-        localStorage.setItem("hasSeenCourseDialog", "true");
-      }
-    }
-  }, [courseData.isTaken]);
-
   const purchaseFreeCourse = () => {
     const token = localStorage.getItem("token");
     axios
@@ -405,13 +393,6 @@ export default function CourseDetailsPage() {
   return (
     <div className={`  ${HindSiliguri.variable} font-hind  overflow-x-hidden `}>
       <Nav></Nav>
-      {courseData.isTaken && (
-        <CourseInformation
-          batchNumber={3}
-          isOpen={showFirstTimeDialog}
-          onClose={() => setShowFirstTimeDialog(false)}
-        />
-      )}
       <Toaster />
 
       {coursePurchaseSuccessful && (
