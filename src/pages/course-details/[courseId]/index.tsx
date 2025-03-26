@@ -912,7 +912,7 @@ export default function CourseDetailsPage() {
                         </div>
                       </div>
                       <p className="text-heading dark:text-darkHeading text-sm">
-                        Learn C from
+                        Learn C from{" "}
                         <a
                           className="text-heading dark:text-darkHeading font-bold underline"
                           href="https://www.w3schools.com/c/"
@@ -920,14 +920,15 @@ export default function CourseDetailsPage() {
                         >
                           w3schools{" "}
                         </a>
-                        and C++ from
+                        and C++ from{" "}
                         <a
                           className="text-heading dark:text-darkHeading font-bold underline"
                           href="https://www.w3schools.com/cpp/"
                           target="_blank"
                         >
-                          w3schools{" "}
+                          w3schools
                         </a>
+                        !
                       </p>
                     </div>
                     <div className="flex gap-4 items-center">
