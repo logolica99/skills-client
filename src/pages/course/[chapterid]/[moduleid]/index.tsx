@@ -1233,7 +1233,7 @@ export default function CourseDetailsPage() {
                 ></div>
               </div>
               <div className="mt-1">
-                {activeModule.serial < 9 && (
+                {activeModule.serial >= 9 && activeModule.serial <= 55 && (
                   <button
                     onClick={() => {
                       const module_search = findObjectBySerial(courseData, 56);
