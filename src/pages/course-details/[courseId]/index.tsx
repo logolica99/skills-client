@@ -72,6 +72,7 @@ export default function CourseDetailsPage() {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [initialPrice, setInitialPrice] = useState(0);
+  const [accessCode, setAccessCode] = useState("");
   const [coursePurchaseSuccessful, setCoursePurchaseSuccessfull] =
     useState(false);
   const [activeTab, setActiveTab] = useState({
@@ -307,6 +308,10 @@ export default function CourseDetailsPage() {
       .then((res) => {
         setCourseData(res.data);
         setInitialPrice(res.data.price);
+        // Only set access code if it exists
+        if (res.data?.transaction_id) {
+          setAccessCode(res.data.transaction_id);
+        }
         if (!token) {
           if (localStorage.getItem("isWishList") === "true") {
             setCourseData({ ...res.data, isWishList: true });
@@ -826,6 +831,50 @@ export default function CourseDetailsPage() {
                         অ্যাপ্রুভ করা হবে।
                       </p>
                     </div>
+
+                    {accessCode && (
+                      <div className="flex items-center gap-4 mt-4 mb-4 bg-gray-200/10 p-4 rounded-lg">
+                        <div className="flex-1">
+                          <p className="text-sm mb-2 text-heading dark:text-darkHeading">
+                            আপনার ACCESS CODE:
+                          </p>
+                          <p className="font-mono text-lg text-heading dark:text-darkHeading">
+                            {accessCode}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(accessCode);
+                            toast.success("Access code copied!");
+                          }}
+                          className="bg-[#B153E0]/20 hover:bg-[#B153E0]/30 p-2 rounded-lg transition-colors"
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M22 6.9V11.1C22 14.6 20.6 16 17.1 16H16V12.9C16 9.4 14.6 8 11.1 8H8V6.9C8 3.4 9.4 2 12.9 2H17.1C20.6 2 22 3.4 22 6.9Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+
                     <div className="flex gap-4 items-center my-4">
                       <div className="z-[10]">
                         <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block z-[10]">
