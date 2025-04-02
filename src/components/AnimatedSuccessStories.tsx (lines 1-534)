@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { SuccessStory } from "@/data/successStories";
@@ -11,8 +11,6 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [animationValues, setAnimationValues] = useState<Record<string, {x: number, y: number}>>({});
-  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -23,40 +21,6 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
 
     return () => clearInterval(interval);
   }, [stories.length]);
-
-  useEffect(() => {
-    if (!mounted) return;
-    
-    const updateAnimations = () => {
-      const time = Date.now() / 1000;
-      const newValues: Record<string, {x: number, y: number}> = {};
-      
-      for (let i = 0; i < 7; i++) {
-        const ampX = 10 + (i % 3) * 5;
-        const ampY = 8 + (i % 4) * 4;
-        const speedX = 0.5 + (i % 3) * 0.2;
-        const speedY = 0.3 + (i % 4) * 0.2;
-        const phaseX = i * 0.7;
-        const phaseY = i * 0.9;
-        
-        newValues[`element-${i}`] = {
-          x: ampX * Math.sin(time * speedX + phaseX),
-          y: ampY * Math.cos(time * speedY + phaseY)
-        };
-      }
-      
-      setAnimationValues(newValues);
-      animationRef.current = requestAnimationFrame(updateAnimations);
-    };
-    
-    animationRef.current = requestAnimationFrame(updateAnimations);
-    
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [mounted]);
 
   if (!mounted) return null;
 
@@ -123,6 +87,52 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
         damping: 15,
       },
     }),
+  };
+
+  // More robust random floating motion that works with older framer-motion versions
+  const getFloatingAnimation = (index: number) => {
+    // Create unique but deterministic animations for each element
+    const seed = index * 1000;
+    const randomFactor = (base: number) => (Math.sin(seed) * base);
+    
+    return {
+      animate: {
+        x: [
+          randomFactor(5), 
+          randomFactor(10), 
+          randomFactor(-15), 
+          randomFactor(8),
+          randomFactor(-5)
+        ],
+        y: [
+          randomFactor(-8), 
+          randomFactor(5), 
+          randomFactor(12), 
+          randomFactor(-10),
+          randomFactor(-2)
+        ],
+        rotate: [
+          randomFactor(1), 
+          randomFactor(-1), 
+          randomFactor(2), 
+          randomFactor(-0.5),
+          randomFactor(0)
+        ],
+        scale: [
+          1,
+          1 + randomFactor(0.05),
+          1 - randomFactor(0.03),
+          1 + randomFactor(0.02),
+          1
+        ],
+      },
+      transition: {
+        duration: 8 + Math.abs(randomFactor(4)),
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: "mirror" as const,
+      }
+    };
   };
 
   // Random positions for elements while ensuring they don't overlap the image
@@ -207,15 +217,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
               variants={itemVariants}
               custom={direction}
               className="absolute left-[5%] top-[15%] w-52 h-64 overflow-hidden rounded-lg backdrop-blur-sm shadow-lg"
-              animate={{
-                x: animationValues["element-0"]?.x || 0,
-                y: animationValues["element-0"]?.y || 0
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 50,
-                damping: 10
-              }}
+              {...getFloatingAnimation(0)}
               style={{
                 boxShadow: "0 8px 32px rgba(138, 43, 226, 0.3)",
                 background: "rgba(30, 30, 40, 0.3)",
@@ -243,15 +245,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
               variants={itemVariants}
               custom={direction}
               className={getPositionForElement("name")}
-              animate={{
-                x: animationValues["element-1"]?.x || 0,
-                y: animationValues["element-1"]?.y || 0
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 50,
-                damping: 10
-              }}
+              {...getFloatingAnimation(1)}
             >
               <motion.h2 
                 className="text-2xl sm:text-3xl font-bold text-white py-2 px-4 rounded-lg"
@@ -271,15 +265,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
               variants={itemVariants}
               custom={direction}
               className={getPositionForElement("batch")}
-              animate={{
-                x: animationValues["element-2"]?.x || 0,
-                y: animationValues["element-2"]?.y || 0
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 50,
-                damping: 10
-              }}
+              {...getFloatingAnimation(2)}
             >
               <motion.span 
                 className="text-red-300 px-4 py-2 rounded-full text-sm font-medium block"
@@ -300,15 +286,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
                 variants={itemVariants}
                 custom={direction}
                 className={getPositionForElement("rating")}
-                animate={{
-                  x: animationValues["element-3"]?.x || 0,
-                  y: animationValues["element-3"]?.y || 0
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 50,
-                  damping: 10
-                }}
+                {...getFloatingAnimation(3)}
               >
                 <motion.span 
                   className="text-green-300 px-4 py-2 rounded-full text-sm font-medium block"
@@ -330,15 +308,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
                 variants={itemVariants}
                 custom={direction}
                 className={getPositionForElement("rankName")}
-                animate={{
-                  x: animationValues["element-4"]?.x || 0,
-                  y: animationValues["element-4"]?.y || 0
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 50,
-                  damping: 10
-                }}
+                {...getFloatingAnimation(4)}
               >
                 <motion.span 
                   className="text-white px-4 py-2 rounded-lg text-sm font-bold block"
@@ -360,15 +330,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
                 variants={itemVariants}
                 custom={direction}
                 className={getPositionForElement("codeforces")}
-                animate={{
-                  x: animationValues["element-5"]?.x || 0,
-                  y: animationValues["element-5"]?.y || 0
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 50,
-                  damping: 10
-                }}
+                {...getFloatingAnimation(5)}
               >
                 <motion.div 
                   className="flex items-center gap-2 px-4 py-2 rounded-lg text-white"
@@ -402,15 +364,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
                 variants={itemVariants}
                 custom={direction}
                 className={getPositionForElement("codechef")}
-                animate={{
-                  x: animationValues["element-6"]?.x || 0,
-                  y: animationValues["element-6"]?.y || 0
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 50,
-                  damping: 10
-                }}
+                {...getFloatingAnimation(6)}
               >
                 <motion.div 
                   className="flex items-center gap-2 px-4 py-2 rounded-lg"

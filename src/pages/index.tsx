@@ -81,7 +81,7 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
 
   //get the top success stories
-  const topSuccessStories = getTopSuccessStories(6);
+  const topSuccessStories = getTopSuccessStories(15);
 
   const carouselSettings = {
     dots: true,
