@@ -135,9 +135,9 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
   };
 
   // Use this function to generate deterministic but random positions per element type
-  const getPositionForElement = (elementType) => {
+  const getPositionForElement = (elementType: string): string => {
     // Define specific regions for each element type
-    const positionMap = {
+    const positionMap: Record<string, string> = {
       "name": "absolute right-[10%] top-[10%] z-20",
       "batch": "absolute right-[30%] top-[35%] z-20",
       "rating": "absolute right-[20%] bottom-[25%] z-20",
