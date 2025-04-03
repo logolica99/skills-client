@@ -158,6 +158,15 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
     return positionMap[elementType] || getRandomPosition();
   };
 
+  // Add a function to handle click/touch events
+  const handleImageInteraction = () => {
+    if (isHovered === 0) {
+      setIsHovered(null);
+    } else {
+      setIsHovered(0);
+    }
+  };
+
   return (
     <div className="relative w-full h-[420px] mx-auto">
       {/* Ambient background blurs with constant motion */}
@@ -221,8 +230,10 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
                 boxShadow: "0 8px 32px rgba(138, 43, 226, 0.3)",
                 background: "rgba(30, 30, 40, 0.3)",
                 border: "1px solid rgba(138, 43, 226, 0.3)",
-                perspective: "1000px"
+                perspective: "1000px",
+                cursor: "pointer"
               }}
+              onClick={handleImageInteraction}
               onHoverStart={() => setIsHovered(0)}
               onHoverEnd={() => setIsHovered(null)}
             >
