@@ -207,7 +207,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
             <motion.div 
               variants={itemVariants}
               custom={direction}
-              className="absolute left-[5%] top-[15%] w-52 h-64 overflow-hidden rounded-lg backdrop-blur-sm shadow-lg perspective"
+              className="absolute left-[10%] top-[15%] w-64 h-80 overflow-hidden rounded-lg backdrop-blur-sm shadow-lg perspective"
               animate={{
                 x: animationValues["element-0"]?.x || 0,
                 y: animationValues["element-0"]?.y || 0

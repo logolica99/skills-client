@@ -2286,11 +2286,11 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                            কোর্সটিতে ভর্তি হয়েছে
+                          এনরোলমেন্ট চলছে
                           </p>
-                          <p className="text-3xl font-bold ">
+                          {/* <p className="text-3xl font-bold ">
                             {courseData?.enrolled} জন
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>
@@ -2332,7 +2332,7 @@ export default function CourseDetailsPage() {
                           এনরোলমেন্ট শেষ
                         </p>
                         <p className="text-heading dark:text-darkHeading font-bold text-2xl mt-1">
-                          05 এপ্রিল
+                          10 এপ্রিল
                         </p>
                       </div>
                     </div>
