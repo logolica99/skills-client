@@ -120,7 +120,7 @@ export default function Home() {
       </button>
 
       <div className="bg-[#F3F3F3] dark:bg-black pt-20 overflow-x-hidden">
-        <div className="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
+        <div className ="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
           <div className="flex justify-between items-center flex-col-reverse lg:flex-row gap-20 pt-10 lg:pt-0 relative ">
             <GradientEllipse1 />
 
