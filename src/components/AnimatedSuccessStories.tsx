@@ -13,6 +13,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
   const [mounted, setMounted] = useState(false);
   const [animationValues, setAnimationValues] = useState<Record<string, {x: number, y: number}>>({});
   const animationRef = useRef<number | null>(null);
+  const [isHovered, setIsHovered] = useState<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -206,7 +207,7 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
             <motion.div 
               variants={itemVariants}
               custom={direction}
-              className="absolute left-[5%] top-[15%] w-52 h-64 overflow-hidden rounded-lg backdrop-blur-sm shadow-lg"
+              className="absolute left-[5%] top-[15%] w-52 h-64 overflow-hidden rounded-lg backdrop-blur-sm shadow-lg perspective"
               animate={{
                 x: animationValues["element-0"]?.x || 0,
                 y: animationValues["element-0"]?.y || 0
@@ -220,22 +221,83 @@ const AnimatedSuccessStories: React.FC<AnimatedSuccessStoriesProps> = ({ stories
                 boxShadow: "0 8px 32px rgba(138, 43, 226, 0.3)",
                 background: "rgba(30, 30, 40, 0.3)",
                 border: "1px solid rgba(138, 43, 226, 0.3)",
+                perspective: "1000px"
               }}
+              onHoverStart={() => setIsHovered(0)}
+              onHoverEnd={() => setIsHovered(null)}
             >
-              {story.image && story.image !== "placeholder" ? (
-                <Image
-                  src={story.image}
-                  alt={story.name}
-                  className="object-cover"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-purple-900/40 text-5xl font-bold text-white backdrop-blur-md">
-                  {story.name.charAt(0)}
-                </div>
-              )}
+              <motion.div 
+                className="w-full h-full relative"
+                animate={{
+                  rotateY: isHovered === 0 ? 180 : 0
+                }}
+                transition={{
+                  duration: 0.6,
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20
+                }}
+                style={{
+                  transformStyle: "preserve-3d"
+                }}
+              >
+                {/* Front side (regular image) */}
+                <motion.div
+                  className="absolute w-full h-full backface-hidden"
+                  style={{
+                    backfaceVisibility: "hidden"
+                  }}
+                >
+                  {story.image && story.image !== "placeholder" ? (
+                    <Image
+                      src={story.image}
+                      alt={story.name}
+                      className="object-cover"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <Image
+                      src="/assets/success-story/profile.png"
+                      alt={story.name}
+                      className="object-cover"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  )}
+                </motion.div>
+
+                {/* Back side (3D image) */}
+                <motion.div
+                  className="absolute w-full h-full backface-hidden"
+                  style={{
+                    backfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)"
+                  }}
+                >
+                  {story.image_3d ? (
+                    <Image
+                      src={story.image_3d}
+                      alt={`${story.name} 3D`}
+                      className="object-cover"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <Image
+                      src="/assets/success-story/profile_3d.png"
+                      alt={`${story.name} 3D`}
+                      className="object-cover"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  )}
+                </motion.div>
+              </motion.div>
             </motion.div>
             
             {/* Name - dynamic position */}

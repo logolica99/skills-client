@@ -16,6 +16,7 @@ export interface SuccessStory {
   id: number;
   name: string;
   image: string;
+  image_3d: string;
   batch: number;
   codeforces?: CodeforcesStat;
   codechef?: CodechefStat;
@@ -27,6 +28,7 @@ export const successStories: SuccessStory[] = [
     id: 1,
     name: "Niloy Das",
     image: "/assets/success-story/niloydas.jpg",
+    image_3d: "/assets/success-story/niloydas_3d.png",
     batch: 2,
     codeforces: {
       handle: "Niloy_Das_19",
@@ -37,7 +39,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 2,
     name: "Rahsan Al Saymon",
-    image: "placeholder",
+    image: "/assets/success-story/saimun.jpg",
+    image_3d: "/assets/success-story/saimun_3d.png",
     batch: 1,
     codeforces: {
       handle: "saymon",
@@ -49,6 +52,7 @@ export const successStories: SuccessStory[] = [
     id: 3,
     name: "Mahdi Talukder",
     image: "/assets/success-story/mahditalukder.jpeg",
+    image_3d: "/assets/success-story/mahditalukder_3d.png",
     batch: 2,
     codeforces: {
       handle: "MahD",
@@ -60,6 +64,7 @@ export const successStories: SuccessStory[] = [
     id: 4,
     name: "Aminul Haque",
     image: "/assets/success-story/aminulhaque.jpeg",
+    image_3d: "/assets/success-story/aminulhaque_3d.png",
     batch: 2,
     codeforces: {
       handle: "Ami_Nul",
@@ -71,6 +76,7 @@ export const successStories: SuccessStory[] = [
     id: 5,
     name: "Mostofa Labib",
     image: "/assets/success-story/mostofalabib.jpg",
+    image_3d: "/assets/success-story/mostofalabib_3d.png",
     batch: 1,
     codeforces: {
       handle: "Labib_",
@@ -82,6 +88,7 @@ export const successStories: SuccessStory[] = [
     id: 6,
     name: "Tonmoy Shaha",
     image: "placeholder",
+    image_3d: "/assets/success-story/tonmoyshaha_3d.png",
     batch: 1,
     codeforces: {
       handle: "tonmoy6052",
@@ -93,6 +100,7 @@ export const successStories: SuccessStory[] = [
     id: 7,
     name: "Md. Anamul Haque",
     image: "/assets/success-story/anamulhaque.jpg",
+    image_3d: "/assets/success-story/anamulhaque_3d.png",
     batch: 2,
     codeforces: {
       handle: "BrAin",
@@ -103,7 +111,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 8,
     name: "Mahfuz Saim",
-    image: "placeholder",
+    image: "/assets/success-story/profile.png",
+    image_3d: "/assets/success-story/profile_3d.png",
     batch: 1,
     codeforces: {
       handle: "attoCoder",
@@ -115,6 +124,7 @@ export const successStories: SuccessStory[] = [
     id: 9,
     name: "MD. Akibur Rahman",
     image: "/assets/success-story/akiburrahman.jpg",
+    image_3d: "/assets/success-story/akiburrahman_3d.png",
     batch: 2,
     codeforces: {
       handle: "akibur_r",
@@ -125,7 +135,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 10,
     name: "Faiyaz Ismail",
-    image: "placeholder",
+    image: "/assets/success-story/profile.png",
+    image_3d: "/assets/success-story/profile_3d.png",
     batch: 1,
     codeforces: {
       handle: "EDM",
@@ -136,7 +147,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 11,
     name: "Arko Chowdhury",
-    image: "placeholder",
+    image: "/assets/success-story/profile.png",
+    image_3d: "/assets/success-story/profile_3d.png",
     batch: 1,
     codeforces: {
       handle: "Quanta07",
@@ -148,6 +160,7 @@ export const successStories: SuccessStory[] = [
     id: 12,
     name: "Snehangshu Roy",
     image: "/assets/success-story/snehangshu.jpg",
+    image_3d: "/assets/success-story/snehangshu_3d.png",
     batch: 2,
     codeforces: {
       handle: "Snehangshu7494",
@@ -159,6 +172,7 @@ export const successStories: SuccessStory[] = [
     id: 13,
     name: "Akik Mutsuddy",
     image: "/assets/success-story/akik.jpg",
+    image_3d: "/assets/success-story/akik_3d.png",
     batch: 2,
     codeforces: {
       handle: "Akik04",
@@ -169,7 +183,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 14,
     name: "Md. Farhan Israq",
-    image: "placeholder",
+    image: "/assets/success-story/profile.png",
+    image_3d: "/assets/success-story/profile_3d.png",
     batch: 1,
     codeforces: {
       handle: "Cheater_",
@@ -181,6 +196,7 @@ export const successStories: SuccessStory[] = [
     id: 15,
     name: "Tafsir Al Nafin",
     image: "/assets/success-story/nafin.jpg",
+    image_3d: "/assets/success-story/nafin_3d.png",
     batch: 2,
     codeforces: {
       handle: "Tafsir_Al_Nafin",
@@ -192,6 +208,7 @@ export const successStories: SuccessStory[] = [
     id: 16,
     name: "Safiullah Saimun",
     image: "/assets/success-story/saimun.jpg",
+    image_3d: "/assets/success-story/saimun_3d.png",
     batch: 1,
     codeforces: {
       handle: "JorgeSaimun",
@@ -202,7 +219,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 17,
     name: "Aritra Debnath",
-    image: "placeholder",
+    image: "/assets/success-story/profile.png",
+    image_3d: "/assets/success-story/profile_3d.png",
     batch: 1,
     codeforces: {
       handle: "noobguyone",
@@ -214,6 +232,7 @@ export const successStories: SuccessStory[] = [
     id: 18,
     name: "Tamvir Shahabuddin",
     image: "/assets/success-story/tamvir.jpg",
+    image_3d: "/assets/success-story/tamvir_3d.png",
     batch: 2,
     codeforces: {
       handle: "tamdesu",
@@ -224,7 +243,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 19,
     name: "Tanzim Tousif",
-    image: "placeholder",
+    image: "/assets/success-story/profile.png",
+    image_3d: "/assets/success-story/profile_3d.png",
     batch: 1,
     codeforces: {
       handle: "tuko_tanzwoo",
@@ -236,6 +256,7 @@ export const successStories: SuccessStory[] = [
     id: 20,
     name: "Sadman",
     image: "/assets/success-story/sadman.jpg",
+    image_3d: "/assets/success-story/sadman_3d.png",
     batch: 2,
     codeforces: {
       handle: "_Sadman_",
@@ -246,7 +267,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 21,
     name: "Sarafat Karim",
-    image: "/assets/success-story/sarafat.jpg",
+    image: "/assets/success-story/sarafat.jpg", 
+    image_3d: "/assets/success-story/sarafat_3d.png",
     batch: 1,
     codeforces: {
       handle: "Schr0Smi1ey",
@@ -258,6 +280,7 @@ export const successStories: SuccessStory[] = [
     id: 22,
     name: "Mohammad Jahid Hasan",
     image: "/assets/success-story/jahid.jpg",
+    image_3d: "/assets/success-story/jahid_3d.png",
     batch: 1,
     codeforces: {
       handle: "Jahid__Noob",
