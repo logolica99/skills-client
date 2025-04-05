@@ -33,6 +33,21 @@ import { SyncLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import DiscussionItem from "@/components/DiscussionItem.";
+
+import { 
+  ModuleVideoIcon, 
+  ModuleAssignmentIcon, 
+  ModulePDFIcon, 
+  ModuleTextIcon, 
+  ModuleQuizIcon, 
+  ModuleCodeIcon,
+  ChapterCalendarIcon,
+  EmptyDiscussionIcon,
+  PhaseIcon,
+  PhaseBadge,
+  PhaseHeader
+} from '@/components/CourseIcons';
+
 const GreenRadio = withStyles({
   root: {
     color: "#fff",
@@ -107,6 +122,28 @@ function formatTime(timestamp: any) {
   const month = date.toLocaleString("en-US", { month: "short" });
 
   return `${hours}:${minutes}, ${day} ${month}`;
+}
+
+// Add this function before the main component
+function groupChaptersByPhase(chapters: any[]) {
+  const grouped: Record<string, any[]> = {
+    easy: [],
+    Amateur: [],
+    Advanced: []
+  };
+  
+  chapters.forEach(chapter => {
+    if (chapter.is_live) {
+      const phase = chapter.phase || 'easy'; // Default to 'easy' if phase is not specified
+      if (grouped[phase]) {
+        grouped[phase].push(chapter);
+      } else {
+        grouped[phase] = [chapter];
+      }
+    }
+  });
+  
+  return grouped;
 }
 
 export default function CourseDetailsPage() {
@@ -1344,32 +1381,24 @@ export default function CourseDetailsPage() {
                 </div>
               </div>
               <div className="mt-10">
-                {/* <button
-                  onClick={() => {
-                    fetchDiscussions();
-                    setOpenDiscussions(true);
-                  }}
-                  className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
-                >
-                  View Discussions
-                </button> */}
                 <p className="text-white font-bold text-2xl">Discussions</p>
 
-                <div>
+                <div className="mt-4 bg-gray-800/20 rounded-lg p-4 backdrop-blur-sm border border-gray-600/20">
                   <textarea
-                    className="w-full px-3 py-3 rounded mb-2 resize-none bg-gray-200/20 outline-none focus:ring ring-gray-300/80 text-white"
-                    placeholder="Write a question or an answer"
+                    className="w-full px-4 py-4 rounded-lg mb-3 resize-none bg-gray-700/30 outline-none focus:ring ring-purple-500/50 text-white"
+                    placeholder="Share your thoughts, questions, or insights..."
                     value={newDiscussion}
                     onChange={(e) => {
                       setNewDiscussion(e.target.value);
                     }}
+                    rows={3}
                   />
-                  <div className="flex justify-end mb-4">
+                  <div className="flex justify-end">
                     <button
                       onClick={submitNewDiscussion}
-                      className="py-2 px-8 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
+                      className="py-2 px-6 bg-[#532e62] hover:bg-opacity-80 ease-in-out duration-150 focus:ring ring-purple-400/50 rounded-lg font-semibold text-white text-base transition-all"
                     >
-                      Submit
+                      Post Comment
                     </button>
                   </div>
                 </div>
@@ -1384,586 +1413,415 @@ export default function CourseDetailsPage() {
                     />
                   </div>
                 )}
-                {discussions?.map((elem: any, index: any) => (
-                  <DiscussionItem key={index} discussion={elem} />
-                ))}
+                <div className="mt-6 space-y-6">
+                  {discussions?.length === 0 && !discussionLoading && (
+                    <div className="text-center py-10 text-gray-400">
+                      <EmptyDiscussionIcon />
+                      <p className="text-lg">No discussions yet. Be the first to start a conversation!</p>
+                    </div>
+                  )}
+                  {discussions?.map((elem: any, index: any) => (
+                    <DiscussionItem key={index} discussion={elem} />
+                  ))}
+                </div>
               </div>
             </div>
             <div style={{ flex: 1 }} className="z-10 relative">
               <div className="text-heading dark:text-darkHeading">
                 <div
-                  className=" scrollbar-thumb-rounded-full scrollbar-track-rounded-full h-[100vh] overflow-y-scroll py-6 px-4 border rounded-lg border-gray-300/20  scrollbar-thin scrollbar-thumb-gray-300
-               scrollbar-rounded-[12px]
-                 scrollbar-track-gray-600"
+                  className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full h-[100vh] overflow-y-scroll py-6 px-4 border rounded-lg border-gray-300/20 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[12px] scrollbar-track-gray-600"
                 >
-                  {courseData?.chapters?.map((elem: any, index: any) => {
-                    if (elem.is_live) {
-                      return (
-                        <div
-                          key={Math.random()}
-                          className={
-                            "collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-6"
-                          }
-                        >
-                          <input
-                            type="radio"
-                            name="my-accordion-3"
-                            defaultChecked={isActiveChapter(elem)}
-                          />
-                          <div className="collapse-title  font-medium ">
-                            <div className="flex justify-between">
-                              <div
-                                className="flex gap-4 flex-col lg:flex-row justify-start"
-                                style={{ flex: 3 }}
-                              >
-                                {elem.is_free || courseData.isTaken ? (
-                                  <div className="">
-                                    <div className=" px-2 py-2 rounded-full bg-[#B153E0]/[.14] inline-block">
-                                      <p className="px-4 py-1 rounded-full bg-[#B153E0]/[.32] font-bold text-xl inline-block">
-                                        {index + 1}
-                                      </p>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="">
-                                    <div className=" px-2 py-2 rounded-full bg-[#FFFFFF]/[.14] inline-block">
-                                      <p className="px-4 py-1 rounded-full bg-[#FFFFFF]/[.32] font-bold text-xl inline-block">
-                                        {index + 1}
-                                      </p>
-                                    </div>
-                                  </div>
-                                )}
-                                <div>
-                                  <p
-                                    className={`text-2xl ${
-                                      !elem.is_free &&
-                                      !courseData.isTaken &&
-                                      "text-[#565656]"
-                                    }`}
+                  {Object.entries(groupChaptersByPhase(courseData?.chapters || [])).map(([phase, chapters]) => (
+                    chapters.length > 0 && (
+                      <div key={phase} className="mb-6">
+                        <PhaseHeader phase={phase} />
+                        
+                        {chapters.map((elem: any, index: any) => {
+                          // Get phase-specific color
+                          const phaseColor = 
+                            elem.phase === 'easy' ? '#4CAF50' : 
+                            elem.phase === 'Amateur' ? '#FF9800' : 
+                            elem.phase === 'Advanced' ? '#F44336' : 
+                            '#B153E0';
+                            
+                          return (
+                            <div
+                              key={Math.random()}
+                              className={
+                                "collapse collapse-plus dark:bg-gray-200/5 bg-gray-400/20 border-gray-400/50 backdrop-blur-lg border dark:border-gray-200/20 mb-4"
+                              }
+                              style={{
+                                borderLeft: `3px solid ${phaseColor}`
+                              }}
+                            >
+                              <input
+                                type="radio"
+                                name="my-accordion-3"
+                                defaultChecked={isActiveChapter(elem)}
+                              />
+                              <div className="collapse-title font-medium">
+                                <div className="flex justify-between">
+                                  <div
+                                    className="flex gap-4 flex-col lg:flex-row justify-start"
+                                    style={{ flex: 3 }}
                                   >
-                                    {elem.title}
-                                  </p>
-                                  <div className="flex flex-wrap gap-3  lg:items-center mt-3 text-sm font-medium">
-                                    {/* <div className="flex items-center gap-3">
-                                    <svg
-                                      width="13"
-                                      height="12"
-                                      viewBox="0 0 13 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <g clipPath="url(#clip0_261_7601)">
-                                        <path
-                                          d="M10.46 1C10.736 1 10.96 1.224 10.96 1.5V3.3785L9.95996 4.3785V2H2.95996V10H9.95996V8.621L10.96 7.621V10.5C10.96 10.776 10.736 11 10.46 11H2.45996C2.18396 11 1.95996 10.776 1.95996 10.5V1.5C1.95996 1.224 2.18396 1 2.45996 1H10.46ZM11.349 4.404L12.056 5.111L8.16696 9L7.45896 8.999L7.45996 8.293L11.349 4.404ZM6.95996 6V7H4.45996V6H6.95996ZM8.45996 4V5H4.45996V4H8.45996Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip0_261_7601">
-                                          <rect
-                                            width="12"
-                                            height="12"
-                                            fill="white"
-                                            transform="translate(0.459961)"
+                                    {elem.is_free || courseData.isTaken ? (
+                                      <div className="">
+                                        <div className={`px-2 py-2 rounded-full`} style={{ 
+                                          backgroundColor: `${phaseColor}14` 
+                                        }}>
+                                          <p className="px-4 py-1 rounded-full font-bold text-xl inline-block" 
+                                             style={{ backgroundColor: `${phaseColor}32` }}>
+                                            {index + 1}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <div className="">
+                                        <div className="px-2 py-2 rounded-full bg-[#FFFFFF]/[.14] inline-block">
+                                          <p className="px-4 py-1 rounded-full bg-[#FFFFFF]/[.32] font-bold text-xl inline-block">
+                                            {index + 1}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    )}
+                                    <div>
+                                      <div className="flex items-center gap-2">
+                                        <p
+                                          className={`text-2xl ${
+                                            !elem.is_free &&
+                                            !courseData.isTaken &&
+                                            "text-[#565656]"
+                                          }`}
+                                        >
+                                          {elem.title}
+                                        </p>
+                                      </div>
+                                      <div className="flex flex-wrap gap-3 lg:items-center mt-3 text-sm font-medium">
+                                        <div
+                                          className={`flex items-center gap-3 ${
+                                            countAssignmentsAndVideos(elem.modules)
+                                              .videoCount == 0 && "hidden"
+                                          }`}
+                                        >
+                                          <ChapterCalendarIcon 
+                                            isActive={elem.is_free} 
+                                            fillColor={phaseColor} 
                                           />
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                    <p
-                                      className={` ${
-                                        !elem.is_free && "text-[#565656]"
-                                      }`}
-                                    >
-                                      {
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .assignmentCount
-                                      }{" "}
-                                      টি অ্যাসাইনমেন্ট{" "}
-                                    </p>
-                                  </div> */}
-                                    <div
-                                      className={`flex items-center gap-3 ${
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .videoCount == 0 && "hidden"
-                                      }`}
-                                    >
+                                          <p
+                                            className={` ${
+                                              !elem.is_free && "text-[#565656]"
+                                            }`}
+                                          >
+                                            {
+                                              countAssignmentsAndVideos(
+                                                elem.modules,
+                                              ).videoCount
+                                            }{" "}
+                                            টি ভিডিও
+                                          </p>
+                                        </div>
+                                        
+                                        <div
+                                          className={`flex items-center gap-3 ${
+                                            countAssignmentsAndVideos(elem.modules)
+                                              .quizCount == 0 && "hidden"
+                                          }`}
+                                        >
+                                          <ChapterCalendarIcon 
+                                            isActive={elem.is_free} 
+                                            fillColor={phaseColor} 
+                                          />
+                                          <p
+                                            className={` ${
+                                              !elem.is_free && "text-[#565656]"
+                                            }`}
+                                          >
+                                            {
+                                              countAssignmentsAndVideos(
+                                                elem.modules,
+                                              ).quizCount
+                                            }{" "}
+                                            টি কুইজ
+                                          </p>
+                                        </div>
+                                        
+                                        <div
+                                          className={`flex items-center gap-3 ${
+                                            countAssignmentsAndVideos(elem.modules)
+                                              .codeCount == 0 && "hidden"
+                                          }`}
+                                        >
+                                          <ChapterCalendarIcon 
+                                            isActive={elem.is_free} 
+                                            fillColor={phaseColor}
+                                          />
+                                          <p
+                                            className={` ${
+                                              !elem.is_free && "text-[#565656]"
+                                            }`}
+                                          >
+                                            {
+                                              countAssignmentsAndVideos(
+                                                elem.modules,
+                                              ).codeCount
+                                            }{" "}
+                                            টি কোডিং চ্যালেঞ্জ
+                                          </p>
+                                        </div>
+                                        
+                                        <div
+                                          className={`flex items-center gap-3 ${
+                                            countAssignmentsAndVideos(elem.modules)
+                                              .pdfCount == 0 && "hidden"
+                                          }`}
+                                        >
+                                          <ChapterCalendarIcon 
+                                            isActive={elem.is_free} 
+                                            fillColor={phaseColor}
+                                          />
+                                          <p
+                                            className={` ${
+                                              !elem.is_free && "text-[#565656]"
+                                            }`}
+                                          >
+                                            {
+                                              countAssignmentsAndVideos(
+                                                elem.modules,
+                                              ).pdfCount
+                                            }{" "}
+                                            টি পিডিএফ
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    {elem.is_free && (
+                                      <p
+                                        className="px-4 py-1 text-[#1CAB55] bg-[#1CAB55]/10 rounded-full text-sm"
+                                        style={{ flex: 1 }}
+                                      >
+                                        ফ্রি দেখুন
+                                      </p>
+                                    )}
+                                    {!elem.is_free && !courseData.isTaken && (
                                       <svg
-                                        width="13"
-                                        height="12"
-                                        viewBox="0 0 13 12"
+                                        width="18"
+                                        height="21"
+                                        viewBox="0 0 18 21"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
-                                          d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
+                                          d="M9 13.5V15.5M3 19.5H15C16.1046 19.5 17 18.6046 17 17.5V11.5C17 10.3954 16.1046 9.5 15 9.5H3C1.89543 9.5 1 10.3954 1 11.5V17.5C1 18.6046 1.89543 19.5 3 19.5ZM13 9.5V5.5C13 3.29086 11.2091 1.5 9 1.5C6.79086 1.5 5 3.29086 5 5.5V9.5H13Z"
+                                          stroke="#2E2E2E"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
                                         />
                                       </svg>
-                                      <p
-                                        className={` ${
-                                          !elem.is_free && "text-[#565656]"
-                                        }`}
-                                      >
-                                        {
-                                          countAssignmentsAndVideos(
-                                            elem.modules,
-                                          ).videoCount
-                                        }{" "}
-                                        টি ভিডিও
-                                      </p>
-                                    </div>
-                                    <div
-                                      className={`flex items-center gap-3 ${
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .quizCount == 0 && "hidden"
-                                      }`}
-                                    >
-                                      <svg
-                                        width="13"
-                                        height="12"
-                                        viewBox="0 0 13 12"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                      </svg>
-                                      <p
-                                        className={` ${
-                                          !elem.is_free && "text-[#565656]"
-                                        }`}
-                                      >
-                                        {
-                                          countAssignmentsAndVideos(
-                                            elem.modules,
-                                          ).quizCount
-                                        }{" "}
-                                        টি কুইজ
-                                      </p>
-                                    </div>
-                                    <div
-                                      className={`flex items-center gap-3 ${
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .codeCount == 0 && "hidden"
-                                      }`}
-                                    >
-                                      <svg
-                                        width="13"
-                                        height="12"
-                                        viewBox="0 0 13 12"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                      </svg>
-                                      <p
-                                        className={` ${
-                                          !elem.is_free && "text-[#565656]"
-                                        }`}
-                                      >
-                                        {
-                                          countAssignmentsAndVideos(
-                                            elem.modules,
-                                          ).codeCount
-                                        }{" "}
-                                        টি কোডিং চ্যালেঞ্জ
-                                      </p>
-                                    </div>
-                                    <div
-                                      className={`flex items-center gap-3 ${
-                                        countAssignmentsAndVideos(elem.modules)
-                                          .pdfCount == 0 && "hidden"
-                                      }`}
-                                    >
-                                      <svg
-                                        width="13"
-                                        height="12"
-                                        viewBox="0 0 13 12"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M9.37 1H10.87C11.0026 1 11.1298 1.05268 11.2236 1.14645C11.3173 1.24021 11.37 1.36739 11.37 1.5V10.5C11.37 10.6326 11.3173 10.7598 11.2236 10.8536C11.1298 10.9473 11.0026 11 10.87 11H2.87C2.73739 11 2.61021 10.9473 2.51645 10.8536C2.42268 10.7598 2.37 10.6326 2.37 10.5V1.5C2.37 1.36739 2.42268 1.24021 2.51645 1.14645C2.61021 1.05268 2.73739 1 2.87 1H4.37V0H5.37V1H8.37V0H9.37V1ZM9.37 2V3H8.37V2H5.37V3H4.37V2H3.37V10H10.37V2H9.37ZM4.37 4H9.37V5H4.37V4ZM4.37 6H9.37V7H4.37V6Z"
-                                          fill={
-                                            elem.is_free ? "#B153E0" : "#565656"
-                                          }
-                                        />
-                                      </svg>
-                                      <p
-                                        className={` ${
-                                          !elem.is_free && "text-[#565656]"
-                                        }`}
-                                      >
-                                        {
-                                          countAssignmentsAndVideos(
-                                            elem.modules,
-                                          ).pdfCount
-                                        }{" "}
-                                        টি পিডিএফ
-                                      </p>
-                                    </div>
+                                    )}
                                   </div>
                                 </div>
                               </div>
-                              <div>
-                                {elem.is_free && (
-                                  <p
-                                    className="px-4 py-1 text-[#1CAB55] bg-[#1CAB55]/10 rounded-full text-sm"
-                                    style={{ flex: 1 }}
-                                  >
-                                    ফ্রি দেখুন
-                                  </p>
-                                )}
-                                {!elem.is_free && !courseData.isTaken && (
-                                  <svg
-                                    width="18"
-                                    height="21"
-                                    viewBox="0 0 18 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 13.5V15.5M3 19.5H15C16.1046 19.5 17 18.6046 17 17.5V11.5C17 10.3954 16.1046 9.5 15 9.5H3C1.89543 9.5 1 10.3954 1 11.5V17.5C1 18.6046 1.89543 19.5 3 19.5ZM13 9.5V5.5C13 3.29086 11.2091 1.5 9 1.5C6.79086 1.5 5 3.29086 5 5.5V9.5H13Z"
-                                      stroke="#2E2E2E"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                    />
-                                  </svg>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="collapse-content   border-t border-gray-400/50 dark:border-gray-300/10 ">
-                            <div className="pt-6"></div>
-                            {elem.modules.map((module: any) => (
-                              <div
-                                key={Math.random()}
-                                className="flex gap-4 items-center mb-4 "
-                                ref={
-                                  module.id === activeModule?.id
-                                    ? activeModuleRef
-                                    : nonActiveModuleRef
-                                }
-                                onClick={() => {
-                                  if (elem.is_free || courseData.isTaken) {
-                                    if (
-                                      module.data.category === "ASSIGNMENT" &&
-                                      courseData.isTaken &&
-                                      courseData.maxModuleSerialProgress + 1 >=
-                                        module.serial
-                                    ) {
-                                      fetchEvalutedAssignment(module.id);
-                                      router.push(
-                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
-                                      );
-                                      // setActiveModule(module);
+                              <div className="collapse-content border-t border-gray-400/50 dark:border-gray-300/10">
+                                <div className="pt-6"></div>
+                                {elem.modules.map((module: any) => (
+                                  <div
+                                    key={Math.random()}
+                                    className="flex gap-4 items-center mb-4"
+                                    ref={
+                                      module.id === activeModule?.id
+                                        ? activeModuleRef
+                                        : nonActiveModuleRef
                                     }
-                                    if (
-                                      module.data.category === "CODE" &&
-                                      courseData.isTaken &&
-                                      courseData.maxModuleSerialProgress + 1 >=
-                                        module.serial
-                                    ) {
-                                      // setActiveModule(module);
-                                      router.push(
-                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
-                                      );
-                                    }
+                                    onClick={() => {
+                                      if (elem.is_free || courseData.isTaken) {
+                                        if (
+                                          module.data.category === "ASSIGNMENT" &&
+                                          courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial
+                                        ) {
+                                          fetchEvalutedAssignment(module.id);
+                                          router.push(
+                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                          );
+                                        }
+                                        if (
+                                          module.data.category === "CODE" &&
+                                          courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial
+                                        ) {
+                                          router.push(
+                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                          );
+                                        }
 
-                                    if (
-                                      module.data.category === "VIDEO" &&
-                                      courseData.maxModuleSerialProgress + 1 >=
-                                        module.serial
-                                    ) {
-                                      // setActiveModule(module);
-                                      submitProgress(module.id, module.score);
-                                      router.push(
-                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
-                                      );
-                                    }
-                                    if (
-                                      module.data.category === "QUIZ" &&
-                                      courseData.maxModuleSerialProgress + 1 >=
-                                        module.serial &&
-                                      courseData.isTaken
-                                    ) {
-                                      // setActiveModule(module);
-                                      router.push(
-                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
-                                      );
-                                    }
-                                    if (
-                                      module.data.category === "PDF" &&
-                                      courseData.maxModuleSerialProgress + 1 >=
-                                        module.serial
-                                    ) {
-                                      // setActiveModule(module);
-                                      submitProgress(module.id, module.score);
-                                      router.push(
-                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
-                                      );
-                                    }
-                                    if (
-                                      module.data.category === "TEXT" &&
-                                      courseData.maxModuleSerialProgress + 1 >=
-                                        module.serial
-                                    ) {
-                                      // setActiveModule(module);
-                                      submitProgress(module.id, module.score);
-                                      router.push(
-                                        `/course-cp-2/${module.chapter_id}/${module.id}`,
-                                      );
-                                    }
-                                  }
-                                }}
-                              >
-                                {module.data.category == "VIDEO" && (
-                                  <svg
-                                    width="20"
-                                    height="21"
-                                    viewBox="0 0 20 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10 20.5C15.523 20.5 20 16.023 20 10.5C20 4.977 15.523 0.5 10 0.5C4.477 0.5 0 4.977 0 10.5C0 16.023 4.477 20.5 10 20.5Z"
-                                      fill={
-                                        (elem.is_free || courseData.isTaken) &&
-                                        courseData.maxModuleSerialProgress +
-                                          1 >=
-                                          module.serial
-                                          ? "#B153E0"
-                                          : "#565656"
+                                        if (
+                                          module.data.category === "VIDEO" &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial
+                                        ) {
+                                          submitProgress(module.id, module.score);
+                                          router.push(
+                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                          );
+                                        }
+                                        if (
+                                          module.data.category === "QUIZ" &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial &&
+                                          courseData.isTaken
+                                        ) {
+                                          router.push(
+                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                          );
+                                        }
+                                        if (
+                                          module.data.category === "PDF" &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial
+                                        ) {
+                                          submitProgress(module.id, module.score);
+                                          router.push(
+                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                          );
+                                        }
+                                        if (
+                                          module.data.category === "TEXT" &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial
+                                        ) {
+                                          submitProgress(module.id, module.score);
+                                          router.push(
+                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                          );
+                                        }
                                       }
-                                    />
-                                    <path
-                                      d="M14.2164 11.3862C14.7194 10.9382 14.7194 10.0622 14.2164 9.61419C12.7337 8.28108 11.0347 7.21042 9.19235 6.44819L8.86235 6.31319C8.22935 6.05319 7.56235 6.54719 7.47635 7.30019C7.23705 9.42681 7.23705 11.5736 7.47635 13.7002C7.56135 14.4532 8.22935 14.9462 8.86235 14.6872L9.19235 14.5522C11.0347 13.7899 12.7337 12.7193 14.2164 11.3862Z"
-                                      fill="white"
-                                    />
-                                  </svg>
-                                )}
-                                {module.data.category == "ASSIGNMENT" && (
-                                  <svg
-                                    width="20"
-                                    height="21"
-                                    viewBox="0 0 20 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                    }}
                                   >
-                                    <path
-                                      d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
-                                      fill={
+                                    {module.data.category === "VIDEO" && (
+                                      <ModuleVideoIcon 
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
+                                        fillColor={phaseColor} 
+                                      />
+                                    )}
+                                    
+                                    {module.data.category === "ASSIGNMENT" && (
+                                      <ModuleAssignmentIcon 
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
+                                        fillColor={phaseColor} 
+                                      />
+                                    )}
+                                    
+                                    {module.data.category === "CODE" && (
+                                      <ModuleCodeIcon 
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress >= module.serial - 1} 
+                                        fillColor={phaseColor} 
+                                      />
+                                    )}
+                                    
+                                    {module.data.category === "QUIZ" && (
+                                      <ModuleQuizIcon 
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
+                                        fillColor={phaseColor} 
+                                      />
+                                    )}
+                                    
+                                    {module.data.category === "PDF" && (
+                                      <ModulePDFIcon 
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
+                                        fillColor={phaseColor} 
+                                      />
+                                    )}
+                                    
+                                    {module.data.category === "TEXT" && (
+                                      <ModuleTextIcon 
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
+                                        fillColor={phaseColor} 
+                                      />
+                                    )}
+                                    
+                                    <p
+                                      className={`text-base ${
                                         (elem.is_free || courseData.isTaken) &&
-                                        courseData.maxModuleSerialProgress +
-                                          1 >=
-                                          module.serial
-                                          ? "#B153E0"
-                                          : "#565656"
+                                        courseData.maxModuleSerialProgress + 1 >=
+                                          module.serial &&
+                                        module.data.category === "VIDEO"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
                                       }
-                                    />
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
-                                      fill="white"
-                                    />
-                                  </svg>
-                                )}
-                                {module.data.category == "PDF" && (
-                                  <svg
-                                    width="20"
-                                    height="21"
-                                    viewBox="0 0 20 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
-                                      fill={
-                                        (elem.is_free || courseData.isTaken) &&
-                                        courseData.maxModuleSerialProgress +
-                                          1 >=
-                                          module.serial
-                                          ? "#B153E0"
-                                          : "#565656"
-                                      }
-                                    />
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
-                                      fill="white"
-                                    />
-                                  </svg>
-                                )}
-                                {module.data.category == "TEXT" && (
-                                  <svg
-                                    width="20"
-                                    height="21"
-                                    viewBox="0 0 20 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
-                                      fill={
-                                        (elem.is_free || courseData.isTaken) &&
-                                        courseData.maxModuleSerialProgress +
-                                          1 >=
-                                          module.serial
-                                          ? "#B153E0"
-                                          : "#565656"
-                                      }
-                                    />
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
-                                      fill="white"
-                                    />
-                                  </svg>
-                                )}
-                                {module.data.category == "QUIZ" && (
-                                  <svg
-                                    width="20"
-                                    height="21"
-                                    viewBox="0 0 20 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
-                                      fill={
-                                        (elem.is_free || courseData.isTaken) &&
-                                        courseData.maxModuleSerialProgress +
-                                          1 >=
-                                          module.serial
-                                          ? "#B153E0"
-                                          : "#565656"
-                                      }
-                                    />
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
-                                      fill="white"
-                                    />
-                                  </svg>
-                                )}
-                                {module.data.category == "CODE" && (
-                                  <svg
-                                    width="20"
-                                    height="21"
-                                    viewBox="0 0 20 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10 20.5C15.5228 20.5 20 16.0228 20 10.5C20 4.97715 15.5228 0.5 10 0.5C4.47715 0.5 0 4.97715 0 10.5C0 16.0228 4.47715 20.5 10 20.5Z"
-                                      fill={
+                                      ${
                                         (elem.is_free || courseData.isTaken) &&
                                         courseData.maxModuleSerialProgress >=
-                                          module.serial - 1
-                                          ? "#B153E0"
-                                          : "#565656"
+                                          module.serial - 1 &&
+                                        module.data.category === "CODE"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
                                       }
-                                    />
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M7.85422 5.5H12.0442C13.5892 5.5 14.4492 6.39 14.4492 7.915V13.08C14.4492 14.63 13.5892 15.5 12.0452 15.5H7.85422C6.33422 15.5 5.44922 14.63 5.44922 13.08V7.915C5.44922 6.39 6.33422 5.5 7.85422 5.5ZM7.98922 7.83V7.825H9.48322C9.58732 7.825 9.68715 7.86635 9.76076 7.93996C9.83437 8.01357 9.87572 8.1134 9.87572 8.2175C9.87572 8.3216 9.83437 8.42143 9.76076 8.49504C9.68715 8.56865 9.58732 8.61 9.48322 8.61H7.98922C7.88578 8.61 7.78659 8.56891 7.71345 8.49577C7.64031 8.42263 7.59922 8.32343 7.59922 8.22C7.59922 8.11657 7.64031 8.01737 7.71345 7.94423C7.78659 7.87109 7.88578 7.83 7.98922 7.83ZM7.98922 10.87H11.9092C12.0127 10.87 12.1119 10.8289 12.185 10.7558C12.2581 10.6826 12.2992 10.5834 12.2992 10.48C12.2992 10.3766 12.2581 10.2774 12.185 10.2042C12.1119 10.1311 12.0127 10.09 11.9092 10.09H7.98922C7.88578 10.09 7.78659 10.1311 7.71345 10.2042C7.64031 10.2774 7.59922 10.3766 7.59922 10.48C7.59922 10.5834 7.64031 10.6826 7.71345 10.7558C7.78659 10.8289 7.88578 10.87 7.98922 10.87ZM7.98922 13.155H11.9092C12.1092 13.135 12.2592 12.965 12.2592 12.765C12.2605 12.6674 12.2254 12.5728 12.1606 12.4998C12.0959 12.4267 12.0063 12.3804 11.9092 12.37H7.98922C7.91552 12.3629 7.84131 12.3766 7.77497 12.4095C7.70864 12.4423 7.65281 12.4931 7.61381 12.556C7.5748 12.619 7.55417 12.6915 7.55424 12.7656C7.55431 12.8396 7.57509 12.9121 7.61422 12.975C7.69422 13.1 7.83922 13.175 7.98922 13.155Z"
-                                      fill="white"
-                                    />
-                                  </svg>
-                                )}
-                                <p
-                                  className={`text-base ${
-                                    (elem.is_free || courseData.isTaken) &&
-                                    courseData.maxModuleSerialProgress + 1 >=
-                                      module.serial &&
-                                    module.data.category === "VIDEO"
-                                      ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                      : "cursor-not-allowed"
-                                  }
-                            ${
-                              (elem.is_free || courseData.isTaken) &&
-                              courseData.maxModuleSerialProgress >=
-                                module.serial - 1 &&
-                              module.data.category === "CODE"
-                                ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                : "cursor-not-allowed"
-                            }
-                              
-                              ${
-                                courseData.isTaken &&
-                                courseData.maxModuleSerialProgress >=
-                                  module.serial - 1 &&
-                                module.data.category === "QUIZ"
-                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                  : "cursor-not-allowed"
-                              }
+                                        
+                                        ${
+                                          courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress >=
+                                            module.serial - 1 &&
+                                          module.data.category === "QUIZ"
+                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                            : "cursor-not-allowed"
+                                        }
 
-                              ${
-                                courseData.isTaken &&
-                                courseData.maxModuleSerialProgress >=
-                                  module.serial - 1 &&
-                                module.data.category === "PDF"
-                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                  : "cursor-not-allowed"
-                              }
-                              
-                              ${
-                                courseData.isTaken &&
-                                courseData.maxModuleSerialProgress >=
-                                  module.serial - 1 &&
-                                module.data.category === "TEXT"
-                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                  : "cursor-not-allowed"
-                              }
-                              
-                              
-                              ${
-                                courseData.isTaken &&
-                                courseData.maxModuleSerialProgress + 1 >=
-                                  module.serial &&
-                                module.data.category === "ASSIGNMENT"
-                                  ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                  : "cursor-not-allowed"
-                              }
-                              ${
-                                module.id === activeModule?.id
-                                  ? "text-heading dark:text-white"
-                                  : "text-paragraph/80 dark:text-[#737373]"
-                              } `}
-                                >
-                                  {module.data.category == "VIDEO" && "Video:"}{" "}
-                                  {module.data.category == "ASSIGNMENT" &&
-                                    "Assignment:"}{" "}
-                                  {module.data.category == "CODE" && "Code:"}{" "}
-                                  {module.data.category == "QUIZ" && "Quiz:"}{" "}
-                                  {module.data.category == "PDF" && "Pdf:"}{" "}
-                                  {module.title}
-                                </p>
+                                        ${
+                                          courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress >=
+                                            module.serial - 1 &&
+                                          module.data.category === "PDF"
+                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                            : "cursor-not-allowed"
+                                        }
+                                        
+                                        ${
+                                          courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress >=
+                                            module.serial - 1 &&
+                                          module.data.category === "TEXT"
+                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                            : "cursor-not-allowed"
+                                        }
+                                        
+                                        
+                                        ${
+                                          courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress + 1 >=
+                                            module.serial &&
+                                          module.data.category === "ASSIGNMENT"
+                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                            : "cursor-not-allowed"
+                                        }
+                                        ${
+                                          module.id === activeModule?.id
+                                            ? "text-heading dark:text-white font-semibold"
+                                            : "text-paragraph/80 dark:text-[#737373]"
+                                        }`}
+                                    >
+                                      {module.data.category === "VIDEO" && "Video:"}{" "}
+                                      {module.data.category === "ASSIGNMENT" &&
+                                        "Assignment:"}{" "}
+                                      {module.data.category === "CODE" && "Code:"}{" "}
+                                      {module.data.category === "QUIZ" && "Quiz:"}{" "}
+                                      {module.data.category === "PDF" && "PDF:"}{" "}
+                                      {module.data.category === "TEXT" && "Text:"}{" "}
+                                      {module.title}
+                                    </p>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    }
-                  })}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )
+                  ))}
                 </div>
               </div>
             </div>

@@ -5,6 +5,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FaGraduationCap, FaUser, FaMapMarkerAlt } from "react-icons/fa";
+import { CodeBlock, atomOneDark } from "react-code-blocks";
 
 type Props = {
   discussion: any
@@ -20,6 +22,53 @@ function formatTime(timestamp: any) {
   return `${hours}:${minutes}, ${day} ${month}`;
 }
 
+// Function to detect and process code blocks in content
+const formatContent = (content: string) => {
+  // Check if the content appears to be code
+  if (
+    content.includes('#include') || 
+    content.includes('using namespace') || 
+    content.includes('int main()') ||
+    content.includes('public class') ||
+    content.includes('def ') ||
+    content.includes('function ') ||
+    content.includes('import ') && (
+      content.includes('{') && content.includes('}') ||
+      content.includes('print') ||
+      content.match(/\w+\s*\(\s*\)/)
+    )
+  ) {
+    // Determine language based on content
+    let language = "text"; // default
+    if (content.includes('#include') || content.includes('using namespace std')) {
+      language = "cpp";
+    } else if (content.includes('public class') || content.includes('System.out.println')) {
+      language = "java";
+    } else if (content.includes('def ') || content.includes('print(')) {
+      language = "python";
+    } else if (content.includes('function') || content.includes('const') || content.includes('let')) {
+      language = "javascript";
+    }
+    
+    return (
+      <CodeBlock
+        text={content}
+        language={language}
+        theme={atomOneDark}
+        showLineNumbers
+        customStyle={{
+          borderRadius: "5px",
+          margin: "0",
+          width: "100%"
+        }}
+      />
+    );
+  }
+  
+  // Return normal text if not code
+  return content;
+};
+
 export default function DiscussionItem({ discussion }: Props) {
   const [active, setActive] = useState(false);
   const [replyCount, setReplyCount] = useState(parseInt(discussion.subdiscussion_count));
@@ -29,12 +78,12 @@ export default function DiscussionItem({ discussion }: Props) {
   const [comments, setComments] = useState<Array<any>>([]);
   const downIcon = (
     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
+      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
     </svg>
   );
   const upIcon = (
     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 15 7-7 7 7"/>
     </svg>
   );
   const [replyIcon, setReplyIcon] = useState(downIcon);
@@ -49,8 +98,6 @@ export default function DiscussionItem({ discussion }: Props) {
         },
       })
       .then((res) => {
-        console.log
-
         setComments(res.data.data);
       })
       .catch((err) => {});
@@ -109,40 +156,80 @@ export default function DiscussionItem({ discussion }: Props) {
     if(active) {
       setReplyIcon(upIcon);
       fetchSubdiscussions();
-    }  else {
+    } else {
       setReplyIcon(downIcon);
     }
   }, [active]);
 
+  // Get user type label
+  const getUserTypeLabel = (type: number) => {
+    if (type === 1 || type === 2) return "Teacher";
+    return "Student";
+  };
+
+  // Get user type color class
+  const getUserTypeColorClass = (type: number) => {
+    if (type === 1 || type === 2) return "text-yellow-400";
+    return "text-purple-400";
+  };
+
   return (
-    <div className="my-8" key={discussion.id}>
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-white font-semibold">{discussion.name}</p>
+    <div className="my-8 bg-gray-800/20 rounded-lg p-4 backdrop-blur-sm border border-gray-600/20 hover:border-gray-500/30 transition-all" key={discussion.id}>
+      <div className="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-400 flex items-center justify-center text-white font-bold">
+            {discussion.name?.charAt(0).toUpperCase() || "U"}
+          </div>
+          <div>
+            <p className="text-white font-semibold">{discussion.name}</p>
+            <div className="flex items-center gap-2 text-xs text-gray-400">
+              <span className={getUserTypeColorClass(discussion.user_type)}>
+                {getUserTypeLabel(discussion.user_type)}
+              </span>
+              {discussion.user_profile?.currentInstitution && (
+                <>
+                  <span>•</span>
+                  <div className="flex items-center gap-1">
+                    <FaGraduationCap className="text-gray-400" />
+                    <span>{discussion.user_profile.currentInstitution}</span>
+                  </div>
+                </>
+              )}
+              {discussion.user_profile?.districtName && (
+                <>
+                  <span>•</span>
+                  <div className="flex items-center gap-1">
+                    <FaMapMarkerAlt className="text-gray-400" />
+                    <span>{discussion.user_profile.districtName}</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
-        <p className="text-sm">{formatTime(discussion.timestamp)}</p>
+        <p className="text-sm text-gray-400">{formatTime(discussion.timestamp)}</p>
       </div>
       <div className="flex">
-        <p className="grow p-2 px-3 mt-2 rounded bg-gray-300/5 text-white border border-gray-300/30 rounded-tl-none">
-          {discussion.content}
-        </p>
+        <div className="grow p-3 rounded-lg bg-gray-700/20 border border-gray-600/30">
+          {formatContent(discussion.content)}
+        </div>
       </div>
       {reply && (
-        <div className="py-1 rounded ml-6 mt-2">
+        <div className="py-3 rounded ml-6 mt-4">
           <textarea
-            className="w-full px-2 py-2 rounded resize-none bg-gray-200/20 bg-none outline-none focus:ring ring-gray-300/80 text-white"
+            className="w-full px-3 py-3 rounded-lg resize-none bg-gray-700/30 outline-none focus:ring ring-purple-500/50 text-white"
             placeholder="Add a reply..."
             value={replyText}
             onChange={(e) => {
               setReplyText(e.target.value);
             }}
           />
-          <div className="flex justify-end gap-2">
+          <div className="flex justify-end gap-2 mt-2">
             <button
               onClick={() => {
                 postSubdiscussion(discussion.id);
               }}
-              className="font-bold px-4 py-1 bg-[#532e62] focus:ring ring-gray-300/80 hover:bg-opacity-70 rounded"
+              className="font-bold px-4 py-2 bg-[#532e62] focus:ring ring-purple-400/50 hover:bg-opacity-80 rounded-lg transition-all"
             >
               Reply
             </button>
@@ -150,7 +237,7 @@ export default function DiscussionItem({ discussion }: Props) {
               onClick={() => {
                 setReply(false);
               }}
-              className="font-bold px-4 py-1 bg-[#532e62] focus:ring ring-gray-300/80 hover:bg-opacity-70 rounded"
+              className="font-bold px-4 py-2 bg-gray-700/50 focus:ring ring-gray-400/50 hover:bg-opacity-70 rounded-lg transition-all"
             >
               Cancel
             </button>
@@ -158,14 +245,14 @@ export default function DiscussionItem({ discussion }: Props) {
         </div>
       )}
 
-      <div className={`flex ${reply ? "" : "flex-row-reverse"} justify-between gap-2 mt-2 mb-3`}>
+      <div className={`flex ${reply ? "" : "flex-row-reverse"} justify-between gap-2 mt-4 mb-1`}>
         {!reply && (
           <button
             onClick={() => {
               fetchSubdiscussions();
               setReply(true);
             }}
-            className="font-bold px-4 py-1 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white"
+            className="font-semibold px-4 py-2 bg-[#532e62] hover:bg-opacity-80 ease-in-out duration-150 focus:ring ring-purple-400/50 rounded-lg text-white transition-all"
           >
             Reply
           </button>
@@ -177,7 +264,7 @@ export default function DiscussionItem({ discussion }: Props) {
             } else {
               setActive(true);
             }
-          }} className="flex items-center gap-1 text-[#b153e0] hover:opacity-75 ease-in-out duration-150">
+          }} className="flex items-center gap-1 text-[#b153e0] hover:text-[#9541bd] ease-in-out duration-150">
             {replyIcon}
             {replyCount} Replies
           </button>
@@ -185,37 +272,38 @@ export default function DiscussionItem({ discussion }: Props) {
       </div>
 
       {active && (
-        <div>
+        <div className="mt-4 border-t border-gray-700/30 pt-4 space-y-4">
           {comments.map(
             (subdiscussion: any) => (
-              <div className="ml-6" key={Math.random()}>
-                <div className="my-2">
-                  <div className="flex justify-between items-center">
-                    <p className="text-white font-semibold text-sm">
-                      {subdiscussion.user_name} |{" "}
-                      <span
-                        className={`${subdiscussion.type == 1 || subdiscussion.type == 2 ? "text-yellow" : "text-purple"}`}
-                      >
-                        {" "}
-                        {subdiscussion.type == 1 ||
-                          subdiscussion.type == 2
-                          ? "Teacher"
-                          : "Student"}
-                      </span>
-                    </p>
-                    <p className="text-sm">
+              <div className="ml-6 bg-gray-800/20 rounded-lg p-3 backdrop-blur-sm border border-gray-600/20" key={Math.random()}>
+                <div className="my-1">
+                  <div className="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-600 to-purple-400 flex items-center justify-center text-white font-bold text-sm">
+                        {subdiscussion.user_name?.charAt(0).toUpperCase() || "U"}
+                      </div>
+                      <div>
+                        <p className="text-white font-semibold text-sm">
+                          {subdiscussion.user_name}
+                        </p>
+                        <span className={`text-xs ${getUserTypeColorClass(subdiscussion.type)}`}>
+                          {getUserTypeLabel(subdiscussion.type)}
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-400">
                       {formatTime(subdiscussion.created_at)}
                     </p>
                   </div>
                   <div className="flex">
-                    <p className="grow p-2 px-3 mt-1 rounded bg-gray-300/5 text-white border border-gray-300/30 rounded-tl-none">
-                      {subdiscussion.content}
-                    </p>
+                    <div className="grow p-2 px-3 mt-1 rounded-lg bg-gray-700/20 border border-gray-600/30">
+                      {formatContent(subdiscussion.content)}
+                    </div>
                   </div>
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end mt-2">
                   <button
-                    className="text-[#b153e0] hover:opacity-75 ease-in-out duration-150"
+                    className="text-[#b153e0] hover:text-[#9541bd] ease-in-out duration-150 text-sm"
                     onClick={() => {
                       deleteSubdiscussion(subdiscussion);
                     }}
@@ -281,9 +369,9 @@ export default function DiscussionItem({ discussion }: Props) {
                             <path
                               d="M13 1.25L1 13.25M1 1.25L13 13.25"
                               stroke="#FBEEEC"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                           </svg>
                         </button>
