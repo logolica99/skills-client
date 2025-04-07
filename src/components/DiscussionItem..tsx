@@ -167,6 +167,7 @@ export default function DiscussionItem({ discussion }: Props) {
     return "Student";
   };
 
+
   // Get user type color class
   const getUserTypeColorClass = (type: number) => {
     if (type === 1 || type === 2) return "text-yellow-400";

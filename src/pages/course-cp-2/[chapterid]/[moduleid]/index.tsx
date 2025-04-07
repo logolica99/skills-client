@@ -146,6 +146,164 @@ function groupChaptersByPhase(chapters: any[]) {
   return grouped;
 }
 
+// Add this function to calculate progress for each phase
+function calculatePhaseProgress(courseData: any) {
+  // Initialize progress object
+  const progress: Record<string, { completed: number, total: number }> = {
+    easy: { completed: 0, total: 0 },
+    Amateur: { completed: 0, total: 0 },
+    Advanced: { completed: 0, total: 0 }
+  };
+  
+  // Group chapters by phase
+  const phases = groupChaptersByPhase(courseData?.chapters || []);
+  
+  // For each phase, calculate completed and total modules
+  Object.entries(phases).forEach(([phase, chapters]) => {
+    chapters.forEach(chapter => {
+      chapter.modules.forEach((module: { serial: number }) => {
+        progress[phase].total += 1;
+        
+        // Check if module is completed
+        if (courseData.maxModuleSerialProgress >= module.serial) {
+          progress[phase].completed += 1;
+        }
+      });
+    });
+  });
+  
+  return progress;
+}
+
+// Add this animated progress bar component with particle effects
+const AnimatedProgressBar: React.FC<{
+  phase: string,
+  progress: { completed: number, total: number }
+}> = ({ phase, progress }) => {
+  // Map phases to their respective colors
+  const phaseColors = {
+    easy: "#4CAF50",
+    Amateur: "#FF9800",
+    Advanced: "#F44336"
+  };
+  //add random color
+ 
+  const phaseNames = {
+    easy: "Beginner",
+    Amateur: "Intermediate",
+    Advanced: "Advanced"
+  };
+  
+  const color = phaseColors[phase as keyof typeof phaseColors] || "#B153E0";
+  const name = phaseNames[phase as keyof typeof phaseNames] || phase;
+  const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
+  
+  // Generate random positions for bubble particles
+  const renderBubbles = () => {
+    const bubbles = [];
+    const bubbleCount = 8; // Number of bubbles
+    
+    for (let i = 0; i < bubbleCount; i++) {
+      const size = Math.floor(Math.random() * 8) + 4; // Random size between 4-12px
+      const positionY = Math.floor(Math.random() * 100); // Random vertical position
+      const delay = Math.random() * 3; // Random animation delay
+      const opacity = (Math.random() * 0.5) + 0.2; // Random opacity between 0.2-0.7
+      
+      bubbles.push(
+        <div 
+          key={i}
+          className="absolute rounded-full animate-bubble"
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            backgroundColor: color,
+            bottom: `${positionY}%`,
+            left: `${(i / bubbleCount) * 80 + 10}%`, // Distribute horizontally
+            opacity: opacity,
+            animationDelay: `${delay}s`,
+          }}
+        />
+      );
+    }
+    
+    return bubbles;
+  };
+  
+  return (
+    <div className="mb-4">
+      <div className="flex justify-between items-center mb-1">
+        <div className="flex items-center gap-2">
+          <PhaseIcon phase={phase} className="w-6 h-6" />
+          <span className="text-sm font-medium text-white">{name}</span>
+        </div>
+        <span className="text-xs text-gray-300">{progress.completed}/{progress.total} ({percentage}%)</span>
+      </div>
+      
+      <div className="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden backdrop-blur-sm relative">
+        {/* Gradient background for progress */}
+        <div 
+          className="h-full rounded-full transition-all duration-1000 relative overflow-hidden"
+          style={{ 
+            width: `${percentage}%`,
+            background: `linear-gradient(90deg, ${color}60 0%, ${color} 100%)`,
+            boxShadow: `0 0 10px ${color}80`
+          }}
+        >
+          {/* Animated shine effect */}
+          <div 
+            className="absolute top-0 left-0 h-full w-20 bg-white/30 skew-x-30 animate-shine"
+            style={{ 
+              filter: `blur(5px)`,
+            }}
+          />
+          
+          {/* Bubble particles */}
+          {renderBubbles()}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Add this at the top of your file to define custom animations
+const customStyles = `
+  @keyframes bubble {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: var(--bubble-opacity, 0.5);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.2);
+      opacity: var(--bubble-opacity, 0.5);
+    }
+    100% {
+      transform: translateY(-20px) scale(1);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%) skewX(-30deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-30deg);
+    }
+  }
+  
+  .animate-bubble {
+    animation: bubble 3s infinite ease-in-out;
+  }
+  
+  .animate-shine {
+    animation: shine 3s infinite ease-in-out;
+  }
+  
+  .skew-x-30 {
+    transform: skewX(-30deg);
+  }
+`;
+
 export default function CourseDetailsPage() {
   const cancelButtonRef = useRef(null);
 
@@ -551,6 +709,9 @@ export default function CourseDetailsPage() {
 
   return (
     <div className={`  ${HindSiliguri.variable} font-hind   overflow-x-hidden`}>
+      {/* Add the style tag to include our custom animations */}
+      <style jsx global>{customStyles}</style>
+      
       <Nav></Nav>
       <Toaster />
 
@@ -1431,6 +1592,22 @@ export default function CourseDetailsPage() {
                 <div
                   className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full h-[100vh] overflow-y-scroll py-6 px-4 border rounded-lg border-gray-300/20 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[12px] scrollbar-track-gray-600"
                 >
+                  {/* Phase Progress Bars */}
+                  <div className="mb-6 p-4 bg-gray-800/40 rounded-lg backdrop-blur-sm border border-gray-700/50">
+                    <h3 className="text-white text-sm font-semibold mb-4">Progress Dashboard</h3>
+                    {Object.entries(calculatePhaseProgress(courseData)).map(([phase, phaseProgress]) => (
+                      //only show the phase if it has chapters and has progress
+                      phaseProgress.total > 0 && phaseProgress.completed > 0 && (
+                        <AnimatedProgressBar 
+                          key={phase}
+                          phase={phase} 
+                          progress={phaseProgress}
+                        />
+                      )
+                    ))}
+                  </div>
+                  
+                  {/* Existing phase groups */}
                   {Object.entries(groupChaptersByPhase(courseData?.chapters || [])).map(([phase, chapters]) => (
                     chapters.length > 0 && (
                       <div key={phase} className="mb-6">
