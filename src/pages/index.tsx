@@ -5,7 +5,7 @@ import Nav from "@/components/Nav";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "animate.css/animate.min.css";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import VisibilitySensor from "react-visibility-sensor";
@@ -14,6 +14,12 @@ import { Toaster } from "react-hot-toast";
 import TimelineItem from "@/components/TimelineItem";
 import Typewriter from "typewriter-effect";
 import ProblemSolversSection from "@/components/ProblemSolversSection";
+import { getTopSuccessStories, SuccessStory } from "@/data/successStories";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
+
 import {
   Logo1,
   Logo2,
@@ -32,6 +38,7 @@ import {
   LiveClassIcon,
   CourseIntroIcon,
 } from "@/components/Icons";
+import AnimatedSuccessStories from "@/components/AnimatedSuccessStories";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -71,6 +78,28 @@ export default function Home() {
   const [activeBoxIndex, setActiveBoxIndex] = useState(0);
   const [titlX, setTiltX] = useState(0);
   const [titlY, setTiltY] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  //get the top success stories
+  const topSuccessStories = getTopSuccessStories(15);
+
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    fade: true,
+    pauseOnHover: true,
+    dotsClass: "slick-dots custom-dots",
+  };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
 
   return (
     <main className={`${HindSiliguri.variable} font-hind`}>
@@ -91,7 +120,7 @@ export default function Home() {
       </button>
 
       <div className="bg-[#F3F3F3] dark:bg-black pt-20 overflow-x-hidden">
-        <div className="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
+        <div className ="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
           <div className="flex justify-between items-center flex-col-reverse lg:flex-row gap-20 pt-10 lg:pt-0 relative ">
             <GradientEllipse1 />
 
@@ -150,26 +179,9 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div>
-              <Tilt
-                tiltAngleXManual={titlX}
-                tiltAngleYManual={titlY}
-                onEnter={(e) => {
-                  setTiltX(0);
-                  setTiltY(0);
-                }}
-                // onLeave={() => {
-                //   setTiltX(14);
-                //   setTiltY(-10);
-                // }}
-              >
-                <img
-                  src="/Group 33507.png"
-                  alt=""
-                  className="relative lg:top-10"
-                />
-              </Tilt>
-            </div>
+            <div className="w-full max-w-md mx-auto relative lg:top-10">
+              {mounted && <AnimatedSuccessStories stories={topSuccessStories} />}
+              </div>
           </div>
         </div>
 

@@ -265,7 +265,6 @@ export default function CourseDetailsPage() {
             }
           });
         });
-       
 
         if (targetModule !== null) {
           setActiveModule(targetModule);
@@ -496,7 +495,6 @@ export default function CourseDetailsPage() {
 
   useEffect(() => {
     if (router.query.chapterid && router.query.moduleid) {
-  
       fetchCourse();
     }
   }, [router]);
@@ -1235,17 +1233,16 @@ export default function CourseDetailsPage() {
                 ></div>
               </div>
               <div className="mt-1">
-                {activeModule.serial < 48 && (
+                {activeModule.serial >= 9 && activeModule.serial <= 55 && (
                   <button
                     onClick={() => {
-                      // submitProgress(24);
-                      const module_search = findObjectBySerial(courseData, 48);
+                      const module_search = findObjectBySerial(courseData, 56);
                       submitProgress(module_search.id, module_search.score);
                       setActiveModule(module_search);
                     }}
                     className="py-2 mt-5 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                   >
-                    Skip Archive
+                    Skip Second Chapter
                   </button>
                 )}
                 <div className="flex justify-between items-center">
