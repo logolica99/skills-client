@@ -2643,7 +2643,9 @@ export default function CourseDetailsPage() {
                               // ) {
                               //   purchaseFreeCourse();
                               // }
-                              else if (couponCode == "XCVRTUNT") {
+                              else if (couponCode == "XCVRTUNT45") {
+                                purchaseFreeCourse();
+                              } else if (couponCode == "XCVRTUNT") {
                                 setCourseData({
                                   ...courseData,
                                   price: 12,
