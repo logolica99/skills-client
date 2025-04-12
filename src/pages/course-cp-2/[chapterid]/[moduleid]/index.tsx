@@ -47,7 +47,7 @@ import {
   PhaseBadge,
   PhaseHeader
 } from '@/components/CourseIcons';
-
+import BunnyCDNPlayer from "@/components/BunnyCDNPlayer";
 const GreenRadio = withStyles({
   root: {
     color: "#fff",
@@ -1101,14 +1101,11 @@ export default function CourseDetailsPage() {
                 )}
                 {activeModule?.data?.category == "VIDEO" &&
                   activeModule?.data?.videoHost === "BunnyCDN" && (
-                    <iframe
-                      className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
-                      src={activeModule?.data?.videoUrl}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    ></iframe>
+                    <BunnyCDNPlayer 
+                      videoUrl={activeModule?.data?.videoUrl} 
+                    />
                   )}
+
                 {activeModule?.data?.category === "ASSIGNMENT" && (
                   <div className=" mx-auto  z-20">
                     <p className="text-lg  mb-2">
