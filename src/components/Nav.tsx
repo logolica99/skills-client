@@ -180,20 +180,12 @@ export default function Nav({}: Props) {
               </Link>
               {/* {isLogged && ( */}
               <Link
-                href="/course-details/12"
+                href="/course-details/15"
                 className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
               >
                 কোর্স ডিটেইলস
               </Link>
               {/* )} */}
-              {/* {isLogged && (
-                <Link
-                  href="/live-class"
-                  className=" hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
-                >
-                  লাইভ ক্লাস শিডিউল
-                </Link>
-              )} */}
 
               {isLogged ? (
                 <Link
@@ -215,6 +207,15 @@ export default function Nav({}: Props) {
                 </Link>
               ) : (
                 ""
+              )}
+
+              {isLogged && (
+                <Link
+                  href="https://www.codervai.com/profile/live-classes/classes"
+                  className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
+                >
+                  লাইভ ক্লাস
+                </Link>
               )}
 
               {/* {isLogged && (
