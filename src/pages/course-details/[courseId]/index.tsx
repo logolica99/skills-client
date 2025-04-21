@@ -2286,7 +2286,7 @@ export default function CourseDetailsPage() {
                       </svg> */}
                         <div className="text-center lgXxl:text-left">
                           <p className="font-bold text-base text-paragraph dark:text-darkParagraph ">
-                          এনরোলমেন্ট চলছে
+                            এনরোলমেন্ট চলছে
                           </p>
                           {/* <p className="text-3xl font-bold ">
                             {courseData?.enrolled} জন
@@ -2387,7 +2387,7 @@ export default function CourseDetailsPage() {
                   </div>
 
                   <a
-                    href="https://drive.google.com/file/d/15Pvd0Ffh60hU81lyr4V3jtpkaLG0ZgW2/view"
+                    href="https://drive.google.com/file/d/1aSbPa5mM9YgwLHfI7SpPE12hOuolUNpK/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 text-heading dark:text-darkHeading border border-purple/30 hover:border-purple/60 dark:border-purple/30 dark:hover:border-purple/60 transition-all duration-300 rounded-lg font-medium relative group overflow-hidden"
@@ -2586,15 +2586,13 @@ export default function CourseDetailsPage() {
                                   price: 2500,
                                 });
                                 toast.success("Discount Applied!");
-                              }
-                              else if (couponCode == "CPSUPERSPECIAL") {
+                              } else if (couponCode == "CPSUPERSPECIAL") {
                                 setCourseData({
                                   ...courseData,
                                   price: 4000,
                                 });
                                 toast.success("Discount Applied!");
-                              }
-                               else if (couponCode == "CPSPECIAL") {
+                              } else if (couponCode == "CPSPECIAL") {
                                 setCourseData({
                                   ...courseData,
                                   price: 5000,
