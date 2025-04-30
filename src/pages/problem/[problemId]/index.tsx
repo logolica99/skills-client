@@ -894,7 +894,10 @@ int main(){
 
                   <div className="flex gap-4 mt-8 flex-col md:flex-row  justify-between items-center">
                     <Link
-                      href="/course/"
+                      href={""}
+                      onClick={() => {
+                        router.back();
+                      }}
                       className="py-2 px-6 bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg "
                     >
                       Return to Module Page
