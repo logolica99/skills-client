@@ -1423,13 +1423,13 @@ export default function CourseDetailsPage() {
                       Description
                     </p>
                   )}
-                {/* <div
+                <div
                   className={`text-lg  ${activeModule?.data?.category != "TEXT" ? "border-t border-gray-400/50 pt-2" : ""}  dark:border-gray-300/10 `}
                   dangerouslySetInnerHTML={{
                     __html: activeModule?.description,
                   }}
-                ></div> */}
-                {activeModule?.data?.category === "TEXT" && (
+                ></div>
+                {/* {activeModule?.data?.category === "TEXT" && (
                   <div className="prose prose-lg dark:prose-invert max-w-none">
                     {activeModule?.description?.split('\n').map((paragraph: string, index: number) => {
                       // Convert URLs to clickable links
@@ -1457,7 +1457,7 @@ export default function CourseDetailsPage() {
                       );
                     })}
                   </div>
-                )}
+                )} */}
               </div>
               <div className="mt-1">
                 {activeModule.serial < 48 && (
