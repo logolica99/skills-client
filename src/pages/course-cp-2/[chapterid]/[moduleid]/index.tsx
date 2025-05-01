@@ -1132,9 +1132,9 @@ export default function CourseDetailsPage() {
                         assignmentEvaluted[0]?.status === "EVALUATED" && (
                           <span
                             className={`font-semibold text-xl ${assignmentEvaluted[0]?.evaluation?.verdict ===
-                                "PASSED"
-                                ? "text-green-300"
-                                : "text-red-300"
+                              "PASSED"
+                              ? "text-green-300"
+                              : "text-red-300"
                               }`}
                           >
                             {assignmentEvaluted[0] &&
@@ -1406,8 +1406,8 @@ export default function CourseDetailsPage() {
                       type="submit"
                       disabled={showQuizAnswer}
                       className={`py-2 mt-5 px-8 ${showQuizAnswer
-                          ? "bg-gray-500 cursor-not-allowed"
-                          : "bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80"
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80"
                         }   rounded font-semibold text-white text-lg`}
                     >
                       Submit Answer
@@ -1423,21 +1423,39 @@ export default function CourseDetailsPage() {
                       Description
                     </p>
                   )}
-                <div
+                {/* <div
                   className={`text-lg  ${activeModule?.data?.category != "TEXT" ? "border-t border-gray-400/50 pt-2" : ""}  dark:border-gray-300/10 `}
                   dangerouslySetInnerHTML={{
                     __html: activeModule?.description,
                   }}
-                ></div>
+                ></div> */}
                 {activeModule?.data?.category === "TEXT" && (
                   <div className="prose prose-lg dark:prose-invert max-w-none">
-                    <div
-                      className="text-lg leading-relaxed whitespace-pre-wrap break-words"
-                      dangerouslySetInnerHTML={{
-                        __html: activeModule?.description?.replace(/\n/g, '<br/>')
-                          .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-purple-500 hover:text-purple-700 underline">$1</a>')
-                      }}
-                    />
+                    {activeModule?.description?.split('\n').map((paragraph: string, index: number) => {
+                      // Convert URLs to clickable links
+                      const textWithLinks = paragraph.split(/(\bhttps?:\/\/\S+\b)/g).map((text: string, i: number) => {
+                        if (text.match(/^https?:\/\//)) {
+                          return (
+                            <a
+                              key={i}
+                              href={text}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-purple-500 hover:text-purple-700 underline"
+                            >
+                              {text}
+                            </a>
+                          );
+                        }
+                        return text;
+                      });
+
+                      return (
+                        <p key={index} className="text-lg leading-relaxed break-words">
+                          {textWithLinks}
+                        </p>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -1684,7 +1702,7 @@ export default function CourseDetailsPage() {
                                       <div className="flex flex-wrap gap-3 lg:items-center mt-3 text-sm font-medium">
                                         <div
                                           className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
-                                              .videoCount == 0 && "hidden"
+                                            .videoCount == 0 && "hidden"
                                             }`}
                                         >
                                           <ChapterCalendarIcon
@@ -1706,7 +1724,7 @@ export default function CourseDetailsPage() {
 
                                         <div
                                           className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
-                                              .quizCount == 0 && "hidden"
+                                            .quizCount == 0 && "hidden"
                                             }`}
                                         >
                                           <ChapterCalendarIcon
@@ -1728,7 +1746,7 @@ export default function CourseDetailsPage() {
 
                                         <div
                                           className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
-                                              .codeCount == 0 && "hidden"
+                                            .codeCount == 0 && "hidden"
                                             }`}
                                         >
                                           <ChapterCalendarIcon
@@ -1750,7 +1768,7 @@ export default function CourseDetailsPage() {
 
                                         <div
                                           className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
-                                              .pdfCount == 0 && "hidden"
+                                            .pdfCount == 0 && "hidden"
                                             }`}
                                         >
                                           <ChapterCalendarIcon
@@ -1922,11 +1940,11 @@ export default function CourseDetailsPage() {
 
                                     <p
                                       className={`text-base ${(elem.is_free || courseData.isTaken) &&
-                                          courseData.maxModuleSerialProgress + 1 >=
-                                          module.serial &&
-                                          module.data.category === "VIDEO"
-                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                          : "cursor-not-allowed"
+                                        courseData.maxModuleSerialProgress + 1 >=
+                                        module.serial &&
+                                        module.data.category === "VIDEO"
+                                        ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                        : "cursor-not-allowed"
                                         }
                                       ${(elem.is_free || courseData.isTaken) &&
                                           courseData.maxModuleSerialProgress >=
