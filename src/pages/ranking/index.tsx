@@ -7,7 +7,7 @@ type Props = {};
 import { Toaster, toast } from "react-hot-toast";
 import { UserContext } from "@/Contexts/UserContext";
 import axios from "axios";
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { BACKEND_URL, COURSE_ID, COURSE_ID_2 } from "@/api.config";
 import Nav from "@/components/Nav";
 import { HindSiliguri } from "@/helpers";
 import Link from "next/link";
@@ -24,18 +24,90 @@ export default function Ranking({}: Props) {
   const [myPosition, setMyposition] = useState<any>({});
   const [positions, setPositions] = useState<any>([]);
   const [firstCalled, setFirstCalled] = useState(false);
+  const [selectedCourseId, setSelectedCourseId] = useState(COURSE_ID);
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
   
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
 
+  const fetchEnrolledCourses = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    
+    setUser({ ...user, loading: true });
+    
+    // Get user_id from token - not needed for request body but kept for reference
+    const decoded = jwtDecode<any>(token);
+    const userId = decoded.id;
+    
+    console.log("Fetching enrolled courses for user ID:", userId);
+    
+    axios
+      .get(BACKEND_URL + "/user/course/getEnrolledCoursesByUserId", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // Get all courses from API response
+        const allCourses = res.data.data || [];
+        console.log("All enrolled courses:", allCourses);
+        
+        // Filter to only keep courses with IDs 1 or 15
+        const filteredCourses = allCourses.filter((course: any) => 
+          course.id.toString() === COURSE_ID || course.id.toString() === COURSE_ID_2
+        );
+        console.log("Filtered courses (ID 1 or 15):", filteredCourses);
+        
+        setEnrolledCourses(filteredCourses);
+        
+        // Set default selection, prioritizing COURSE_ID_2 (15) if available
+        const hasCourse15 = filteredCourses.some((course: any) => course.id.toString() === COURSE_ID_2);
+        const hasCourse1 = filteredCourses.some((course: any) => course.id.toString() === COURSE_ID);
+        
+        if (hasCourse15) {
+          console.log("Course ID 15 found - setting selected course to:", COURSE_ID_2);
+          setSelectedCourseId(COURSE_ID_2);
+        } else if (hasCourse1) {
+          console.log("Course ID 1 found - setting selected course to:", COURSE_ID);
+          setSelectedCourseId(COURSE_ID);
+        } else {
+          console.log("Neither course ID 1 nor 15 found - defaulting to COURSE_ID:", COURSE_ID);
+          setSelectedCourseId(COURSE_ID);
+          
+          // Show toast message if neither course is found
+          if (filteredCourses.length === 0) {
+            toast.error("আপনি কোন কোর্সে অন্তর্ভুক্ত হননি। দয়া করে প্রয়োজনীয় কোর্সে অন্তর্ভুক্ত হোন।", {
+              duration: 5000,
+            });
+          }
+        }
+        
+        console.log("Selected course ID set to:", selectedCourseId);
+        
+        setUser({ ...user, loading: false });
+      })
+      .catch((err) => {
+        console.error("Error fetching enrolled courses:", err);
+        setUser({ ...user, loading: false });
+        
+        // Show error message
+        toast.error("কোর্স তথ্য লোড করা যায়নি। দয়া করে আবার চেষ্টা করুন।", {
+          duration: 3000,
+        });
+      });
+  };
+
   const fetchRanking = () => {
     const token = localStorage.getItem("token");
     setUser({ ...user, loading: true });
+    setPositions([]);
+    setCurrentPage(0);
     axios
       .get(
         BACKEND_URL +
-          `/user/course/getRanking/${COURSE_ID}?offset=${currentPage}&limit=10`,
+          `/user/course/getRanking/${selectedCourseId}?offset=${currentPage}&limit=10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -73,7 +145,7 @@ export default function Ranking({}: Props) {
     axios
       .get(
         BACKEND_URL +
-          `/user/course/getRanking/${COURSE_ID}?offset=${currentPage * 10}&limit=10`,
+          `/user/course/getRanking/${selectedCourseId}?offset=${currentPage * 10}&limit=10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,12 +176,31 @@ export default function Ranking({}: Props) {
   };
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchRanking();
+    fetchEnrolledCourses();
   }, []);
 
   useEffect(() => {
-    fetchMoreRanking();
+    if (selectedCourseId) {
+      fetchRanking();
+    }
+  }, [selectedCourseId]);
+
+  useEffect(() => {
+    if (currentPage > 0) {
+      fetchMoreRanking();
+    }
   }, [currentPage]);
+
+  const handleCourseChange = (courseId: string) => {
+    setSelectedCourseId(courseId);
+    setCurrentPage(0);
+    setPositions([]);
+    setFirstCalled(false);
+  };
+
+  useEffect(() => {
+    console.log("Selected course ID changed to:", selectedCourseId);
+  }, [selectedCourseId]);
 
   return (
     <ProtectedRoute>
@@ -171,9 +262,27 @@ export default function Ranking({}: Props) {
         </button>
         <div className="py-16 bg-white dark:bg-[#000] overflow-x-hidden">
           <div className="w-[90%] lgXl:w-[80%] mx-auto py-12 z-20 min-h-[80vh]">
-            <p className="text-3xl font-semibold text-heading dark:text-darkHeading mb-7">
-              কোডার ভাই গ্রুপ কোডিং ২০২৪ রেজাল্ট
-            </p>
+            <div className="flex justify-between items-center mb-7">
+              <p className="text-3xl font-semibold text-heading dark:text-darkHeading">
+                কোডার ভাই কোর্স রেজাল্ট
+              </p>
+              {enrolledCourses.length > 1 && (
+                <div className="flex items-center gap-2">
+                  <label className="text-heading dark:text-darkHeading">কোর্স নির্বাচন করুন:</label>
+                  <select 
+                    className="bg-gray-400/20 dark:bg-gray-200/5 text-heading dark:text-darkHeading p-2 rounded-lg"
+                    value={selectedCourseId}
+                    onChange={(e) => handleCourseChange(e.target.value)}
+                  >
+                    {enrolledCourses.map((course: any) => (
+                      <option key={course.id} value={course.id.toString()}>
+                        {course.title || (course.id.toString() === COURSE_ID ? "বেসিক কোর্স" : course.id.toString() === COURSE_ID_2 ? "বর্তমান ব্যাচ" : `কোর্স ${course.id}`)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
             <div className="flex flex-col lg:flex-row justify-between gap-8 items-end">
               <div
                 className="flex flex-col gap-1 py-2 items-center border border-gray-300/20 w-full rounded-lg text-white"

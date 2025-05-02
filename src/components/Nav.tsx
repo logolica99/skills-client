@@ -225,6 +225,12 @@ export default function Nav({}: Props) {
                   র‍্যাঙ্কিং
                 </Link>
               )} */}
+              <Link
+                href="/contests/lists"
+                className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
+              >
+                প্রতিযোগিতাসমূহ
+              </Link>
             </div>
 
             {isLogged ? (

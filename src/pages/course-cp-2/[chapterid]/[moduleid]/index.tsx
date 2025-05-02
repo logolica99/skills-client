@@ -58,20 +58,20 @@ const GreenRadio = withStyles({
   checked: {},
 })((props) => <Radio color="default" {...props} />);
 
-const subdiscussions = [
-  {
-    type: "2",
-    name: "John doe",
-    content: "is this working",
-    timestamp: Date.now() / 1000,
-  },
-  {
-    type: "3",
-    name: "John dis",
-    content: "is not working",
-    timestamp: Date.now() / 1000,
-  },
-];
+// const subdiscussions = [
+//   {
+//     type: "2",
+//     name: "John doe",
+//     content: "is this working",
+//     timestamp: Date.now() / 1000,
+//   },
+//   {
+//     type: "3",
+//     name: "John dis",
+//     content: "is not working",
+//     timestamp: Date.now() / 1000,
+//   },
+// ];
 
 function findObjectBySerial(data: any, targetSerial: any) {
   // Check if chapters exist in the data

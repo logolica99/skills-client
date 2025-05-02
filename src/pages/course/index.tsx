@@ -1,4 +1,4 @@
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { BACKEND_URL, COURSE_ID_2 } from "@/api.config";
 import { UserContext } from "@/Contexts/UserContext";
 import { decryptString } from "@/helpers";
 import axios from "axios";
@@ -36,7 +36,7 @@ export default function CourseRedirect(): JSX.Element {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID_2, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

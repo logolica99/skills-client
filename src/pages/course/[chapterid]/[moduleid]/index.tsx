@@ -7,7 +7,7 @@ import { BsChevronRight } from "react-icons/bs";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserContext } from "@/Contexts/UserContext";
 import axios from "axios";
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { BACKEND_URL, COURSE_ID, COURSE_ID_2 } from "@/api.config";
 import {
   calculateRemainingDays,
   countAssignmentsAndVideos,
@@ -59,20 +59,20 @@ const GreenRadio = withStyles({
   checked: {},
 })((props) => <Radio color="default" {...props} />);
 
-const subdiscussions = [
-  {
-    type: "2",
-    name: "John doe",
-    content: "is this working",
-    timestamp: Date.now() / 1000,
-  },
-  {
-    type: "3",
-    name: "John dis",
-    content: "is not working",
-    timestamp: Date.now() / 1000,
-  },
-];
+// const subdiscussions = [
+//   {
+//     type: "2",
+//     name: "John doe",
+//     content: "is this working",
+//     timestamp: Date.now() / 1000,
+//   },
+//   {
+//     type: "3",
+//     name: "John dis",
+//     content: "is not working",
+//     timestamp: Date.now() / 1000,
+//   },
+// ];
 
 function findObjectBySerial(data: any, targetSerial: any) {
   // Check if chapters exist in the data
@@ -428,7 +428,7 @@ export default function CourseDetailsPage() {
     setUser({ ...user, loading: true });
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+      .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID_2, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -467,7 +467,7 @@ export default function CourseDetailsPage() {
           setActiveModule(targetModule);
         } else if (lastValidModule !== null) {
           router.replace(
-            `/course-cp-2/${lastValidModule.chapter_id}/${lastValidModule.id}`,
+            `/course/${lastValidModule.chapter_id}/${lastValidModule.id}`,
           );
         } else {
           const chapters: Array<any> = res.data.chapters;
@@ -475,7 +475,7 @@ export default function CourseDetailsPage() {
           const modules: Array<any> = chapter.modules;
           const validModule = modules[modules.length - 1];
 
-          router.replace(`/course-cp-2/${validModule.chapter_id}/${validModule.id}`);
+          router.replace(`/course/${validModule.chapter_id}/${validModule.id}`);
         }
 
         setUser({ ...user, loading: false });
@@ -524,7 +524,7 @@ export default function CourseDetailsPage() {
         )
         .then((res) => {
           axios
-            .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID, {
+            .get(BACKEND_URL + "/user/course/getfull/" + COURSE_ID_2, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -1820,7 +1820,7 @@ export default function CourseDetailsPage() {
                                         ) {
                                           fetchEvalutedAssignment(module.id);
                                           router.push(
-                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                            `/course/${module.chapter_id}/${module.id}`,
                                           );
                                         }
                                         if (
@@ -1830,7 +1830,7 @@ export default function CourseDetailsPage() {
                                             module.serial
                                         ) {
                                           router.push(
-                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                            `/course/${module.chapter_id}/${module.id}`,
                                           );
                                         }
 
@@ -1841,7 +1841,7 @@ export default function CourseDetailsPage() {
                                         ) {
                                           submitProgress(module.id, module.score);
                                           router.push(
-                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                            `/course/${module.chapter_id}/${module.id}`,
                                           );
                                         }
                                         if (
@@ -1851,7 +1851,7 @@ export default function CourseDetailsPage() {
                                           courseData.isTaken
                                         ) {
                                           router.push(
-                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                            `/course/${module.chapter_id}/${module.id}`,
                                           );
                                         }
                                         if (
@@ -1861,7 +1861,7 @@ export default function CourseDetailsPage() {
                                         ) {
                                           submitProgress(module.id, module.score);
                                           router.push(
-                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                            `/course/${module.chapter_id}/${module.id}`,
                                           );
                                         }
                                         if (
@@ -1871,7 +1871,7 @@ export default function CourseDetailsPage() {
                                         ) {
                                           submitProgress(module.id, module.score);
                                           router.push(
-                                            `/course-cp-2/${module.chapter_id}/${module.id}`,
+                                            `/course/${module.chapter_id}/${module.id}`,
                                           );
                                         }
                                       }
