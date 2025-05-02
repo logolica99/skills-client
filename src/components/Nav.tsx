@@ -211,7 +211,7 @@ export default function Nav({}: Props) {
 
               {isLogged && (
                 <Link
-                  href="https://www.codervai.com/profile/live-classes/classes"
+                  href="/live-class"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
                   লাইভ ক্লাস
