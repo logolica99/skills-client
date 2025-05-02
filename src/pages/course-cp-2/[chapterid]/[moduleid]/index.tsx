@@ -34,12 +34,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import DiscussionItem from "@/components/DiscussionItem.";
 
-import { 
-  ModuleVideoIcon, 
-  ModuleAssignmentIcon, 
-  ModulePDFIcon, 
-  ModuleTextIcon, 
-  ModuleQuizIcon, 
+import {
+  ModuleVideoIcon,
+  ModuleAssignmentIcon,
+  ModulePDFIcon,
+  ModuleTextIcon,
+  ModuleQuizIcon,
   ModuleCodeIcon,
   ChapterCalendarIcon,
   EmptyDiscussionIcon,
@@ -47,7 +47,7 @@ import {
   PhaseBadge,
   PhaseHeader
 } from '@/components/CourseIcons';
-import BunnyCDNPlayer from "@/components/BunnyCDNPlayer";
+
 const GreenRadio = withStyles({
   root: {
     color: "#fff",
@@ -131,7 +131,7 @@ function groupChaptersByPhase(chapters: any[]) {
     Amateur: [],
     Advanced: []
   };
-  
+
   chapters.forEach(chapter => {
     if (chapter.is_live) {
       const phase = chapter.phase || 'easy'; // Default to 'easy' if phase is not specified
@@ -142,7 +142,7 @@ function groupChaptersByPhase(chapters: any[]) {
       }
     }
   });
-  
+
   return grouped;
 }
 
@@ -154,16 +154,16 @@ function calculatePhaseProgress(courseData: any) {
     Amateur: { completed: 0, total: 0 },
     Advanced: { completed: 0, total: 0 }
   };
-  
+
   // Group chapters by phase
   const phases = groupChaptersByPhase(courseData?.chapters || []);
-  
+
   // For each phase, calculate completed and total modules
   Object.entries(phases).forEach(([phase, chapters]) => {
     chapters.forEach(chapter => {
       chapter.modules.forEach((module: { serial: number }) => {
         progress[phase].total += 1;
-        
+
         // Check if module is completed
         if (courseData.maxModuleSerialProgress >= module.serial) {
           progress[phase].completed += 1;
@@ -171,7 +171,7 @@ function calculatePhaseProgress(courseData: any) {
       });
     });
   });
-  
+
   return progress;
 }
 
@@ -187,30 +187,30 @@ const AnimatedProgressBar: React.FC<{
     Advanced: "#F44336"
   };
   //add random color
- 
+
   const phaseNames = {
     easy: "Beginner",
     Amateur: "Intermediate",
     Advanced: "Advanced"
   };
-  
+
   const color = phaseColors[phase as keyof typeof phaseColors] || "#B153E0";
   const name = phaseNames[phase as keyof typeof phaseNames] || phase;
   const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
-  
+
   // Generate random positions for bubble particles
   const renderBubbles = () => {
     const bubbles = [];
     const bubbleCount = 8; // Number of bubbles
-    
+
     for (let i = 0; i < bubbleCount; i++) {
       const size = Math.floor(Math.random() * 8) + 4; // Random size between 4-12px
       const positionY = Math.floor(Math.random() * 100); // Random vertical position
       const delay = Math.random() * 3; // Random animation delay
       const opacity = (Math.random() * 0.5) + 0.2; // Random opacity between 0.2-0.7
-      
+
       bubbles.push(
-        <div 
+        <div
           key={i}
           className="absolute rounded-full animate-bubble"
           style={{
@@ -225,10 +225,10 @@ const AnimatedProgressBar: React.FC<{
         />
       );
     }
-    
+
     return bubbles;
   };
-  
+
   return (
     <div className="mb-4">
       <div className="flex justify-between items-center mb-1">
@@ -238,25 +238,25 @@ const AnimatedProgressBar: React.FC<{
         </div>
         <span className="text-xs text-gray-300">{progress.completed}/{progress.total} ({percentage}%)</span>
       </div>
-      
+
       <div className="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden backdrop-blur-sm relative">
         {/* Gradient background for progress */}
-        <div 
+        <div
           className="h-full rounded-full transition-all duration-1000 relative overflow-hidden"
-          style={{ 
+          style={{
             width: `${percentage}%`,
             background: `linear-gradient(90deg, ${color}60 0%, ${color} 100%)`,
             boxShadow: `0 0 10px ${color}80`
           }}
         >
           {/* Animated shine effect */}
-          <div 
+          <div
             className="absolute top-0 left-0 h-full w-20 bg-white/30 skew-x-30 animate-shine"
-            style={{ 
+            style={{
               filter: `blur(5px)`,
             }}
           />
-          
+
           {/* Bubble particles */}
           {renderBubbles()}
         </div>
@@ -365,7 +365,7 @@ export default function CourseDetailsPage() {
           setNewDiscussion("");
           toast.success("Your comment was added!");
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   };
 
@@ -449,7 +449,7 @@ export default function CourseDetailsPage() {
             if (
               module.id === parseInt(router.query.moduleid as string) &&
               module.chapter_id ===
-                parseInt(router.query.chapterid as string) &&
+              parseInt(router.query.chapterid as string) &&
               module.serial <= res.data.maxModuleSerialProgress + 1
             ) {
               targetModule = module;
@@ -460,7 +460,7 @@ export default function CourseDetailsPage() {
             }
           });
         });
-       
+
 
         if (targetModule !== null) {
           setActiveModule(targetModule);
@@ -691,7 +691,7 @@ export default function CourseDetailsPage() {
 
   useEffect(() => {
     if (router.query.chapterid && router.query.moduleid) {
-  
+
       fetchCourse();
     }
   }, [router]);
@@ -711,7 +711,7 @@ export default function CourseDetailsPage() {
     <div className={`  ${HindSiliguri.variable} font-hind   overflow-x-hidden`}>
       {/* Add the style tag to include our custom animations */}
       <style jsx global>{customStyles}</style>
-      
+
       <Nav></Nav>
       <Toaster />
 
@@ -1101,11 +1101,14 @@ export default function CourseDetailsPage() {
                 )}
                 {activeModule?.data?.category == "VIDEO" &&
                   activeModule?.data?.videoHost === "BunnyCDN" && (
-                    <BunnyCDNPlayer 
-                      videoUrl={activeModule?.data?.videoUrl} 
-                    />
+                    <iframe
+                      className="rounded-xl w-full min-h-[260px]  md:min-h-[400px]  lg:min-h-[500px] "
+                      src={activeModule?.data?.videoUrl}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
                   )}
-
                 {activeModule?.data?.category === "ASSIGNMENT" && (
                   <div className=" mx-auto  z-20">
                     <p className="text-lg  mb-2">
@@ -1128,12 +1131,11 @@ export default function CourseDetailsPage() {
                       {assignmentEvaluted.length > 0 &&
                         assignmentEvaluted[0]?.status === "EVALUATED" && (
                           <span
-                            className={`font-semibold text-xl ${
-                              assignmentEvaluted[0]?.evaluation?.verdict ===
+                            className={`font-semibold text-xl ${assignmentEvaluted[0]?.evaluation?.verdict ===
                               "PASSED"
-                                ? "text-green-300"
-                                : "text-red-300"
-                            }`}
+                              ? "text-green-300"
+                              : "text-red-300"
+                              }`}
                           >
                             {assignmentEvaluted[0] &&
                               assignmentEvaluted[0]?.evaluation?.verdict}
@@ -1207,7 +1209,7 @@ export default function CourseDetailsPage() {
                       <p className="text-lg  mb-2">
                         Coding Status:{" "}
                         {activeModule.serial >=
-                        courseData.maxModuleSerialProgress + 1 ? (
+                          courseData.maxModuleSerialProgress + 1 ? (
                           <span className="font-semibold text-xl text-red-600">
                             INCOMPLETE
                           </span>
@@ -1234,7 +1236,7 @@ export default function CourseDetailsPage() {
                       <p className="text-lg  mb-2">
                         Coding Status:{" "}
                         {activeModule.serial >=
-                        courseData.maxModuleSerialProgress + 1 ? (
+                          courseData.maxModuleSerialProgress + 1 ? (
                           <span className="font-semibold text-xl text-red-600">
                             INCOMPLETE
                           </span>
@@ -1325,12 +1327,12 @@ export default function CourseDetailsPage() {
                                   sx={{
                                     color:
                                       showQuizAnswer &&
-                                      !quizVerdict[index] &&
-                                      elem === quizAnswer[index]
+                                        !quizVerdict[index] &&
+                                        elem === quizAnswer[index]
                                         ? "red"
                                         : showQuizAnswer &&
-                                            quizVerdict[index] &&
-                                            elem === quizAnswer[index]
+                                          quizVerdict[index] &&
+                                          elem === quizAnswer[index]
                                           ? "limegreen"
                                           : "",
                                   }}
@@ -1339,12 +1341,12 @@ export default function CourseDetailsPage() {
                                       sx={{
                                         color:
                                           showQuizAnswer &&
-                                          !quizVerdict[index] &&
-                                          elem === quizAnswer[index]
+                                            !quizVerdict[index] &&
+                                            elem === quizAnswer[index]
                                             ? "red"
                                             : showQuizAnswer &&
-                                                quizVerdict[index] &&
-                                                elem === quizAnswer[index]
+                                              quizVerdict[index] &&
+                                              elem === quizAnswer[index]
                                               ? "limegreen"
                                               : user.darkMode
                                                 ? "#B153E0"
@@ -1352,12 +1354,12 @@ export default function CourseDetailsPage() {
                                         "&.Mui-checked": {
                                           color:
                                             showQuizAnswer &&
-                                            !quizVerdict[index] &&
-                                            elem === quizAnswer[index]
+                                              !quizVerdict[index] &&
+                                              elem === quizAnswer[index]
                                               ? "red"
                                               : showQuizAnswer &&
-                                                  quizVerdict[index] &&
-                                                  elem === quizAnswer[index]
+                                                quizVerdict[index] &&
+                                                elem === quizAnswer[index]
                                                 ? "limegreen"
                                                 : user.darkMode
                                                   ? "#B153E0"
@@ -1403,11 +1405,10 @@ export default function CourseDetailsPage() {
                       onClick={submitQuiz}
                       type="submit"
                       disabled={showQuizAnswer}
-                      className={`py-2 mt-5 px-8 ${
-                        showQuizAnswer
-                          ? "bg-gray-500 cursor-not-allowed"
-                          : "bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80"
-                      }   rounded font-semibold text-white text-lg`}
+                      className={`py-2 mt-5 px-8 ${showQuizAnswer
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-[#532e62] hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80"
+                        }   rounded font-semibold text-white text-lg`}
                     >
                       Submit Answer
                     </button>
@@ -1428,6 +1429,35 @@ export default function CourseDetailsPage() {
                     __html: activeModule?.description,
                   }}
                 ></div>
+                {/* {activeModule?.data?.category === "TEXT" && (
+                  <div className="prose prose-lg dark:prose-invert max-w-none">
+                    {activeModule?.description?.split('\n').map((paragraph: string, index: number) => {
+                      // Convert URLs to clickable links
+                      const textWithLinks = paragraph.split(/(\bhttps?:\/\/\S+\b)/g).map((text: string, i: number) => {
+                        if (text.match(/^https?:\/\//)) {
+                          return (
+                            <a
+                              key={i}
+                              href={text}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-purple-500 hover:text-purple-700 underline"
+                            >
+                              {text}
+                            </a>
+                          );
+                        }
+                        return text;
+                      });
+
+                      return (
+                        <p key={index} className="text-lg leading-relaxed break-words">
+                          {textWithLinks}
+                        </p>
+                      );
+                    })}
+                  </div>
+                )} */}
               </div>
               <div className="mt-1">
                 {activeModule.serial < 48 && (
@@ -1475,7 +1505,7 @@ export default function CourseDetailsPage() {
                           nextModule.data.category === "ASSIGNMENT" &&
                           courseData.isTaken &&
                           courseData.maxModuleSerialProgress + 1 >=
-                            nextModule.serial
+                          nextModule.serial
                         ) {
                           fetchEvalutedAssignment(nextModule.id);
                           setActiveModule(nextModule);
@@ -1484,7 +1514,7 @@ export default function CourseDetailsPage() {
                           nextModule.data.category === "CODE" &&
                           courseData.isTaken &&
                           courseData.maxModuleSerialProgress + 1 >=
-                            nextModule.serial
+                          nextModule.serial
                         ) {
                           setActiveModule(nextModule);
                         }
@@ -1492,7 +1522,7 @@ export default function CourseDetailsPage() {
                         if (
                           nextModule.data.category === "VIDEO" &&
                           courseData.maxModuleSerialProgress + 1 >=
-                            nextModule.serial
+                          nextModule.serial
                         ) {
                           setActiveModule(nextModule);
                           submitProgress(nextModule.id, nextModule.score);
@@ -1500,7 +1530,7 @@ export default function CourseDetailsPage() {
                         if (
                           nextModule.data.category === "QUIZ" &&
                           courseData.maxModuleSerialProgress + 1 >=
-                            nextModule.serial &&
+                          nextModule.serial &&
                           courseData.isTaken
                         ) {
                           setActiveModule(nextModule);
@@ -1508,7 +1538,7 @@ export default function CourseDetailsPage() {
                         if (
                           nextModule.data.category === "PDF" &&
                           courseData.maxModuleSerialProgress + 1 >=
-                            nextModule.serial
+                          nextModule.serial
                         ) {
                           setActiveModule(nextModule);
                           submitProgress(nextModule.id, nextModule.score);
@@ -1516,7 +1546,7 @@ export default function CourseDetailsPage() {
                         if (
                           nextModule.data.category === "TEXT" &&
                           courseData.maxModuleSerialProgress + 1 >=
-                            nextModule.serial
+                          nextModule.serial
                         ) {
                           setActiveModule(nextModule);
                           submitProgress(nextModule.id, nextModule.score);
@@ -1524,11 +1554,10 @@ export default function CourseDetailsPage() {
                       }
                     }}
                     className={`py-2 mt-5 px-6  hover:opacity-75 ease-in-out duration-150 focus:ring ring-gray-300/80  rounded font-semibold text-white text-lg
-                    ${
-                      activeModule.serial > courseData.maxModuleSerialProgress
+                    ${activeModule.serial > courseData.maxModuleSerialProgress
                         ? "bg-gray-300/30 cursor-not-allowed"
                         : "bg-[#532e62]"
-                    }
+                      }
                     `}
                     disabled={
                       activeModule.serial > courseData.maxModuleSerialProgress
@@ -1595,29 +1624,29 @@ export default function CourseDetailsPage() {
                     {Object.entries(calculatePhaseProgress(courseData)).map(([phase, phaseProgress]) => (
                       //only show the phase if it has chapters and has progress
                       phaseProgress.total > 0 && phaseProgress.completed > 0 && (
-                        <AnimatedProgressBar 
+                        <AnimatedProgressBar
                           key={phase}
-                          phase={phase} 
+                          phase={phase}
                           progress={phaseProgress}
                         />
                       )
                     ))}
                   </div>
-                  
+
                   {/* Existing phase groups */}
                   {Object.entries(groupChaptersByPhase(courseData?.chapters || [])).map(([phase, chapters]) => (
                     chapters.length > 0 && (
                       <div key={phase} className="mb-6">
                         <PhaseHeader phase={phase} />
-                        
+
                         {chapters.map((elem: any, index: any) => {
                           // Get phase-specific color
-                          const phaseColor = 
-                            elem.phase === 'easy' ? '#4CAF50' : 
-                            elem.phase === 'Amateur' ? '#FF9800' : 
-                            elem.phase === 'Advanced' ? '#F44336' : 
-                            '#B153E0';
-                            
+                          const phaseColor =
+                            elem.phase === 'easy' ? '#4CAF50' :
+                              elem.phase === 'Amateur' ? '#FF9800' :
+                                elem.phase === 'Advanced' ? '#F44336' :
+                                  '#B153E0';
+
                           return (
                             <div
                               key={Math.random()}
@@ -1641,11 +1670,11 @@ export default function CourseDetailsPage() {
                                   >
                                     {elem.is_free || courseData.isTaken ? (
                                       <div className="">
-                                        <div className={`px-2 py-2 rounded-full`} style={{ 
-                                          backgroundColor: `${phaseColor}14` 
+                                        <div className={`px-2 py-2 rounded-full`} style={{
+                                          backgroundColor: `${phaseColor}14`
                                         }}>
-                                          <p className="px-4 py-1 rounded-full font-bold text-xl inline-block" 
-                                             style={{ backgroundColor: `${phaseColor}32` }}>
+                                          <p className="px-4 py-1 rounded-full font-bold text-xl inline-block"
+                                            style={{ backgroundColor: `${phaseColor}32` }}>
                                             {index + 1}
                                           </p>
                                         </div>
@@ -1662,30 +1691,27 @@ export default function CourseDetailsPage() {
                                     <div>
                                       <div className="flex items-center gap-2">
                                         <p
-                                          className={`text-2xl ${
-                                            !elem.is_free &&
+                                          className={`text-2xl ${!elem.is_free &&
                                             !courseData.isTaken &&
                                             "text-[#565656]"
-                                          }`}
+                                            }`}
                                         >
                                           {elem.title}
                                         </p>
                                       </div>
                                       <div className="flex flex-wrap gap-3 lg:items-center mt-3 text-sm font-medium">
                                         <div
-                                          className={`flex items-center gap-3 ${
-                                            countAssignmentsAndVideos(elem.modules)
-                                              .videoCount == 0 && "hidden"
-                                          }`}
+                                          className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
+                                            .videoCount == 0 && "hidden"
+                                            }`}
                                         >
-                                          <ChapterCalendarIcon 
-                                            isActive={elem.is_free} 
-                                            fillColor={phaseColor} 
+                                          <ChapterCalendarIcon
+                                            isActive={elem.is_free}
+                                            fillColor={phaseColor}
                                           />
                                           <p
-                                            className={` ${
-                                              !elem.is_free && "text-[#565656]"
-                                            }`}
+                                            className={` ${!elem.is_free && "text-[#565656]"
+                                              }`}
                                           >
                                             {
                                               countAssignmentsAndVideos(
@@ -1695,21 +1721,19 @@ export default function CourseDetailsPage() {
                                             টি ভিডিও
                                           </p>
                                         </div>
-                                        
+
                                         <div
-                                          className={`flex items-center gap-3 ${
-                                            countAssignmentsAndVideos(elem.modules)
-                                              .quizCount == 0 && "hidden"
-                                          }`}
+                                          className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
+                                            .quizCount == 0 && "hidden"
+                                            }`}
                                         >
-                                          <ChapterCalendarIcon 
-                                            isActive={elem.is_free} 
-                                            fillColor={phaseColor} 
+                                          <ChapterCalendarIcon
+                                            isActive={elem.is_free}
+                                            fillColor={phaseColor}
                                           />
                                           <p
-                                            className={` ${
-                                              !elem.is_free && "text-[#565656]"
-                                            }`}
+                                            className={` ${!elem.is_free && "text-[#565656]"
+                                              }`}
                                           >
                                             {
                                               countAssignmentsAndVideos(
@@ -1719,21 +1743,19 @@ export default function CourseDetailsPage() {
                                             টি কুইজ
                                           </p>
                                         </div>
-                                        
+
                                         <div
-                                          className={`flex items-center gap-3 ${
-                                            countAssignmentsAndVideos(elem.modules)
-                                              .codeCount == 0 && "hidden"
-                                          }`}
+                                          className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
+                                            .codeCount == 0 && "hidden"
+                                            }`}
                                         >
-                                          <ChapterCalendarIcon 
-                                            isActive={elem.is_free} 
+                                          <ChapterCalendarIcon
+                                            isActive={elem.is_free}
                                             fillColor={phaseColor}
                                           />
                                           <p
-                                            className={` ${
-                                              !elem.is_free && "text-[#565656]"
-                                            }`}
+                                            className={` ${!elem.is_free && "text-[#565656]"
+                                              }`}
                                           >
                                             {
                                               countAssignmentsAndVideos(
@@ -1743,21 +1765,19 @@ export default function CourseDetailsPage() {
                                             টি কোডিং চ্যালেঞ্জ
                                           </p>
                                         </div>
-                                        
+
                                         <div
-                                          className={`flex items-center gap-3 ${
-                                            countAssignmentsAndVideos(elem.modules)
-                                              .pdfCount == 0 && "hidden"
-                                          }`}
+                                          className={`flex items-center gap-3 ${countAssignmentsAndVideos(elem.modules)
+                                            .pdfCount == 0 && "hidden"
+                                            }`}
                                         >
-                                          <ChapterCalendarIcon 
-                                            isActive={elem.is_free} 
+                                          <ChapterCalendarIcon
+                                            isActive={elem.is_free}
                                             fillColor={phaseColor}
                                           />
                                           <p
-                                            className={` ${
-                                              !elem.is_free && "text-[#565656]"
-                                            }`}
+                                            className={` ${!elem.is_free && "text-[#565656]"
+                                              }`}
                                           >
                                             {
                                               countAssignmentsAndVideos(
@@ -1815,7 +1835,7 @@ export default function CourseDetailsPage() {
                                           module.data.category === "ASSIGNMENT" &&
                                           courseData.isTaken &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial
+                                          module.serial
                                         ) {
                                           fetchEvalutedAssignment(module.id);
                                           router.push(
@@ -1826,7 +1846,7 @@ export default function CourseDetailsPage() {
                                           module.data.category === "CODE" &&
                                           courseData.isTaken &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial
+                                          module.serial
                                         ) {
                                           router.push(
                                             `/course-cp-2/${module.chapter_id}/${module.id}`,
@@ -1836,7 +1856,7 @@ export default function CourseDetailsPage() {
                                         if (
                                           module.data.category === "VIDEO" &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial
+                                          module.serial
                                         ) {
                                           submitProgress(module.id, module.score);
                                           router.push(
@@ -1846,7 +1866,7 @@ export default function CourseDetailsPage() {
                                         if (
                                           module.data.category === "QUIZ" &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial &&
+                                          module.serial &&
                                           courseData.isTaken
                                         ) {
                                           router.push(
@@ -1856,7 +1876,7 @@ export default function CourseDetailsPage() {
                                         if (
                                           module.data.category === "PDF" &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial
+                                          module.serial
                                         ) {
                                           submitProgress(module.id, module.score);
                                           router.push(
@@ -1866,7 +1886,7 @@ export default function CourseDetailsPage() {
                                         if (
                                           module.data.category === "TEXT" &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial
+                                          module.serial
                                         ) {
                                           submitProgress(module.id, module.score);
                                           router.push(
@@ -1877,105 +1897,98 @@ export default function CourseDetailsPage() {
                                     }}
                                   >
                                     {module.data.category === "VIDEO" && (
-                                      <ModuleVideoIcon 
-                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
-                                        fillColor={phaseColor} 
+                                      <ModuleVideoIcon
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial}
+                                        fillColor={phaseColor}
                                       />
                                     )}
-                                    
+
                                     {module.data.category === "ASSIGNMENT" && (
-                                      <ModuleAssignmentIcon 
-                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
-                                        fillColor={phaseColor} 
+                                      <ModuleAssignmentIcon
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial}
+                                        fillColor={phaseColor}
                                       />
                                     )}
-                                    
+
                                     {module.data.category === "CODE" && (
-                                      <ModuleCodeIcon 
-                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress >= module.serial - 1} 
-                                        fillColor={phaseColor} 
+                                      <ModuleCodeIcon
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress >= module.serial - 1}
+                                        fillColor={phaseColor}
                                       />
                                     )}
-                                    
+
                                     {module.data.category === "QUIZ" && (
-                                      <ModuleQuizIcon 
-                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
-                                        fillColor={phaseColor} 
+                                      <ModuleQuizIcon
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial}
+                                        fillColor={phaseColor}
                                       />
                                     )}
-                                    
+
                                     {module.data.category === "PDF" && (
-                                      <ModulePDFIcon 
-                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
-                                        fillColor={phaseColor} 
+                                      <ModulePDFIcon
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial}
+                                        fillColor={phaseColor}
                                       />
                                     )}
-                                    
+
                                     {module.data.category === "TEXT" && (
-                                      <ModuleTextIcon 
-                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial} 
-                                        fillColor={phaseColor} 
+                                      <ModuleTextIcon
+                                        isAvailable={(elem.is_free || courseData.isTaken) && courseData.maxModuleSerialProgress + 1 >= module.serial}
+                                        fillColor={phaseColor}
                                       />
                                     )}
-                                    
+
                                     <p
-                                      className={`text-base ${
-                                        (elem.is_free || courseData.isTaken) &&
+                                      className={`text-base ${(elem.is_free || courseData.isTaken) &&
                                         courseData.maxModuleSerialProgress + 1 >=
-                                          module.serial &&
+                                        module.serial &&
                                         module.data.category === "VIDEO"
-                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                          : "cursor-not-allowed"
-                                      }
-                                      ${
-                                        (elem.is_free || courseData.isTaken) &&
-                                        courseData.maxModuleSerialProgress >=
-                                          module.serial - 1 &&
-                                        module.data.category === "CODE"
-                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                          : "cursor-not-allowed"
-                                      }
-                                        
-                                        ${
-                                          courseData.isTaken &&
+                                        ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                        : "cursor-not-allowed"
+                                        }
+                                      ${(elem.is_free || courseData.isTaken) &&
                                           courseData.maxModuleSerialProgress >=
-                                            module.serial - 1 &&
+                                          module.serial - 1 &&
+                                          module.data.category === "CODE"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
+                                        }
+                                        
+                                        ${courseData.isTaken &&
+                                          courseData.maxModuleSerialProgress >=
+                                          module.serial - 1 &&
                                           module.data.category === "QUIZ"
-                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                            : "cursor-not-allowed"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
                                         }
 
-                                        ${
-                                          courseData.isTaken &&
+                                        ${courseData.isTaken &&
                                           courseData.maxModuleSerialProgress >=
-                                            module.serial - 1 &&
+                                          module.serial - 1 &&
                                           module.data.category === "PDF"
-                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                            : "cursor-not-allowed"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
                                         }
                                         
-                                        ${
-                                          courseData.isTaken &&
+                                        ${courseData.isTaken &&
                                           courseData.maxModuleSerialProgress >=
-                                            module.serial - 1 &&
+                                          module.serial - 1 &&
                                           module.data.category === "TEXT"
-                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                            : "cursor-not-allowed"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
                                         }
                                         
                                         
-                                        ${
-                                          courseData.isTaken &&
+                                        ${courseData.isTaken &&
                                           courseData.maxModuleSerialProgress + 1 >=
-                                            module.serial &&
+                                          module.serial &&
                                           module.data.category === "ASSIGNMENT"
-                                            ? "hover:text-black dark:hover:text-white cursor-pointer"
-                                            : "cursor-not-allowed"
+                                          ? "hover:text-black dark:hover:text-white cursor-pointer"
+                                          : "cursor-not-allowed"
                                         }
-                                        ${
-                                          module.id === activeModule?.id
-                                            ? "text-heading dark:text-white font-semibold"
-                                            : "text-paragraph/80 dark:text-[#737373]"
+                                        ${module.id === activeModule?.id
+                                          ? "text-heading dark:text-white font-semibold"
+                                          : "text-paragraph/80 dark:text-[#737373]"
                                         }`}
                                     >
                                       {module.data.category === "VIDEO" && "Video:"}{" "}
