@@ -23,7 +23,7 @@ interface Contest {
   contest_video_link?: string;
   start_date: string;
   end_date: string;
-  thumbnail_link: string;
+  thumbnail_link: string | null;
   number_of_problems: string;
   contest_duration: string;
   facebook_group_link?: string;
@@ -419,19 +419,19 @@ export default function ContestListPage({}: Props) {
                   <div className="flex justify-between items-center flex-col-reverse gap-4 lg:flex-row">
                     <div className="lg:py-6 lg:pl-10">
                       <p className="text-white font-bold text-3xl">
-                        কোডিং প্রতিযোগিতায় অংশগ্রহণ করুন{" "}
+                        কোডিং প্রতিযোগিতায় অংশগ্রহণ করে {" "}
                         <br className="hidden lg:block" />
                         <span className="text-[#EB9E11]">
                           উপহার এবং গুডি পাওয়ার{" "}
                         </span>{" "}
-                        সুযোগ জিতুন!
+                        সুযোগ জিতে নাও!
                       </p>
                       <p className="my-4 text-lg text-white">
-                        অন্যান্য অংশগ্রহণকারীদের সাথে প্রতিযোগিতা করুন এবং আপনার
-                        দক্ষতা মূল্যায়ন করুন
+                        অন্যান্য অংশগ্রহণকারীদের সাথে প্রতিযোগিতা করে তোমার
+                        দক্ষতা মূল্যায়ন করো
                       </p>
                       <p className="text-sm text-white">
-                        শত শত শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ করছে!{" "}
+                        তোমার মত আরো অনেক শিক্ষার্থী এই প্রতিযোগিতায় অংশগ্রহণ করছে!{" "}
                       </p>
                     </div>
                     <div>
@@ -468,11 +468,13 @@ export default function ContestListPage({}: Props) {
                           key={contest.id}
                           className="block hover:bg-gray-300/5 bg-gray-300/10 rounded-lg border border-[#2BA98B]/50 overflow-hidden"
                         >
-                          <img
-                            src={contest.thumbnail_link || "https://static-cse.canva.com/blob/1396717/1600w-wK95f3XNRaM.jpg"}
-                            alt={contest.title}
-                            className="w-full h-48 object-cover"
-                          />
+                          {contest.thumbnail_link && (
+                            <img
+                              src={contest.thumbnail_link}
+                              alt={contest.title}
+                              className="w-full h-48 object-cover"
+                            />
+                          )}
                           <div className="p-4">
                             <h3 className="text-xl font-bold text-heading dark:text-darkHeading mb-2">{contest.title}</h3>
                             <p className="text-paragraph dark:text-darkParagraph mb-3">{contest.description}</p>
@@ -504,11 +506,13 @@ export default function ContestListPage({}: Props) {
                           key={contest.id}
               >
                 <div className="flex flex-col lgXl:flex-row items-center gap-6">
-                  <img
-                              src={contest.thumbnail_link || "https://static-cse.canva.com/blob/1396717/1600w-wK95f3XNRaM.jpg"}
+                {contest.thumbnail_link && (
+                            <img
+                              src={contest.thumbnail_link}
                               alt={contest.title}
-                    className="w-[300px] rounded-lg"
-                  />
+                              className="w-full h-48 object-cover"
+                            />
+                          )}
                   <div className="flex-1">
                               <h2 className="text-2xl mt-3 mb-1 text-heading dark:text-darkHeading">
                                 {contest.title}
@@ -593,11 +597,13 @@ export default function ContestListPage({}: Props) {
                           key={contest.id}
                         >
                           <div className="flex flex-col lgXl:flex-row items-center gap-6">
+                          {contest.thumbnail_link && (
                             <img
-                              src={contest.thumbnail_link || "https://static-cse.canva.com/blob/1396717/1600w-wK95f3XNRaM.jpg"}
+                              src={contest.thumbnail_link}
                               alt={contest.title}
-                              className="w-[300px] rounded-lg"
+                              className="w-full h-48 object-cover"
                             />
+                          )}
                             <div className="flex-1">
                               <h2 className="text-2xl mt-3 mb-1 text-heading dark:text-darkHeading">
                                 {contest.title}
@@ -678,11 +684,13 @@ export default function ContestListPage({}: Props) {
                           key={contest.id}
               >
                 <div className="flex flex-col lgXl:flex-row items-center gap-6">
-                  <img
-                              src={contest.thumbnail_link || "https://static-cse.canva.com/blob/1396717/1600w-wK95f3XNRaM.jpg"}
+                {contest.thumbnail_link && (
+                            <img
+                              src={contest.thumbnail_link}
                               alt={contest.title}
-                    className="w-[300px] rounded-lg"
-                  />
+                              className="w-full h-48 object-cover"
+                            />
+                          )}
                   <div className="flex-1">
                               <h2 className="text-2xl mt-3 mb-1 text-heading dark:text-darkHeading">
                                 {contest.title}

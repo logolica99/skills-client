@@ -10,7 +10,7 @@ type Props = {};
 
 import dynamic from "next/dynamic";
 import axios from "axios";
-import { BACKEND_URL, COURSE_ID } from "@/api.config";
+import { BACKEND_URL, COURSE_ID, COURSE_ID_2 } from "@/api.config";
 import { UserContext } from "@/Contexts/UserContext";
 
 const TestComponent = dynamic(() => import("./TestComponent"), {
@@ -129,7 +129,7 @@ export default function Nav({}: Props) {
   const fetchScore = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/course/getScore/" + COURSE_ID, {
+      .get(BACKEND_URL + "/user/course/getScore/" + (isCP2Taken ? COURSE_ID : COURSE_ID_2), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -142,7 +142,7 @@ export default function Nav({}: Props) {
   const fetchNotificationsCount = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(BACKEND_URL + "/user/notification/count?courseId=" + COURSE_ID, {
+      .get(BACKEND_URL + "/user/notification/count?courseId=" + (isCP2Taken ? COURSE_ID : COURSE_ID_2), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
