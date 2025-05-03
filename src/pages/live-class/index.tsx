@@ -161,7 +161,7 @@ const WeeklyClassesSlider = ({ classes, getCourseName, fetchMeetingProps, submit
   return (
     <div className="mb-16 pt-4 overflow-hidden">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-heading dark:text-darkHeading">This Week's Schedule</h2>
+        <h2 className="text-2xl font-bold text-heading dark:text-darkHeading">This Week Schedule</h2>
         <div className="flex gap-2">
           <button 
             onClick={handlePrev} 
