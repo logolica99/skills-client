@@ -192,7 +192,7 @@ export default function Nav({}: Props) {
                   href="/course"
                   className="hidden lg:block hover:text-black dark:hover:text-white ease-in-out duration-150"
                 >
-                  আপনার প্রোগ্রেস
+                  রেকর্ডেড কন্টেন্ট
                 </Link>
               ) : (
                 ""
