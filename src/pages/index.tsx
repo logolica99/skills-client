@@ -19,6 +19,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 import {
   Logo1,
@@ -99,7 +100,7 @@ export default function Home() {
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
 
   return (
     <main className={`${HindSiliguri.variable} font-hind`}>
@@ -120,7 +121,7 @@ export default function Home() {
       </button>
 
       <div className="bg-[#F3F3F3] dark:bg-black pt-20 overflow-x-hidden">
-        <div className ="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
+        <div className="w-[90%] lg:w-[80%] mx-auto py-4 z-20">
           <div className="flex justify-between items-center flex-col-reverse lg:flex-row gap-20 pt-10 lg:pt-0 relative ">
             <GradientEllipse1 />
 
@@ -181,7 +182,7 @@ export default function Home() {
             </div>
             <div className="w-full max-w-md mx-auto relative lg:top-10">
               {mounted && <AnimatedSuccessStories stories={topSuccessStories} />}
-              </div>
+            </div>
           </div>
         </div>
 
@@ -640,9 +641,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-start ${
-                    activeBoxIndex == 1 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-start ${activeBoxIndex == 1 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 1
@@ -720,18 +720,16 @@ export default function Home() {
 
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 1
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 1
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 1
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 1
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           1
                         </p>
@@ -758,9 +756,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-end ${
-                    activeBoxIndex == 2 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-end ${activeBoxIndex == 2 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 2
@@ -795,18 +792,16 @@ export default function Home() {
 
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 2
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 2
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 2
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 2
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           2
                         </p>
@@ -834,9 +829,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-start ${
-                    activeBoxIndex == 3 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-start ${activeBoxIndex == 3 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 3
@@ -871,18 +865,16 @@ export default function Home() {
 
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 3
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 3
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 3
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 3
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           3
                         </p>
@@ -910,9 +902,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-end ${
-                    activeBoxIndex == 4 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-end ${activeBoxIndex == 4 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 4
@@ -947,18 +938,16 @@ export default function Home() {
                     </svg>
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 4
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 4
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 4
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 4
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           4
                         </p>
@@ -986,9 +975,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-start ${
-                    activeBoxIndex == 5 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-start ${activeBoxIndex == 5 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 5
@@ -1023,18 +1011,16 @@ export default function Home() {
                     </svg>
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 5
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 5
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 5
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 5
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           5
                         </p>
@@ -1062,9 +1048,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-end ${
-                    activeBoxIndex == 6 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-end ${activeBoxIndex == 6 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 6
@@ -1098,18 +1083,16 @@ export default function Home() {
                     </svg>
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 6
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 6
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 6
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 6
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           6
                         </p>
@@ -1135,9 +1118,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-start ${
-                    activeBoxIndex == 7 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-start ${activeBoxIndex == 7 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 7
@@ -1172,18 +1154,16 @@ export default function Home() {
                     </svg>
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 7
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 7
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 7
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 7
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           7
                         </p>
@@ -1210,9 +1190,8 @@ export default function Home() {
                 }}
               >
                 <div
-                  className={`rounded-xl  text-center lg:justify-self-end ${
-                    activeBoxIndex == 8 ? "opacity-100" : "opacity-40"
-                  } transition-all duration-300  ease-in-out`}
+                  className={`rounded-xl  text-center lg:justify-self-end ${activeBoxIndex == 8 ? "opacity-100" : "opacity-40"
+                    } transition-all duration-300  ease-in-out`}
                   style={{
                     background:
                       activeBoxIndex == 8
@@ -1226,18 +1205,16 @@ export default function Home() {
                   >
                     <div className="flex flex-col items-center">
                       <div
-                        className={`px-2 py-2 rounded-full ${
-                          activeBoxIndex === 8
+                        className={`px-2 py-2 rounded-full ${activeBoxIndex === 8
                             ? "bg-[#B153E0]/[.14]"
                             : "bg-gray-300/20"
-                        }  `}
+                          }  `}
                       >
                         <p
-                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${
-                            activeBoxIndex === 8
+                          className={`px-4 py-1 rounded-full  font-bold text-xl  ${activeBoxIndex === 8
                               ? "bg-[#B153E0]/[.32]"
                               : "bg-gray-300/40"
-                          }`}
+                            }`}
                         >
                           8
                         </p>
@@ -3625,7 +3602,16 @@ export default function Home() {
         <div className="mt-30">
           <img src="/Group 33531.png" alt="" className="w-[100vw]" />
         </div>
+
         <Footer />
+
+        <WhatsAppWidget
+          phoneNumber="8801768976036"
+          name="CoderVai Team"
+          position="Online | Replies instantly"
+          welcomeMessage="আমরা এখানে একটিভ আছি! 👋 আপনাকে কিভাবে সাহায্য করতে পারি?"
+          avatar="/wasup.svg"
+        />
       </div>
     </main>
   );
