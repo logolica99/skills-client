@@ -12,6 +12,7 @@ import {
   getStoriesByBatch,
   SuccessStory as StoryType,
 } from "@/data/successStories";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 // Component for Grid View Card
 const GridCard = ({
@@ -792,6 +793,16 @@ const SuccessStory = () => {
           )}
         </div>
       </div>
+
+      {mounted && 
+        <WhatsAppWidget
+          phoneNumber="8801768976036"
+          name="CoderVai Team"
+          position="Online | Replies instantly"
+          welcomeMessage="আমরা এখানে একটিভ আছি! 👋 আপনাকে কিভাবে সাহায্য করতে পারি?"
+          avatar="/wasup.svg"
+        />
+      }
 
       {mounted && <Footer />}
     </div>
