@@ -31,6 +31,8 @@ import Lottie from "react-lottie";
 import celebrationLottieData from "./Animation - 1711894031153.json";
 import { useSearchParams } from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import Image from "next/image";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 const settings = {
   dots: true,
@@ -2887,6 +2889,14 @@ export default function CourseDetailsPage() {
       </div>
 
       <Footer />
+
+      <WhatsAppWidget
+        phoneNumber="8801768976036"
+        name="CoderVai Team"
+        position="Online | Replies instantly"
+        welcomeMessage="আমরা এখানে একটিভ আছি! 👋 আপনাকে কিভাবে সাহায্য করতে পারি?"
+        avatar="/wasup.svg"
+      />
     </div>
   );
 }
