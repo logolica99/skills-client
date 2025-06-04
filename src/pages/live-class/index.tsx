@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef, Fragment } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { HindSiliguri } from "@/helpers";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { convertUnixTimestamp } from "@/helpers";
 import FloatingCompiler from "@/components/FloatingCompiler";
 import Footer from "@/components/Footer";
 import jwtDecode from "jwt-decode";
+import { Dialog, Transition } from "@headlessui/react";
+import VideoPlayer from "@/components/VideoPlayer";
 
 type Props = {};
 
@@ -337,6 +339,7 @@ export default function LiveClass({}: Props) {
   const [isMeeting, setMeeting] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState<string>("");
   const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
+  const [selectedRecording, setSelectedRecording] = useState<string | null>(null);
 
   const fetchEnrolledCourses = () => {
     const token = localStorage.getItem("token");
@@ -821,16 +824,14 @@ export default function LiveClass({}: Props) {
                     </div>
                     
                     {liveClass.data?.recordedMeetingLink ? (
-                      <a 
-                        href={liveClass.data.recordedMeetingLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                      <button 
+                        onClick={() => setSelectedRecording(liveClass.data.recordedMeetingLink)}
                         className="w-full py-2 flex items-center justify-center gap-2 mt-5 px-6 
                         rounded font-semibold text-heading dark:text-darkHeading text-lg
                         border border-gray-600 dark:border-gray-300/20 hover:opacity-75 cursor-pointer ease-in-out duration-150"
                       >
                         Watch Recording
-                      </a>
+                      </button>
                     ) : (
                       <button className="w-full py-2 flex items-center justify-center gap-2 mt-5 px-6 
                         rounded font-semibold text-heading dark:text-darkHeading text-lg
@@ -865,6 +866,75 @@ export default function LiveClass({}: Props) {
         </div>
       </div>
       <Footer />
+
+      <Transition appear show={!!selectedRecording} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-50"
+          onClose={() => setSelectedRecording(null)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-75" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-gray-900/70 backdrop-blur-3xl border border-gray-300/30 p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="div"
+                    className="text-lg font-medium leading-6"
+                  >
+                    <div className="flex justify-end">
+                      <button
+                        className="hover:bg-gray-300/20 p-2 rounded"
+                        onClick={() => setSelectedRecording(null)}
+                      >
+                        <svg
+                          width="14"
+                          height="15"
+                          viewBox="0 0 14 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M13 1.25L1 13.25M1 1.25L13 13.25"
+                            stroke="#FBEEEC"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </Dialog.Title>
+                  <div className="mt-4">
+                    {selectedRecording && (
+                      <VideoPlayer videoUrl={selectedRecording} />
+                    )}
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 }

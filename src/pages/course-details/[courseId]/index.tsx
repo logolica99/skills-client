@@ -2588,7 +2588,7 @@ export default function CourseDetailsPage() {
                                   price: 2500,
                                 });
                                 toast.success("Discount Applied!");
-                              } else if (couponCode == "CPSUPERSPECIAL") {
+                              } else if (couponCode == "CPAGENTSPECIAL") {
                                 setCourseData({
                                   ...courseData,
                                   price: 4000,
