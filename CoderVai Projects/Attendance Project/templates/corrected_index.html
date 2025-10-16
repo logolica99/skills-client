@@ -1,0 +1,888 @@
+{% extends "base.html" %} {% block title %}Dashboard - ACS FUTURE SCHOOL
+Attendance{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>
+        <i class="fas fa-dashboard"></i> Attendance Dashboard
+        <span class="badge bg-primary ms-2">ACS FUTURE SCHOOL</span>
+      </h1>
+      <div class="text-muted">
+        <i class="fas fa-clock"></i> <span id="currentDateTime"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Device Status and Data Sync -->
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body py-2">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-0">
+              <i class="fas fa-server"></i> Device Status & Data Sync
+            </h6>
+            <small class="text-muted"
+              >Last Data Sync: <span id="lastDataSync">Loading...</span></small
+            >
+          </div>
+          <div class="d-flex align-items-center">
+            <div id="deviceStatusContainer" class="me-3">
+              <span class="badge bg-secondary">
+                <i class="fas fa-spinner fa-spin"></i> Checking devices...
+              </span>
+            </div>
+            <button
+              class="btn btn-success btn-sm"
+              onclick="refreshDataFromDevices()"
+              id="refreshBtn"
+            >
+              <i class="fas fa-sync-alt"></i> Refresh Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Welcome Alert -->
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <i class="fas fa-graduation-cap"></i>
+  <strong>Welcome to ACS FUTURE SCHOOL!</strong> Comprehensive attendance
+  management system with real-time tracking and detailed analytics.
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ stats.total_users }}</h4>
+            <p class="card-text">Total Users</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-users fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ stats.active_users }}</h4>
+            <p class="card-text">Active Today</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-user-check fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ "{:,}".format(stats.total_records) }}</h4>
+            <p class="card-text">Total Records</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-clipboard-list fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ stats.today_records }}</h4>
+            <p class="card-text">Today's Records</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-calendar-day fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('daily') }}"
+              class="btn btn-outline-primary btn-lg w-100"
+            >
+              <i class="fas fa-calendar-day"></i><br />
+              <small>Today's Attendance</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('monthly') }}"
+              class="btn btn-outline-success btn-lg w-100"
+            >
+              <i class="fas fa-calendar-alt"></i><br />
+              <small>Monthly Report</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('users') }}"
+              class="btn btn-outline-info btn-lg w-100"
+            >
+              <i class="fas fa-users"></i><br />
+              <small>Manage Users</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <button
+              class="btn btn-outline-warning btn-lg w-100"
+              onclick="showSearchModal()"
+            >
+              <i class="fas fa-search"></i><br />
+              <small>Search Records</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <button
+              class="btn btn-outline-success btn-lg w-100"
+              onclick="refreshData()"
+              id="refreshBtn"
+            >
+              <i class="fas fa-sync-alt"></i><br />
+              <small>Refresh Data from Device</small>
+            </button>
+          </div>
+          <div class="col-md-6 mb-3">
+            <button
+              class="btn btn-outline-info btn-lg w-100"
+              onclick="showDataInfo()"
+            >
+              <i class="fas fa-info-circle"></i><br />
+              <small>Data Information</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-clock"></i> Recent Activity</h5>
+      </div>
+      <div class="card-body">
+        <div id="recentActivity">
+          <div class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5><i class="fas fa-chart-pie"></i> Attendance Overview</h5>
+          <div class="btn-group btn-group-sm" role="group">
+            <input
+              type="radio"
+              class="btn-check"
+              name="chartPeriod"
+              id="daily"
+              value="daily"
+              checked
+            />
+            <label class="btn btn-outline-primary" for="daily">Daily</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="chartPeriod"
+              id="weekly"
+              value="weekly"
+            />
+            <label class="btn btn-outline-primary" for="weekly">Weekly</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="chartPeriod"
+              id="monthly"
+              value="monthly"
+            />
+            <label class="btn btn-outline-primary" for="monthly">Monthly</label>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="statusChart" width="400" height="300"></canvas>
+        <div class="mt-2 text-center">
+          <small class="text-muted" id="chartDescription"
+            >Today's attendance distribution</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Search Attendance Records</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="searchForm">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="searchUser" class="form-label"
+                >User ID (optional)</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="searchUser"
+                placeholder="Enter User ID"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="searchStartDate" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="searchStartDate" />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label for="searchEndDate" class="form-label">End Date</label>
+              <input type="date" class="form-control" id="searchEndDate" />
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+              <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div id="searchResults" class="mt-4" style="display: none">
+          <h6>Search Results:</h6>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Name</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                  <th>Verify Method</th>
+                </tr>
+              </thead>
+              <tbody id="searchTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Data Info Modal -->
+<div class="modal fade" id="dataInfoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Corrected Data Information & Status Codes</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6><i class="fas fa-info-circle"></i> Current Data Status</h6>
+            <ul class="list-unstyled">
+              <li>
+                <strong>Mode:</strong>
+                <span class="badge bg-success">Corrected</span>
+              </li>
+              <li>
+                <strong>Total Users:</strong>
+                <span id="modal-total-users">{{ stats.total_users }}</span>
+              </li>
+              <li>
+                <strong>Active Users:</strong>
+                <span id="modal-active-users">{{ stats.active_users }}</span>
+              </li>
+              <li>
+                <strong>Total Records:</strong>
+                <span id="modal-total-records"
+                  >{{ "{:,}".format(stats.total_records) }}</span
+                >
+              </li>
+              <li>
+                <strong>Date Range:</strong> {{ stats.date_range.start }} to {{
+                stats.date_range.end }}
+              </li>
+              <li>
+                <strong>Last Update:</strong>
+                <span id="last-update">Loading...</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6><i class="fas fa-code"></i> Status Codes</h6>
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Meaning</th>
+                  <th>Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0</td>
+                  <td>Check In</td>
+                  <td><span class="badge bg-success">Arrival</span></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Check Out</td>
+                  <td><span class="badge bg-primary">Departure</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Break Out</td>
+                  <td><span class="badge bg-warning">Break Start</span></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Break In</td>
+                  <td><span class="badge bg-info">Break End</span></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Overtime In</td>
+                  <td><span class="badge bg-secondary">OT Start</span></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Overtime Out</td>
+                  <td><span class="badge bg-dark">OT End</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h6 class="mt-3">
+              <i class="fas fa-fingerprint"></i> Verification Methods
+            </h6>
+            <ul class="list-unstyled">
+              <li><strong>FP:</strong> Fingerprint</li>
+              <li><strong>RF:</strong> RFID Card</li>
+              <li><strong>PW:</strong> Password</li>
+              <li><strong>Face:</strong> Face Recognition</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <h6>
+            <i class="fas fa-chart-bar"></i> Status Distribution in Your Data
+          </h6>
+          <canvas
+            id="statusDistributionChart"
+            width="400"
+            height="200"
+          ></canvas>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" onclick="refreshData()">
+          <i class="fas fa-sync-alt"></i> Refresh Data
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  function showSearchModal() {
+    new bootstrap.Modal(document.getElementById("searchModal")).show();
+  }
+
+  function showDataInfo() {
+    loadStatusDistribution();
+    loadLastUpdateTime();
+    new bootstrap.Modal(document.getElementById("dataInfoModal")).show();
+  }
+
+  async function refreshData() {
+    const refreshBtn = document.getElementById("refreshBtn");
+    const originalText = refreshBtn.innerHTML;
+
+    // Show loading state
+    refreshBtn.innerHTML =
+      '<i class="fas fa-spinner fa-spin"></i><br><small>Refreshing...</small>';
+    refreshBtn.disabled = true;
+
+    try {
+      // For now, just reload the page since we're using corrected data
+      showAlert(
+        "info",
+        "Using corrected data from exported logs. Data is already up to date!"
+      );
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.error("Refresh error:", error);
+      showAlert("error", "Error refreshing data.");
+    } finally {
+      // Restore button state
+      refreshBtn.innerHTML = originalText;
+      refreshBtn.disabled = false;
+    }
+  }
+
+  function showAlert(type, message) {
+    const alertClass =
+      type === "success"
+        ? "alert-success"
+        : type === "info"
+        ? "alert-info"
+        : "alert-danger";
+    const alertHtml = `
+    <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+      <i class="fas fa-${
+        type === "success"
+          ? "check-circle"
+          : type === "info"
+          ? "info-circle"
+          : "exclamation-triangle"
+      }"></i>
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  `;
+
+    // Insert alert at the top of the main content
+    const mainContent = document.querySelector("main.container");
+    mainContent.insertAdjacentHTML("afterbegin", alertHtml);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      const alert = mainContent.querySelector(".alert");
+      if (alert) {
+        alert.remove();
+      }
+    }, 5000);
+  }
+
+  // Load recent activity
+  async function loadRecentActivity() {
+    try {
+      const response = await fetch("/api/attendance?limit=10");
+      const data = await response.json();
+
+      const container = document.getElementById("recentActivity");
+
+      if (data.length === 0) {
+        container.innerHTML = '<p class="text-muted">No recent activity</p>';
+        return;
+      }
+
+      let html = '<div class="list-group list-group-flush">';
+      data.forEach((record) => {
+        const timeAgo = moment(record.timestamp).fromNow();
+        html += `
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>${record.name}</strong><br>
+            <small class="text-muted">${record.status_name} • ${
+          record.device_name || "2nd Floor Device"
+        }</small>
+          </div>
+          <div class="text-end">
+            <small class="text-muted">${timeAgo}</small><br>
+            <small class="text-muted">${moment(record.timestamp).format(
+              "HH:mm"
+            )}</small>
+          </div>
+        </div>
+      `;
+      });
+      html += "</div>";
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error("Error loading recent activity:", error);
+      document.getElementById("recentActivity").innerHTML =
+        '<p class="text-danger">Error loading activity</p>';
+    }
+  }
+
+  // Load status distribution chart
+  async function loadStatusDistribution() {
+    try {
+      const response = await fetch("/api/status-distribution");
+      const data = await response.json();
+
+      const ctx = document
+        .getElementById("statusDistributionChart")
+        .getContext("2d");
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              data: data.values,
+              backgroundColor: [
+                "#28a745", // Check In - Green
+                "#007bff", // Check Out - Blue
+                "#ffc107", // Break Out - Yellow
+                "#17a2b8", // Break In - Cyan
+                "#6c757d", // Overtime In - Gray
+                "#343a40", // Overtime Out - Dark
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      });
+    } catch (error) {
+      console.error("Error loading status distribution:", error);
+    }
+  }
+
+  // Load status chart for main dashboard
+  let currentChart = null;
+
+  async function loadStatusChart(period = "daily") {
+    try {
+      const response = await fetch("/api/status-distribution");
+      const data = await response.json();
+
+      // Destroy existing chart
+      if (currentChart) {
+        currentChart.destroy();
+      }
+
+      const ctx = document.getElementById("statusChart").getContext("2d");
+
+      // Create more understandable chart
+      currentChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              data: data.values,
+              backgroundColor: [
+                "#28a745", // Check In - Green
+                "#007bff", // Check Out - Blue
+                "#ffc107", // Break Out - Yellow
+                "#17a2b8", // Break In - Cyan
+                "#6c757d", // Overtime In - Gray
+                "#343a40", // Overtime Out - Dark
+              ],
+              borderWidth: 2,
+              borderColor: "#fff",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                padding: 20,
+                usePointStyle: true,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((context.parsed / total) * 100).toFixed(
+                    1
+                  );
+                  return `${context.label}: ${context.parsed} (${percentage}%)`;
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Update description
+      const descriptions = {
+        daily: "Today's attendance distribution",
+        weekly: "This week's attendance patterns",
+        monthly: "This month's attendance summary",
+      };
+      document.getElementById("chartDescription").textContent =
+        descriptions[period];
+    } catch (error) {
+      console.error("Error loading status chart:", error);
+      document.getElementById("chartDescription").textContent =
+        "Error loading chart data";
+    }
+  }
+
+  // Add event listeners for chart period buttons
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('input[name="chartPeriod"]').forEach((radio) => {
+      radio.addEventListener("change", function () {
+        if (this.checked) {
+          loadStatusChart(this.value);
+        }
+      });
+    });
+  });
+
+  async function loadLastUpdateTime() {
+    try {
+      const response = await fetch("/api/last-update");
+      const data = await response.json();
+      document.getElementById("last-update").textContent = data.last_update;
+    } catch (error) {
+      document.getElementById("last-update").textContent = "Unknown";
+    }
+  }
+
+  // Search form submission
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const uid = document.getElementById("searchUser").value;
+      const startDate = document.getElementById("searchStartDate").value;
+      const endDate = document.getElementById("searchEndDate").value;
+
+      const params = new URLSearchParams();
+      if (uid) params.append("uid", uid);
+      if (startDate) params.append("start_date", startDate);
+      if (endDate) params.append("end_date", endDate);
+
+      try {
+        const response = await fetch(`/api/attendance?${params}`);
+        const data = await response.json();
+
+        const tbody = document.getElementById("searchTableBody");
+        tbody.innerHTML = "";
+
+        data.forEach((record) => {
+          const row = tbody.insertRow();
+          row.innerHTML = `
+        <td>${record.uid}</td>
+        <td>${record.name}</td>
+        <td>${record.timestamp}</td>
+        <td><span class="badge bg-primary">${record.status_name}</span></td>
+        <td><span class="badge bg-info">${record.verify_method}</span></td>
+      `;
+        });
+
+        document.getElementById("searchResults").style.display = "block";
+      } catch (error) {
+        console.error("Search error:", error);
+        alert("Error searching records");
+      }
+    });
+
+  // Update current date and time
+  function updateDateTime() {
+    const now = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+    document.getElementById("currentDateTime").textContent =
+      now.toLocaleDateString("en-US", options);
+  }
+
+  // Load device status
+  async function loadDeviceStatus() {
+    try {
+      const response = await fetch("/api/device-status");
+      const data = await response.json();
+
+      const container = document.getElementById("deviceStatusContainer");
+      let html = "";
+
+      data.devices.forEach((device) => {
+        const statusClass =
+          device.status === "online" ? "bg-success" : "bg-danger";
+        const icon =
+          device.status === "online" ? "check-circle" : "times-circle";
+        const pulseClass = device.status === "online" ? "pulse-success" : "";
+        html += `
+          <span class="badge ${statusClass} me-1 ${pulseClass}" title="${device.ip}">
+            <i class="fas fa-${icon}"></i> ${device.floor}
+          </span>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Update last sync time
+      document.getElementById("lastDataSync").textContent =
+        data.last_data_sync || "Unknown";
+    } catch (error) {
+      console.error("Error loading device status:", error);
+      document.getElementById("deviceStatusContainer").innerHTML =
+        '<span class="badge bg-warning"><i class="fas fa-exclamation-triangle"></i> Status unavailable</span>';
+      document.getElementById("lastDataSync").textContent = "Error";
+    }
+  }
+
+  // Refresh data from devices
+  async function refreshDataFromDevices() {
+    const refreshBtn = document.getElementById("refreshBtn");
+    const originalText = refreshBtn.innerHTML;
+
+    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
+    refreshBtn.disabled = true;
+
+    try {
+      const response = await fetch("/api/refresh-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        showAlert("success", "Data synced successfully from devices!");
+        // Refresh the page data
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        showAlert("error", `Sync failed: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Refresh error:", error);
+      showAlert("error", "Error syncing data from devices.");
+    } finally {
+      refreshBtn.innerHTML = originalText;
+      refreshBtn.disabled = false;
+    }
+  }
+
+  // Show alert messages
+  function showAlert(type, message) {
+    const alertClass =
+      type === "success"
+        ? "alert-success"
+        : type === "info"
+        ? "alert-info"
+        : "alert-danger";
+    const iconClass =
+      type === "success"
+        ? "check-circle"
+        : type === "info"
+        ? "info-circle"
+        : "exclamation-triangle";
+
+    const alertHtml = `
+      <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+        <i class="fas fa-${iconClass}"></i>
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    `;
+
+    const mainContent = document.querySelector("main.container");
+    mainContent.insertAdjacentHTML("afterbegin", alertHtml);
+
+    setTimeout(() => {
+      const alert = mainContent.querySelector(".alert");
+      if (alert) {
+        alert.remove();
+      }
+    }, 5000);
+  }
+
+  // Load data on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    updateDateTime();
+    setInterval(updateDateTime, 1000); // Update every second
+    loadRecentActivity();
+    loadStatusChart();
+    loadDeviceStatus();
+
+    // Refresh device status every 5 minutes (300000 ms)
+    setInterval(loadDeviceStatus, 300000);
+
+    // Refresh recent activity every 2 minutes
+    setInterval(loadRecentActivity, 120000);
+  });
+</script>
+{% endblock %}

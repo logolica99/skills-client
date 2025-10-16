@@ -1,0 +1,546 @@
+{% extends "base.html" %} {% block title %}Users Management - ZKTeco{% endblock
+%} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1><i class="fas fa-users"></i> Users Management</h1>
+      <button class="btn btn-primary" onclick="showAddUserModal()">
+        <i class="fas fa-plus"></i> Add User
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <h4>{{ users|length }}</h4>
+        <p class="mb-0">Total Users</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        {% set active_users = users|selectattr("uid")|list|length %}
+        <h4>{{ active_users }}</h4>
+        <p class="mb-0">Active Users</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        {% set card_users = users|selectattr("card")|selectattr("card", "ne",
+        "0")|list|length %}
+        <h4>{{ card_users }}</h4>
+        <p class="mb-0">With Cards</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        {% set no_card_users = users|selectattr("card", "eq", "0")|list|length
+        %}
+        <h4>{{ no_card_users }}</h4>
+        <p class="mb-0">Without Cards</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search and Filter Controls -->
+<div class="row mb-3">
+  <div class="col-md-6">
+    <div class="input-group">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Search by name, ID, or card..."
+      />
+    </div>
+  </div>
+  <div class="col-md-3">
+    <select id="cardFilter" class="form-select">
+      <option value="">All Users</option>
+      <option value="with-card">With Card</option>
+      <option value="without-card">Without Card</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <div class="btn-group w-100" role="group">
+      <button class="btn btn-outline-secondary" onclick="exportUsers()">
+        <i class="fas fa-download"></i> Export
+      </button>
+      <button class="btn btn-outline-info" onclick="syncUsers()">
+        <i class="fas fa-sync"></i> Sync
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Users Table -->
+<div class="card">
+  <div class="card-header">
+    <h5><i class="fas fa-table"></i> User Directory</h5>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover" id="usersTable">
+        <thead class="table-dark">
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Card Number</th>
+            <th>Status</th>
+            <th>Last Activity</th>
+            <th>Total Records</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>
+              <span class="badge bg-primary">{{ user.uid }}</span>
+            </td>
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="avatar-circle me-2">
+                  {{ user.name[0] if user.name else 'U' }}
+                </div>
+                <div>
+                  <a href="/user/{{ user.uid }}" class="text-decoration-none">
+                    <strong class="text-primary"
+                      >{{ user.name or 'Unknown User' }}</strong
+                    >
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              {% if user.card and user.card != "0" %}
+              <span class="badge bg-success">{{ user.card }}</span>
+              {% else %}
+              <span class="badge bg-secondary">No Card</span>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge bg-success">Active</span>
+            </td>
+            <td>
+              <span class="text-muted" id="last-activity-{{ user.uid }}"
+                >Loading...</span
+              >
+            </td>
+            <td>
+              <span class="badge bg-info" id="record-count-{{ user.uid }}"
+                >0</span
+              >
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  onclick="viewUserProfile({{ user.uid }})"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-warning"
+                  onclick="editUser({{ user.uid }})"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  onclick="deleteUser({{ user.uid }})"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New User</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="addUserForm">
+          <div class="mb-3">
+            <label for="newUserId" class="form-label">User ID</label>
+            <input type="number" class="form-control" id="newUserId" required />
+          </div>
+          <div class="mb-3">
+            <label for="newUserName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="newUserName" required />
+          </div>
+          <div class="mb-3">
+            <label for="newUserCard" class="form-label"
+              >Card Number (Optional)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="newUserCard"
+              placeholder="Leave empty if no card"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" onclick="addUser()">
+          Add User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Profile Modal -->
+<div class="modal fade" id="userProfileModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">User Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div id="userProfileContent">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="editUserForm">
+          <div class="mb-3">
+            <label for="editUserId" class="form-label">User ID</label>
+            <input
+              type="number"
+              class="form-control"
+              id="editUserId"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editUserName" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="editUserName"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editUserCard" class="form-label">Card Number</label>
+            <input type="text" class="form-control" id="editUserCard" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" onclick="updateUser()">
+          Update User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  // Search and filter functionality
+  document.getElementById("searchInput").addEventListener("input", filterUsers);
+  document.getElementById("cardFilter").addEventListener("change", filterUsers);
+
+  function filterUsers() {
+    const searchTerm = document
+      .getElementById("searchInput")
+      .value.toLowerCase();
+    const cardFilter = document.getElementById("cardFilter").value;
+    const table = document.getElementById("usersTable");
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const name = row.cells[1].textContent.toLowerCase();
+      const uid = row.cells[0].textContent.toLowerCase();
+      const card = row.cells[2].textContent.toLowerCase();
+
+      let showRow = true;
+
+      // Search filter
+      if (
+        searchTerm &&
+        !name.includes(searchTerm) &&
+        !uid.includes(searchTerm) &&
+        !card.includes(searchTerm)
+      ) {
+        showRow = false;
+      }
+
+      // Card filter
+      if (cardFilter) {
+        if (cardFilter === "with-card" && card.includes("no card")) {
+          showRow = false;
+        } else if (cardFilter === "without-card" && !card.includes("no card")) {
+          showRow = false;
+        }
+      }
+
+      row.style.display = showRow ? "" : "none";
+    }
+  }
+
+  function showAddUserModal() {
+    new bootstrap.Modal(document.getElementById("addUserModal")).show();
+  }
+
+  function addUser() {
+    const uid = document.getElementById("newUserId").value;
+    const name = document.getElementById("newUserName").value;
+    const card = document.getElementById("newUserCard").value || "0";
+
+    if (!uid || !name) {
+      alert("Please fill in all required fields");
+      return;
+    }
+
+    // This would typically send data to server
+    alert("Add user functionality would be implemented here");
+    bootstrap.Modal.getInstance(document.getElementById("addUserModal")).hide();
+  }
+
+  async function viewUserProfile(uid) {
+    try {
+      // Get user's attendance data for profile
+      const response = await fetch(`/api/attendance?uid=${uid}`);
+      const attendanceData = await response.json();
+
+      // Calculate some statistics
+      const totalRecords = attendanceData.length;
+      const firstRecord =
+        attendanceData.length > 0 ? attendanceData[0].timestamp : "No records";
+      const lastRecord =
+        attendanceData.length > 0
+          ? attendanceData[attendanceData.length - 1].timestamp
+          : "No records";
+
+      const content = `
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="avatar-circle-large mb-3">${
+                          attendanceData[0]?.name?.[0] || "U"
+                        }</div>
+                        <h5>${attendanceData[0]?.name || "Unknown User"}</h5>
+                        <p class="text-muted">User ID: ${uid}</p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h6>Activity Summary</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Total Records:</strong> ${totalRecords}</li>
+                        <li><strong>First Activity:</strong> ${firstRecord}</li>
+                        <li><strong>Last Activity:</strong> ${lastRecord}</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Recent Activity</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Date</th><th>Time</th><th>Status</th></tr>
+                            </thead>
+                            <tbody>
+                                ${attendanceData
+                                  .slice(0, 10)
+                                  .map((record) => {
+                                    const date = new Date(
+                                      record.timestamp
+                                    ).toLocaleDateString();
+                                    const time = new Date(
+                                      record.timestamp
+                                    ).toLocaleTimeString();
+                                    return `<tr><td>${date}</td><td>${time}</td><td><span class="badge bg-primary">${record.status_name}</span></td></tr>`;
+                                  })
+                                  .join("")}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      document.getElementById("userProfileContent").innerHTML = content;
+      new bootstrap.Modal(document.getElementById("userProfileModal")).show();
+    } catch (error) {
+      console.error("Error loading user profile:", error);
+      alert("Error loading user profile");
+    }
+  }
+
+  function editUser(uid) {
+    // Find user data from the table
+    const table = document.getElementById("usersTable");
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const rowUid = row.cells[0].textContent.trim();
+
+      if (rowUid === uid.toString()) {
+        const name = row.cells[1].querySelector("strong").textContent;
+        const cardCell = row.cells[2].textContent.trim();
+        const card = cardCell === "No Card" ? "" : cardCell;
+
+        document.getElementById("editUserId").value = uid;
+        document.getElementById("editUserName").value = name;
+        document.getElementById("editUserCard").value = card;
+
+        new bootstrap.Modal(document.getElementById("editUserModal")).show();
+        break;
+      }
+    }
+  }
+
+  function updateUser() {
+    const uid = document.getElementById("editUserId").value;
+    const name = document.getElementById("editUserName").value;
+    const card = document.getElementById("editUserCard").value;
+
+    if (!name) {
+      alert("Name is required");
+      return;
+    }
+
+    // This would typically send update request to server
+    alert("Update user functionality would be implemented here");
+    bootstrap.Modal.getInstance(
+      document.getElementById("editUserModal")
+    ).hide();
+  }
+
+  function deleteUser(uid) {
+    if (
+      confirm(
+        "Are you sure you want to delete this user? This action cannot be undone."
+      )
+    ) {
+      // This would typically send delete request to server
+      alert("Delete user functionality would be implemented here");
+    }
+  }
+
+  function exportUsers() {
+    alert("Export users functionality would be implemented here");
+  }
+
+  function syncUsers() {
+    alert("Sync users functionality would be implemented here");
+  }
+
+  // Load user statistics on page load
+  document.addEventListener("DOMContentLoaded", async function () {
+    // Load last activity and record counts for each user
+    const userRows = document.querySelectorAll("#usersTable tbody tr");
+
+    for (const row of userRows) {
+      const uid = row.cells[0].textContent.trim();
+
+      try {
+        const response = await fetch(`/api/attendance?uid=${uid}`);
+        const data = await response.json();
+
+        // Update last activity
+        const lastActivityCell = document.getElementById(
+          `last-activity-${uid}`
+        );
+        if (data.length > 0) {
+          const lastActivity = new Date(data[data.length - 1].timestamp);
+          lastActivityCell.textContent = lastActivity.toLocaleDateString();
+        } else {
+          lastActivityCell.textContent = "No records";
+        }
+
+        // Update record count
+        const recordCountCell = document.getElementById(`record-count-${uid}`);
+        recordCountCell.textContent = data.length;
+      } catch (error) {
+        console.error(`Error loading data for user ${uid}:`, error);
+      }
+    }
+  });
+</script>
+
+<style>
+  .avatar-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .avatar-circle-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0 auto;
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,381 @@
+{% extends "base.html" %} {% block title %}Verification Analysis - ZKTeco{%
+endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1><i class="fas fa-fingerprint"></i> Verification Method Analysis</h1>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+
+{% if not enhanced_mode %}
+<!-- Enhanced Mode Required Alert -->
+<div class="alert alert-warning" role="alert">
+  <i class="fas fa-exclamation-triangle"></i>
+  <strong>Enhanced Data Required:</strong> {{ message }}
+  <br />
+  <button class="btn btn-primary mt-2" onclick="runEnhancedExtraction()">
+    <i class="fas fa-download"></i> Extract Enhanced Data Now
+  </button>
+</div>
+{% else %}
+
+<!-- Verification Statistics Cards -->
+<div class="row mb-4">
+  {% for method, count in verify_stats.items() %}
+  <div class="col-md-3">
+    <div
+      class="card {% if method == 'Fingerprint' %}bg-success{% endif %} {% if method == 'RFID Card' %}bg-primary{% endif %} {% if method == 'Password' %}bg-warning{% endif %} {% if method == 'Face' %}bg-info{% endif %} text-white"
+    >
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ count }}</h4>
+            <p class="card-text">{{ method }}</p>
+          </div>
+          <div class="align-self-center">
+            {% if method == 'Fingerprint' %}
+            <i class="fas fa-fingerprint fa-2x"></i>
+            {% elif method == 'RFID Card' %}
+            <i class="fas fa-id-card fa-2x"></i>
+            {% elif method == 'Password' %}
+            <i class="fas fa-key fa-2x"></i>
+            {% elif method == 'Face' %}
+            <i class="fas fa-user-circle fa-2x"></i>
+            {% else %}
+            <i class="fas fa-question-circle fa-2x"></i>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>
+          <i class="fas fa-chart-pie"></i> Verification Method Distribution
+        </h5>
+      </div>
+      <div class="card-body">
+        <canvas id="verificationPieChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-chart-line"></i> Daily Verification Trends</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="dailyTrendChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Security Analysis -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-shield-alt"></i> Security Analysis</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="text-center">
+              {% set fp_percentage = (verify_stats.get('Fingerprint', 0) /
+              verify_stats.values() | sum * 100) | round(1) %}
+              <h3 class="text-success">{{ fp_percentage }}%</h3>
+              <p>Biometric Authentication</p>
+              <small class="text-muted">Fingerprint verification</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="text-center">
+              {% set card_percentage = (verify_stats.get('RFID Card', 0) /
+              verify_stats.values() | sum * 100) | round(1) %}
+              <h3 class="text-info">{{ card_percentage }}%</h3>
+              <p>Card Authentication</p>
+              <small class="text-muted">RFID card verification</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="text-center">
+              {% set pw_percentage = (verify_stats.get('Password', 0) /
+              verify_stats.values() | sum * 100) | round(1) %}
+              <h3 class="text-warning">{{ pw_percentage }}%</h3>
+              <p>Password Authentication</p>
+              <small class="text-muted">Manual password entry</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <h6>Security Recommendations:</h6>
+          <ul class="list-unstyled">
+            {% if fp_percentage < 70 %}
+            <li>
+              <i class="fas fa-exclamation-triangle text-warning"></i> Consider
+              encouraging more fingerprint usage for better security
+            </li>
+            {% endif %} {% if pw_percentage > 10 %}
+            <li>
+              <i class="fas fa-info-circle text-info"></i> High password usage
+              detected - ensure strong password policies
+            </li>
+            {% endif %} {% if card_percentage > 50 %}
+            <li>
+              <i class="fas fa-check-circle text-success"></i> Good card usage -
+              ensure cards are properly managed
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Verification Log -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5><i class="fas fa-list"></i> Recent Verification Activity</h5>
+          <div>
+            <select id="methodFilter" class="form-select form-select-sm">
+              <option value="">All Methods</option>
+              <option value="Fingerprint">Fingerprint</option>
+              <option value="RFID Card">RFID Card</option>
+              <option value="Password">Password</option>
+              <option value="Face">Face Recognition</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="verificationTable">
+            <thead class="table-dark">
+              <tr>
+                <th>Time</th>
+                <th>User</th>
+                <th>Verification Method</th>
+                <th>Status</th>
+                <th>Security Level</th>
+              </tr>
+            </thead>
+            <tbody id="verificationTableBody">
+              <!-- Data will be loaded via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %} {% endblock %} {% block scripts %}
+<script>
+  {% if enhanced_mode %}
+  // Load verification charts
+  async function loadVerificationCharts() {
+    try {
+      // Load verification distribution
+      const response = await fetch('/api/verification-distribution');
+      const data = await response.json();
+
+      // Pie chart
+      const pieCtx = document.getElementById('verificationPieChart').getContext('2d');
+      new Chart(pieCtx, {
+        type: 'doughnut',
+        data: {
+          labels: data.labels,
+          datasets: [{
+            data: data.values,
+            backgroundColor: [
+              '#28a745', // Fingerprint - Green
+              '#007bff', // RFID - Blue
+              '#ffc107', // Password - Yellow
+              '#17a2b8', // Face - Cyan
+              '#6c757d'  // Other - Gray
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((context.raw / total) * 100).toFixed(1);
+                  return `${context.label}: ${context.raw} (${percentage}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // Daily trend chart (placeholder data)
+      const trendCtx = document.getElementById('dailyTrendChart').getContext('2d');
+      new Chart(trendCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [
+            {
+              label: 'Fingerprint',
+              data: [65, 59, 80, 81, 56, 55, 40],
+              borderColor: '#28a745',
+              backgroundColor: 'rgba(40, 167, 69, 0.1)',
+              tension: 0.1
+            },
+            {
+              label: 'RFID Card',
+              data: [28, 48, 40, 19, 86, 27, 90],
+              borderColor: '#007bff',
+              backgroundColor: 'rgba(0, 123, 255, 0.1)',
+              tension: 0.1
+            },
+            {
+              label: 'Password',
+              data: [5, 3, 2, 8, 4, 6, 3],
+              borderColor: '#ffc107',
+              backgroundColor: 'rgba(255, 193, 7, 0.1)',
+              tension: 0.1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error('Error loading verification charts:', error);
+    }
+  }
+
+  // Load recent verification activity
+  async function loadVerificationActivity() {
+    try {
+      const response = await fetch('/api/attendance?limit=50');
+      const data = await response.json();
+
+      const tbody = document.getElementById('verificationTableBody');
+      tbody.innerHTML = '';
+
+      data.slice(0, 20).forEach(record => {
+        const row = tbody.insertRow();
+
+        // Determine security level
+        let securityLevel = 'Medium';
+        let securityClass = 'bg-warning';
+
+        if (record.verify_method === 'Fingerprint' || record.verify_method === 'Face') {
+          securityLevel = 'High';
+          securityClass = 'bg-success';
+        } else if (record.verify_method === 'Password') {
+          securityLevel = 'Low';
+          securityClass = 'bg-danger';
+        }
+
+        row.innerHTML = `
+          <td>${new Date(record.timestamp).toLocaleString()}</td>
+          <td>${record.name}</td>
+          <td>
+            <span class="badge bg-primary">${record.verify_method || 'Unknown'}</span>
+          </td>
+          <td>
+            <span class="badge bg-info">${record.status_name}</span>
+          </td>
+          <td>
+            <span class="badge ${securityClass}">${securityLevel}</span>
+          </td>
+        `;
+      });
+
+    } catch (error) {
+      console.error('Error loading verification activity:', error);
+    }
+  }
+
+  // Filter verification table
+  document.getElementById('methodFilter').addEventListener('change', function() {
+    const filterValue = this.value.toLowerCase();
+    const table = document.getElementById('verificationTable');
+    const rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const methodCell = row.cells[2];
+      const methodText = methodCell.textContent.toLowerCase();
+
+      if (filterValue === '' || methodText.includes(filterValue)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    }
+  });
+
+  // Load all data on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    loadVerificationCharts();
+    loadVerificationActivity();
+  });
+
+  {% endif %}
+
+  function runEnhancedExtraction() {
+    if (confirm('This will run enhanced data extraction to capture verification methods and additional fields. Continue?')) {
+      window.location.href = '{{ url_for("index") }}';
+      // The refresh function will be called from the main page
+    }
+  }
+</script>
+
+<style>
+  .card.bg-success,
+  .card.bg-primary,
+  .card.bg-warning,
+  .card.bg-info {
+    border: none;
+  }
+
+  .table th {
+    border-top: none;
+  }
+
+  .badge {
+    font-size: 0.8em;
+  }
+</style>
+{% endblock %}

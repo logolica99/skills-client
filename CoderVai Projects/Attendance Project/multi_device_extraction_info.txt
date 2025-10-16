@@ -1,0 +1,10 @@
+Multi-Device ZKTeco Data Extraction Report
+=============================================
+Extraction Time: 2025-10-12 16:02:06
+Devices Attempted: 2
+Devices Successful: 2
+Total Users: 240
+Total Attendance Records: 52708
+
+2nd Floor Device: 10.10.19.171
+1st Floor Device: 10.10.19.172

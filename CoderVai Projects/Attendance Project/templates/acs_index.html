@@ -1,0 +1,589 @@
+{% extends "base.html" %} {% block title %}Dashboard - ACS FUTURE SCHOOL
+Attendance{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>
+        <i class="fas fa-graduation-cap"></i> ACS FUTURE SCHOOL
+        <span class="badge bg-primary ms-2">Attendance Dashboard</span>
+      </h1>
+      <div class="text-muted">
+        <i class="fas fa-clock"></i> <span id="currentDateTime"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floor Filter -->
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body py-2">
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0"><i class="fas fa-building"></i> Floor Selection</h6>
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="floorFilter"
+            id="allFloors" value="all" {{ 'checked' if floor_filter == 'all'
+            else '' }}>
+            <label class="btn btn-outline-primary btn-sm" for="allFloors"
+              >All Floors</label
+            >
+
+            <input type="radio" class="btn-check" name="floorFilter"
+            id="firstFloor" value="1st_floor" {{ 'checked' if floor_filter ==
+            '1st_floor' else '' }}>
+            <label class="btn btn-outline-success btn-sm" for="firstFloor"
+              >1st Floor</label
+            >
+
+            <input type="radio" class="btn-check" name="floorFilter"
+            id="secondFloor" value="2nd_floor" {{ 'checked' if floor_filter ==
+            '2nd_floor' else '' }}>
+            <label class="btn btn-outline-info btn-sm" for="secondFloor"
+              >2nd Floor</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Welcome Alert -->
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <i class="fas fa-graduation-cap"></i>
+  <strong>Welcome to ACS FUTURE SCHOOL!</strong> Comprehensive attendance
+  management system with real-time tracking, detailed analytics, and multi-floor
+  support.
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title" id="totalUsers">{{ stats.total_users }}</h4>
+            <p class="card-text">Total Students</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-users fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title" id="activeUsers">
+              {{ stats.active_users }}
+            </h4>
+            <p class="card-text">Present Today</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-user-check fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title" id="totalRecords">
+              {{ "{:,}".format(stats.total_records) }}
+            </h4>
+            <p class="card-text">Total Records</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-clipboard-list fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title" id="todayRecords">
+              {{ stats.today_records }}
+            </h4>
+            <p class="card-text">Today's Records</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-calendar-day fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floor-wise Statistics -->
+{% if stats.floors %}
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-building"></i> Floor-wise Statistics</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          {% for floor_key, floor_data in stats.floors.items() %}
+          <div class="col-md-6">
+            <div
+              class="card {{ 'border-success' if floor_key == '1st_floor' else 'border-info' }}"
+            >
+              <div class="card-body">
+                <h6 class="card-title">
+                  <i
+                    class="fas fa-{{ 'arrow-up' if floor_key == '1st_floor' else 'arrow-down' }}"
+                  ></i>
+                  {{ floor_data.name }}
+                </h6>
+                <div class="row text-center">
+                  <div class="col-3">
+                    <h5 class="text-primary">{{ floor_data.total_users }}</h5>
+                    <small>Students</small>
+                  </div>
+                  <div class="col-3">
+                    <h5 class="text-success">{{ floor_data.active_today }}</h5>
+                    <small>Present</small>
+                  </div>
+                  <div class="col-3">
+                    <h5 class="text-info">{{ floor_data.total_records }}</h5>
+                    <small>Records</small>
+                  </div>
+                  <div class="col-3">
+                    <h5 class="text-warning">{{ floor_data.today_records }}</h5>
+                    <small>Today</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('daily') }}?floor={{ floor_filter }}"
+              class="btn btn-outline-primary btn-lg w-100"
+            >
+              <i class="fas fa-calendar-day"></i><br />
+              <small>Today's Attendance</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a
+              href="/monthly?floor={{ floor_filter }}"
+              class="btn btn-outline-success btn-lg w-100"
+            >
+              <i class="fas fa-calendar-alt"></i><br />
+              <small>Monthly Report</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('users') }}?floor={{ floor_filter }}"
+              class="btn btn-outline-info btn-lg w-100"
+            >
+              <i class="fas fa-users"></i><br />
+              <small>Student Directory</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <button
+              class="btn btn-outline-warning btn-lg w-100"
+              onclick="showSearchModal()"
+            >
+              <i class="fas fa-search"></i><br />
+              <small>Search Records</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Activity and Charts -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-clock"></i> Recent Activity</h5>
+      </div>
+      <div class="card-body">
+        <div id="recentActivity">
+          <div class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5><i class="fas fa-chart-pie"></i> Attendance Overview</h5>
+          <div class="btn-group btn-group-sm" role="group">
+            <input
+              type="radio"
+              class="btn-check"
+              name="chartPeriod"
+              id="daily"
+              value="daily"
+              checked
+            />
+            <label class="btn btn-outline-primary" for="daily">Daily</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="chartPeriod"
+              id="weekly"
+              value="weekly"
+            />
+            <label class="btn btn-outline-primary" for="weekly">Weekly</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="chartPeriod"
+              id="monthly"
+              value="monthly"
+            />
+            <label class="btn btn-outline-primary" for="monthly">Monthly</label>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="statusChart" width="400" height="300"></canvas>
+        <div class="mt-2 text-center">
+          <small class="text-muted" id="chartDescription"
+            >Today's attendance distribution</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Search Attendance Records</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="searchForm">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="searchUser" class="form-label"
+                >Student ID (optional)</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="searchUser"
+                placeholder="Enter Student ID"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="searchStartDate" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="searchStartDate" />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label for="searchEndDate" class="form-label">End Date</label>
+              <input type="date" class="form-control" id="searchEndDate" />
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+              <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div id="searchResults" class="mt-4" style="display: none">
+          <h6>Search Results:</h6>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Name</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                  <th>Floor</th>
+                </tr>
+              </thead>
+              <tbody id="searchTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  let currentFloorFilter = "{{ floor_filter }}";
+
+  function showSearchModal() {
+    new bootstrap.Modal(document.getElementById("searchModal")).show();
+  }
+
+  // Floor filter change handler
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('input[name="floorFilter"]').forEach((radio) => {
+      radio.addEventListener("change", function () {
+        if (this.checked) {
+          currentFloorFilter = this.value;
+          // Reload page with new floor filter
+          window.location.href = `/?floor=${this.value}`;
+        }
+      });
+    });
+  });
+
+  // Update current date and time
+  function updateDateTime() {
+    const now = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+    document.getElementById("currentDateTime").textContent =
+      now.toLocaleDateString("en-US", options);
+  }
+
+  // Load recent activity
+  async function loadRecentActivity() {
+    try {
+      const response = await fetch(
+        `/api/attendance?limit=10&floor=${currentFloorFilter}`
+      );
+      const data = await response.json();
+
+      const container = document.getElementById("recentActivity");
+
+      if (data.length === 0) {
+        container.innerHTML = '<p class="text-muted">No recent activity</p>';
+        return;
+      }
+
+      let html = '<div class="list-group list-group-flush">';
+      data.forEach((record) => {
+        const timeAgo = moment(record.timestamp).fromNow();
+        html += `
+         <div class="list-group-item d-flex justify-content-between align-items-center">
+           <div>
+             <strong>${record.name}</strong><br>
+             <small class="text-muted">${record.status_name} • ${
+          record.floor_name
+        }</small>
+           </div>
+           <div class="text-end">
+             <small class="text-muted">${timeAgo}</small><br>
+             <small class="text-muted">${moment(record.timestamp).format(
+               "HH:mm"
+             )}</small>
+           </div>
+         </div>
+       `;
+      });
+      html += "</div>";
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error("Error loading recent activity:", error);
+      document.getElementById("recentActivity").innerHTML =
+        '<p class="text-danger">Error loading activity</p>';
+    }
+  }
+
+  // Load status chart for main dashboard
+  let currentChart = null;
+
+  async function loadStatusChart(period = "daily") {
+    try {
+      const response = await fetch(
+        `/api/status-distribution?floor=${currentFloorFilter}`
+      );
+      const data = await response.json();
+
+      // Destroy existing chart
+      if (currentChart) {
+        currentChart.destroy();
+      }
+
+      const ctx = document.getElementById("statusChart").getContext("2d");
+
+      // Create more understandable chart
+      currentChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              data: data.values,
+              backgroundColor: [
+                "#28a745", // Check In - Green
+                "#007bff", // Check Out - Blue
+                "#ffc107", // Break Out - Yellow
+                "#17a2b8", // Break In - Cyan
+                "#6c757d", // Overtime In - Gray
+                "#343a40", // Overtime Out - Dark
+              ],
+              borderWidth: 2,
+              borderColor: "#fff",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                padding: 20,
+                usePointStyle: true,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((context.parsed / total) * 100).toFixed(
+                    1
+                  );
+                  return `${context.label}: ${context.parsed} (${percentage}%)`;
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Update description
+      const descriptions = {
+        daily: "Today's attendance distribution",
+        weekly: "This week's attendance patterns",
+        monthly: "This month's attendance summary",
+      };
+      document.getElementById("chartDescription").textContent =
+        descriptions[period];
+    } catch (error) {
+      console.error("Error loading status chart:", error);
+      document.getElementById("chartDescription").textContent =
+        "Error loading chart data";
+    }
+  }
+
+  // Add event listeners for chart period buttons
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('input[name="chartPeriod"]').forEach((radio) => {
+      radio.addEventListener("change", function () {
+        if (this.checked) {
+          loadStatusChart(this.value);
+        }
+      });
+    });
+  });
+
+  // Search form submission
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const uid = document.getElementById("searchUser").value;
+      const startDate = document.getElementById("searchStartDate").value;
+      const endDate = document.getElementById("searchEndDate").value;
+
+      const params = new URLSearchParams();
+      if (uid) params.append("uid", uid);
+      if (startDate) params.append("start_date", startDate);
+      if (endDate) params.append("end_date", endDate);
+      params.append("floor", currentFloorFilter);
+
+      try {
+        const response = await fetch(`/api/attendance?${params}`);
+        const data = await response.json();
+
+        const tbody = document.getElementById("searchTableBody");
+        tbody.innerHTML = "";
+
+        data.forEach((record) => {
+          const row = tbody.insertRow();
+          row.innerHTML = `
+         <td>${record.uid}</td>
+         <td>${record.name}</td>
+         <td>${record.timestamp}</td>
+         <td><span class="badge bg-primary">${record.status_name}</span></td>
+         <td><span class="badge bg-info">${record.floor_name}</span></td>
+       `;
+        });
+
+        document.getElementById("searchResults").style.display = "block";
+      } catch (error) {
+        console.error("Search error:", error);
+        alert("Error searching records");
+      }
+    });
+
+  // Load data on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    updateDateTime();
+    setInterval(updateDateTime, 1000); // Update every second
+    loadRecentActivity();
+    loadStatusChart();
+  });
+</script>
+{% endblock %}

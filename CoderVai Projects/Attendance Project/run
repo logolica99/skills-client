@@ -1,0 +1,4 @@
+source zkenv/bin/activate && pip install flask pandas
+
+source "/Users/emranmostofa/CoderVai Projects/Attendance Project/zkenv/bin/activate"      
+

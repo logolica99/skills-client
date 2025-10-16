@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+
+{% block title %}Monthly Attendance - ZKTeco{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-calendar-alt"></i> Monthly Attendance Report</h1>
+            <div class="d-flex gap-2">
+                <select id="monthSelector" class="form-select" onchange="changeMonth()">
+                    <option value="1" {% if month == 1 %}selected{% endif %}>January</option>
+                    <option value="2" {% if month == 2 %}selected{% endif %}>February</option>
+                    <option value="3" {% if month == 3 %}selected{% endif %}>March</option>
+                    <option value="4" {% if month == 4 %}selected{% endif %}>April</option>
+                    <option value="5" {% if month == 5 %}selected{% endif %}>May</option>
+                    <option value="6" {% if month == 6 %}selected{% endif %}>June</option>
+                    <option value="7" {% if month == 7 %}selected{% endif %}>July</option>
+                    <option value="8" {% if month == 8 %}selected{% endif %}>August</option>
+                    <option value="9" {% if month == 9 %}selected{% endif %}>September</option>
+                    <option value="10" {% if month == 10 %}selected{% endif %}>October</option>
+                    <option value="11" {% if month == 11 %}selected{% endif %}>November</option>
+                    <option value="12" {% if month == 12 %}selected{% endif %}>December</option>
+                </select>
+                <select id="yearSelector" class="form-select" onchange="changeMonth()">
+                    {% for y in range(2020, 2030) %}
+                    <option value="{{ y }}" {% if year == y %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Monthly Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h4>{{ attendance|length }}</h4>
+                <p class="mb-0">Active Employees</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                {% set avg_attendance = (attendance|map(attribute="attendance_rate")|sum / attendance|length) if attendance else 0 %}
+                <h4>{{ "%.1f"|format(avg_attendance) }}%</h4>
+                <p class="mb-0">Avg Attendance</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                {% set total_working_days = attendance[0].working_days if attendance else 0 %}
+                <h4>{{ total_working_days }}</h4>
+                <p class="mb-0">Working Days</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                {% set avg_hours = (attendance|map(attribute="avg_working_hours")|sum / attendance|length) if attendance else 0 %}
+                <h4>{{ "%.1f"|format(avg_hours) }}h</h4>
+                <p class="mb-0">Avg Working Hours</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters and Controls -->
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search employees...">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <select id="attendanceFilter" class="form-select">
+            <option value="">All Employees</option>
+            <option value="excellent">Excellent (>95%)</option>
+            <option value="good">Good (85-95%)</option>
+            <option value="average">Average (70-85%)</option>
+            <option value="poor">Poor (<70%)</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select id="sortBy" class="form-select">
+            <option value="name">Sort by Name</option>
+            <option value="attendance">Sort by Attendance</option>
+            <option value="hours">Sort by Hours</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <div class="btn-group w-100" role="group">
+            <button class="btn btn-outline-secondary" onclick="exportMonthly()">
+                <i class="fas fa-download"></i> Export
+            </button>
+            <button class="btn btn-outline-primary" onclick="printReport()">
+                <i class="fas fa-print"></i> Print
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Monthly Attendance Table -->
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fas fa-table"></i> Monthly Attendance Summary</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="monthlyTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Employee Name</th>
+                        <th>Days Present</th>
+                        <th>Working Days</th>
+                        <th>Attendance Rate</th>
+                        <th>Avg Working Hours</th>
+                        <th>Total Entries</th>
+                        <th>Performance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance %}
+                    <tr>
+                        <td>{{ record.uid }}</td>
+                        <td>{{ record.name }}</td>
+                        <td>
+                            <span class="badge bg-primary">{{ record.days_present }}</span>
+                        </td>
+                        <td>{{ record.working_days }}</td>
+                        <td>
+                            {% set rate = record.attendance_rate %}
+                            {% if rate >= 95 %}
+                                <span class="badge bg-success">{{ "%.1f"|format(rate) }}%</span>
+                            {% elif rate >= 85 %}
+                                <span class="badge bg-info">{{ "%.1f"|format(rate) }}%</span>
+                            {% elif rate >= 70 %}
+                                <span class="badge bg-warning">{{ "%.1f"|format(rate) }}%</span>
+                            {% else %}
+                                <span class="badge bg-danger">{{ "%.1f"|format(rate) }}%</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <strong>{{ "%.2f"|format(record.avg_working_hours) }}h</strong>
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary">{{ record.total_entries }}</span>
+                        </td>
+                        <td>
+                            {% set rate = record.attendance_rate %}
+                            {% if rate >= 95 %}
+                                <span class="badge bg-success">Excellent</span>
+                            {% elif rate >= 85 %}
+                                <span class="badge bg-info">Good</span>
+                            {% elif rate >= 70 %}
+                                <span class="badge bg-warning">Average</span>
+                            {% else %}
+                                <span class="badge bg-danger">Poor</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-primary" 
+                                        onclick="viewMonthlyDetails({{ record.uid }})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-info" 
+                                        onclick="viewCalendar({{ record.uid }})">
+                                    <i class="fas fa-calendar"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar"></i> Attendance Distribution</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="attendanceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-line"></i> Top Performers</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="performanceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Monthly Details Modal -->
+<div class="modal fade" id="monthlyDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Monthly Attendance Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="monthlyDetailsContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendar Modal -->
+<div class="modal fade" id="calendarModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Monthly Calendar View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="calendarContent">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function changeMonth() {
+    const month = document.getElementById('monthSelector').value;
+    const year = document.getElementById('yearSelector').value;
+    window.location.href = `{{ url_for('monthly') }}?month=${month}&year=${year}`;
+}
+
+// Search and filter functionality
+document.getElementById('searchInput').addEventListener('input', filterTable);
+document.getElementById('attendanceFilter').addEventListener('change', filterTable);
+document.getElementById('sortBy').addEventListener('change', sortTable);
+
+function filterTable() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const attendanceFilter = document.getElementById('attendanceFilter').value;
+    const table = document.getElementById('monthlyTable');
+    const rows = Array.from(table.getElementsByTagName('tr')).slice(1);
+    
+    rows.forEach(row => {
+        const name = row.cells[1].textContent.toLowerCase();
+        const uid = row.cells[0].textContent.toLowerCase();
+        const attendanceRate = parseFloat(row.cells[4].textContent);
+        
+        let showRow = true;
+        
+        // Search filter
+        if (searchTerm && !name.includes(searchTerm) && !uid.includes(searchTerm)) {
+            showRow = false;
+        }
+        
+        // Attendance filter
+        if (attendanceFilter) {
+            switch (attendanceFilter) {
+                case 'excellent':
+                    if (attendanceRate < 95) showRow = false;
+                    break;
+                case 'good':
+                    if (attendanceRate < 85 || attendanceRate >= 95) showRow = false;
+                    break;
+                case 'average':
+                    if (attendanceRate < 70 || attendanceRate >= 85) showRow = false;
+                    break;
+                case 'poor':
+                    if (attendanceRate >= 70) showRow = false;
+                    break;
+            }
+        }
+        
+        row.style.display = showRow ? '' : 'none';
+    });
+}
+
+function sortTable() {
+    const sortBy = document.getElementById('sortBy').value;
+    const table = document.getElementById('monthlyTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = Array.from(tbody.getElementsByTagName('tr'));
+    
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch (sortBy) {
+            case 'name':
+                aVal = a.cells[1].textContent.toLowerCase();
+                bVal = b.cells[1].textContent.toLowerCase();
+                return aVal.localeCompare(bVal);
+            case 'attendance':
+                aVal = parseFloat(a.cells[4].textContent);
+                bVal = parseFloat(b.cells[4].textContent);
+                return bVal - aVal; // Descending order
+            case 'hours':
+                aVal = parseFloat(a.cells[5].textContent);
+                bVal = parseFloat(b.cells[5].textContent);
+                return bVal - aVal; // Descending order
+            default:
+                return 0;
+        }
+    });
+    
+    // Re-append sorted rows
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+async function viewMonthlyDetails(uid) {
+    const month = document.getElementById('monthSelector').value;
+    const year = document.getElementById('yearSelector').value;
+    const startDate = `${year}-${month.padStart(2, '0')}-01`;
+    const endDate = new Date(year, month, 0).toISOString().split('T')[0];
+    
+    const params = new URLSearchParams({
+        uid: uid,
+        start_date: startDate,
+        end_date: endDate
+    });
+    
+    try {
+        const response = await fetch(`/api/attendance?${params}`);
+        const data = await response.json();
+        
+        let content = '<div class="table-responsive"><table class="table table-sm">';
+        content += '<thead><tr><th>Date</th><th>Time</th><th>Status</th></tr></thead><tbody>';
+        
+        data.forEach(record => {
+            const date = new Date(record.timestamp).toLocaleDateString();
+            const time = new Date(record.timestamp).toLocaleTimeString();
+            content += `<tr><td>${date}</td><td>${time}</td><td><span class="badge bg-primary">${record.status_name}</span></td></tr>`;
+        });
+        
+        content += '</tbody></table></div>';
+        
+        document.getElementById('monthlyDetailsContent').innerHTML = content;
+        new bootstrap.Modal(document.getElementById('monthlyDetailsModal')).show();
+        
+    } catch (error) {
+        console.error('Error loading monthly details:', error);
+    }
+}
+
+function viewCalendar(uid) {
+    // This would show a calendar view of the user's attendance
+    alert('Calendar view would be implemented here');
+}
+
+function exportMonthly() {
+    alert('Export functionality would be implemented here');
+}
+
+function printReport() {
+    window.print();
+}
+
+// Load charts
+document.addEventListener('DOMContentLoaded', function() {
+    // Set current month/year if not provided
+    if (!document.getElementById('monthSelector').value) {
+        document.getElementById('monthSelector').value = new Date().getMonth() + 1;
+    }
+    if (!document.getElementById('yearSelector').value) {
+        document.getElementById('yearSelector').value = new Date().getFullYear();
+    }
+    
+    // Load attendance distribution chart
+    const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+    new Chart(attendanceCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Excellent (>95%)', 'Good (85-95%)', 'Average (70-85%)', 'Poor (<70%)'],
+            datasets: [{
+                label: 'Employee Count',
+                data: [15, 25, 8, 2], // This would be dynamic based on actual data
+                backgroundColor: ['#28a745', '#17a2b8', '#ffc107', '#dc3545']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+    // Load performance chart
+    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(performanceCtx, {
+        type: 'horizontalBar',
+        data: {
+            labels: ['Employee 1', 'Employee 2', 'Employee 3', 'Employee 4', 'Employee 5'],
+            datasets: [{
+                label: 'Attendance Rate (%)',
+                data: [98, 96, 94, 92, 90],
+                backgroundColor: '#28a745'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,820 @@
+{% extends "base.html" %} {% block title %}Dashboard - ZKTeco Attendance{%
+endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <h1 class="mb-4"><i class="fas fa-dashboard"></i> Attendance Dashboard</h1>
+  </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ stats.total_users }}</h4>
+            <p class="card-text">Total Users</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-users fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ stats.active_users }}</h4>
+            <p class="card-text">Active Users</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-user-check fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ "{:,}".format(stats.total_records) }}</h4>
+            <p class="card-text">Total Records</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-clipboard-list fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title" id="last-update-count">
+              {{ stats.total_records }}
+            </h4>
+            <p class="card-text">Last Updated</p>
+            <small id="last-update-time">Loading...</small>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-clock fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('daily') }}"
+              class="btn btn-outline-primary btn-lg w-100"
+            >
+              <i class="fas fa-calendar-day"></i><br />
+              <small>Today's Attendance</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('monthly') }}"
+              class="btn btn-outline-success btn-lg w-100"
+            >
+              <i class="fas fa-calendar-alt"></i><br />
+              <small>Monthly Report</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a
+              href="{{ url_for('users') }}"
+              class="btn btn-outline-info btn-lg w-100"
+            >
+              <i class="fas fa-users"></i><br />
+              <small>Manage Users</small>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <button
+              class="btn btn-outline-warning btn-lg w-100"
+              onclick="showSearchModal()"
+            >
+              <i class="fas fa-search"></i><br />
+              <small>Search Records</small>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <button
+              class="btn btn-outline-success btn-lg w-100"
+              onclick="refreshData()"
+              id="refreshBtn"
+            >
+              <i class="fas fa-sync-alt"></i><br />
+              <small>Refresh Data from Device</small>
+            </button>
+          </div>
+          <div class="col-md-6 mb-3">
+            <button
+              class="btn btn-outline-info btn-lg w-100"
+              onclick="showDataInfo()"
+            >
+              <i class="fas fa-info-circle"></i><br />
+              <small>Data Information</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Device Status Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-server"></i> Device Status & Data Sync</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card border-success" id="device_2nd_floor">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="card-title">
+                      <i class="fas fa-building"></i> 2nd Floor Device
+                    </h6>
+                    <p class="card-text">
+                      <strong>IP:</strong> 10.10.19.171<br />
+                      <strong>Status:</strong>
+                      <span class="badge bg-secondary" id="status_2nd_floor">
+                        <i class="fas fa-spinner fa-spin"></i> Checking...
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <div class="btn-group-vertical">
+                      <button
+                        class="btn btn-sm btn-outline-primary"
+                        onclick="checkDeviceStatus('2nd_floor')"
+                      >
+                        <i class="fas fa-sync-alt"></i> Check Status
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card border-info" id="device_1st_floor">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="card-title">
+                      <i class="fas fa-building"></i> 1st Floor Device
+                    </h6>
+                    <p class="card-text">
+                      <strong>IP:</strong> 10.10.19.172<br />
+                      <strong>Status:</strong>
+                      <span class="badge bg-secondary" id="status_1st_floor">
+                        <i class="fas fa-spinner fa-spin"></i> Checking...
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <div class="btn-group-vertical">
+                      <button
+                        class="btn btn-sm btn-outline-primary"
+                        onclick="checkDeviceStatus('1st_floor')"
+                      >
+                        <i class="fas fa-sync-alt"></i> Check Status
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle"></i>
+              <strong>Auto Refresh:</strong> Enabled (30 min interval) |
+              <strong>Next Refresh In:</strong>
+              <span id="refresh-countdown" class="badge bg-info"
+                >Loading...</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-chart-bar"></i> Daily Attendance Trend</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="dailyChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-chart-pie"></i> Attendance Status Distribution</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="statusChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Search Attendance Records</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="searchForm">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="searchUser" class="form-label"
+                >User ID (optional)</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="searchUser"
+                placeholder="Enter User ID"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="searchStartDate" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="searchStartDate" />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label for="searchEndDate" class="form-label">End Date</label>
+              <input type="date" class="form-control" id="searchEndDate" />
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+              <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div id="searchResults" class="mt-4" style="display: none">
+          <h6>Search Results:</h6>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Name</th>
+                  <th>Timestamp</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="searchTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Data Information Modal -->
+<div class="modal fade" id="dataInfoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Data Information & Status Codes</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6><i class="fas fa-info-circle"></i> Current Data Status</h6>
+            <ul class="list-unstyled">
+              <li>
+                <strong>Total Users:</strong>
+                <span id="modal-total-users">{{ stats.total_users }}</span>
+              </li>
+              <li>
+                <strong>Active Users:</strong>
+                <span id="modal-active-users">{{ stats.active_users }}</span>
+              </li>
+              <li>
+                <strong>Total Records:</strong>
+                <span id="modal-total-records"
+                  >{{ "{:,}".format(stats.total_records) }}</span
+                >
+              </li>
+              <li>
+                <strong>Date Range:</strong> {{ stats.date_range.start }} to {{
+                stats.date_range.end }}
+              </li>
+              <li>
+                <strong>Last Update:</strong>
+                <span id="last-update">Loading...</span>
+              </li>
+              <li>
+                <strong>Auto Refresh:</strong>
+                <span id="auto-refresh-status" class="badge bg-success"
+                  >Enabled</span
+                >
+              </li>
+              <li>
+                <strong>Next Refresh In:</strong>
+                <span id="refresh-countdown" class="badge bg-info"
+                  >Loading...</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6><i class="fas fa-code"></i> Status Codes Explanation</h6>
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Meaning</th>
+                  <th>Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0</td>
+                  <td>Check In</td>
+                  <td><span class="badge bg-success">Arrival</span></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Check Out</td>
+                  <td><span class="badge bg-primary">Departure</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Break Out</td>
+                  <td><span class="badge bg-warning">Break Start</span></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Break In</td>
+                  <td><span class="badge bg-info">Break End</span></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Overtime In</td>
+                  <td><span class="badge bg-secondary">OT Start</span></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Overtime Out</td>
+                  <td><span class="badge bg-dark">OT End</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <h6>
+            <i class="fas fa-chart-bar"></i> Status Distribution in Your Data
+          </h6>
+          <canvas
+            id="statusDistributionChart"
+            width="400"
+            height="200"
+          ></canvas>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" onclick="refreshData()">
+          <i class="fas fa-sync-alt"></i> Refresh Data
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  function showSearchModal() {
+    new bootstrap.Modal(document.getElementById("searchModal")).show();
+  }
+
+  function showDataInfo() {
+    loadStatusDistribution();
+    loadLastUpdateTime();
+    new bootstrap.Modal(document.getElementById("dataInfoModal")).show();
+  }
+
+  async function refreshData() {
+    const refreshBtn = document.getElementById("refreshBtn");
+    const originalText = refreshBtn.innerHTML;
+
+    // Show loading state
+    refreshBtn.innerHTML =
+      '<i class="fas fa-spinner fa-spin"></i><br /><small>Refreshing...</small>';
+    refreshBtn.disabled = true;
+
+    try {
+      const response = await fetch("/api/refresh-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        showAlert("success", `Data refreshed successfully! ${result.message}`);
+
+        // Reload the page to show updated data
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        showAlert("error", `Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Refresh error:", error);
+      showAlert(
+        "error",
+        "Failed to refresh data. Please check your device connection."
+      );
+    } finally {
+      // Restore button state
+      refreshBtn.innerHTML = originalText;
+      refreshBtn.disabled = false;
+    }
+  }
+
+  function showAlert(type, message) {
+    const alertClass = type === "success" ? "alert-success" : "alert-danger";
+    const alertHtml = `
+       <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+         <i class="fas fa-${
+           type === "success" ? "check-circle" : "exclamation-triangle"
+         }"></i>
+         ${message}
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       </div>
+     `;
+
+    // Insert alert at the top of the main content
+    const mainContent = document.querySelector("main.container");
+    mainContent.insertAdjacentHTML("afterbegin", alertHtml);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      const alert = mainContent.querySelector(".alert");
+      if (alert) {
+        alert.remove();
+      }
+    }, 5000);
+  }
+
+  async function loadStatusDistribution() {
+    try {
+      const response = await fetch("/api/status-distribution");
+      const data = await response.json();
+
+      const ctx = document
+        .getElementById("statusDistributionChart")
+        .getContext("2d");
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              data: data.values,
+              backgroundColor: [
+                "#28a745", // Check In - Green
+                "#007bff", // Check Out - Blue
+                "#ffc107", // Break Out - Yellow
+                "#17a2b8", // Break In - Cyan
+                "#6c757d", // Overtime In - Gray
+                "#343a40", // Overtime Out - Dark
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      });
+    } catch (error) {
+      console.error("Error loading status distribution:", error);
+    }
+  }
+
+  async function loadLastUpdateTime() {
+    try {
+      const response = await fetch("/api/last-update");
+      const data = await response.json();
+
+      // Update modal
+      document.getElementById("last-update").textContent = data.last_update;
+
+      // Update dashboard card
+      document.getElementById("last-update-time").textContent =
+        data.last_update;
+
+      // Update auto-refresh status
+      const autoRefreshElement = document.getElementById("auto-refresh-status");
+      if (data.auto_refresh) {
+        autoRefreshElement.className = "badge bg-success";
+        autoRefreshElement.textContent = "Enabled (30 min interval)";
+      } else {
+        autoRefreshElement.className = "badge bg-warning";
+        autoRefreshElement.textContent = "Disabled";
+      }
+
+      // Set next refresh time and start countdown
+      if (data.next_refresh) {
+        nextRefreshTime = new Date(data.next_refresh);
+        startRefreshCountdown();
+      }
+    } catch (error) {
+      document.getElementById("last-update").textContent = "Unknown";
+      document.getElementById("last-update-time").textContent = "Unknown";
+      document.getElementById("auto-refresh-status").textContent = "Unknown";
+      document.getElementById("refresh-countdown").textContent = "Unknown";
+    }
+  }
+
+  let refreshCountdownInterval = null;
+  let nextRefreshTime = null;
+
+  function startRefreshCountdown() {
+    // Clear existing interval
+    if (refreshCountdownInterval) {
+      clearInterval(refreshCountdownInterval);
+    }
+
+    // Update countdown every second
+    refreshCountdownInterval = setInterval(() => {
+      if (!nextRefreshTime) return;
+
+      const now = new Date();
+      const diff = nextRefreshTime - now;
+
+      if (diff <= 0) {
+        document.getElementById("refresh-countdown").textContent =
+          "Refreshing...";
+        document.getElementById("refresh-countdown").className =
+          "badge bg-warning";
+        // Reload after refresh completes
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+        clearInterval(refreshCountdownInterval);
+        return;
+      }
+
+      const minutes = Math.floor(diff / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      const countdownElement = document.getElementById("refresh-countdown");
+      countdownElement.textContent = `${minutes}m ${seconds}s`;
+
+      // Change color based on time remaining
+      if (minutes < 5) {
+        countdownElement.className = "badge bg-warning";
+      } else if (minutes < 15) {
+        countdownElement.className = "badge bg-primary";
+      } else {
+        countdownElement.className = "badge bg-info";
+      }
+    }, 1000);
+  }
+
+  // Search form submission
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const uid = document.getElementById("searchUser").value;
+      const startDate = document.getElementById("searchStartDate").value;
+      const endDate = document.getElementById("searchEndDate").value;
+
+      const params = new URLSearchParams();
+      if (uid) params.append("uid", uid);
+      if (startDate) params.append("start_date", startDate);
+      if (endDate) params.append("end_date", endDate);
+
+      try {
+        const response = await fetch(`/api/attendance?${params}`);
+        const data = await response.json();
+
+        const tbody = document.getElementById("searchTableBody");
+        tbody.innerHTML = "";
+
+        data.forEach((record) => {
+          const row = tbody.insertRow();
+          row.innerHTML = `
+                <td>${record.uid}</td>
+                <td>${record.name}</td>
+                <td>${record.timestamp}</td>
+                <td><span class="badge bg-primary">${record.status_name}</span></td>
+            `;
+        });
+
+        document.getElementById("searchResults").style.display = "block";
+      } catch (error) {
+        console.error("Search error:", error);
+        alert("Error searching records");
+      }
+    });
+
+  // Load charts
+  async function loadCharts() {
+    try {
+      const response = await fetch("/api/stats");
+      const stats = await response.json();
+
+      // Load daily attendance trend with real data
+      const dailyTrendResponse = await fetch("/api/daily-attendance-trend");
+      const dailyTrendData = await dailyTrendResponse.json();
+
+      const dailyCtx = document.getElementById("dailyChart").getContext("2d");
+      new Chart(dailyCtx, {
+        type: "line",
+        data: {
+          labels: dailyTrendData.labels,
+          datasets: [
+            {
+              label: "Daily Attendance",
+              data: dailyTrendData.data,
+              borderColor: "rgb(75, 192, 192)",
+              backgroundColor: "rgba(75, 192, 192, 0.1)",
+              tension: 0.1,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Number of Users",
+              },
+            },
+            x: {
+              title: {
+                display: true,
+                text: "Days",
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: `Last 7 Days (${dailyTrendData.date_range.start} to ${dailyTrendData.date_range.end})`,
+            },
+          },
+        },
+      });
+
+      const statusCtx = document.getElementById("statusChart").getContext("2d");
+      new Chart(statusCtx, {
+        type: "doughnut",
+        data: {
+          labels: ["Check In", "Check Out", "Break", "Overtime"],
+          datasets: [
+            {
+              data: [30, 30, 20, 20],
+              backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56", "#4BC0C0"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+    } catch (error) {
+      console.error("Error loading charts:", error);
+    }
+  }
+
+  // Check device status
+  async function checkDeviceStatus(deviceFloor) {
+    const statusElement = document.getElementById(`status_${deviceFloor}`);
+    const deviceCard = document.getElementById(`device_${deviceFloor}`);
+
+    // Show loading state
+    statusElement.className = "badge bg-secondary";
+    statusElement.innerHTML =
+      '<i class="fas fa-spinner fa-spin"></i> Checking...';
+
+    try {
+      const response = await fetch("/api/device-status");
+      const data = await response.json();
+
+      const device = data.devices.find(
+        (d) => d.floor.toLowerCase().replace(" ", "_") === deviceFloor
+      );
+
+      if (device) {
+        if (device.status === "online") {
+          statusElement.className = "badge bg-success";
+          statusElement.innerHTML =
+            '<i class="fas fa-check-circle"></i> ONLINE';
+          deviceCard.className = "card border-success";
+        } else {
+          statusElement.className = "badge bg-danger";
+          statusElement.innerHTML =
+            '<i class="fas fa-times-circle"></i> OFFLINE';
+          deviceCard.className = "card border-danger";
+        }
+      }
+    } catch (error) {
+      console.error("Error checking device status:", error);
+      statusElement.className = "badge bg-warning";
+      statusElement.innerHTML =
+        '<i class="fas fa-exclamation-triangle"></i> ERROR';
+      deviceCard.className = "card border-warning";
+    }
+  }
+
+  // Check all device statuses
+  async function checkAllDeviceStatuses() {
+    await checkDeviceStatus("2nd_floor");
+    await checkDeviceStatus("1st_floor");
+  }
+
+  // Load charts and check device status on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    loadCharts();
+    checkAllDeviceStatuses();
+    loadLastUpdateTime();
+
+    // Auto-refresh device status every 30 seconds
+    setInterval(checkAllDeviceStatuses, 30000);
+  });
+</script>
+{% endblock %}

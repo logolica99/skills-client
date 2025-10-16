@@ -1,0 +1,527 @@
+{% extends "base.html" %} {% block title %}User Management - ZKTeco Attendance{%
+endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>
+        <i class="fas fa-users"></i> User Management
+        <span class="badge bg-success ms-2">Corrected Data</span>
+      </h1>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- User Statistics -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ users|length }}</h4>
+            <p class="card-text">Total Users</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-users fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">{{ stats.active_users }}</h4>
+            <p class="card-text">Active Today</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-user-check fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">
+              {{ users|selectattr('privilege', 'equalto', 14)|list|length }}
+            </h4>
+            <p class="card-text">Administrators</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-user-shield fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4 class="card-title">
+              {{ users|selectattr('privilege', 'equalto', 0)|list|length }}
+            </h4>
+            <p class="card-text">Regular Users</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-user fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filters and Search -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5><i class="fas fa-filter"></i> Search & Filter Users</h5>
+          <button class="btn btn-success btn-sm" onclick="exportToCSV()">
+            <i class="fas fa-download"></i> Export CSV
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="searchName" class="form-label">Search by Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="searchName"
+              placeholder="Enter user name"
+              onkeyup="filterTable()"
+            />
+          </div>
+          <div class="col-md-3">
+            <label for="privilegeFilter" class="form-label"
+              >Filter by Privilege</label
+            >
+            <select
+              class="form-select"
+              id="privilegeFilter"
+              onchange="filterTable()"
+            >
+              <option value="">All Privileges</option>
+              <option value="0">Regular User</option>
+              <option value="14">Administrator</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="sortBy" class="form-label">Sort By</label>
+            <select class="form-select" id="sortBy" onchange="sortTable()">
+              <option value="name">Name</option>
+              <option value="uid">User ID</option>
+              <option value="privilege">Privilege</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button
+              class="btn btn-outline-secondary w-100"
+              onclick="clearFilters()"
+            >
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Users Table -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-table"></i> User Directory</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="usersTable">
+            <thead class="table-dark">
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Privilege</th>
+                <th>Password</th>
+                <th>Group ID</th>
+                <th>User ID (Card)</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+              <tr
+                data-name="{{ user.name.lower() }}"
+                data-privilege="{{ user.privilege }}"
+              >
+                <td><strong>{{ user.uid }}</strong></td>
+                <td>{{ user.name }}</td>
+                <td>
+                  {% if user.privilege == 14 %}
+                  <span class="badge bg-danger">Administrator</span>
+                  {% elif user.privilege == 0 %}
+                  <span class="badge bg-primary">Regular User</span>
+                  {% else %}
+                  <span class="badge bg-secondary"
+                    >Level {{ user.privilege }}</span
+                  >
+                  {% endif %}
+                </td>
+                <td>
+                  {% if user.password %}
+                  <span class="badge bg-success">Set</span>
+                  {% else %}
+                  <span class="badge bg-warning">Not Set</span>
+                  {% endif %}
+                </td>
+                <td>{{ user.group_id or 'N/A' }}</td>
+                <td>{{ user.user_id or 'N/A' }}</td>
+                <td>
+                  <span class="badge bg-success">Active</span>
+                </td>
+                <td>
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    onclick="showUserDetails({{ user | tojson | safe }})"
+                  >
+                    <i class="fas fa-eye"></i> Details
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% if users|length == 0 %}
+        <div class="text-center py-4">
+          <i class="fas fa-users fa-3x text-muted mb-3"></i>
+          <h5 class="text-muted">No users found</h5>
+          <p class="text-muted">
+            No user data available. Please sync data from your ZKTeco device.
+          </p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Details Modal -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userDetailsTitle">User Details</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div id="userDetailsContent">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="viewUserAttendance()"
+        >
+          <i class="fas fa-calendar"></i> View Attendance
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  let currentUser = null;
+
+  function filterTable() {
+    const searchName = document
+      .getElementById("searchName")
+      .value.toLowerCase();
+    const privilegeFilter = document.getElementById("privilegeFilter").value;
+    const table = document.getElementById("usersTable");
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const name = row.getAttribute("data-name");
+      const privilege = row.getAttribute("data-privilege");
+
+      let showRow = true;
+
+      if (searchName && !name.includes(searchName)) {
+        showRow = false;
+      }
+
+      if (privilegeFilter && privilege !== privilegeFilter) {
+        showRow = false;
+      }
+
+      row.style.display = showRow ? "" : "none";
+    }
+  }
+
+  function sortTable() {
+    const sortBy = document.getElementById("sortBy").value;
+    const table = document.getElementById("usersTable");
+    const tbody = table.getElementsByTagName("tbody")[0];
+    const rows = Array.from(tbody.getElementsByTagName("tr"));
+
+    rows.sort((a, b) => {
+      let aValue, bValue;
+
+      switch (sortBy) {
+        case "name":
+          aValue = a.cells[1].textContent.trim();
+          bValue = b.cells[1].textContent.trim();
+          return aValue.localeCompare(bValue);
+
+        case "uid":
+          aValue = parseInt(a.cells[0].textContent.trim());
+          bValue = parseInt(b.cells[0].textContent.trim());
+          return aValue - bValue;
+
+        case "privilege":
+          aValue = parseInt(a.getAttribute("data-privilege"));
+          bValue = parseInt(b.getAttribute("data-privilege"));
+          return bValue - aValue;
+
+        default:
+          return 0;
+      }
+    });
+
+    rows.forEach((row) => tbody.appendChild(row));
+  }
+
+  function clearFilters() {
+    document.getElementById("searchName").value = "";
+    document.getElementById("privilegeFilter").value = "";
+    document.getElementById("sortBy").value = "name";
+    filterTable();
+    sortTable();
+  }
+
+  function showUserDetails(user) {
+    currentUser = user;
+    document.getElementById(
+      "userDetailsTitle"
+    ).textContent = `${user.name} (UID: ${user.uid})`;
+
+    let privilegeText = "Regular User";
+    let privilegeClass = "bg-primary";
+
+    if (user.privilege == 14) {
+      privilegeText = "Administrator";
+      privilegeClass = "bg-danger";
+    } else if (user.privilege != 0) {
+      privilegeText = `Level ${user.privilege}`;
+      privilegeClass = "bg-secondary";
+    }
+
+    const html = `
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Basic Information</h6>
+        <table class="table table-sm">
+          <tr>
+            <td><strong>User ID:</strong></td>
+            <td>${user.uid}</td>
+          </tr>
+          <tr>
+            <td><strong>Name:</strong></td>
+            <td>${user.name}</td>
+          </tr>
+          <tr>
+            <td><strong>Privilege:</strong></td>
+            <td><span class="badge ${privilegeClass}">${privilegeText}</span></td>
+          </tr>
+          <tr>
+            <td><strong>Password:</strong></td>
+            <td>${
+              user.password
+                ? '<span class="badge bg-success">Set</span>'
+                : '<span class="badge bg-warning">Not Set</span>'
+            }</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h6>Additional Details</h6>
+        <table class="table table-sm">
+          <tr>
+            <td><strong>Group ID:</strong></td>
+            <td>${user.group_id || "N/A"}</td>
+          </tr>
+          <tr>
+            <td><strong>User ID (Card):</strong></td>
+            <td>${user.user_id || "N/A"}</td>
+          </tr>
+          <tr>
+            <td><strong>Status:</strong></td>
+            <td><span class="badge bg-success">Active</span></td>
+          </tr>
+          <tr>
+            <td><strong>Last Seen:</strong></td>
+            <td>Loading...</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <div class="mt-3">
+      <h6>Quick Stats</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="text-center">
+            <h4 class="text-primary" id="userTotalRecords">-</h4>
+            <small>Total Records</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="text-center">
+            <h4 class="text-success" id="userThisMonth">-</h4>
+            <small>This Month</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="text-center">
+            <h4 class="text-info" id="userToday">-</h4>
+            <small>Today</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+    document.getElementById("userDetailsContent").innerHTML = html;
+
+    // Load user stats
+    loadUserStats(user.uid);
+
+    new bootstrap.Modal(document.getElementById("userDetailsModal")).show();
+  }
+
+  async function loadUserStats(uid) {
+    try {
+      // Load total records
+      const totalResponse = await fetch(`/api/attendance?uid=${uid}`);
+      const totalData = await totalResponse.json();
+      document.getElementById("userTotalRecords").textContent =
+        totalData.length;
+
+      // Load this month's records
+      const now = new Date();
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
+        .toISOString()
+        .split("T")[0];
+      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+        .toISOString()
+        .split("T")[0];
+
+      const monthResponse = await fetch(
+        `/api/attendance?uid=${uid}&start_date=${firstDay}&end_date=${lastDay}`
+      );
+      const monthData = await monthResponse.json();
+      document.getElementById("userThisMonth").textContent = monthData.length;
+
+      // Load today's records
+      const today = now.toISOString().split("T")[0];
+      const todayResponse = await fetch(
+        `/api/attendance?uid=${uid}&start_date=${today}&end_date=${today}`
+      );
+      const todayData = await todayResponse.json();
+      document.getElementById("userToday").textContent = todayData.length;
+    } catch (error) {
+      console.error("Error loading user stats:", error);
+    }
+  }
+
+  function viewUserAttendance() {
+    if (currentUser) {
+      window.open(`/daily?uid=${currentUser.uid}`, "_blank");
+    }
+  }
+
+  function exportToCSV() {
+    const table = document.getElementById("usersTable");
+    const rows = table.querySelectorAll('tr:not([style*="display: none"])');
+
+    let csv =
+      "User ID,Name,Privilege,Password,Group ID,User ID (Card),Status\n";
+
+    for (let i = 1; i < rows.length; i++) {
+      const cells = rows[i].cells;
+      const row = [
+        cells[0].textContent.trim(),
+        cells[1].textContent.trim(),
+        cells[2].textContent.trim(),
+        cells[3].textContent.trim(),
+        cells[4].textContent.trim(),
+        cells[5].textContent.trim(),
+        cells[6].textContent.trim(),
+      ];
+      csv += row.map((field) => `"${field}"`).join(",") + "\n";
+    }
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "users_directory.csv";
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  // Initialize page
+  document.addEventListener("DOMContentLoaded", function () {
+    sortTable(); // Sort by name initially
+  });
+</script>
+
+<style>
+  .table th {
+    border-top: none;
+  }
+
+  .badge {
+    font-size: 0.8em;
+  }
+
+  .table-responsive {
+    border-radius: 0.375rem;
+  }
+
+  .card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+</style>
+{% endblock %}

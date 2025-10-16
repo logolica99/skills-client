@@ -1,0 +1,4 @@
+# Data extracted on 2025-10-14 19:27:10
+# Total users: 118
+# Total attendance records: 29764
+# Device: 10.10.19.171:4370
