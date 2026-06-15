@@ -1,9 +1,11 @@
-import { BACKEND_URL, COURSE_ID_2 } from "@/api.config";
+import { BACKEND_URL, COURSE_ID, COURSE_ID_2 } from "@/api.config";
 import { UserContext } from "@/Contexts/UserContext";
 import { decryptString } from "@/helpers";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { useLmsPreference } from "@/hooks/useLmsPreference";
+import { getCoursesDashboardUrl } from "@/constants/lmsPreference";
 
 function findObjectById(data: any, targetId: any) {
   // Check if chapters exist in the data
@@ -29,8 +31,70 @@ function findObjectById(data: any, targetId: any) {
 export default function CourseRedirect(): JSX.Element {
   const [user, setUser] = useContext<any>(UserContext);
   const router = useRouter();
+  const { lmsPreference, loading: lmsLoading } = useLmsPreference();
   let activeModule: any = null;
   let courseData: any = {};
+
+  const redirectHome = () => {
+    router.replace("/");
+  };
+
+  const fetchEnrolledCourseAndRoute = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      redirectHome();
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        BACKEND_URL + "/user/course/getEnrolledCoursesByUserId",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const enrolledCourses = res.data?.data ?? [];
+      const hasCP2 = enrolledCourses.some(
+        (course: any) => String(course.id) === COURSE_ID,
+      );
+      const hasCP3 = enrolledCourses.some(
+        (course: any) => String(course.id) === COURSE_ID_2,
+      );
+
+      if (hasCP3) {
+        if (lmsPreference === "unlocked") {
+          window.location.href = getCoursesDashboardUrl(COURSE_ID_2);
+          return;
+        }
+
+        fetchCourse();
+        return;
+      }
+
+      if (hasCP2) {
+        if (lmsPreference === "unlocked") {
+          window.location.href = getCoursesDashboardUrl(COURSE_ID);
+          return;
+        }
+
+        router.replace("/course-cp-2");
+        return;
+      }
+
+      redirectHome();
+    } catch (err) {
+      redirectHome();
+    }
+  };
+
+  useEffect(() => {
+    if (lmsLoading) return;
+
+    fetchEnrolledCourseAndRoute();
+  }, [lmsPreference, lmsLoading]);
 
   const fetchCourse = () => {
     setUser({ ...user, loading: true });
@@ -111,10 +175,6 @@ export default function CourseRedirect(): JSX.Element {
       console.log("Module is not live or not found. Skipping progress submission.");
     }
   };
-
-  useEffect(() => {
-    fetchCourse();
-  }, []);
 
   return <></>;
 }
